@@ -6,7 +6,8 @@ using System.Collections.Generic;
 namespace EPloy
 {
     /// <summary>
-    /// 游戏框架链表类。
+    /// 游戏框架链表类
+    /// 对链表封装一层可以复用节点 减少GC
     /// </summary>
     /// <typeparam name="T">指定链表的元素类型。</typeparam>
     public sealed class TypeLinkedList<T> : ICollection<T>, IEnumerable<T>, ICollection, IEnumerable

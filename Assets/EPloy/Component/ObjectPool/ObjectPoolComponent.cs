@@ -112,7 +112,7 @@ namespace EPloy
         /// 创建对象池。
         /// </summary>
         /// <param name="objectType">对象类型。</param>
-        private ObjectPoolBase CreateObjectPool(Type objectType, string name, float autoRelease, int capacity, float expireTime)
+        public ObjectPoolBase CreateObjectPool(Type objectType, string name)
         {
             if (objectType == null)
             {
@@ -131,7 +131,7 @@ namespace EPloy
             }
 
             ObjectPool objectPool = ReferencePool.Acquire<ObjectPool>();
-            objectPool.Initialize(objectType, name, autoRelease, capacity, expireTime);
+            objectPool.Initialize(objectType, name, ReleaseTime, Capacity, ExpireTime);
             m_ObjectPools.Add(typeNamePair, objectPool);
             return objectPool;
         }

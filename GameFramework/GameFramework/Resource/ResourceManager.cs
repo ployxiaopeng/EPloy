@@ -14,6 +14,7 @@ using System.IO;
 
 namespace GameFramework.Resource
 {
+
     /// <summary>
     /// 资源管理器。
     /// </summary>
