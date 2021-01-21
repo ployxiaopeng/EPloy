@@ -1,6 +1,4 @@
-﻿
-using GameFramework.FileSystem;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using EPloy.TaskPool;
@@ -8,61 +6,114 @@ using EPloy.TaskPool;
 namespace EPloy
 {
     /// <summary>
+    /// 加载资源状态。
+    /// </summary>
+    public enum LoadResStatus : byte
+    {
+        /// <summary>
+        /// 加载资源完成。
+        /// </summary>
+        Success = 0,
+
+        /// <summary>
+        /// 资源不存在。
+        /// </summary>
+        NotExist,
+
+        /// <summary>
+        /// 资源尚未准备完毕。
+        /// </summary>
+        NotReady,
+
+        /// <summary>
+        /// 依赖资源错误。
+        /// </summary>
+        DependencyError,
+
+        /// <summary>
+        /// 资源类型错误。
+        /// </summary>
+        TypeError,
+
+        /// <summary>
+        /// 加载资源错误。
+        /// </summary>
+        AssetError
+    }
+
+    /// <summary>
+    /// 加载资源进度类型。
+    /// </summary>
+    public enum LoadResProgress : byte
+    {
+        /// <summary>
+        /// 未知类型。
+        /// </summary>
+        Unknown = 0,
+
+        /// <summary>
+        /// 读取资源包。
+        /// </summary>
+        ReadRes,
+
+        /// <summary>
+        /// 加载资源包。
+        /// </summary>
+        LoadRes,
+
+        /// <summary>
+        /// 加载资源。
+        /// </summary>
+        LoadAsset,
+
+        /// <summary>
+        /// 加载场景。
+        /// </summary>
+        LoadScene
+    }
+
+
+    /// <summary>
+    /// 解密资源回调函数。
+    /// </summary>
+    /// <param name="bytes">要解密的资源二进制流。</param>
+    /// <param name="startIndex">解密二进制流的起始位置。</param>
+    /// <param name="count">解密二进制流的长度。</param>
+    /// <param name="name">资源名称。</param>
+    /// <param name="variant">变体名称。</param>
+    /// <param name="extension">扩展名称。</param>
+    /// <param name="fileSystem">文件系统名称。</param>
+    /// <param name="loadType">资源加载方式。</param>
+    /// <param name="length">资源大小。</param>
+    /// <param name="hashCode">资源哈希值。</param>
+    public delegate void DecryptResCallback(byte[] bytes, int startIndex, int count, string name, string variant, string extension,string fileSystem, byte loadType, int length, int hashCode);
+
+    /// <summary>
     /// 加载资源代理。
     /// </summary>
     internal sealed partial class LoadResAgent : ITaskAgent<LoadResTaskBase>
     {
-        private static readonly Dictionary<string, string> s_CachedResourceNames = new Dictionary<string, string>(StringComparer.Ordinal);
+        private static readonly Dictionary<string, string> s_CachedResNames = new Dictionary<string, string>(StringComparer.Ordinal);
         private static readonly HashSet<string> s_LoadingAssetNames = new HashSet<string>(StringComparer.Ordinal);
-        private static readonly HashSet<string> s_LoadingResourceNames = new HashSet<string>(StringComparer.Ordinal);
+        private static readonly HashSet<string> s_LoadingResNames = new HashSet<string>(StringComparer.Ordinal);
 
-        private IResourceHelper m_ResourceHelper;
-        private ResourceLoader m_ResourceLoader;
-        private string m_ReadWritePath;
-        private DecryptResourceCallback m_DecryptResourceCallback;
-        private LoadResTaskBase m_Task;
-
+        public string ReadWritePath { get; private set; }
+        public DecryptResCallback DecryptResCallback { get; private set; }
         /// <summary>
         /// 获取加载资源任务。
         /// </summary>
-        public LoadResTaskBase Task
-        {
-            get
-            {
-                return m_Task;
-            }
-        }
+        public LoadResTaskBase Task { get; private set; }
 
         /// <summary>
         /// 初始化加载资源代理
         /// </summary>
-        /// <param name="loadResourceAgentHelper">加载资源代理辅助器。</param>
-        /// <param name="resourceHelper">资源辅助器。</param>
-        /// <param name="resourceLoader">加载资源器。</param>
         /// <param name="readWritePath">资源读写区路径。</param>
         /// <param name="decryptResourceCallback">解密资源回调函数。</param>
-        public void Initialize(IResourceHelper resourceHelper, ResourceLoader resourceLoader, string readWritePath, DecryptResourceCallback decryptResourceCallback)
+        public void Initialize( string readWritePath, DecryptResCallback decryptResCallback)
         {
-            if (resourceHelper == null)
-            {
-                throw new EPloyException("Resource helper is invalid.");
-            }
-
-            if (resourceLoader == null)
-            {
-                throw new EPloyException("Resource loader is invalid.");
-            }
-
-            if (decryptResourceCallback == null)
-            {
-                throw new EPloyException("Decrypt resource callback is invalid.");
-            }
-            m_ResourceHelper = resourceHelper;
-            m_ResourceLoader = resourceLoader;
-            m_ReadWritePath = readWritePath;
-            m_DecryptResourceCallback = decryptResourceCallback;
-            m_Task = null;
-
+            ReadWritePath = readWritePath;
+            DecryptResCallback = decryptResCallback ?? throw new EPloyException("Decrypt resource callback is invalid.");
+            Task = null;
         }
 
         /// <summary>
@@ -84,9 +135,9 @@ namespace EPloy
 
         public static void Clear()
         {
-            s_CachedResourceNames.Clear();
+            s_CachedResNames.Clear();
             s_LoadingAssetNames.Clear();
-            s_LoadingResourceNames.Clear();
+            s_LoadingResNames.Clear();
         }
 
         /// <summary>
@@ -96,30 +147,25 @@ namespace EPloy
         /// <returns>开始处理任务的状态。</returns>
         public StartTaskStatus Start(LoadResTaskBase task)
         {
-            if (task == null)
-            {
-                throw new EPloyException("Task is invalid.");
-            }
-
-            m_Task = task;
-            m_Task.StartTime = DateTime.Now;
-            ResInfo resInfo = m_Task.ResourceInfo;
+            Task = task ?? throw new EPloyException("Task is invalid.");
+            Task.StartTime = DateTime.Now;
+            ResInfo resInfo = Task.ResInfo;
 
             if (!resInfo.Ready)
             {
-                m_Task.StartTime = default(DateTime);
+                Task.StartTime = default(DateTime);
                 return StartTaskStatus.HasToWait;
             }
 
-            if (IsAssetLoading(m_Task.AssetName))
+            if (IsAssetLoading(Task.AssetName))
             {
-                m_Task.StartTime = default(DateTime);
+                Task.StartTime = default(DateTime);
                 return StartTaskStatus.HasToWait;
             }
 
-            if (!m_Task.IsScene)
+            if (!Task.IsScene)
             {
-                AssetObject assetObject = m_ResourceLoader.m_AssetPool.Spawn(m_Task.AssetName);
+                AssetObject assetObject = m_ResourceLoader.m_AssetPool.Spawn(Task.AssetName);
                 if (assetObject != null)
                 {
                     OnAssetObjectReady(assetObject);
@@ -127,17 +173,17 @@ namespace EPloy
                 }
             }
 
-            foreach (string dependencyAssetName in m_Task.GetDependencyAssetNames())
+            foreach (string dependencyAssetName in Task.GetDependencyAssetNames())
             {
                 if (!m_ResourceLoader.m_AssetPool.CanSpawn(dependencyAssetName))
                 {
-                    m_Task.StartTime = default(DateTime);
+                    Task.StartTime = default(DateTime);
                     return StartTaskStatus.HasToWait;
                 }
             }
 
-            string resourceName = resourceInfo.ResourceName.Name;
-            if (IsResourceLoading(resourceName))
+            string resName = resInfo.ResName.Name;
+            if (IsResourceLoading(resName))
             {
                 m_Task.StartTime = default(DateTime);
                 return StartTaskStatus.HasToWait;
@@ -145,20 +191,20 @@ namespace EPloy
 
             s_LoadingAssetNames.Add(m_Task.AssetName);
 
-            ResourceObject resourceObject = m_ResourceLoader.m_ResourcePool.Spawn(resourceName);
+            ResObject resourceObject = m_ResourceLoader.m_ResourcePool.Spawn(resourceName);
             if (resourceObject != null)
             {
                 OnResourceObjectReady(resourceObject);
                 return StartTaskStatus.CanResume;
             }
 
-            s_LoadingResourceNames.Add(resourceName);
+            s_LoadingResNames.Add(resourceName);
 
             string fullPath = null;
-            if (!s_CachedResourceNames.TryGetValue(resourceName, out fullPath))
+            if (!s_CachedResNames.TryGetValue(resourceName, out fullPath))
             {
                 fullPath = Utility.Path.GetRegularPath(Path.Combine(resourceInfo.StorageInReadOnly ? m_ReadOnlyPath : m_ReadWritePath, resourceInfo.UseFileSystem ? resourceInfo.FileSystemName : resourceInfo.ResourceName.FullName));
-                s_CachedResourceNames.Add(resourceName, fullPath);
+                s_CachedResNames.Add(resourceName, fullPath);
             }
 
             if (resourceInfo.LoadType == LoadType.LoadFromFile)
@@ -198,8 +244,8 @@ namespace EPloy
         /// </summary>
         public void Reset()
         {
-            m_Helper.Reset();
-            m_Task = null;
+            Helper.Reset();
+            Task = null;
         }
 
         private static bool IsAssetLoading(string assetName)
@@ -207,47 +253,47 @@ namespace EPloy
             return s_LoadingAssetNames.Contains(assetName);
         }
 
-        private static bool IsResourceLoading(string resourceName)
+        private static bool IsResLoading(string resName)
         {
-            return s_LoadingResourceNames.Contains(resourceName);
+            return s_LoadingResNames.Contains(resName);
         }
 
         private void OnAssetObjectReady(AssetObject assetObject)
         {
             object asset = assetObject.Target;
-            if (m_Task.IsScene)
+            if (Task.IsScene)
             {
                 m_ResourceLoader.m_SceneToAssetMap.Add(m_Task.AssetName, asset);
             }
 
-            m_Task.OnLoadAssetSuccess(this, asset, (float)(DateTime.Now - m_Task.StartTime).TotalSeconds);
-            m_Task.Done = true;
+            Task.OnLoadAssetSuccess(this, asset, (float)(DateTime.Now - m_Task.StartTime).TotalSeconds);
+            Task.Done = true;
         }
 
-        private void OnResourceObjectReady(ResourceObject resourceObject)
+        private void OnResourceObjectReady(ResObject resourceObject)
         {
-            m_Task.LoadMain(this, resourceObject);
+            Task.LoadAsset(this, resourceObject);
         }
 
-        private void OnError(LoadResourceStatus status, string errorMessage)
+        private void OnError(LoadResStatus status, string errorMessage)
         {
             m_Helper.Reset();
-            m_Task.OnLoadAssetFailure(this, status, errorMessage);
-            s_LoadingAssetNames.Remove(m_Task.AssetName);
-            s_LoadingResourceNames.Remove(m_Task.ResourceInfo.ResourceName.Name);
-            m_Task.Done = true;
+            Task.OnLoadAssetFailure(this, status, errorMessage);
+            s_LoadingAssetNames.Remove(Task.AssetName);
+            s_LoadingResNames.Remove(Task.ResInfo.ResName.Name);
+            Task.Done = true;
         }
 
         private void OnLoadResourceAgentHelperUpdate(object sender, LoadResourceAgentHelperUpdateEventArgs e)
         {
-            m_Task.OnLoadAssetUpdate(this, e.Type, e.Progress);
+            Task.OnLoadAssetUpdate(this, e.Type, e.Progress);
         }
 
         private void OnLoadResourceAgentHelperReadFileComplete(object sender, LoadResourceAgentHelperReadFileCompleteEventArgs e)
         {
-            ResourceObject resourceObject = ResourceObject.Create(m_Task.ResourceInfo.ResourceName.Name, e.Resource, m_ResourceHelper, m_ResourceLoader);
+            ResObject resourceObject = ResObject.Create(m_Task.ResourceInfo.ResourceName.Name, e.Resource, m_ResourceHelper, m_ResourceLoader);
             m_ResourceLoader.m_ResourcePool.Register(resourceObject, true);
-            s_LoadingResourceNames.Remove(m_Task.ResourceInfo.ResourceName.Name);
+            s_LoadingResNames.Remove(m_Task.ResourceInfo.ResourceName.Name);
             OnResourceObjectReady(resourceObject);
         }
 
@@ -265,9 +311,9 @@ namespace EPloy
 
         private void OnLoadResourceAgentHelperParseBytesComplete(object sender, LoadResourceAgentHelperParseBytesCompleteEventArgs e)
         {
-            ResourceObject resourceObject = ResourceObject.Create(m_Task.ResourceInfo.ResourceName.Name, e.Resource, m_ResourceHelper, m_ResourceLoader);
+            ResObject resourceObject = ResObject.Create(m_Task.ResourceInfo.ResourceName.Name, e.Resource, m_ResourceHelper, m_ResourceLoader);
             m_ResourceLoader.m_ResourcePool.Register(resourceObject, true);
-            s_LoadingResourceNames.Remove(m_Task.ResourceInfo.ResourceName.Name);
+            s_LoadingResNames.Remove(m_Task.ResourceInfo.ResourceName.Name);
             OnResourceObjectReady(resourceObject);
         }
 

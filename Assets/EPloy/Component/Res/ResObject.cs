@@ -7,45 +7,19 @@ namespace EPloy
     /// <summary>
     /// 资源对象。
     /// </summary>
-    internal sealed class ResourceObject : ObjectBase
+    internal sealed class ResObject : ObjectBase
     {
         private List<object> m_DependencyResources;
-        private IResourceHelper m_ResourceHelper;
-        private ResourceLoader m_ResourceLoader;
 
-        public ResourceObject()
+        public ResObject()
         {
             m_DependencyResources = new List<object>();
-            m_ResourceHelper = null;
-            m_ResourceLoader = null;
         }
 
-        public override bool CustomCanReleaseFlag
+        public static ResObject Create(string name, object target)
         {
-            get
-            {
-                int targetReferenceCount = 0;
-                m_ResourceLoader.m_ResourceDependencyCount.TryGetValue(Target, out targetReferenceCount);
-                return base.CustomCanReleaseFlag && targetReferenceCount <= 0;
-            }
-        }
-
-        public static ResourceObject Create(string name, object target, IResourceHelper resourceHelper, ResourceLoader resourceLoader)
-        {
-            if (resourceHelper == null)
-            {
-                throw new GameFrameworkException("Resource helper is invalid.");
-            }
-
-            if (resourceLoader == null)
-            {
-                throw new GameFrameworkException("Resource loader is invalid.");
-            }
-
-            ResourceObject resourceObject = ReferencePool.Acquire<ResourceObject>();
+            ResObject resourceObject = ReferencePool.Acquire<ResObject>();
             resourceObject.Initialize(name, target);
-            resourceObject.m_ResourceHelper = resourceHelper;
-            resourceObject.m_ResourceLoader = resourceLoader;
             return resourceObject;
         }
 
@@ -53,8 +27,6 @@ namespace EPloy
         {
             base.Clear();
             m_DependencyResources.Clear();
-            m_ResourceHelper = null;
-            m_ResourceLoader = null;
         }
 
         public void AddDependencyResource(object dependencyResource)
@@ -70,44 +42,11 @@ namespace EPloy
             }
 
             m_DependencyResources.Add(dependencyResource);
-
-            int referenceCount = 0;
-            if (m_ResourceLoader.m_ResourceDependencyCount.TryGetValue(dependencyResource, out referenceCount))
-            {
-                m_ResourceLoader.m_ResourceDependencyCount[dependencyResource] = referenceCount + 1;
-            }
-            else
-            {
-                m_ResourceLoader.m_ResourceDependencyCount.Add(dependencyResource, 1);
-            }
         }
 
-        protected internal override void Release(bool isShutdown)
+        protected internal override void OnUnspawn()
         {
-            if (!isShutdown)
-            {
-                int targetReferenceCount = 0;
-                if (m_ResourceLoader.m_ResourceDependencyCount.TryGetValue(Target, out targetReferenceCount) && targetReferenceCount > 0)
-                {
-                    throw new GameFrameworkException(Utility.Text.Format("Resource target '{0}' reference count is '{1}' larger than 0.", Name, targetReferenceCount.ToString()));
-                }
-
-                foreach (object dependencyResource in m_DependencyResources)
-                {
-                    int referenceCount = 0;
-                    if (m_ResourceLoader.m_ResourceDependencyCount.TryGetValue(dependencyResource, out referenceCount))
-                    {
-                        m_ResourceLoader.m_ResourceDependencyCount[dependencyResource] = referenceCount - 1;
-                    }
-                    else
-                    {
-                        throw new GameFrameworkException(Utility.Text.Format("Resource target '{0}' dependency asset reference count is invalid.", Name));
-                    }
-                }
-            }
-
-            m_ResourceLoader.m_ResourceDependencyCount.Remove(Target);
-            m_ResourceHelper.Release(Target);
+            
         }
     }
 }

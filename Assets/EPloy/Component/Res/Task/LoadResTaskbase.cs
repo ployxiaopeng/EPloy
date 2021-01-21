@@ -5,124 +5,78 @@ using EPloy.TaskPool;
 
 namespace EPloy
 {
-    internal class LoadResTaskbase : TaskBase
+    internal abstract class LoadResTaskBase : TaskBase
     {
-        private Type m_AssetType;
-        private ResInfo m_ResInfo;
-        private object m_UserData;
-        private DateTime m_StartTime;
-        private string[] m_DependencyAssetsName;
-        private List<object> m_DependencyAssets;
+        public abstract bool IsScene { get; }
 
-        public LoadResTaskbase()
+        public Type AssetType { get; private set; }
+        public ResInfo ResInfo { get; private set; }
+        public object UserData { get; private set; }
+        public string[] DependAssetsName { get; private set; }
+        public List<object> DependAssets { get; private set; }
+
+        public int TotalDependAssetCount { get; set; }
+        public DateTime StartTime { get; set; }
+
+        public LoadResTaskBase()
         {
-            m_AssetType = null;
-            m_UserData = null;
-            m_StartTime = default(DateTime);
-            m_ResInfo = null;
-            m_DependencyAssetsName = null;
-            m_DependencyAssets = null;
+            AssetType = null;
+            UserData = null;
+            StartTime = default(DateTime);
+            ResInfo = null;
+            DependAssetsName = null;
+            DependAssets = null;
         }
 
         public string AssetName
         {
             get
             {
-                return m_ResInfo.ResName.Name;
+                return ResInfo.ResName.Name;
             }
         }
 
-        public Type AssetType
+        /// <summary>
+        /// 初始化这个加载任务
+        /// </summary>
+        protected void Initialize(Type assetType, ResInfo resInfo, string[] dependAssetNames, object userData)
         {
-            get
-            {
-                return m_AssetType;
-            }
+            AssetType = assetType;
+            ResInfo = resInfo;
+            DependAssetsName = dependAssetNames;
+            UserData = userData;
         }
 
-        public ResInfo ResourceInfo
+        public void LoadAsset( ResObject resourceObject)
         {
-            get
-            {
-                return m_ResourceInfo;
-            }
-        }
-
-        public object UserData
-        {
-            get
-            {
-                return m_UserData;
-            }
-        }
-
-        public DateTime StartTime
-        {
-            get
-            {
-                return m_StartTime;
-            }
-            set
-            {
-                m_StartTime = value;
-            }
-        }
-
-        public string[] DependencyAssetsName
-        {
-            get
-            {
-                return m_DependencyAssetsName;
-            }
-        }
-
-        public List<object> GetDependencyAssets()
-        {
-            return m_DependencyAssets;
-        }
-
-        public void LoadMain(LoadResourceAgent agent, ResourceObject resourceObject)
-        {
-            m_ResourceObject = resourceObject;
-            agent.Helper.LoadAsset(resourceObject.Target, AssetName, AssetType, IsScene);
+            
         }
 
         public virtual void OnLoadAssetSuccess(LoadResAgent agent, object asset, float duration)
         {
         }
 
-        public virtual void OnLoadAssetFailure(LoadResAgent agent, LoadResourceStatus status, string errorMessage)
+        public virtual void OnLoadAssetFailure(LoadResAgent agent, LoadResStatus status, string errorMessage)
         {
         }
 
-        public virtual void OnLoadAssetUpdate(LoadResAgent agent, LoadResourceProgress type, float progress)
+        public virtual void OnLoadAssetUpdate(LoadResAgent agent, LoadResProgress type, float progress)
         {
         }
 
-        public virtual void OnLoadDependencyAsset(LoadResAgent agent, string dependencyAssetName, object dependencyAsset)
+        public virtual void OnLoadDependAsset(LoadResAgent agent, string dependencyAssetName, object dependencyAsset)
         {
-            m_DependencyAssets.Add(dependencyAsset);
-        }
-
-        protected void Initialize(string assetName, Type assetType, , ResInfo resInfo, string[] dependencyAssetNames, object userData)
-        {
-            m_AssetName = assetName;
-            m_AssetType = assetType;
-            m_ResourceInfo = resourceInfo;
-            m_DependencyAssetNames = dependencyAssetNames;
-            m_UserData = userData;
+            DependAssets.Add(dependencyAsset);
         }
 
         public override void Clear()
         {
             base.Clear();
-            m_AssetType = null;
-            m_UserData = null;
-            m_StartTime = default(DateTime);
-            m_DependencyAssetsName = null;
-            m_DependencyAssets = null;
+            AssetType = null;
+            UserData = null;
+            StartTime = default(DateTime);
+            DependAssetsName = null;
+            DependAssets = null;
         }
     }
 }
-
-
