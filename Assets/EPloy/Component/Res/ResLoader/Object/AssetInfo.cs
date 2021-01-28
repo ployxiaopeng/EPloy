@@ -1,4 +1,4 @@
-﻿namespace EPloy
+﻿namespace EPloy.Res
 {
     /// <summary>
     /// 资产信息 暂时理解为存在本地的资产

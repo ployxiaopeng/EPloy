@@ -1,5 +1,5 @@
 ﻿
-namespace EPloy
+namespace EPloy.Res
 {
     /// <summary>
     /// 加载二进制资源成功回调函数。

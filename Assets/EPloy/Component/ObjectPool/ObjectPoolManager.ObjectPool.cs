@@ -146,7 +146,7 @@ namespace EPloy
             /// </summary>
             /// <param name="obj">对象。</param>
             /// <param name="spawned">对象是否已被获取。</param>
-            public void Register(ObjectBase obj, bool spawned)
+            public override void Register(ObjectBase obj, bool spawned)
             {
                 if (obj == null)
                 {
@@ -170,7 +170,7 @@ namespace EPloy
             /// </summary>
             /// <param name="name">对象名称。</param>
             /// <returns>要检查的对象是否存在。</returns>
-            public bool CanSpawn(string name)
+            public override bool CanSpawn(string name)
             {
                 List<Object> objectRange = default(List<Object>);
                 if (m_Objects.TryGetValue(name, out objectRange))
@@ -192,7 +192,7 @@ namespace EPloy
             /// </summary>
             /// <param name="name">对象名称。</param>
             /// <returns>要获取的对象。</returns>
-            public Object Spawn(string name)
+            public override ObjectBase Spawn(string name)
             {
                 List<Object> objectRange = default(List<Object>);
                 if (m_Objects.TryGetValue(name, out objectRange))
@@ -213,7 +213,7 @@ namespace EPloy
             /// 回收对象。
             /// </summary>
             /// <param name="target">要回收的对象。</param>
-            public void Unspawn(object target)
+            public override void Unspawn(object target)
             {
                 if (target == null)
                 {

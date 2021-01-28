@@ -8,7 +8,7 @@
 using EPloy.ObjectPool;
 using System.Collections.Generic;
 
-namespace EPloy
+namespace EPloy.Res
 {
 
     /// <summary>

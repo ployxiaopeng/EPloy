@@ -1,9 +1,10 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using EPloy.ObjectPool;
 using EPloy.TaskPool;
 
-namespace EPloy
+namespace EPloy.Res
 {
     internal abstract class LoadResTaskBase : TaskBase
     {
@@ -14,6 +15,7 @@ namespace EPloy
         public object UserData { get; private set; }
         public string[] DependAssetsName { get; private set; }
         public List<object> DependAssets { get; private set; }
+        public ResObject ResObject { get; private set; }
 
         public int TotalDependAssetCount { get; set; }
         public DateTime StartTime { get; set; }
@@ -47,9 +49,9 @@ namespace EPloy
             UserData = userData;
         }
 
-        public void LoadAsset( ResObject resourceObject)
+        public void LoadAsset(LoadResAgent loadResAgent, ObjectBase resObject)
         {
-            
+
         }
 
         public virtual void OnLoadAssetSuccess(LoadResAgent agent, object asset, float duration)

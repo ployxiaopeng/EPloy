@@ -1,5 +1,5 @@
 ﻿
-namespace EPloy
+namespace EPloy.Res
 {
     internal sealed class LoadSceneTask : LoadResTaskBase
     {

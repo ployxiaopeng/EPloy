@@ -1,4 +1,4 @@
-﻿namespace EPloy
+﻿namespace EPloy.Res
 {
     /// <summary>
     /// 加载依赖资源任务

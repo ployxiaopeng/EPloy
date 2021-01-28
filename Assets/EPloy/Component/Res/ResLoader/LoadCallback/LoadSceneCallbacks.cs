@@ -1,5 +1,5 @@
 ﻿
-namespace EPloy
+namespace EPloy.Res
 {
     /// <summary>
     /// 加载场景成功回调函数。

@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace EPloy
+namespace EPloy.Res
 {
 
     internal sealed class LoadAssetTask : LoadResTaskBase

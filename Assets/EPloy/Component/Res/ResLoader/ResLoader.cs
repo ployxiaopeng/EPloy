@@ -4,28 +4,54 @@ using System.IO;
 using EPloy.ObjectPool;
 using EPloy.TaskPool;
 
-namespace EPloy
+namespace EPloy.Res
 {
-    public partial class ResComponent : Component
+    public sealed class ResLoader
     {
-        private  TaskPool<LoadResTaskBase> TaskPool;
-        private  Dictionary<object, int> AssetDependCount;
-        private  Dictionary<object, int> ResourceDependCount;
-        private  Dictionary<object, object> AssetToResourceMap;
-        private  Dictionary<string, object> SceneToAssetMap;
-        private  LoadBytesCallbacks LoadBytesCallbacks;
-        private  byte[] CachedHashBytes;
-        private ObjectPoolBase AssetPool;
-        private ObjectPoolBase ResourcePool;
+        private static ResLoader instance = null;
+        public static ResLoader CreateResLoader()
+        {
+            if (instance == null) instance = new ResLoader();
+            return instance;
+        }
+        internal static ResLoader Instance
+        {
+            get
+            {
+                return CreateResLoader();
+            }
+        }
+
+        internal TaskPool<LoadResTaskBase> TaskPool { get; private set; }
+        public Dictionary<object, int> AssetDependCount { get; private set; }
+        public Dictionary<object, int> ResourceDependCount { get; private set; }
+        public Dictionary<object, object> AssetToResourceMap { get; private set; }
+        public Dictionary<string, object> SceneToAssetMap { get; private set; }
+        public LoadBytesCallbacks LoadBytesCallbacks { get; private set; }
+        public byte[] CachedHashBytes { get; private set; }
+        public ObjectPoolBase AssetPool { get; private set; }
+        public ObjectPoolBase ResourcePool { get; private set; }
+
+        private const int CachedHashBytesLength = 4;
+        public string ReadWritePath { get; private set; }
+        /// <summary>
+        /// 资产信息
+        /// </summary>
+        internal Dictionary<string, AssetInfo> AssetInfos { get; private set; }
+        /// <summary>
+        /// 资原信息
+        /// </summary>
+        internal Dictionary<ResName, ResInfo> ResInfos { get; private set; }
+        //private SortedDictionary<ResName, ReadWriteResourceInfo> m_ReadWriteResourceInfos;
+        //private readonly Dictionary<string, ResourceGroup> m_ResourceGroups;                                                                  
+
 
         /// <summary>
-        /// 设置对象池管理器。
+        /// 加载资源器轮询。
         /// </summary>
-        /// <param name="objectPoolManager">对象池管理器。</param>
-        private void SetObjectPoolManager()
+        public void Update()
         {
-            AssetPool = GameEntry.ObjectPool.CreateObjectPool(typeof(AssetObject), "AssetPool");
-            ResourcePool = GameEntry.ObjectPool.CreateObjectPool(typeof(AssetObject), "ResPool");
+            TaskPool.Update();
         }
 
         /// <summary>
@@ -299,6 +325,43 @@ namespace EPloy
             return TaskPool.GetAllTaskInfos();
         }
 
+        /// <summary>
+        /// 关闭并清理加载资源器。
+        /// </summary>
+        public void OnDestroy()
+        {
+            TaskPool.OnDestroy();
+            AssetDependCount.Clear();
+            ResourceDependCount.Clear();
+            AssetToResourceMap.Clear();
+            SceneToAssetMap.Clear();
+            //LoadResourceAgent.Clear();
+        }
+
+        private ResLoader()
+        {
+            TaskPool = new TaskPool<LoadResTaskBase>();
+            AssetDependCount = new Dictionary<object, int>();
+            ResourceDependCount = new Dictionary<object, int>();
+            AssetToResourceMap = new Dictionary<object, object>();
+            SceneToAssetMap = new Dictionary<string, object>(StringComparer.Ordinal);
+            //LoadBytesCallbacks = new LoadBytesCallbacks(OnLoadBinarySuccess, OnLoadBinaryFailure);
+            CachedHashBytes = new byte[CachedHashBytesLength];
+            AssetPool = null;
+            ResourcePool = null;
+            SetObjectPoolManager();
+        }
+
+        /// <summary>
+        /// 设置对象池管理器。
+        /// </summary>
+        /// <param name="objectPoolManager">对象池管理器。</param>
+        private void SetObjectPoolManager()
+        {
+            AssetPool = GameEntry.ObjectPool.CreateObjectPool(typeof(AssetObject), "AssetPool");
+            ResourcePool = GameEntry.ObjectPool.CreateObjectPool(typeof(AssetObject), "ResPool");
+        }
+
         private bool LoadDependencyAsset(string assetName, int priority, LoadResTaskBase mainTask, object userData)
         {
             if (mainTask == null)
@@ -368,13 +431,13 @@ namespace EPloy
                 throw new EPloyException("Asset name is invalid.");
             }
 
-            if (m_AssetInfos == null)
+            if (AssetInfos == null)
             {
                 return null;
             }
 
             AssetInfo assetInfo = null;
-            if (m_AssetInfos.TryGetValue(assetName, out assetInfo))
+            if (AssetInfos.TryGetValue(assetName, out assetInfo))
             {
                 return assetInfo;
             }
@@ -383,13 +446,13 @@ namespace EPloy
         }
         private ResInfo GetResInfo(ResName resName)
         {
-            if (m_ResInfos == null)
+            if (ResInfos == null)
             {
                 return null;
             }
 
             ResInfo resInfo = null;
-            if (m_ResInfos.TryGetValue(resName, out resInfo))
+            if (ResInfos.TryGetValue(resName, out resInfo))
             {
                 return resInfo;
             }
@@ -398,7 +461,7 @@ namespace EPloy
         }
         private ResInfo GetResInfo(string assetName)
         {
-            if (m_ResInfos == null)
+            if (ResInfos == null)
             {
                 return null;
             }
@@ -410,12 +473,12 @@ namespace EPloy
             }
 
             ResInfo resInfo = null;
-            if (m_ResInfos.TryGetValue(resInfo.ResName, out resInfo))
+            if (ResInfos.TryGetValue(resInfo.ResName, out resInfo))
             {
                 return resInfo;
             }
 
             return null;
-        }
+        } 
     }
 }
