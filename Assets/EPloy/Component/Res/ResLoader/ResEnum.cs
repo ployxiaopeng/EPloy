@@ -71,7 +71,7 @@ namespace EPloy.Res
     /// <summary>
     /// 资源加载方式类型。
     /// </summary>
-    internal enum LoadType : byte
+    public enum LoadType : byte
     {
         /// <summary>
         /// 使用文件方式加载。
@@ -109,5 +109,3 @@ namespace EPloy.Res
         LoadFromBinaryAndDecrypt
     }
 }
-
-

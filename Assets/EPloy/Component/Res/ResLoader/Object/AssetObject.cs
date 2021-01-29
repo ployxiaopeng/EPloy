@@ -16,68 +16,42 @@ namespace EPloy.Res
     /// </summary>
     internal sealed class AssetObject : ObjectBase
     {
-        private List<object> m_DependencyAssets;
-        private object m_Resource;
-        private IResourceHelper m_ResourceHelper;
-        private ResourceLoader m_ResourceLoader;
+        public List<object> DependAssets { get; private set; }
+        public object Res { get; private set; }
 
         public AssetObject()
         {
-            m_DependencyAssets = new List<object>();
-            m_Resource = null;
-            m_ResourceHelper = null;
-            m_ResourceLoader = null;
+            DependAssets = new List<object>();
+            Res = null;
         }
 
-        public override bool CustomCanReleaseFlag
+        public static AssetObject Create(string name, object target, List<object> dependAssets, object res)
         {
-            get
+            if (dependAssets == null)
             {
-                int targetReferenceCount = 0;
-                m_ResourceLoader.m_AssetDependencyCount.TryGetValue(Target, out targetReferenceCount);
-                return base.CustomCanReleaseFlag && targetReferenceCount <= 0;
-            }
-        }
-
-        public static AssetObject Create(string name, object target, List<object> dependencyAssets, object resource, IResourceHelper resourceHelper, ResourceLoader resourceLoader)
-        {
-            if (dependencyAssets == null)
-            {
-                throw new GameFrameworkException("Dependency assets is invalid.");
+                throw new EPloyException("Dependency assets is invalid.");
             }
 
-            if (resource == null)
+            if (res == null)
             {
-                throw new GameFrameworkException("Resource is invalid.");
-            }
-
-            if (resourceHelper == null)
-            {
-                throw new GameFrameworkException("Resource helper is invalid.");
-            }
-
-            if (resourceLoader == null)
-            {
-                throw new GameFrameworkException("Resource loader is invalid.");
+                throw new EPloyException("Resource is invalid.");
             }
 
             AssetObject assetObject = ReferencePool.Acquire<AssetObject>();
             assetObject.Initialize(name, target);
-            assetObject.m_DependencyAssets.AddRange(dependencyAssets);
-            assetObject.m_Resource = resource;
-            assetObject.m_ResourceHelper = resourceHelper;
-            assetObject.m_ResourceLoader = resourceLoader;
+            assetObject.DependAssets.AddRange(dependAssets);
+            assetObject.Res = res;
 
-            foreach (object dependencyAsset in dependencyAssets)
+            foreach (object dependAsset in dependAssets)
             {
                 int referenceCount = 0;
-                if (resourceLoader.m_AssetDependencyCount.TryGetValue(dependencyAsset, out referenceCount))
+                if (ResLoader.Instance.AssetDependCount.TryGetValue(dependAsset, out referenceCount))
                 {
-                    resourceLoader.m_AssetDependencyCount[dependencyAsset] = referenceCount + 1;
+                    ResLoader.Instance.AssetDependCount[dependAsset] = referenceCount + 1;
                 }
                 else
                 {
-                    resourceLoader.m_AssetDependencyCount.Add(dependencyAsset, 1);
+                    ResLoader.Instance.AssetDependCount.Add(dependAsset, 1);
                 }
             }
 
@@ -87,51 +61,49 @@ namespace EPloy.Res
         public override void Clear()
         {
             base.Clear();
-            m_DependencyAssets.Clear();
-            m_Resource = null;
-            m_ResourceHelper = null;
-            m_ResourceLoader = null;
+            DependAssets = new List<object>();
+            Res = null;
         }
 
         protected internal override void OnUnspawn()
         {
             base.OnUnspawn();
-            foreach (object dependencyAsset in m_DependencyAssets)
+            foreach (object dependencyAsset in DependAssets)
             {
-                m_ResourceLoader.m_AssetPool.Unspawn(dependencyAsset);
+                ResLoader.Instance.AssetPool.Unspawn(dependencyAsset);
             }
         }
 
-        protected internal override void Release(bool isShutdown)
-        {
-            if (!isShutdown)
-            {
-                int targetReferenceCount = 0;
-                if (m_ResourceLoader.m_AssetDependencyCount.TryGetValue(Target, out targetReferenceCount) && targetReferenceCount > 0)
-                {
-                    throw new GameFrameworkException(Utility.Text.Format("Asset target '{0}' reference count is '{1}' larger than 0.", Name, targetReferenceCount.ToString()));
-                }
+        // protected internal override void Release(bool isShutdown)
+        // {
+        //     if (!isShutdown)
+        //     {
+        //         int targetReferenceCount = 0;
+        //         if (m_ResourceLoader.m_AssetDependencyCount.TryGetValue(Target, out targetReferenceCount) && targetReferenceCount > 0)
+        //         {
+        //             throw new EPloyException(string.Format("Asset target '{0}' reference count is '{1}' larger than 0.", Name, targetReferenceCount.ToString()));
+        //         }
 
-                foreach (object dependencyAsset in m_DependencyAssets)
-                {
-                    int referenceCount = 0;
-                    if (m_ResourceLoader.m_AssetDependencyCount.TryGetValue(dependencyAsset, out referenceCount))
-                    {
-                        m_ResourceLoader.m_AssetDependencyCount[dependencyAsset] = referenceCount - 1;
-                    }
-                    else
-                    {
-                        throw new GameFrameworkException(Utility.Text.Format("Asset target '{0}' dependency asset reference count is invalid.", Name));
-                    }
-                }
+        //         foreach (object dependencyAsset in m_DependencyAssets)
+        //         {
+        //             int referenceCount = 0;
+        //             if (m_ResourceLoader.m_AssetDependencyCount.TryGetValue(dependencyAsset, out referenceCount))
+        //             {
+        //                 m_ResourceLoader.m_AssetDependencyCount[dependencyAsset] = referenceCount - 1;
+        //             }
+        //             else
+        //             {
+        //                 throw new EPloyException(string.Format("Asset target '{0}' dependency asset reference count is invalid.", Name));
+        //             }
+        //         }
 
-                m_ResourceLoader.m_ResourcePool.Unspawn(m_Resource);
-            }
+        //         m_ResourceLoader.m_ResourcePool.Unspawn(m_Resource);
+        //     }
 
-            m_ResourceLoader.m_AssetDependencyCount.Remove(Target);
-            m_ResourceLoader.m_AssetToResourceMap.Remove(Target);
-            m_ResourceHelper.Release(Target);
-        }
+        //     m_ResourceLoader.m_AssetDependencyCount.Remove(Target);
+        //     m_ResourceLoader.m_AssetToResourceMap.Remove(Target);
+        //     m_ResourceHelper.Release(Target);
+        // }
     }
 }
-    
+

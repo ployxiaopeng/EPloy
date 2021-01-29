@@ -166,7 +166,7 @@ namespace EPloy.Res
         /// </summary>
         public void Reset()
         {
-            Helper.Reset();
+            ResAgent.Reset();
             Task = null;
         }
 
@@ -206,32 +206,55 @@ namespace EPloy.Res
             Task.Done = true;
         }
 
-        private void OnLoadResourceAgentHelperUpdate(object sender, LoadResourceAgentHelperUpdateEventArgs e)
+        private void OnLoadResAgentEvent(LoadResAgentEvent arg)
         {
-            Task.OnLoadAssetUpdate(this, e.Type, e.Progress);
+            switch (arg.Status)
+            {
+                case LoadResStatus.Success:
+                    switch (arg.LoadProgress)
+                    {
+                        case LoadResProgress.LoadAsset:
+                            OnLoadResParseBytesComplete(arg);
+                            break;
+                        case LoadResProgress.LoadRes:
+                            OnLoadResComplete(arg);
+                            break;
+                        case LoadResProgress.LoadScene:
+                            break;
+                        case LoadResProgress.ReadRes:
+                            OnLoadResReadBytesComplete(arg);
+                            break;
+                        case LoadResProgress.Unknown:
+                            break;
+                    }
+                    break;
+                default:
+                    OnError(arg.Status, arg.ErrorMsg);
+                    break;
+            }
         }
 
-        private void OnLoadResourceAgentHelperReadBytesComplete(object sender, LoadResourceAgentHelperReadBytesCompleteEventArgs e)
+        private void OnLoadResReadBytesComplete(LoadResAgentEvent arg)
         {
-            byte[] bytes = e.GetBytes();
+            byte[] bytes = arg.Bytes;
             ResInfo resInfo = Task.ResInfo;
             if (resInfo.LoadType == LoadType.LoadFromMemoryAndQuickDecrypt || resInfo.LoadType == LoadType.LoadFromMemoryAndDecrypt)
             {
-                DecryptResCallback(bytes, 0, bytes.Length, resInfo.ResName.Name, resInfo.ResName.Variant, resInfo.ResName.Extension,resInfo.FileSystemName, (byte)resInfo.LoadType, resInfo.Length, resInfo.HashCode);
+                DecryptResCallback(bytes, 0, bytes.Length, resInfo.ResName.Name, resInfo.ResName.Variant, resInfo.ResName.Extension, resInfo.FileSystemName, (byte)resInfo.LoadType, resInfo.Length, resInfo.HashCode);
             }
 
             ResAgent.ParseBytes(bytes);
         }
 
-        private void OnLoadResourceAgentHelperParseBytesComplete(object sender, LoadResourceAgentHelperParseBytesCompleteEventArgs e)
+        private void OnLoadResParseBytesComplete(LoadResAgentEvent arg)
         {
-            ResObject resObject = ResObject.Create(Task.AssetName, e.Resource);
-           ResLoader.Instance.ResourcePool.Register(resObject, true);
+            ResObject resObject = ResObject.Create(Task.AssetName, arg.Asset);
+            ResLoader.Instance.ResourcePool.Register(resObject, true);
             s_LoadingResNames.Remove(Task.AssetName);
             OnResourceObjectReady(resObject);
         }
 
-        private void OnLoadResourceAgentHelperLoadComplete(object sender, LoadResourceAgentHelperLoadCompleteEventArgs e)
+        private void OnLoadResComplete(LoadResAgentEvent arg)
         {
             ObjectBase assetObject = null;
             if (Task.IsScene)
@@ -242,9 +265,9 @@ namespace EPloy.Res
             if (assetObject == null)
             {
                 List<object> dependencyAssets = Task.DependAssets;
-                assetObject = AssetObject.Create(Task.AssetName, e.Asset, dependencyAssets, Task.ResObject.Target);
-                ResLoader.Instance .AssetPool.Register(assetObject, true);
-                ResLoader.Instance.AssetToResourceMap.Add(e.Asset, Task.ResObject.Target);
+                assetObject = AssetObject.Create(Task.AssetName, arg.Asset, dependencyAssets, Task.ResObject.Target);
+                ResLoader.Instance.AssetPool.Register(assetObject, true);
+                ResLoader.Instance.AssetToResourceMap.Add(arg.Asset, Task.ResObject.Target);
                 foreach (object dependencyAsset in dependencyAssets)
                 {
                     object dependencyResource = null;
@@ -261,11 +284,6 @@ namespace EPloy.Res
 
             s_LoadingAssetNames.Remove(Task.AssetName);
             OnAssetObjectReady(assetObject);
-        }
-
-        private void OnLoadResourceAgentHelperError(object sender, LoadResourceAgentHelperErrorEventArgs e)
-        {
-            OnError(e.Status, e.ErrorMessage);
         }
     }
 }
