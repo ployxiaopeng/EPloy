@@ -103,7 +103,7 @@ namespace EPloy.TaskPool
 
             while (FreeAgentCount > 0)
             {
-                m_FreeAgents.Pop().Shutdown();
+               // m_FreeAgents.Pop().Shutdown();
             }
         }
 
@@ -118,7 +118,7 @@ namespace EPloy.TaskPool
                 throw new EPloyException("Task agent is invalid.");
             }
 
-            agent.Initialize();
+           // agent.Initialize();
             m_FreeAgents.Push(agent);
         }
 

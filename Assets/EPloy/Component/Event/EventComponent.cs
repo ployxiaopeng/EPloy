@@ -25,10 +25,6 @@ namespace EPloy
         /// </summary>
         private readonly Queue<Event> m_Events;
 
-        /// <summary>
-        /// 初始化事件池的新实例。
-        /// </summary>
-        /// <param name="mode">事件池模式。</param>
         public EventComponent()
         {
             m_EventHandlers = new UnOrderMultiMap<int, EventHandler<EventArg>>();
