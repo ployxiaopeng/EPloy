@@ -8,7 +8,7 @@
 namespace EPloy.TaskPool
 {
     /// <summary>
-    /// 任务信息。
+    /// 任务信息 外部查看用的
     /// </summary>
     public struct TaskInfo
     {

@@ -45,6 +45,32 @@ namespace EPloy.Res
         //private SortedDictionary<ResName, ReadWriteResourceInfo> m_ReadWriteResourceInfos;
         //private readonly Dictionary<string, ResourceGroup> m_ResourceGroups;                                                                  
 
+        private ResLoader()
+        {
+            TaskPool = new TaskPool<LoadResTaskBase>();
+            AssetDependCount = new Dictionary<object, int>();
+            ResourceDependCount = new Dictionary<object, int>();
+            AssetToResourceMap = new Dictionary<object, object>();
+            SceneToAssetMap = new Dictionary<string, object>(StringComparer.Ordinal);
+            //LoadBytesCallbacks = new LoadBytesCallbacks(OnLoadBinarySuccess, OnLoadBinaryFailure);
+            CachedHashBytes = new byte[CachedHashBytesLength];
+            AssetPool = null;
+            ResourcePool = null;
+            SetObjectPoolManager();
+        }
+
+        /// <summary>
+        /// 关闭并清理加载资源器。
+        /// </summary>
+        public void OnDestroy()
+        {
+            TaskPool.OnDestroy();
+            AssetDependCount.Clear();
+            ResourceDependCount.Clear();
+            AssetToResourceMap.Clear();
+            SceneToAssetMap.Clear();
+            //LoadResourceAgent.Clear();
+        }
 
         /// <summary>
         /// 加载资源器轮询。
@@ -62,7 +88,7 @@ namespace EPloy.Res
         /// <param name="priority">加载资源的优先级。</param>
         /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadAsset(string assetName, Type assetType, int priority, LoadAssetCallbacks loadAssetCallbacks, object userData)
+        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks, object userData)
         {
             ResInfo resInfo = null;
             string[] dependAssetNames = null;
@@ -93,7 +119,7 @@ namespace EPloy.Res
             LoadAssetTask mainTask = LoadAssetTask.Create(assetType, resInfo, dependAssetNames, loadAssetCallbacks, userData);
             foreach (string dependencyAssetName in dependAssetNames)
             {
-                if (!LoadDependencyAsset(dependencyAssetName, priority, mainTask, userData))
+                if (!LoadDependencyAsset(dependencyAssetName, mainTask, userData))
                 {
                     string errorMessage = string.Format("Can not load dependency asset '{0}' when load asset '{1}'.", dependencyAssetName, assetName);
                     if (loadAssetCallbacks.LoadAssetFailureCallback != null)
@@ -120,7 +146,7 @@ namespace EPloy.Res
         /// <param name="priority">加载场景资源的优先级。</param>
         /// <param name="loadSceneCallbacks">加载场景回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadScene(string sceneAssetName, int priority, LoadSceneCallbacks loadSceneCallbacks, object userData)
+        public void LoadScene(string sceneAssetName, LoadSceneCallbacks loadSceneCallbacks, object userData)
         {
             ResInfo resInfo = null;
             string[] dependAssetNames = null;
@@ -151,7 +177,7 @@ namespace EPloy.Res
             LoadSceneTask mainTask = LoadSceneTask.Create(resInfo, dependAssetNames, loadSceneCallbacks, userData);
             foreach (string dependencyAssetName in dependAssetNames)
             {
-                if (!LoadDependencyAsset(dependencyAssetName, priority, mainTask, userData))
+                if (!LoadDependencyAsset(dependencyAssetName, mainTask, userData))
                 {
                     string errorMessage = string.Format("Can not load dependency asset '{0}' when load scene '{1}'.", dependencyAssetName, sceneAssetName);
                     if (loadSceneCallbacks.LoadSceneFailureCallback != null)
@@ -326,33 +352,6 @@ namespace EPloy.Res
         }
 
         /// <summary>
-        /// 关闭并清理加载资源器。
-        /// </summary>
-        public void OnDestroy()
-        {
-            TaskPool.OnDestroy();
-            AssetDependCount.Clear();
-            ResourceDependCount.Clear();
-            AssetToResourceMap.Clear();
-            SceneToAssetMap.Clear();
-            //LoadResourceAgent.Clear();
-        }
-
-        private ResLoader()
-        {
-            TaskPool = new TaskPool<LoadResTaskBase>();
-            AssetDependCount = new Dictionary<object, int>();
-            ResourceDependCount = new Dictionary<object, int>();
-            AssetToResourceMap = new Dictionary<object, object>();
-            SceneToAssetMap = new Dictionary<string, object>(StringComparer.Ordinal);
-            //LoadBytesCallbacks = new LoadBytesCallbacks(OnLoadBinarySuccess, OnLoadBinaryFailure);
-            CachedHashBytes = new byte[CachedHashBytesLength];
-            AssetPool = null;
-            ResourcePool = null;
-            SetObjectPoolManager();
-        }
-
-        /// <summary>
         /// 设置对象池管理器。
         /// </summary>
         /// <param name="objectPoolManager">对象池管理器。</param>
@@ -362,7 +361,7 @@ namespace EPloy.Res
             ResourcePool = GameEntry.ObjectPool.CreateObjectPool(typeof(AssetObject), "ResPool");
         }
 
-        private bool LoadDependencyAsset(string assetName, int priority, LoadResTaskBase mainTask, object userData)
+        private bool LoadDependencyAsset(string assetName, LoadResTaskBase mainTask, object userData)
         {
             if (mainTask == null)
             {
@@ -384,7 +383,7 @@ namespace EPloy.Res
             LoadDependAssetTask dependencyTask = LoadDependAssetTask.Create(resInfo, dependencyAssetNames, mainTask, userData);
             foreach (string dependencyAssetName in dependencyAssetNames)
             {
-                if (!LoadDependencyAsset(dependencyAssetName, priority, dependencyTask, userData))
+                if (!LoadDependencyAsset(dependencyAssetName, dependencyTask, userData))
                 {
                     return false;
                 }
@@ -479,6 +478,6 @@ namespace EPloy.Res
             }
 
             return null;
-        } 
+        }
     }
 }

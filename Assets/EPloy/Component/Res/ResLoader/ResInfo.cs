@@ -22,7 +22,7 @@ namespace EPloy.Res
         /// <param name="length">资源大小。</param>
         /// <param name="hashCode">资源哈希值。</param>
         /// <param name="ready">资源是否准备完毕。</param>
-        public ResInfo(ResName resName, string fileSystemName, LoadType loadType, int length, int hashCode,  bool ready)
+        public ResInfo(ResName resName, string fileSystemName, LoadType loadType, int length, int hashCode, bool ready)
         {
             m_ResName = resName;
             m_FileSystemName = fileSystemName;
@@ -72,7 +72,7 @@ namespace EPloy.Res
         {
             get
             {
-                return m_LoadType == LoadType.LoadFromBinary || m_LoadType == LoadType.LoadFromBinaryAndQuickDecrypt || m_LoadType == LoadType.LoadFromBinaryAndDecrypt;
+                return m_LoadType == LoadType.LoadFromBinary;
             }
         }
 

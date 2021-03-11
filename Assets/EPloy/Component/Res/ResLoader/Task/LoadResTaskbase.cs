@@ -6,6 +6,9 @@ using EPloy.TaskPool;
 
 namespace EPloy.Res
 {
+    /// <summary>
+    ///  资源任务信息 基类
+    /// </summary>
     internal abstract class LoadResTaskBase : TaskBase
     {
         public abstract bool IsScene { get; }
@@ -59,10 +62,6 @@ namespace EPloy.Res
         }
 
         public virtual void OnLoadAssetFailure(LoadResAgent agent, LoadResStatus status, string errorMessage)
-        {
-        }
-
-        public virtual void OnLoadAssetUpdate(LoadResAgent agent, LoadResProgress type, float progress)
         {
         }
 

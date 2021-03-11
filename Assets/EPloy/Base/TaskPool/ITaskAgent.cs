@@ -16,6 +16,11 @@ namespace EPloy.TaskPool
         }
 
         /// <summary>
+        /// 初始化
+        /// </summary>
+        /// void Initialize();
+
+        /// <summary>
         /// 任务代理轮询。
         /// </summary>
         void Update();

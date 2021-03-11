@@ -19,14 +19,6 @@ namespace EPloy.Res
     public delegate void LoadSceneFailureCallback(string sceneAssetName, LoadResStatus status, string errorMessage, object userData);
 
     /// <summary>
-    /// 加载场景更新回调函数。
-    /// </summary>
-    /// <param name="sceneAssetName">要加载的场景资源名称。</param>
-    /// <param name="progress">加载场景进度。</param>
-    /// <param name="userData">用户自定义数据。</param>
-    public delegate void LoadSceneUpdateCallback(string sceneAssetName, float progress, object userData);
-
-    /// <summary>
     /// 加载场景时加载依赖资源回调函数。
     /// </summary>
     /// <param name="sceneAssetName">要加载的场景资源名称。</param>
@@ -50,10 +42,6 @@ namespace EPloy.Res
         /// </summary>
         public LoadSceneFailureCallback LoadSceneFailureCallback;
         /// <summary>
-        /// 获取加载场景更新回调函数。
-        /// </summary>
-        public LoadSceneUpdateCallback LoadSceneUpdateCallback;
-        /// <summary>
         /// 获取加载场景时加载依赖资源回调函数。
         /// </summary>
         public LoadSceneDepenAssetCallback LoadSceneDepenAssetCallback;
@@ -63,7 +51,7 @@ namespace EPloy.Res
         /// </summary>
         /// <param name="loadSceneSuccessCallback">加载场景成功回调函数。</param>
         public LoadSceneCallbacks(LoadSceneSuccessCallback loadSceneSuccessCallback)
-            : this(loadSceneSuccessCallback, null, null, null)
+            : this(loadSceneSuccessCallback, null, null)
         {
         }
 
@@ -73,52 +61,9 @@ namespace EPloy.Res
         /// <param name="loadSceneSuccessCallback">加载场景成功回调函数。</param>
         /// <param name="loadSceneFailureCallback">加载场景失败回调函数。</param>
         public LoadSceneCallbacks(LoadSceneSuccessCallback loadSceneSuccessCallback, LoadSceneFailureCallback loadSceneFailureCallback)
-            : this(loadSceneSuccessCallback, loadSceneFailureCallback, null, null)
+            : this(loadSceneSuccessCallback, loadSceneFailureCallback, null)
         {
         }
-
-        /// <summary>
-        /// 初始化加载场景回调函数集的新实例。
-        /// </summary>
-        /// <param name="loadSceneSuccessCallback">加载场景成功回调函数。</param>
-        /// <param name="loadSceneUpdateCallback">加载场景更新回调函数。</param>
-        public LoadSceneCallbacks(LoadSceneSuccessCallback loadSceneSuccessCallback, LoadSceneUpdateCallback loadSceneUpdateCallback)
-            : this(loadSceneSuccessCallback, null, loadSceneUpdateCallback, null)
-        {
-        }
-
-        /// <summary>
-        /// 初始化加载场景回调函数集的新实例。
-        /// </summary>
-        /// <param name="loadSceneSuccessCallback">加载场景成功回调函数。</param>
-        /// <param name="LoadSceneDepenAssetCallback">加载场景时加载依赖资源回调函数。</param>
-        public LoadSceneCallbacks(LoadSceneSuccessCallback loadSceneSuccessCallback, LoadSceneDepenAssetCallback LoadSceneDepenAssetCallback)
-            : this(loadSceneSuccessCallback, null, null, LoadSceneDepenAssetCallback)
-        {
-        }
-
-        /// <summary>
-        /// 初始化加载场景回调函数集的新实例。
-        /// </summary>
-        /// <param name="loadSceneSuccessCallback">加载场景成功回调函数。</param>
-        /// <param name="loadSceneFailureCallback">加载场景失败回调函数。</param>
-        /// <param name="loadSceneUpdateCallback">加载场景更新回调函数。</param>
-        public LoadSceneCallbacks(LoadSceneSuccessCallback loadSceneSuccessCallback, LoadSceneFailureCallback loadSceneFailureCallback, LoadSceneUpdateCallback loadSceneUpdateCallback)
-            : this(loadSceneSuccessCallback, loadSceneFailureCallback, loadSceneUpdateCallback, null)
-        {
-        }
-
-        /// <summary>
-        /// 初始化加载场景回调函数集的新实例。
-        /// </summary>
-        /// <param name="loadSceneSuccessCallback">加载场景成功回调函数。</param>
-        /// <param name="loadSceneFailureCallback">加载场景失败回调函数。</param>
-        /// <param name="LoadSceneDepenAssetCallback">加载场景时加载依赖资源回调函数。</param>
-        public LoadSceneCallbacks(LoadSceneSuccessCallback loadSceneSuccessCallback, LoadSceneFailureCallback loadSceneFailureCallback, LoadSceneDepenAssetCallback LoadSceneDepenAssetCallback)
-            : this(loadSceneSuccessCallback, loadSceneFailureCallback, null, LoadSceneDepenAssetCallback)
-        {
-        }
-
         /// <summary>
         /// 初始化加载场景回调函数集的新实例。
         /// </summary>
@@ -126,11 +71,10 @@ namespace EPloy.Res
         /// <param name="loadSceneFailureCallback">加载场景失败回调函数。</param>
         /// <param name="loadSceneUpdateCallback">加载场景更新回调函数。</param>
         /// <param name="LoadSceneDepenAssetCallback">加载场景时加载依赖资源回调函数。</param>
-        public LoadSceneCallbacks(LoadSceneSuccessCallback loadSceneSuccessCallback, LoadSceneFailureCallback loadSceneFailureCallback, LoadSceneUpdateCallback loadSceneUpdateCallback, LoadSceneDepenAssetCallback loadSceneDepenAssetCallback)
+        public LoadSceneCallbacks(LoadSceneSuccessCallback loadSceneSuccessCallback, LoadSceneFailureCallback loadSceneFailureCallback, LoadSceneDepenAssetCallback loadSceneDepenAssetCallback)
         {
             LoadSceneSuccessCallback = loadSceneSuccessCallback ?? throw new EPloyException("Load scene success callback is invalid.");
             LoadSceneFailureCallback = loadSceneFailureCallback;
-            LoadSceneUpdateCallback = loadSceneUpdateCallback;
             LoadSceneDepenAssetCallback = loadSceneDepenAssetCallback;
         }
     }

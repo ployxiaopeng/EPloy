@@ -50,18 +50,6 @@ namespace EPloy.Res
             }
         }
 
-        public override void OnLoadAssetUpdate(LoadResAgent agent, LoadResProgress type, float progress)
-        {
-            base.OnLoadAssetUpdate(agent, type, progress);
-            if (type == LoadResProgress.LoadScene)
-            {
-                if (m_LoadSceneCallbacks.LoadSceneUpdateCallback != null)
-                {
-                    m_LoadSceneCallbacks.LoadSceneUpdateCallback(AssetName, progress, UserData);
-                }
-            }
-        }
-
         public override void OnLoadDependAsset(LoadResAgent agent, string dependAssetName, object dependAsset)
         {
             base.OnLoadDependAsset(agent, dependAssetName, dependAsset);

@@ -103,7 +103,7 @@ namespace EPloy.TaskPool
 
             while (FreeAgentCount > 0)
             {
-               // m_FreeAgents.Pop().Shutdown();
+                // m_FreeAgents.Pop().Shutdown();
             }
         }
 
@@ -118,7 +118,7 @@ namespace EPloy.TaskPool
                 throw new EPloyException("Task agent is invalid.");
             }
 
-           // agent.Initialize();
+            //agent.Initialize();
             m_FreeAgents.Push(agent);
         }
 
@@ -128,25 +128,9 @@ namespace EPloy.TaskPool
         /// <param name="task">要增加的任务。</param>
         public void AddTask(T task)
         {
+            // 暂时不上小优先级
             LinkedListNode<T> current = m_WaitingTasks.Last;
-            while (current != null)
-            {
-                if (task.Priority <= current.Value.Priority)
-                {
-                    break;
-                }
-
-                current = current.Previous;
-            }
-
-            if (current != null)
-            {
-                m_WaitingTasks.AddAfter(current, task);
-            }
-            else
-            {
-                m_WaitingTasks.AddFirst(task);
-            }
+            m_WaitingTasks.AddAfter(current, task);
         }
 
         /// <summary>

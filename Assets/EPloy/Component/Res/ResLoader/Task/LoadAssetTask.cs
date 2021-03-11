@@ -3,7 +3,6 @@ using System;
 
 namespace EPloy.Res
 {
-
     internal sealed class LoadAssetTask : LoadResTaskBase
     {
         private LoadAssetCallbacks m_LoadAssetCallbacks;
@@ -53,21 +52,12 @@ namespace EPloy.Res
             }
         }
 
-        public override void OnLoadAssetUpdate(LoadResAgent agent, LoadResProgress type, float progress)
-        {
-            base.OnLoadAssetUpdate(agent, type, progress);
-            if (type == LoadResProgress.LoadAsset)
-            {
-                m_LoadAssetCallbacks.LoadAssetUpdateCallback?.Invoke(AssetName, progress, UserData);
-            }
-        }
-
         public override void OnLoadDependAsset(LoadResAgent agent, string dependAssetName, object dependAsset)
         {
             base.OnLoadDependAsset(agent, dependAssetName, dependAsset);
-            if (m_LoadAssetCallbacks.LoadAssetDependAssetCallback != null)
+            if (m_LoadAssetCallbacks.LoadDependAssetCallback != null)
             {
-                //m_LoadAssetCallbacks.LoadAssetDependAssetCallback(AssetName, dependAssetName, LoadedDependencyAssetCount, TotalDependeAssetCount, UserData);
+                m_LoadAssetCallbacks.LoadDependAssetCallback(AssetName, dependAssetName, DependAssets.Count, TotalDependAssetCount, UserData);
             }
         }
     }

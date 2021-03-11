@@ -2,7 +2,7 @@
 namespace EPloy.TaskPool
 {
     /// <summary>
-    /// 任务基类。
+    /// 任务基类 存储人信息 以便代理处理
     /// </summary>
     public abstract class TaskBase : IReference
     {

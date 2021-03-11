@@ -1,7 +1,7 @@
 ﻿namespace EPloy.Res
 {
     /// <summary>
-    /// 加载依赖资源任务
+    /// 加载依赖资源任务 信息
     /// </summary>
     internal sealed class LoadDependAssetTask : LoadResTaskBase
     {
@@ -50,4 +50,3 @@
         }
     }
 }
-

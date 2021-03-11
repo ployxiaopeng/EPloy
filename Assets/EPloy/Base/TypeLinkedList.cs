@@ -12,16 +12,16 @@ namespace EPloy
     /// <typeparam name="T">指定链表的元素类型。</typeparam>
     public sealed class TypeLinkedList<T> : ICollection<T>, IEnumerable<T>, ICollection, IEnumerable
     {
-        private readonly LinkedList<T> m_LinkedList;
-        private readonly Queue<LinkedListNode<T>> m_CachedNodes;
+        private readonly LinkedList<T> LinkedList;
+        private readonly Queue<LinkedListNode<T>> CachedNodes;
 
         /// <summary>
         /// 初始化游戏框架链表类的新实例。
         /// </summary>
         public TypeLinkedList()
         {
-            m_LinkedList = new LinkedList<T>();
-            m_CachedNodes = new Queue<LinkedListNode<T>>();
+            LinkedList = new LinkedList<T>();
+            CachedNodes = new Queue<LinkedListNode<T>>();
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace EPloy
         {
             get
             {
-                return m_LinkedList.Count;
+                return LinkedList.Count;
             }
         }
 
@@ -42,7 +42,7 @@ namespace EPloy
         {
             get
             {
-                return m_CachedNodes.Count;
+                return CachedNodes.Count;
             }
         }
 
@@ -53,7 +53,7 @@ namespace EPloy
         {
             get
             {
-                return m_LinkedList.First;
+                return LinkedList.First;
             }
         }
 
@@ -64,7 +64,7 @@ namespace EPloy
         {
             get
             {
-                return m_LinkedList.Last;
+                return LinkedList.Last;
             }
         }
 
@@ -75,7 +75,7 @@ namespace EPloy
         {
             get
             {
-                return ((ICollection<T>)m_LinkedList).IsReadOnly;
+                return ((ICollection<T>)LinkedList).IsReadOnly;
             }
         }
 
@@ -86,7 +86,7 @@ namespace EPloy
         {
             get
             {
-                return ((ICollection)m_LinkedList).SyncRoot;
+                return ((ICollection)LinkedList).SyncRoot;
             }
         }
 
@@ -97,7 +97,7 @@ namespace EPloy
         {
             get
             {
-                return ((ICollection)m_LinkedList).IsSynchronized;
+                return ((ICollection)LinkedList).IsSynchronized;
             }
         }
 
@@ -119,7 +119,7 @@ namespace EPloy
         public LinkedListNode<T> AddAfter(LinkedListNode<T> node, T value)
         {
             LinkedListNode<T> newNode = AcquireNode(value);
-            m_LinkedList.AddAfter(node, newNode);
+            LinkedList.AddAfter(node, newNode);
             return newNode;
         }
 
@@ -130,7 +130,7 @@ namespace EPloy
         /// <param name="newNode">指定的新结点。</param>
         public void AddAfter(LinkedListNode<T> node, LinkedListNode<T> newNode)
         {
-            m_LinkedList.AddAfter(node, newNode);
+            LinkedList.AddAfter(node, newNode);
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace EPloy
         public LinkedListNode<T> AddBefore(LinkedListNode<T> node, T value)
         {
             LinkedListNode<T> newNode = AcquireNode(value);
-            m_LinkedList.AddBefore(node, newNode);
+            LinkedList.AddBefore(node, newNode);
             return newNode;
         }
 
@@ -153,7 +153,7 @@ namespace EPloy
         /// <param name="newNode">指定的新结点。</param>
         public void AddBefore(LinkedListNode<T> node, LinkedListNode<T> newNode)
         {
-            m_LinkedList.AddBefore(node, newNode);
+            LinkedList.AddBefore(node, newNode);
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace EPloy
         public LinkedListNode<T> AddFirst(T value)
         {
             LinkedListNode<T> node = AcquireNode(value);
-            m_LinkedList.AddFirst(node);
+            LinkedList.AddFirst(node);
             return node;
         }
 
@@ -174,7 +174,7 @@ namespace EPloy
         /// <param name="node">指定的新结点。</param>
         public void AddFirst(LinkedListNode<T> node)
         {
-            m_LinkedList.AddFirst(node);
+            LinkedList.AddFirst(node);
         }
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace EPloy
         public LinkedListNode<T> AddLast(T value)
         {
             LinkedListNode<T> node = AcquireNode(value);
-            m_LinkedList.AddLast(node);
+            LinkedList.AddLast(node);
             return node;
         }
 
@@ -195,7 +195,7 @@ namespace EPloy
         /// <param name="node">指定的新结点。</param>
         public void AddLast(LinkedListNode<T> node)
         {
-            m_LinkedList.AddLast(node);
+            LinkedList.AddLast(node);
         }
 
         /// <summary>
@@ -203,14 +203,14 @@ namespace EPloy
         /// </summary>
         public void Clear()
         {
-            LinkedListNode<T> current = m_LinkedList.First;
+            LinkedListNode<T> current = LinkedList.First;
             while (current != null)
             {
                 ReleaseNode(current);
                 current = current.Next;
             }
 
-            m_LinkedList.Clear();
+            LinkedList.Clear();
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace EPloy
         /// </summary>
         public void ClearCachedNodes()
         {
-            m_CachedNodes.Clear();
+            CachedNodes.Clear();
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace EPloy
         /// <returns>某值是否在链表中。</returns>
         public bool Contains(T value)
         {
-            return m_LinkedList.Contains(value);
+            return LinkedList.Contains(value);
         }
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace EPloy
         /// <param name="index">array 中从零开始的索引，从此处开始复制。</param>
         public void CopyTo(T[] array, int index)
         {
-            m_LinkedList.CopyTo(array, index);
+            LinkedList.CopyTo(array, index);
         }
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace EPloy
         /// <param name="index">array 中从零开始的索引，从此处开始复制。</param>
         public void CopyTo(Array array, int index)
         {
-            ((ICollection)m_LinkedList).CopyTo(array, index);
+            ((ICollection)LinkedList).CopyTo(array, index);
         }
 
         /// <summary>
@@ -258,7 +258,7 @@ namespace EPloy
         /// <returns>包含指定值的第一个结点。</returns>
         public LinkedListNode<T> Find(T value)
         {
-            return m_LinkedList.Find(value);
+            return LinkedList.Find(value);
         }
 
         /// <summary>
@@ -268,7 +268,7 @@ namespace EPloy
         /// <returns>包含指定值的最后一个结点。</returns>
         public LinkedListNode<T> FindLast(T value)
         {
-            return m_LinkedList.FindLast(value);
+            return LinkedList.FindLast(value);
         }
 
         /// <summary>
@@ -278,10 +278,10 @@ namespace EPloy
         /// <returns>是否移除成功。</returns>
         public bool Remove(T value)
         {
-            LinkedListNode<T> node = m_LinkedList.Find(value);
+            LinkedListNode<T> node = LinkedList.Find(value);
             if (node != null)
             {
-                m_LinkedList.Remove(node);
+                LinkedList.Remove(node);
                 ReleaseNode(node);
                 return true;
             }
@@ -295,7 +295,7 @@ namespace EPloy
         /// <param name="node">指定的结点。</param>
         public void Remove(LinkedListNode<T> node)
         {
-            m_LinkedList.Remove(node);
+            LinkedList.Remove(node);
             ReleaseNode(node);
         }
 
@@ -304,13 +304,13 @@ namespace EPloy
         /// </summary>
         public void RemoveFirst()
         {
-            LinkedListNode<T> first = m_LinkedList.First;
+            LinkedListNode<T> first = LinkedList.First;
             if (first == null)
             {
                 throw new EPloyException("First is invalid.");
             }
 
-            m_LinkedList.RemoveFirst();
+            LinkedList.RemoveFirst();
             ReleaseNode(first);
         }
 
@@ -319,13 +319,13 @@ namespace EPloy
         /// </summary>
         public void RemoveLast()
         {
-            LinkedListNode<T> last = m_LinkedList.Last;
+            LinkedListNode<T> last = LinkedList.Last;
             if (last == null)
             {
                 throw new EPloyException("Last is invalid.");
             }
 
-            m_LinkedList.RemoveLast();
+            LinkedList.RemoveLast();
             ReleaseNode(last);
         }
 
@@ -335,15 +335,15 @@ namespace EPloy
         /// <returns>循环访问集合的枚举数。</returns>
         public Enumerator GetEnumerator()
         {
-            return new Enumerator(m_LinkedList);
+            return new Enumerator(LinkedList);
         }
 
         private LinkedListNode<T> AcquireNode(T value)
         {
             LinkedListNode<T> node = null;
-            if (m_CachedNodes.Count > 0)
+            if (CachedNodes.Count > 0)
             {
-                node = m_CachedNodes.Dequeue();
+                node = CachedNodes.Dequeue();
                 node.Value = value;
             }
             else
@@ -357,7 +357,7 @@ namespace EPloy
         private void ReleaseNode(LinkedListNode<T> node)
         {
             node.Value = default(T);
-            m_CachedNodes.Enqueue(node);
+            CachedNodes.Enqueue(node);
         }
 
         /// <summary>
