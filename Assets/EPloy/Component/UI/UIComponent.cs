@@ -62,7 +62,7 @@ namespace EPloy
         /// <summary>
         /// 关闭并清理界面管理器。
         /// </summary>
-        public void Destroy()
+        public void OnDestroy()
         {
             UIGroups.Clear();
             UINames.Clear();

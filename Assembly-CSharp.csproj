@@ -76,6 +76,11 @@
      <Compile Include="Assets\EPloy\Base\TypeNamePair.cs" />
      <Compile Include="Assets\EPloy\Base\UnOrderMultiMap.cs" />
      <Compile Include="Assets\EPloy\Base\Utility\Utility.Path.cs" />
+     <Compile Include="Assets\EPloy\Component\DataTable\DataTable.cs" />
+     <Compile Include="Assets\EPloy\Component\DataTable\DataTableBase.cs" />
+     <Compile Include="Assets\EPloy\Component\DataTable\DataTableComponet.cs" />
+     <Compile Include="Assets\EPloy\Component\DataTable\IDataRow.cs" />
+     <Compile Include="Assets\EPloy\Component\DataTable\IDataTable.cs" />
      <Compile Include="Assets\EPloy\Component\Event\EventArg.cs" />
      <Compile Include="Assets\EPloy\Component\Event\EventComponent.Event.cs" />
      <Compile Include="Assets\EPloy\Component\Event\EventComponent.cs" />
@@ -83,13 +88,11 @@
      <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolManager.Object.cs" />
      <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolManager.ObjectPool.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResComponent.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\ILoadResAgent.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadAssetCallbacks.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadBinaryCallbacks.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadBytesCallbacks.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadSceneCallbacks.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadResAgent.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadResAgentEvent.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Object\AssetInfo.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Object\AssetObject.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Object\ResName.cs" />
@@ -101,6 +104,10 @@
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadDependencyAssetTask.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadResTaskbase.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadSceneTask.cs" />
+     <Compile Include="Assets\EPloy\Component\UI\UIComponent.cs" />
+     <Compile Include="Assets\EPloy\Component\UI\UIEnum.cs" />
+     <Compile Include="Assets\EPloy\Component\UI\UIForm.cs" />
+     <Compile Include="Assets\EPloy\Component\UI\UIGroup.cs" />
      <Compile Include="Assets\EPloy\Entity\GameEntry.cs" />
      <Compile Include="Assets\EPloy\Event\TestEvt.cs" />
      <Compile Include="Assets\EPloy\Init.cs" />

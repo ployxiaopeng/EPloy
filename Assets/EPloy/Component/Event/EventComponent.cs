@@ -76,7 +76,7 @@ namespace EPloy
         /// <summary>
         /// 关闭并清理事件池。
         /// </summary>
-        public void Shutdown()
+        public void OnDestroy()
         {
             Clear();
             m_EventHandlers.Clear();

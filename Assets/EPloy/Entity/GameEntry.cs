@@ -23,8 +23,9 @@ namespace EPloy
             }
         }
 
-        public static EventComponent Event{ get; set; }
+        public static EventComponent Event { get; set; }
         public static ObjectPoolComponent ObjectPool { get; set; }
+        public static ResComponent Res { get; set; }
 
         private static GameSystem gameSystem = null;
         public static GameSystem GameSystem
