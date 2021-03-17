@@ -165,7 +165,7 @@ namespace EPloy
         {
             if (!UINames.ContainsKey(uiName))
             {
-                throw new EPloyException(string.Format("UIName {0} is invalid.", uiName));
+                throw new EPloyException(Utility.Text.Format("UIName {0} is invalid.", uiName));
             }
             UIGroup group = UIGroups[UINames[uiName]];
             group.CloseUIForm(uiName, userData);
@@ -180,7 +180,7 @@ namespace EPloy
         {
             if (!UINames.ContainsKey(uiName))
             {
-                throw new EPloyException(string.Format("UIName {0} is invalid.", uiName));
+                throw new EPloyException(Utility.Text.Format("UIName {0} is invalid.", uiName));
             }
             UIGroup group = UIGroups[UINames[uiName]];
             group.RefocusUIForm(uiName, userData);

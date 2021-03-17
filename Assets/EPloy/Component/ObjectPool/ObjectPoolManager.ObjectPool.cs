@@ -231,7 +231,7 @@ namespace EPloy
                 }
                 else
                 {
-                    throw new EPloyException(string.Format("Can not find target in object pool '{0}', target type is '{1}', target value is '{2}'.", new TypeNamePair(target.GetType(), Name).ToString(), target.GetType().FullName, target.ToString()));
+                    throw new EPloyException(Utility.Text.Format("Can not find target in object pool '{0}', target type is '{1}', target value is '{2}'.", new TypeNamePair(target.GetType(), Name).ToString(), target.GetType().FullName, target.ToString()));
                 }
             }
 

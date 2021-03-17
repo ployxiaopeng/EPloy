@@ -4,43 +4,11 @@ using System.Collections.Generic;
 namespace EPloy
 {
     /// <summary>
-    /// 数据表接口。
+    /// 数据表数据获取接口
     /// </summary>
     /// <typeparam name="T">数据表行的类型。</typeparam>
     public interface IDataTable<T> : IEnumerable<T> where T : IDataRow
     {
-        /// <summary>
-        /// 获取数据表名称。
-        /// </summary>
-        string Name
-        {
-            get;
-        }
-
-        /// <summary>
-        /// 获取数据表完整名称。
-        /// </summary>
-        string FullName
-        {
-            get;
-        }
-
-        /// <summary>
-        /// 获取数据表行的类型。
-        /// </summary>
-        Type Type
-        {
-            get;
-        }
-
-        /// <summary>
-        /// 获取数据表行数。
-        /// </summary>
-        int Count
-        {
-            get;
-        }
-
         /// <summary>
         /// 获取数据表行。
         /// </summary>
@@ -92,27 +60,5 @@ namespace EPloy
         /// </summary>
         /// <returns>所有数据表行。</returns>
         T[] GetAllDataRows();
-
-        /// <summary>
-        /// 增加数据表行。
-        /// </summary>
-        /// <param name="dataRowBytes">要解析的数据表行二进制流。</param>
-        /// <param name="startIndex">数据表行二进制流的起始位置。</param>
-        /// <param name="length">数据表行二进制流的长度。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        /// <returns>是否增加数据表行成功。</returns>
-        bool AddDataRow(byte[] dataRowBytes, int startIndex, int length);
-
-        /// <summary>
-        /// 移除指定数据表行。
-        /// </summary>
-        /// <param name="id">要移除数据表行的编号。</param>
-        /// <returns>是否移除数据表行成功。</returns>
-        bool RemoveDataRow(int id);
-
-        /// <summary>
-        /// 清空所有数据表行。
-        /// </summary>
-        void RemoveAllDataRows();
     }
 }

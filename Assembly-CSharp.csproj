@@ -76,6 +76,8 @@
      <Compile Include="Assets\EPloy\Base\TypeNamePair.cs" />
      <Compile Include="Assets\EPloy\Base\UnOrderMultiMap.cs" />
      <Compile Include="Assets\EPloy\Base\Utility\Utility.Path.cs" />
+     <Compile Include="Assets\EPloy\Base\Utility\Utility.Text.cs" />
+     <Compile Include="Assets\EPloy\Component\DataTable\DataProvider.cs" />
      <Compile Include="Assets\EPloy\Component\DataTable\DataTable.cs" />
      <Compile Include="Assets\EPloy\Component\DataTable\DataTableBase.cs" />
      <Compile Include="Assets\EPloy\Component\DataTable\DataTableComponet.cs" />
@@ -84,6 +86,9 @@
      <Compile Include="Assets\EPloy\Component\Event\EventArg.cs" />
      <Compile Include="Assets\EPloy\Component\Event\EventComponent.Event.cs" />
      <Compile Include="Assets\EPloy\Component\Event\EventComponent.cs" />
+     <Compile Include="Assets\EPloy\Component\Event\FrameEvent\DataTableFailureEvt.cs" />
+     <Compile Include="Assets\EPloy\Component\Event\FrameEvent\DataTableSuccessEvt.cs" />
+     <Compile Include="Assets\EPloy\Component\Event\FrameEvent\FrameEvent.cs" />
      <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolComponent.cs" />
      <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolManager.Object.cs" />
      <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolManager.ObjectPool.cs" />
@@ -109,6 +114,7 @@
      <Compile Include="Assets\EPloy\Component\UI\UIForm.cs" />
      <Compile Include="Assets\EPloy\Component\UI\UIGroup.cs" />
      <Compile Include="Assets\EPloy\Entity\GameEntry.cs" />
+     <Compile Include="Assets\EPloy\Event\EventId.cs" />
      <Compile Include="Assets\EPloy\Event\TestEvt.cs" />
      <Compile Include="Assets\EPloy\Init.cs" />
  <Reference Include="UnityEngine">

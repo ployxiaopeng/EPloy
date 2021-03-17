@@ -122,7 +122,7 @@ namespace EPloy
             }
             else if (Check(evtId, handler))
             {
-                throw new EPloyException(string.Format("Event '{0}' not allow duplicate handler.", evtId.ToString()));
+                throw new EPloyException(Utility.Text.Format("Event '{0}' not allow duplicate handler.", evtId.ToString()));
             }
             else
             {
@@ -143,7 +143,7 @@ namespace EPloy
             }
             if (!m_EventHandlers.Remove(evtId, handler))
             {
-                throw new EPloyException(string.Format("Event '{0}' not exists specified handler.", evtId.ToString()));
+                throw new EPloyException(Utility.Text.Format("Event '{0}' not exists specified handler.", evtId.ToString()));
             }
         }
 
@@ -205,7 +205,7 @@ namespace EPloy
 
             if (noHandlerException)
             {
-                throw new EPloyException(string.Format("Event '{0}' not allow no handler.", eventArg.GetType()));
+                throw new EPloyException(Utility.Text.Format("Event '{0}' not allow no handler.", eventArg.GetType()));
             }
         }
     }

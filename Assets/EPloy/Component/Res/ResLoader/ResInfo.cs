@@ -7,7 +7,6 @@ namespace EPloy.Res
     internal sealed class ResInfo
     {
         private readonly ResName m_ResName;
-        private readonly string m_FileSystemName;
         private readonly LoadType m_LoadType;
         private readonly int m_Length;
         private readonly int m_HashCode;
@@ -22,10 +21,9 @@ namespace EPloy.Res
         /// <param name="length">资源大小。</param>
         /// <param name="hashCode">资源哈希值。</param>
         /// <param name="ready">资源是否准备完毕。</param>
-        public ResInfo(ResName resName, string fileSystemName, LoadType loadType, int length, int hashCode, bool ready)
+        public ResInfo(ResName resName, LoadType loadType, int length, int hashCode, bool ready)
         {
             m_ResName = resName;
-            m_FileSystemName = fileSystemName;
             m_LoadType = loadType;
             m_Length = length;
             m_HashCode = hashCode;
@@ -40,28 +38,6 @@ namespace EPloy.Res
             get
             {
                 return m_ResName;
-            }
-        }
-
-        /// <summary>
-        /// 获取资源是否使用文件系统。
-        /// </summary>
-        public bool UseFileSystem
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(m_FileSystemName);
-            }
-        }
-
-        /// <summary>
-        /// 获取文件系统名称。
-        /// </summary>
-        public string FileSystemName
-        {
-            get
-            {
-                return m_FileSystemName;
             }
         }
 

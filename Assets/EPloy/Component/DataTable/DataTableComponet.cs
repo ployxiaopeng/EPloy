@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using EPloy.Res;
 
 namespace EPloy
 {
@@ -15,6 +16,13 @@ namespace EPloy
             get
             {
                 return GameEntry.Res;
+            }
+        }
+        private EventComponent Event
+        {
+            get
+            {
+                return GameEntry.Event;
             }
         }
 
@@ -37,7 +45,6 @@ namespace EPloy
             }
         }
 
-
         /// <summary>
         /// 数据表管理器轮询。
         /// </summary>
@@ -58,14 +65,23 @@ namespace EPloy
             DataTables.Clear();
         }
 
-
         /// <summary>
         /// 确保二进制流缓存分配足够大小的内存并缓存。
         /// </summary>
         /// <param name="ensureSize">要确保二进制流缓存分配内存的大小。</param>
         public void EnsureCachedBytesSize(int ensureSize)
         {
+            if (ensureSize < 0)
+            {
+                throw new GameFrameworkException("Ensure size is invalid.");
+            }
 
+            if (s_CachedBytes == null || s_CachedBytes.Length < ensureSize)
+            {
+                FreeCachedBytes();
+                int size = (ensureSize - 1 + BlockSize) / BlockSize * BlockSize;
+                s_CachedBytes = new byte[size];
+            }
         }
 
         /// <summary>
@@ -100,7 +116,7 @@ namespace EPloy
 
             if (!typeof(IDataRow).IsAssignableFrom(dataRowType))
             {
-                throw new EPloyException(string.Format("Data row type '{0}' is invalid.", dataRowType.FullName));
+                throw new EPloyException(Utility.Text.Format("Data row type '{0}' is invalid.", dataRowType.FullName));
             }
 
             return InternalHasDataTable(new TypeNamePair(dataRowType, name));
@@ -111,9 +127,9 @@ namespace EPloy
         /// </summary>
         /// <typeparam name="T">数据表行的类型。</typeparam>
         /// <returns>要获取的数据表。</returns>
-        public DataTable<T> GetDataTable<T>() where T : IDataRow
+        public IDataTable<T> GetDataTable<T>() where T : IDataRow
         {
-            return (DataTable<T>)InternalGetDataTable(new TypeNamePair(typeof(T)));
+            return (IDataTable<T>)InternalGetDataTable(new TypeNamePair(typeof(T)));
         }
 
         /// <summary>
@@ -130,12 +146,11 @@ namespace EPloy
 
             if (!typeof(IDataRow).IsAssignableFrom(dataRowType))
             {
-                throw new EPloyException(string.Format("Data row type '{0}' is invalid.", dataRowType.FullName));
+                throw new EPloyException(Utility.Text.Format("Data row type '{0}' is invalid.", dataRowType.FullName));
             }
 
             return InternalGetDataTable(new TypeNamePair(dataRowType));
         }
-
 
         /// <summary>
         /// 获取所有数据表。
@@ -157,21 +172,10 @@ namespace EPloy
         /// 创建数据表。
         /// </summary>
         /// <param name="dataRowType">数据表行的类型。</param>
-        /// <returns>要创建的数据表。</returns>
-        public DataTableBase CreateDataTable(Type dataRowType)
-        {
-            return CreateDataTable(dataRowType, string.Empty);
-        }
-
-        /// <summary>
-        /// 创建数据表。
-        /// </summary>
-        /// <param name="dataRowType">数据表行的类型。</param>
         /// <param name="name">数据表名称。</param>
         /// <returns>要创建的数据表。</returns>
         public DataTableBase CreateDataTable(Type dataRowType, string name)
         {
-
             if (dataRowType == null)
             {
                 throw new EPloyException("Data row type is invalid.");
@@ -179,21 +183,36 @@ namespace EPloy
 
             if (!typeof(IDataRow).IsAssignableFrom(dataRowType))
             {
-                throw new EPloyException(string.Format("Data row type '{0}' is invalid.", dataRowType.FullName));
+                throw new EPloyException(Utility.Text.Format("Data row type '{0}' is invalid.", dataRowType.FullName));
             }
 
             TypeNamePair typeNamePair = new TypeNamePair(dataRowType, name);
             if (HasDataTable(dataRowType, name))
             {
-                throw new EPloyException(string.Format("Already exist data table '{0}'.", typeNamePair.ToString()));
+                throw new EPloyException(Utility.Text.Format("Already exist data table '{0}'.", typeNamePair.ToString()));
             }
 
             Type dataTableType = typeof(DataTable<>).MakeGenericType(dataRowType);
-            DataTableBase dataTable = (DataTableBase)Activator.CreateInstance(dataTableType, name);
-            //dataTable.SetResourceManager(m_ResourceManager);
-            //dataTable.SetDataProviderHelper(m_DataProviderHelper);
+            DataTableBase dataTable = (DataTableBase)Activator.CreateInstance(dataTableType, name, new LoadBinaryCallbacks(LoadBinarySuccessCallback, LoadBinaryFailureCallback));
             DataTables.Add(typeNamePair, dataTable);
             return dataTable;
+        }
+
+        /// <summary>
+        /// 加载表格数据
+        /// </summary>
+        /// <param name="dataTable"></param>
+        public void LoadDataTable(DataTableBase dataTable)
+        {
+            HasResult result = Res.HasAsset(dataTable.Name);
+            switch (result)
+            {
+                case HasResult.BinaryOnDisk:
+                    Res.LoadBinary(dataTable.Name, dataTable.LoadBinaryCallbacks, dataTable);
+                    break;
+                default:
+                    throw new EPloyException(Utility.Text.Format("{0}  type must be BinaryOnDisk  but is {1}.", dataTable.Name, result.ToString()));
+            }
         }
 
         /// <summary>
@@ -231,6 +250,47 @@ namespace EPloy
             }
 
             return false;
+        }
+
+        private void LoadBinaryFailureCallback(string dataAssetName, LoadResStatus status, string errorMessage, object userData)
+        {
+            DataTableBase dataTableBase = (DataTableBase)userData;
+            string appendErrorMessage = Utility.Text.Format("Load data failure, data asset name '{0}', status '{1}', error message '{2}'.", dataAssetName, status.ToString(), errorMessage);
+            DataTableFailureEvt Evt = ReferencePool.Acquire<DataTableFailureEvt>();
+            Evt.SetData(dataAssetName, appendErrorMessage, userData);
+            Event.Fire(Evt);
+            throw new EPloyException(appendErrorMessage);
+        }
+
+        private void LoadBinarySuccessCallback(string dataAssetName, byte[] dataBytes, float duration, object userData)
+        {
+            DataTableBase dataTableBase = (DataTableBase)userData;
+            try
+            {
+                if (!m_DataProviderHelper.ReadData(m_Owner, dataAssetName, dataBytes, 0, dataBytes.Length, userData))
+                {
+                    throw new EPloyException(Utility.Text.Format("Load data failure in data provider helper, data asset name '{0}'.", dataAssetName));
+                }
+
+                if (m_ReadDataSuccessEventHandler != null)
+                {
+                    ReadDataSuccessEventArg loadDataSuccessEventArgs = ReadDataSuccessEventArg.Create(dataAssetName, duration, userData);
+                    m_ReadDataSuccessEventHandler(this, loadDataSuccessEventArgs);
+                    ReferencePool.Release(loadDataSuccessEventArgs);
+                }
+            }
+            catch (Exception exception)
+            {
+                if (m_ReadDataFailureEventHandler != null)
+                {
+                    ReadDataFailureEventArg loadDataFailureEventArgs = ReadDataFailureEventArg.Create(dataAssetName, exception.ToString(), userData);
+                    m_ReadDataFailureEventHandler(this, loadDataFailureEventArgs);
+                    ReferencePool.Release(loadDataFailureEventArgs);
+                    return;
+                }
+
+                throw;
+            }
         }
     }
 }

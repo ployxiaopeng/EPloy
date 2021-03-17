@@ -10,14 +10,14 @@ namespace EPloy
         {
             get
             {
-                return 100;
+                return EventId.TestEvt;
             }
         }
 
 
         public override void Clear()
         {
-            
+
         }
     }
 }

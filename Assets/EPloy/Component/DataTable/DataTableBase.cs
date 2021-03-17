@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 namespace EPloy
 {
@@ -8,16 +7,8 @@ namespace EPloy
     /// </summary>
     public abstract class DataTableBase
     {
-        private readonly string m_Name;
-
-        /// <summary>
-        /// 初始化数据表基类的新实例。
-        /// </summary>
-        /// <param name="name">数据表名称。</param>
-        public DataTableBase(string name)
-        {
-            m_Name = name ?? string.Empty;
-        }
+        protected string name;
+        protected Res.LoadBinaryCallbacks loadBinaryCallbacks;
 
         /// <summary>
         /// 获取数据表名称。
@@ -26,7 +17,18 @@ namespace EPloy
         {
             get
             {
-                return m_Name;
+                return name;
+            }
+        }
+
+        /// <summary>
+        /// 获取数据表加载回调。
+        /// </summary>
+        public Res.LoadBinaryCallbacks LoadBinaryCallbacks
+        {
+            get
+            {
+                return loadBinaryCallbacks;
             }
         }
 
@@ -37,7 +39,7 @@ namespace EPloy
         {
             get
             {
-                return new TypeNamePair(Type, m_Name).ToString();
+                return new TypeNamePair(Type, name).ToString();
             }
         }
 

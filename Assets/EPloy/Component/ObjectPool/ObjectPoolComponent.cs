@@ -72,7 +72,7 @@ namespace EPloy
 
             if (!typeof(ObjectBase).IsAssignableFrom(objectType))
             {
-                throw new EPloyException(string.Format("Object type '{0}' is invalid.", objectType.FullName));
+                throw new EPloyException(Utility.Text.Format("Object type '{0}' is invalid.", objectType.FullName));
             }
 
             return m_ObjectPools.ContainsKey(new TypeNamePair(objectType, name));
@@ -93,7 +93,7 @@ namespace EPloy
 
             if (!typeof(ObjectBase).IsAssignableFrom(objectType))
             {
-                throw new EPloyException(string.Format("Object type '{0}' is invalid.", objectType.FullName));
+                throw new EPloyException(Utility.Text.Format("Object type '{0}' is invalid.", objectType.FullName));
             }
 
             return GetObjectPool(new TypeNamePair(objectType, name));
@@ -121,13 +121,13 @@ namespace EPloy
 
             if (!typeof(ObjectBase).IsAssignableFrom(objectType))
             {
-                throw new EPloyException(string.Format("Object type '{0}' is invalid.", objectType.FullName));
+                throw new EPloyException(Utility.Text.Format("Object type '{0}' is invalid.", objectType.FullName));
             }
 
             TypeNamePair typeNamePair = new TypeNamePair(objectType, name);
             if (HasObjectPool(objectType, name))
             {
-                throw new EPloyException(string.Format("Already exist object pool '{0}'.", typeNamePair.ToString()));
+                throw new EPloyException(Utility.Text.Format("Already exist object pool '{0}'.", typeNamePair.ToString()));
             }
 
             ObjectPool objectPool = ReferencePool.Acquire<ObjectPool>();
@@ -162,7 +162,7 @@ namespace EPloy
 
             if (!typeof(ObjectBase).IsAssignableFrom(objectType))
             {
-                throw new EPloyException(string.Format("Object type '{0}' is invalid.", objectType.FullName));
+                throw new EPloyException(Utility.Text.Format("Object type '{0}' is invalid.", objectType.FullName));
             }
 
             return DestroyObjectPool(new TypeNamePair(objectType, name));

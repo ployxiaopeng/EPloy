@@ -15,7 +15,7 @@ namespace EPloy
 
             Entity entity = GameEntry.Game.CreateEntity("我就是这样啊");
 
-            GameEntry.Event.Subscribe(100, EvtTest);
+            GameEntry.Event.Subscribe(EventId.TestEvt, EvtTest);
             Debug.LogError(entity.Name);
 
             StartCoroutine(enumerator());

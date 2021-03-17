@@ -45,7 +45,7 @@
         {
             base.OnLoadAssetFailure(agent, status, errorMessage);
             m_MainTask.OnLoadAssetFailure(agent, LoadResStatus.DependencyError,
-                string.Format("Can not load dependency asset '{0}', internal status '{1}', internal error message '{2}'.",
+                Utility.Text.Format("Can not load dependency asset '{0}', internal status '{1}', internal error message '{2}'.",
                 AssetName, status.ToString(), errorMessage));
         }
     }

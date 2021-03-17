@@ -81,7 +81,7 @@ namespace EPloy.Res
         //         int targetReferenceCount = 0;
         //         if (m_ResourceLoader.m_AssetDependencyCount.TryGetValue(Target, out targetReferenceCount) && targetReferenceCount > 0)
         //         {
-        //             throw new EPloyException(string.Format("Asset target '{0}' reference count is '{1}' larger than 0.", Name, targetReferenceCount.ToString()));
+        //             throw new EPloyException(Utility.Text.Format("Asset target '{0}' reference count is '{1}' larger than 0.", Name, targetReferenceCount.ToString()));
         //         }
 
         //         foreach (object dependencyAsset in m_DependencyAssets)
@@ -93,7 +93,7 @@ namespace EPloy.Res
         //             }
         //             else
         //             {
-        //                 throw new EPloyException(string.Format("Asset target '{0}' dependency asset reference count is invalid.", Name));
+        //                 throw new EPloyException(Utility.Text.Format("Asset target '{0}' dependency asset reference count is invalid.", Name));
         //             }
         //         }
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EPloy.Res;
 
 
 namespace EPloy
@@ -11,7 +12,7 @@ namespace EPloy
     /// 数据表。
     /// </summary>
     /// <typeparam name="T">数据表行的类型。</typeparam>
-    public sealed class DataTable<T> : DataTableBase, IDataTable<T> where T : class, IDataRow, new()
+    public sealed class DataTable<T> : DataTableBase, IEnumerable<T> where T : class, IDataRow, new()
     {
         private readonly Dictionary<int, T> DataSet;
 
@@ -19,9 +20,10 @@ namespace EPloy
         /// 初始化数据表的新实例。
         /// </summary>
         /// <param name="name">数据表名称。</param>
-        public DataTable(string name)
-            : base(name)
+        public DataTable(string name, LoadBinaryCallbacks loadBinaryCallbacks)
         {
+            base.name = name;
+            base.loadBinaryCallbacks = loadBinaryCallbacks;
             DataSet = new Dictionary<int, T>();
         }
 
@@ -201,7 +203,7 @@ namespace EPloy
                     throw;
                 }
 
-                throw new EPloyException(string.Format("Can not parse data row bytes for data table '{0}' with exception '{1}'.", new TypeNamePair(typeof(T), Name).ToString(), exception.ToString()), exception);
+                throw new EPloyException(Utility.Text.Format("Can not parse data row bytes for data table '{0}' with exception '{1}'.", new TypeNamePair(typeof(T), Name).ToString(), exception.ToString()), exception);
             }
         }
 
@@ -249,19 +251,20 @@ namespace EPloy
         {
             return DataSet.Values.GetEnumerator();
         }
-        internal override void OnDestroy()
-        {
-            DataSet.Clear();
-        }
 
         private void InternalAddDataRow(T dataRow)
         {
             if (HasDataRow(dataRow.Id))
             {
-                throw new EPloyException(string.Format("Already exist '{0}' in data table '{1}'.", dataRow.Id.ToString(), new TypeNamePair(typeof(T), Name).ToString()));
+                throw new EPloyException(Utility.Text.Format("Already exist '{0}' in data table '{1}'.", dataRow.Id.ToString(), new TypeNamePair(typeof(T), Name).ToString()));
             }
 
             DataSet.Add(dataRow.Id, dataRow);
+        }
+
+        internal override void OnDestroy()
+        {
+            DataSet.Clear();
         }
     }
 }

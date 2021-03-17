@@ -20,7 +20,7 @@ namespace EPloy.Res
     /// <param name="loadType">资源加载方式。</param>
     /// <param name="length">资源大小。</param>
     /// <param name="hashCode">资源哈希值。</param>
-    public delegate void DecryptResCallback(byte[] bytes, int startIndex, int count, string name, string variant, string extension, string fileSystem, byte loadType, int length, int hashCode);
+    public delegate void DecryptResCallback(byte[] bytes, int startIndex, int count, string name, string variant, string extension, byte loadType, int length, int hashCode);
 
     /// <summary>
     /// 加载资源代理 信息存储的基类是LoadResTaskBase
@@ -204,7 +204,7 @@ namespace EPloy.Res
         private void OnLoadResReadBytesComplete(byte[] bytes)
         {
             ResInfo resInfo = Task.ResInfo;
-            DecryptResCallback(bytes, 0, bytes.Length, resInfo.ResName.Name, resInfo.ResName.Variant, resInfo.ResName.Extension, resInfo.FileSystemName, (byte)resInfo.LoadType, resInfo.Length, resInfo.HashCode);
+            DecryptResCallback(bytes, 0, bytes.Length, resInfo.ResName.Name, resInfo.ResName.Variant, resInfo.ResName.Extension, (byte)resInfo.LoadType, resInfo.Length, resInfo.HashCode);
             // ParseBytes(bytes);
         }
 
@@ -267,7 +267,7 @@ namespace EPloy.Res
 #elif UNITY_2017_1_OR_NEWER
             isError = UnityWebRequest.isNetworkError || UnityWebRequest.isHttpError;
 #endif
-            string msg = string.Format("Can not load asset bundle '{0}' with error message '{1}'.", Task.ResInfo.ResName.Name, isError ? UnityWebRequest.error : null);
+            string msg = Utility.Text.Format("Can not load asset bundle '{0}' with error message '{1}'.", Task.ResInfo.ResName.Name, isError ? UnityWebRequest.error : null);
             OnError(LoadResStatus.NotExist, msg);
         }
 
