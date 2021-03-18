@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EPloy
+namespace EPloy.Table
 {
     /// <summary>
     /// 数据表数据获取接口

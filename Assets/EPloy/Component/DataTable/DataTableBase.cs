@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EPloy
+namespace EPloy.Table
 {
     /// <summary>
     /// 数据表基类。
@@ -8,27 +8,19 @@ namespace EPloy
     public abstract class DataTableBase
     {
         protected string name;
-        protected Res.LoadBinaryCallbacks loadBinaryCallbacks;
+        /// <summary>
+        /// 把解析逻辑分出去
+        /// </summary>
+        protected IDataTableHelper dataTableHelper;
 
         /// <summary>
-        /// 获取数据表名称。
+        /// 获取数据表名称 考虑到多表的情况 这个不一定时表的名字
         /// </summary>
         public string Name
         {
             get
             {
                 return name;
-            }
-        }
-
-        /// <summary>
-        /// 获取数据表加载回调。
-        /// </summary>
-        public Res.LoadBinaryCallbacks LoadBinaryCallbacks
-        {
-            get
-            {
-                return loadBinaryCallbacks;
             }
         }
 
@@ -65,7 +57,7 @@ namespace EPloy
         /// <param name="dataTableAssetName">数据表资源名称。</param>
         public void ReadData(string dataTableAssetName)
         {
-
+            dataTableHelper.ReadData(dataTableAssetName);
         }
 
         /// <summary>
@@ -75,7 +67,7 @@ namespace EPloy
         /// <returns>是否解析数据表成功。</returns>
         public bool ParseData(byte[] dataTableBytes)
         {
-            return false;
+            return dataTableHelper.ParseData(dataTableBytes);
         }
 
         /// <summary>

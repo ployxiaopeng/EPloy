@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using EPloy.Res;
 
 
-namespace EPloy
+namespace EPloy.Table
 {
 
     /// <summary>
@@ -20,10 +20,10 @@ namespace EPloy
         /// 初始化数据表的新实例。
         /// </summary>
         /// <param name="name">数据表名称。</param>
-        public DataTable(string name, LoadBinaryCallbacks loadBinaryCallbacks)
+        public DataTable(string name)
         {
             base.name = name;
-            base.loadBinaryCallbacks = loadBinaryCallbacks;
+            base.dataTableHelper = new DataTableHelper(this);
             DataSet = new Dictionary<int, T>();
         }
 
