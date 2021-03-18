@@ -2,7 +2,6 @@
 using System;
 using System.IO;
 using System.Text;
-using UnityEngine;
 using EPloy.Res;
 
 namespace EPloy.Table

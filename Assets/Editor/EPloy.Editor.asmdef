@@ -1,0 +1,17 @@
+{
+    "name": "EPloy.Editor",
+    "references": [
+        "GUID:b01534063fc953e409c51df30f9cc744"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
