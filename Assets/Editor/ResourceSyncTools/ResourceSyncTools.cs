@@ -14,10 +14,10 @@ namespace EPloy.Editor.ResourceTools
         private const float ButtonSpace = 5f;
         private ResourceSyncToolsController m_Controller = null;
 
-        [MenuItem("EPloy/Res Tools/Res Sync Tools", false, 44)]
+        [MenuItem("EPloy/ResTools/同步", false, 44)]
         private static void Open()
         {
-            ResourceSyncTools window = GetWindow<ResourceSyncTools>("Resource Sync Tools", true);
+            ResourceSyncTools window = GetWindow<ResourceSyncTools>("资源同步工具", true);
 #if UNITY_2019_3_OR_NEWER
             window.minSize = new Vector2(400, 195f);
 #else
@@ -88,12 +88,12 @@ namespace EPloy.Editor.ResourceTools
 
         private void OnLoadingResource(int index, int count)
         {
-            //EditorUtility.DisplayProgressBar("Loading Resources", Utility.Text.Format("Loading resources, {0}/{1} loaded.", index.ToString(), count.ToString()), (float)index / count);
+            EditorUtility.DisplayProgressBar("Loading Resources", Utility.Text.Format("Loading resources, {0}/{1} loaded.", index.ToString(), count.ToString()), (float)index / count);
         }
 
         private void OnLoadingAsset(int index, int count)
         {
-            //EditorUtility.DisplayProgressBar("Loading Assets", Utility.Text.Format("Loading assets, {0}/{1} loaded.", index.ToString(), count.ToString()), (float)index / count);
+            EditorUtility.DisplayProgressBar("Loading Assets", Utility.Text.Format("Loading assets, {0}/{1} loaded.", index.ToString(), count.ToString()), (float)index / count);
         }
 
         private void OnCompleted()
@@ -103,7 +103,7 @@ namespace EPloy.Editor.ResourceTools
 
         private void OnResourceDataChanged(int index, int count, string assetName)
         {
-            //EditorUtility.DisplayProgressBar("Processing Assets", Utility.Text.Format("({0}/{1}) {2}", index.ToString(), count.ToString(), assetName), (float)index / count);
+            EditorUtility.DisplayProgressBar("Processing Assets", Utility.Text.Format("({0}/{1}) {2}", index.ToString(), count.ToString(), assetName), (float)index / count);
         }
     }
 }

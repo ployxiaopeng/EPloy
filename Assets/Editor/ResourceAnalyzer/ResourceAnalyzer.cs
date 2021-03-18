@@ -41,10 +41,10 @@ namespace EPloy.Editor.ResourceTools
         private string[][] m_CachedCircularDependencyDatas = null;
         private Vector2 m_CircularDependencyScroll = Vector2.zero;
 
-        [MenuItem("Game Framework/Resource Tools/Resource Analyzer", false, 42)]
+        [MenuItem("EPloy/ResTools/分析", false, 42)]
         private static void Open()
         {
-            ResourceAnalyzer window = GetWindow<ResourceAnalyzer>("Resource Analyzer", true);
+            ResourceAnalyzer window = GetWindow<ResourceAnalyzer>("资源分析", true);
             window.minSize = new Vector2(800f, 600f);
         }
 
@@ -398,7 +398,7 @@ namespace EPloy.Editor.ResourceTools
                 EditorGUILayout.BeginVertical(GUILayout.Width(position.width * 0.6f - 14f));
                 {
                     GUILayout.Space(5f);
-                    EditorGUILayout.LabelField(Utility.Text.Format("Host Assets ({0})", m_SelectedHostAssets.Length.ToString()), EditorStyles.boldLabel);
+                    //  EditorGUILayout.LabelField(Utility.Text.Format("Host Assets ({0})", m_SelectedHostAssets.Length.ToString()), EditorStyles.boldLabel);
                     EditorGUILayout.BeginVertical("box", GUILayout.Height(position.height - 68f));
                     {
                         m_HostAssetsScroll = EditorGUILayout.BeginScrollView(m_HostAssetsScroll);

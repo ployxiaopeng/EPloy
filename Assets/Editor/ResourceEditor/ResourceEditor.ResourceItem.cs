@@ -17,12 +17,12 @@ namespace EPloy.Editor.ResourceTools
             {
                 if (resource == null)
                 {
-                    throw new GameFrameworkException("Resource is invalid.");
+                    throw new EPloyException("Resource is invalid.");
                 }
 
                 if (folder == null)
                 {
-                    throw new GameFrameworkException("Resource folder is invalid.");
+                    throw new EPloyException("Resource folder is invalid.");
                 }
 
                 Name = name;

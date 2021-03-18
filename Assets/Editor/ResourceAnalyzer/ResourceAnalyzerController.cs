@@ -56,15 +56,15 @@ namespace EPloy.Editor.ResourceTools
             m_CircularDependencyDatas = new List<string[]>();
         }
 
-        public event GameFrameworkAction<int, int> OnLoadingResource = null;
+        public event Action<int, int> OnLoadingResource = null;
 
-        public event GameFrameworkAction<int, int> OnLoadingAsset = null;
+        public event Action<int, int> OnLoadingAsset = null;
 
-        public event GameFrameworkAction OnLoadCompleted = null;
+        public event Action OnLoadCompleted = null;
 
-        public event GameFrameworkAction<int, int> OnAnalyzingAsset = null;
+        public event Action<int, int> OnAnalyzingAsset = null;
 
-        public event GameFrameworkAction OnAnalyzeCompleted = null;
+        public event Action OnAnalyzeCompleted = null;
 
         public void Clear()
         {

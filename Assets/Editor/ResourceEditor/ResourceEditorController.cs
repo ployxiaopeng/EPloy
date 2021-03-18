@@ -1,5 +1,4 @@
-﻿
-using EPloy;
+﻿using EPloy;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -196,15 +195,15 @@ namespace EPloy.Editor.ResourceTools
             }
         }
 
-        public event GameFrameworkAction<int, int> OnLoadingResource = null;
+        public event EPloyAction<int, int> OnLoadingResource = null;
 
-        public event GameFrameworkAction<int, int> OnLoadingAsset = null;
+        public event EPloyAction<int, int> OnLoadingAsset = null;
 
-        public event GameFrameworkAction OnLoadCompleted = null;
+        public event EPloyAction OnLoadCompleted = null;
 
-        public event GameFrameworkAction<SourceAsset[]> OnAssetAssigned = null;
+        public event EPloyAction<SourceAsset[]> OnAssetAssigned = null;
 
-        public event GameFrameworkAction<SourceAsset[]> OnAssetUnassigned = null;
+        public event EPloyAction<SourceAsset[]> OnAssetUnassigned = null;
 
         public bool Load()
         {

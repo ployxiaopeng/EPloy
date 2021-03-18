@@ -17,28 +17,9 @@ namespace EPloy.Editor.ResourceTools
         LoadFromMemory,
 
         /// <summary>
-        /// 使用内存快速解密方式加载。
-        /// </summary>
-        LoadFromMemoryAndQuickDecrypt,
-
-        /// <summary>
-        /// 使用内存解密方式加载。
-        /// </summary>
-        LoadFromMemoryAndDecrypt,
-
-        /// <summary>
         /// 使用二进制方式加载。
         /// </summary>
         LoadFromBinary,
 
-        /// <summary>
-        /// 使用二进制快速解密方式加载。
-        /// </summary>
-        LoadFromBinaryAndQuickDecrypt,
-
-        /// <summary>
-        /// 使用二进制解密方式加载。
-        /// </summary>
-        LoadFromBinaryAndDecrypt
     }
 }

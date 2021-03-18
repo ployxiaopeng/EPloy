@@ -66,20 +66,20 @@ namespace EPloy.Editor
         /// <param name="folder">要打开的文件夹的路径。</param>
         public static void Execute(string folder)
         {
-            // folder = Utility.Text.Format("\"{0}\"", folder);
-            // switch (Application.platform)
-            // {
-            //     case RuntimePlatform.WindowsEditor:
-            //         Process.Start("Explorer.exe", folder.Replace('/', '\\'));
-            //         break;
+            folder = Utility.Text.Format("\"{0}\"", folder);
+            switch (Application.platform)
+            {
+                case RuntimePlatform.WindowsEditor:
+                    Process.Start("Explorer.exe", folder.Replace('/', '\\'));
+                    break;
 
-            //     case RuntimePlatform.OSXEditor:
-            //         Process.Start("open", folder);
-            //         break;
+                case RuntimePlatform.OSXEditor:
+                    Process.Start("open", folder);
+                    break;
 
-            //     default:
-            //         throw new (Utility.Text.Format("Not support open folder on '{0}' platform.", Application.platform.ToString()));
-            // }
+                default:
+                    throw new EPloyException(Utility.Text.Format("Not support open folder on '{0}' platform.", Application.platform.ToString()));
+            }
         }
     }
 }

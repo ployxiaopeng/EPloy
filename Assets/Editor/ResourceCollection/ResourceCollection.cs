@@ -26,7 +26,7 @@ namespace EPloy.Editor.ResourceTools
 
         public ResourceCollection()
         {
-            m_ConfigurationPath = Type.GetConfigurationPath<ResourceCollectionConfigPathAttribute>() ?? Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "GameFramework/Configs/ResourceCollection.xml"));
+            // m_ConfigurationPath = Type.GetConfigurationPath<ResourceCollectionConfigPathAttribute>() ?? Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "GameFramework/Configs/ResourceCollection.xml"));
             m_Resources = new SortedDictionary<string, Resource>(StringComparer.Ordinal);
             m_Assets = new SortedDictionary<string, Asset>(StringComparer.Ordinal);
         }
@@ -47,11 +47,11 @@ namespace EPloy.Editor.ResourceTools
             }
         }
 
-        public event GameFrameworkAction<int, int> OnLoadingResource = null;
+        public event Action<int, int> OnLoadingResource = null;
 
-        public event GameFrameworkAction<int, int> OnLoadingAsset = null;
+        public event Action<int, int> OnLoadingAsset = null;
 
-        public event GameFrameworkAction OnLoadCompleted = null;
+        public event Action OnLoadCompleted = null;
 
         public void Clear()
         {
@@ -114,7 +114,7 @@ namespace EPloy.Editor.ResourceTools
                     string[] resourceGroups = xmlNode.Attributes.GetNamedItem("ResourceGroups") != null ? xmlNode.Attributes.GetNamedItem("ResourceGroups").Value.Split(',') : null;
                     if (!AddResource(name, variant, fileSystem, (LoadType)loadType, packed, resourceGroups))
                     {
-                        Debug.LogWarning(Utility.Text.Format("Can not add resource '{0}'.", GetResourceFullName(name, variant)));
+                       // Debug.LogWarning(Utility.Text.Format("Can not add resource '{0}'.", GetResourceFullName(name, variant)));
                         continue;
                     }
                 }
@@ -139,7 +139,7 @@ namespace EPloy.Editor.ResourceTools
                     string variant = xmlNode.Attributes.GetNamedItem("ResourceVariant") != null ? xmlNode.Attributes.GetNamedItem("ResourceVariant").Value : null;
                     if (!AssignAsset(guid, name, variant))
                     {
-                        Debug.LogWarning(Utility.Text.Format("Can not assign asset '{0}' to resource '{1}'.", guid, GetResourceFullName(name, variant)));
+                       // Debug.LogWarning(Utility.Text.Format("Can not assign asset '{0}' to resource '{1}'.", guid, GetResourceFullName(name, variant)));
                         continue;
                     }
                 }
@@ -389,7 +389,7 @@ namespace EPloy.Editor.ResourceTools
                 return false;
             }
 
-            if ((loadType == LoadType.LoadFromBinary || loadType == LoadType.LoadFromBinaryAndQuickDecrypt || loadType == LoadType.LoadFromBinaryAndDecrypt) && resource.GetAssets().Length > 1)
+            if ((loadType == LoadType.LoadFromBinary) && resource.GetAssets().Length > 1)
             {
                 return false;
             }
@@ -542,7 +542,7 @@ namespace EPloy.Editor.ResourceTools
 
         private string GetResourceFullName(string name, string variant)
         {
-            return !string.IsNullOrEmpty(variant) ? Utility.Text.Format("{0}.{1}", name, variant) : name;
+            return "";//!string.IsNullOrEmpty(variant) ? Utility.Text.Format("{0}.{1}", name, variant) : name;
         }
 
         private bool IsValidResourceName(string name, string variant)

@@ -1,5 +1,4 @@
-﻿
-using EPloy;
+﻿using EPloy;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ namespace EPloy.Editor.ResourceTools
         {
             if (folder == null)
             {
-                throw new GameFrameworkException("Source asset folder is invalid.");
+                throw new EPloyException("Source asset folder is invalid.");
             }
 
             Guid = guid;

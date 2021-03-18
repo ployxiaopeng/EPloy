@@ -80,7 +80,7 @@ namespace EPloy.Editor.ResourceTools
             {
                 if (string.IsNullOrEmpty(name))
                 {
-                    throw new GameFrameworkException("Resource folder name is invalid.");
+                    throw new EPloyException("Resource folder name is invalid.");
                 }
 
                 foreach (ResourceFolder folder in m_Folders)
@@ -98,13 +98,13 @@ namespace EPloy.Editor.ResourceTools
             {
                 if (string.IsNullOrEmpty(name))
                 {
-                    throw new GameFrameworkException("Resource folder name is invalid.");
+                    throw new EPloyException("Resource folder name is invalid.");
                 }
 
                 ResourceFolder folder = GetFolder(name);
                 if (folder != null)
                 {
-                    throw new GameFrameworkException("Resource folder is already exist.");
+                    throw new EPloyException("Resource folder is already exist.");
                 }
 
                 folder = new ResourceFolder(name, this);
@@ -122,7 +122,7 @@ namespace EPloy.Editor.ResourceTools
             {
                 if (string.IsNullOrEmpty(name))
                 {
-                    throw new GameFrameworkException("Resource item name is invalid.");
+                    throw new EPloyException("Resource item name is invalid.");
                 }
 
                 foreach (ResourceItem item in m_Items)
@@ -141,7 +141,7 @@ namespace EPloy.Editor.ResourceTools
                 ResourceItem item = GetItem(name);
                 if (item != null)
                 {
-                    throw new GameFrameworkException("Resource item is already exist.");
+                    throw new EPloyException("Resource item is already exist.");
                 }
 
                 item = new ResourceItem(name, resource, this);

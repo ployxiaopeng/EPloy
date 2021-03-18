@@ -38,10 +38,10 @@ namespace EPloy.Editor.ResourceTools
         private int m_CurrentResourceRowOnDraw = 0;
         private int m_CurrentSourceRowOnDraw = 0;
 
-        [MenuItem("Game Framework/Resource Tools/Resource Editor", false, 41)]
+        [MenuItem("EPloy/ResTools/编辑", false, 41)]
         private static void Open()
         {
-            ResourceEditor window = GetWindow<ResourceEditor>("Resource Editor", true);
+            ResourceEditor window = GetWindow<ResourceEditor>("资源编辑", true);
             window.minSize = new Vector2(1400f, 600f);
         }
 
@@ -56,7 +56,7 @@ namespace EPloy.Editor.ResourceTools
 
             m_MenuState = MenuState.Normal;
             m_SelectedResource = null;
-            m_ResourceRoot = new ResourceFolder("Resources", null);
+            m_ResourceRoot = new ResourceFolder("Res", null);
             m_ExpandedResourceFolderNames = new HashSet<string>();
             m_SelectedAssetsInSelectedResource = new HashSet<Asset>();
             m_ExpandedSourceFolders = new HashSet<SourceFolder>();

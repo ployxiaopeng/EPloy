@@ -41,7 +41,7 @@ namespace EPloy.Editor.ResourceTools
             {
                 if (string.IsNullOrEmpty(buildReportPath))
                 {
-                    throw new GameFrameworkException("Build report path is invalid.");
+                    throw new EPloyException("Build report path is invalid.");
                 }
 
                 m_BuildReportName = Utility.Path.GetRegularPath(Path.Combine(buildReportPath, BuildReportName));
@@ -93,7 +93,7 @@ namespace EPloy.Editor.ResourceTools
                 XmlDocument xmlDocument = new XmlDocument();
                 xmlDocument.AppendChild(xmlDocument.CreateXmlDeclaration("1.0", "UTF-8", null));
 
-                XmlElement xmlRoot = xmlDocument.CreateElement("UnityGameFramework");
+                XmlElement xmlRoot = xmlDocument.CreateElement("EPloy");
                 xmlDocument.AppendChild(xmlRoot);
 
                 XmlElement xmlBuildReport = xmlDocument.CreateElement("BuildReport");
@@ -111,7 +111,7 @@ namespace EPloy.Editor.ResourceTools
                 xmlElement = xmlDocument.CreateElement("GameIdentifier");
                 xmlElement.InnerText = m_GameIdentifier;
                 xmlSummary.AppendChild(xmlElement);
-                xmlElement = xmlDocument.CreateElement("GameFrameworkVersion");
+                xmlElement = xmlDocument.CreateElement("EPloyVersion");
                 xmlElement.InnerText = m_GameFrameworkVersion;
                 xmlSummary.AppendChild(xmlElement);
                 xmlElement = xmlDocument.CreateElement("UnityVersion");
@@ -167,7 +167,7 @@ namespace EPloy.Editor.ResourceTools
                     }
 
                     xmlAttribute = xmlDocument.CreateAttribute("Extension");
-                    xmlAttribute.Value = GetExtension(resourceData);
+                   // xmlAttribute.Value = GetExtension(resourceData);
                     xmlResource.Attributes.SetNamedItem(xmlAttribute);
 
                     if (resourceData.FileSystem != null)

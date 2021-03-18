@@ -56,7 +56,7 @@ namespace EPloy.Editor.ResourceTools
             {
                 get
                 {
-                    return m_LoadType == LoadType.LoadFromBinary || m_LoadType == LoadType.LoadFromBinaryAndQuickDecrypt || m_LoadType == LoadType.LoadFromBinaryAndDecrypt;
+                    return m_LoadType == LoadType.LoadFromBinary;
                 }
             }
 

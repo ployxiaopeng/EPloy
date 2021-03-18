@@ -60,7 +60,7 @@ namespace EPloy.Editor.ResourceTools
         {
             get
             {
-                return LoadType == LoadType.LoadFromBinary || LoadType == LoadType.LoadFromBinaryAndQuickDecrypt || LoadType == LoadType.LoadFromBinaryAndDecrypt;
+                return LoadType == LoadType.LoadFromBinary;
             }
         }
 
