@@ -5,7 +5,7 @@
       <ProductName>EPloy</ProductName>
       <CompanyName>DefaultCompany</CompanyName>
       <GameIdentifier>com.DefaultCompany.EPloy</GameIdentifier>
-      <EPloyVersion>感谢E大</EPloyVersion>
+      <EPloyVersion>GameFramework</EPloyVersion>
       <UnityVersion>2019.3.3f1</UnityVersion>
       <ApplicableGameVersion>0.1</ApplicableGameVersion>
       <InternalResourceVersion>0</InternalResourceVersion>

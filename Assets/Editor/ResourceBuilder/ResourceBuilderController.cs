@@ -22,7 +22,6 @@ namespace EPloy.Editor.ResourceTools
         private readonly ResourceAnalyzerController m_ResourceAnalyzerController;
         private readonly SortedDictionary<string, ResourceData> m_ResourceDatas;
         private readonly BuildReport m_BuildReport;
-        private IBuildEventHandler m_BuildEventHandler;
 
         public ResourceBuilderController()
         {
@@ -514,28 +513,10 @@ namespace EPloy.Editor.ResourceTools
             try
             {
                 m_BuildReport.LogInfo("Build Start Time: {0}", DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss.fff"));
-
-                if (m_BuildEventHandler != null)
-                {
-                    m_BuildReport.LogInfo("Execute build event handler 'OnPreprocessAllPlatforms'...");
-                    m_BuildEventHandler.OnPreprocessAllPlatforms(ProductName, CompanyName, GameIdentifier, GameFrameworkVersion, UnityVersion, ApplicableGameVersion, InternalResourceVersion,
-                        Platforms, AssetBundleZip, ZipHelperTypeName, AdditionalZipSelected, ForceRebuildAssetBundleSelected, BuildEventHandlerTypeName, OutputDirectory, buildAssetBundleOptions,
-                        WorkingPath, OutputPackageSelected, OutputPackagePath, OutputFullSelected, OutputFullPath, OutputPackedSelected, OutputPackedPath, BuildReportPath);
-                }
-
                 m_BuildReport.LogInfo("Start prepare resource collection...");
                 if (!m_ResourceCollection.Load())
                 {
                     m_BuildReport.LogError("Can not parse 'ResourceCollection.xml', please use 'Resource Editor' tool first.");
-
-                    if (m_BuildEventHandler != null)
-                    {
-                        m_BuildReport.LogInfo("Execute build event handler 'OnPostprocessAllPlatforms'...");
-                        m_BuildEventHandler.OnPostprocessAllPlatforms(ProductName, CompanyName, GameIdentifier, GameFrameworkVersion, UnityVersion, ApplicableGameVersion, InternalResourceVersion,
-                            Platforms, AssetBundleZip, ZipHelperTypeName, AdditionalZipSelected, ForceRebuildAssetBundleSelected, BuildEventHandlerTypeName, OutputDirectory, buildAssetBundleOptions,
-                            WorkingPath, OutputPackageSelected, OutputPackagePath, OutputFullSelected, OutputFullPath, OutputPackedSelected, OutputPackedPath, BuildReportPath);
-                    }
-
                     m_BuildReport.SaveReport();
                     return false;
                 }
@@ -543,15 +524,6 @@ namespace EPloy.Editor.ResourceTools
                 if (Platforms == Platform.Undefined)
                 {
                     m_BuildReport.LogError("Platform undefined.");
-
-                    if (m_BuildEventHandler != null)
-                    {
-                        m_BuildReport.LogInfo("Execute build event handler 'OnPostprocessAllPlatforms'...");
-                        m_BuildEventHandler.OnPostprocessAllPlatforms(ProductName, CompanyName, GameIdentifier, GameFrameworkVersion, UnityVersion, ApplicableGameVersion, InternalResourceVersion,
-                            Platforms, AssetBundleZip, ZipHelperTypeName, AdditionalZipSelected, ForceRebuildAssetBundleSelected, BuildEventHandlerTypeName, OutputDirectory, buildAssetBundleOptions,
-                            WorkingPath, OutputPackageSelected, OutputPackagePath, OutputFullSelected, OutputFullPath, OutputPackedSelected, OutputPackedPath, BuildReportPath);
-                    }
-
                     m_BuildReport.SaveReport();
                     return false;
                 }
@@ -570,69 +542,12 @@ namespace EPloy.Editor.ResourceTools
                 if (!PrepareBuildData(out assetBundleBuildDatas, out assetBundleResourceDatas, out binaryResourceDatas))
                 {
                     m_BuildReport.LogError("Prepare resource build data failure.");
-
-                    if (m_BuildEventHandler != null)
-                    {
-                        m_BuildReport.LogInfo("Execute build event handler 'OnPostprocessAllPlatforms'...");
-                        m_BuildEventHandler.OnPostprocessAllPlatforms(ProductName, CompanyName, GameIdentifier, GameFrameworkVersion, UnityVersion, ApplicableGameVersion, InternalResourceVersion,
-                            Platforms, AssetBundleZip, ZipHelperTypeName, AdditionalZipSelected, ForceRebuildAssetBundleSelected, BuildEventHandlerTypeName, OutputDirectory, buildAssetBundleOptions,
-                            WorkingPath, OutputPackageSelected, OutputPackagePath, OutputFullSelected, OutputFullPath, OutputPackedSelected, OutputPackedPath, BuildReportPath);
-                    }
-
                     m_BuildReport.SaveReport();
                     return false;
                 }
 
                 m_BuildReport.LogInfo("Prepare resource build data complete.");
                 m_BuildReport.LogInfo("Start build resources for selected platforms...");
-
-                bool watchResult = m_BuildEventHandler == null || !m_BuildEventHandler.ContinueOnFailure;
-                bool isSuccess = false;
-                isSuccess = BuildResources(Platform.Windows, assetBundleBuildDatas, buildAssetBundleOptions, assetBundleResourceDatas, binaryResourceDatas);
-
-                if (!watchResult || isSuccess)
-                {
-                    isSuccess = BuildResources(Platform.Windows64, assetBundleBuildDatas, buildAssetBundleOptions, assetBundleResourceDatas, binaryResourceDatas);
-                }
-
-                if (!watchResult || isSuccess)
-                {
-                    isSuccess = BuildResources(Platform.MacOS, assetBundleBuildDatas, buildAssetBundleOptions, assetBundleResourceDatas, binaryResourceDatas);
-                }
-
-                if (!watchResult || isSuccess)
-                {
-                    isSuccess = BuildResources(Platform.Linux, assetBundleBuildDatas, buildAssetBundleOptions, assetBundleResourceDatas, binaryResourceDatas);
-                }
-
-                if (!watchResult || isSuccess)
-                {
-                    isSuccess = BuildResources(Platform.IOS, assetBundleBuildDatas, buildAssetBundleOptions, assetBundleResourceDatas, binaryResourceDatas);
-                }
-
-                if (!watchResult || isSuccess)
-                {
-                    isSuccess = BuildResources(Platform.Android, assetBundleBuildDatas, buildAssetBundleOptions, assetBundleResourceDatas, binaryResourceDatas);
-                }
-
-                if (!watchResult || isSuccess)
-                {
-                    isSuccess = BuildResources(Platform.WindowsStore, assetBundleBuildDatas, buildAssetBundleOptions, assetBundleResourceDatas, binaryResourceDatas);
-                }
-
-                if (!watchResult || isSuccess)
-                {
-                    isSuccess = BuildResources(Platform.WebGL, assetBundleBuildDatas, buildAssetBundleOptions, assetBundleResourceDatas, binaryResourceDatas);
-                }
-
-                if (m_BuildEventHandler != null)
-                {
-                    m_BuildReport.LogInfo("Execute build event handler 'OnPostprocessAllPlatforms'...");
-                    m_BuildEventHandler.OnPostprocessAllPlatforms(ProductName, CompanyName, GameIdentifier, GameFrameworkVersion, UnityVersion, ApplicableGameVersion, InternalResourceVersion,
-                        Platforms, AssetBundleZip, ZipHelperTypeName, AdditionalZipSelected, ForceRebuildAssetBundleSelected, BuildEventHandlerTypeName, OutputDirectory, buildAssetBundleOptions,
-                        WorkingPath, OutputPackageSelected, OutputPackagePath, OutputFullSelected, OutputFullPath, OutputPackedSelected, OutputPackedPath, BuildReportPath);
-                }
-
                 m_BuildReport.LogInfo("Build resources for selected platforms complete.");
                 m_BuildReport.SaveReport();
 
@@ -750,50 +665,16 @@ namespace EPloy.Editor.ResourceTools
                 Directory.CreateDirectory(workingPath);
             }
 
-            if (m_BuildEventHandler != null)
-            {
-                m_BuildReport.LogInfo("Execute build event handler 'OnPreprocessPlatform' for '{0}'...", platformName);
-                m_BuildEventHandler.OnPreprocessPlatform(platform, workingPath, OutputPackageSelected, outputPackagePath, OutputFullSelected, outputFullPath, OutputPackedSelected, outputPackedPath);
-            }
-
             // Build AssetBundles
             m_BuildReport.LogInfo("Unity start build asset bundles for '{0}'...", platformName);
             AssetBundleManifest assetBundleManifest = BuildPipeline.BuildAssetBundles(workingPath, assetBundleBuildDatas, buildAssetBundleOptions, GetBuildTarget(platform));
             if (assetBundleManifest == null)
             {
                 m_BuildReport.LogError("Build asset bundles for '{0}' failure.", platformName);
-
-                if (m_BuildEventHandler != null)
-                {
-                    m_BuildReport.LogInfo("Execute build event handler 'OnPostprocessPlatform' for '{0}'...", platformName);
-                    m_BuildEventHandler.OnPostprocessPlatform(platform, workingPath, OutputPackageSelected, outputPackagePath, OutputFullSelected, outputFullPath, OutputPackedSelected, outputPackedPath, false);
-                }
-
                 return false;
             }
 
-            if (m_BuildEventHandler != null)
-            {
-                m_BuildReport.LogInfo("Execute build event handler 'OnBuildAssetBundlesComplete' for '{0}'...", platformName);
-                m_BuildEventHandler.OnBuildAssetBundlesComplete(platform, workingPath, OutputPackageSelected, outputPackagePath, OutputFullSelected, outputFullPath, OutputPackedSelected, outputPackedPath, assetBundleManifest);
-            }
-
             m_BuildReport.LogInfo("Unity build asset bundles for '{0}' complete.", platformName);
-
-            // Create FileSystems
-            m_BuildReport.LogInfo("Start create file system for '{0}'...", platformName);
-
-            if (OutputPackageSelected)
-            {
-                //CreateFileSystems(m_ResourceDatas.Values, outputPackagePath, m_OutputPackageFileSystems);
-            }
-
-            if (OutputPackedSelected)
-            {
-                //CreateFileSystems(GetPackedResourceDatas(), outputPackedPath, m_OutputPackedFileSystems);
-            }
-
-            m_BuildReport.LogInfo("Create file system for '{0}' complete.", platformName);
 
             // Process AssetBundles
             for (int i = 0; i < assetBundleResourceDatas.Length; i++)
@@ -804,12 +685,6 @@ namespace EPloy.Editor.ResourceTools
                     if (ProcessingAssetBundle(fullName, (float)(i + 1) / assetBundleResourceDatas.Length))
                     {
                         m_BuildReport.LogWarning("The build has been canceled by user.");
-
-                        if (m_BuildEventHandler != null)
-                        {
-                            m_BuildReport.LogInfo("Execute build event handler 'OnPostprocessPlatform' for '{0}'...", platformName);
-                            m_BuildEventHandler.OnPostprocessPlatform(platform, workingPath, OutputPackageSelected, outputPackagePath, OutputFullSelected, outputFullPath, OutputPackedSelected, outputPackedPath, false);
-                        }
 
                         return false;
                     }
@@ -834,13 +709,6 @@ namespace EPloy.Editor.ResourceTools
                     if (ProcessingBinary(fullName, (float)(i + 1) / binaryResourceDatas.Length))
                     {
                         m_BuildReport.LogWarning("The build has been canceled by user.");
-
-                        if (m_BuildEventHandler != null)
-                        {
-                            m_BuildReport.LogInfo("Execute build event handler 'OnPostprocessPlatform' for '{0}'...", platformName);
-                            m_BuildEventHandler.OnPostprocessPlatform(platform, workingPath, OutputPackageSelected, outputPackagePath, OutputFullSelected, outputFullPath, OutputPackedSelected, outputPackedPath, false);
-                        }
-
                         return false;
                     }
                 }
@@ -859,23 +727,12 @@ namespace EPloy.Editor.ResourceTools
             {
                 VersionListData versionListData = ProcessUpdatableVersionList(outputFullPath, platform);
                 m_BuildReport.LogInfo("Process updatable version list for '{0}' complete, updatable version list path is '{1}', length is '{2}', hash code is '{3}[0x{3:X8}]', compressed length is '{4}', compressed hash code is '{5}[0x{5:X8}]'.", platformName, versionListData.Path, versionListData.Length.ToString(), versionListData.HashCode, versionListData.CompressedLength.ToString(), versionListData.CompressedHashCode);
-                if (m_BuildEventHandler != null)
-                {
-                    m_BuildReport.LogInfo("Execute build event handler 'OnOutputUpdatableVersionListData' for '{0}'...", platformName);
-                    m_BuildEventHandler.OnOutputUpdatableVersionListData(platform, versionListData.Path, versionListData.Length, versionListData.HashCode, versionListData.CompressedLength, versionListData.CompressedHashCode);
-                }
             }
 
             if (OutputPackedSelected)
             {
                 ProcessReadOnlyVersionList(outputPackedPath, platform);
                 m_BuildReport.LogInfo("Process read only version list for '{0}' complete.", platformName);
-            }
-
-            if (m_BuildEventHandler != null)
-            {
-                m_BuildReport.LogInfo("Execute build event handler 'OnPostprocessPlatform' for '{0}'...", platformName);
-                m_BuildEventHandler.OnPostprocessPlatform(platform, workingPath, OutputPackageSelected, outputPackagePath, OutputFullSelected, outputFullPath, OutputPackedSelected, outputPackedPath, true);
             }
 
             if (ProcessResourceComplete != null)

@@ -68,7 +68,6 @@
      <Compile Include="Assets\Editor\ResourceAnalyzer\ResourceAnalyzerController.cs" />
      <Compile Include="Assets\Editor\ResourceAnalyzer\ScatteredAssetsOrder.cs" />
      <Compile Include="Assets\Editor\ResourceBuilder\AssetBundleCompressionType.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\IBuildEventHandler.cs" />
      <Compile Include="Assets\Editor\ResourceBuilder\Platform.cs" />
      <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilder.cs" />
      <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilderController.AssetData.cs" />
