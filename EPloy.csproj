@@ -2,8 +2,6 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-    <CscToolPath>C:\Program Files\Unity2019.3.3\Editor\Data\Tools\RoslynScripts</CscToolPath>
-    <CscToolExe>unity_csc.bat</CscToolExe>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{F696D544-6D9A-E8EC-0A85-3E8BFE720CB0}</ProjectGuid>
+    <ProjectGuid>{44d596f6-9a6d-ece8-0a85-3e8bfe720cb0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>EPloy</AssemblyName>
@@ -47,19 +45,10 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="UnityEngine">
-      <HintPath>C:\Program Files\Unity2019.3.3\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>C:\Program Files\Unity2019.3.3\Editor\Data\Managed/UnityEditor.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
      <Compile Include="Assets\EPloy\Base\BaseAttribute.cs" />
      <Compile Include="Assets\EPloy\Base\Component\Component.cs" />
      <Compile Include="Assets\EPloy\Base\Component\IComponent.cs" />
      <Compile Include="Assets\EPloy\Base\Component\WithIdComponent.cs" />
-     <Compile Include="Assets\EPloy\Base\Config\Config.cs" />
      <Compile Include="Assets\EPloy\Base\EPloyAction.cs" />
      <Compile Include="Assets\EPloy\Base\EPloyException.cs" />
      <Compile Include="Assets\EPloy\Base\EPloySerializer.cs" />
@@ -153,15 +142,13 @@
      <Compile Include="Assets\EPloy\Component\UI\UIEnum.cs" />
      <Compile Include="Assets\EPloy\Component\UI\UIForm.cs" />
      <Compile Include="Assets\EPloy\Component\UI\UIGroup.cs" />
+     <Compile Include="Assets\EPloy\Config\Config.cs" />
      <Compile Include="Assets\EPloy\Entity\GameEntry.cs" />
      <Compile Include="Assets\EPloy\Event\EventId.cs" />
      <Compile Include="Assets\EPloy\Event\TestEvt.cs" />
      <Compile Include="Assets\EPloy\Init.cs" />
- <Reference Include="UnityEditor.UI">
- <HintPath>D:/EPloy/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UI">
- <HintPath>D:/EPloy/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <Reference Include="UnityEngine">
+ <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -339,6 +326,9 @@
  </Reference>
  <Reference Include="UnityEngine.XRModule">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor">
+ <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEditor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.VR">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
@@ -698,8 +688,18 @@
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
  </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="UnityEditor.UI.csproj">
+      <Project>{ba2c5cd9-4f11-8171-b93c-96e5feda454e}</Project>
+      <Name>UnityEditor.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.UI.csproj">
+      <Project>{a6c50d23-ca9f-e45c-35a9-0bbdb45232ab}</Project>
+      <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
