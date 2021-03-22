@@ -1,12 +1,4 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2021 Jiang Yin. All rights reserved.
-// Homepage: https://gameframework.cn/
-// Feedback: mailto:ellan@gameframework.cn
-//------------------------------------------------------------
-
-using EPloy;
-using EPloy.Res;
+﻿using EPloy.Res;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,36 +12,25 @@ namespace EPloy.Editor.ResourceTools
     {
         private const string DefaultResourcePackName = "ResPack";
         private const string DefaultExtension = "dat";
-        private const string NoneOptionName = "<None>";
         private static readonly string[] EmptyStringArray = new string[0];
-       // private static readonly UpdatableVersionList.Resource[] EmptyResourceArray = new UpdatableVersionList.Resource[0];
+        private static readonly UpdatableVersionList.Resource[] EmptyResourceArray = new UpdatableVersionList.Resource[0];
 
         private readonly string m_ConfigurationPath;
-        private readonly List<string> m_CompressionHelperTypeNames;
-        //private readonly UpdatableVersionListSerializer m_UpdatableVersionListSerializer;
-        //private readonly ResourcePackVersionListSerializer m_ResourcePackVersionListSerializer;
+        private readonly UpdatableVersionListSerializer m_UpdatableVersionListSerializer;
+        private readonly ResourcePackVersionListSerializer m_ResourcePackVersionListSerializer;
 
         public ResourcePackBuilderController()
         {
-            m_ConfigurationPath = Type.GetConfigurationPath<ResourceBuilderConfigPathAttribute>() ?? Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "GameFramework/Configs/ResourceBuilder.xml"));
+            m_ConfigurationPath = Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "Res/Configs/ResBuilder.xml"));
 
-            // m_UpdatableVersionListSerializer = new UpdatableVersionListSerializer();
-            // m_UpdatableVersionListSerializer.RegisterDeserializeCallback(0, BuiltinVersionListSerializer.UpdatableVersionListDeserializeCallback_V0);
-            // m_UpdatableVersionListSerializer.RegisterDeserializeCallback(1, BuiltinVersionListSerializer.UpdatableVersionListDeserializeCallback_V1);
-            // m_UpdatableVersionListSerializer.RegisterDeserializeCallback(2, BuiltinVersionListSerializer.UpdatableVersionListDeserializeCallback_V2);
+            m_UpdatableVersionListSerializer = new UpdatableVersionListSerializer();
+            m_UpdatableVersionListSerializer.RegisterDeserializeCallback(0, BuiltinVersionListSerializer.UpdatableVersionListDeserializeCallback_V0);
+            m_UpdatableVersionListSerializer.RegisterDeserializeCallback(1, BuiltinVersionListSerializer.UpdatableVersionListDeserializeCallback_V1);
 
-            // m_ResourcePackVersionListSerializer = new ResourcePackVersionListSerializer();
-            // m_ResourcePackVersionListSerializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.ResourcePackVersionListSerializeCallback_V0);
-
-            m_CompressionHelperTypeNames = new List<string>
-            {
-                NoneOptionName
-            };
-
-          //  m_CompressionHelperTypeNames.AddRange(Type.GetRuntimeOrEditorTypeNames(typeof(Utility.Compression.ICompressionHelper)));
+            m_ResourcePackVersionListSerializer = new ResourcePackVersionListSerializer();
+            m_ResourcePackVersionListSerializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.ResourcePackVersionListSerializeCallback_V0);
 
             Platform = Platform.Windows;
-            CompressionHelperTypeName = string.Empty;
         }
 
         public string ProductName
@@ -72,11 +53,8 @@ namespace EPloy.Editor.ResourceTools
         {
             get
             {
-#if UNITY_5_6_OR_NEWER
                 return PlayerSettings.applicationIdentifier;
-#else
-                return PlayerSettings.bundleIdentifier;
-#endif
+
             }
         }
 
@@ -111,12 +89,6 @@ namespace EPloy.Editor.ResourceTools
         }
 
         public Platform Platform
-        {
-            get;
-            set;
-        }
-
-        public string CompressionHelperTypeName
         {
             get;
             set;
@@ -230,7 +202,7 @@ namespace EPloy.Editor.ResourceTools
                     switch (xmlNode.Name)
                     {
                         case "CompressionHelperTypeName":
-                            CompressionHelperTypeName = xmlNode.InnerText;
+                            // TODO: CompressionHelperTypeName = xmlNode.InnerText;
                             break;
 
                         case "OutputDirectory":
@@ -245,11 +217,6 @@ namespace EPloy.Editor.ResourceTools
             }
 
             return true;
-        }
-
-        public string[] GetCompressionHelperTypeNames()
-        {
-            return m_CompressionHelperTypeNames.ToArray();
         }
 
         public string[] GetVersionNames()
@@ -314,33 +281,6 @@ namespace EPloy.Editor.ResourceTools
             return versionNames.ToArray();
         }
 
-        public bool RefreshCompressionHelper()
-        {
-            // bool retVal = false;
-            // if (!string.IsNullOrEmpty(CompressionHelperTypeName) && m_CompressionHelperTypeNames.Contains(CompressionHelperTypeName))
-            // {
-            //     System.Type compressionHelperType = Utility.Assembly.GetType(CompressionHelperTypeName);
-            //     if (compressionHelperType != null)
-            //     {
-            //         Utility.Compression.ICompressionHelper compressionHelper = (Utility.Compression.ICompressionHelper)Activator.CreateInstance(compressionHelperType);
-            //         if (compressionHelper != null)
-            //         {
-            //             Utility.Compression.SetCompressionHelper(compressionHelper);
-            //             return true;
-            //         }
-            //     }
-            // }
-            // else
-            // {
-            //     retVal = true;
-            // }
-
-            // CompressionHelperTypeName = string.Empty;
-            // Utility.Compression.SetCompressionHelper(null);
-            // return retVal;
-            return false;
-        }
-
         public void BuildResourcePacks(string[] sourceVersions, string targetVersion)
         {
             int count = sourceVersions.Length;
@@ -377,167 +317,166 @@ namespace EPloy.Editor.ResourceTools
 
         public bool BuildResourcePack(string sourceVersion, string targetVersion)
         {
-            // try
-            // {
-            //     if (!Directory.Exists(OutputPath))
-            //     {
-            //         Directory.CreateDirectory(OutputPath);
-            //     }
+            try
+            {
+                if (!Directory.Exists(OutputPath))
+                {
+                    Directory.CreateDirectory(OutputPath);
+                }
 
-            //     string defaultBackupDiffPath = Path.Combine(OutputPath, DefaultResourcePackName);
-            //     string defaultResourcePackName = Utility.Text.Format("{0}.{1}", defaultBackupDiffPath, DefaultExtension);
-            //     if (File.Exists(defaultResourcePackName))
-            //     {
-            //         File.Delete(defaultResourcePackName);
-            //     }
+                string defaultBackupDiffPath = Path.Combine(OutputPath, DefaultResourcePackName);
+                string defaultResourcePackName = Utility.Text.Format("{0}.{1}", defaultBackupDiffPath, DefaultExtension);
+                if (File.Exists(defaultResourcePackName))
+                {
+                    File.Delete(defaultResourcePackName);
+                }
 
-            //     if (BackupDiff)
-            //     {
-            //         if (Directory.Exists(defaultBackupDiffPath))
-            //         {
-            //             Directory.Delete(defaultBackupDiffPath, true);
-            //         }
+                if (BackupDiff)
+                {
+                    if (Directory.Exists(defaultBackupDiffPath))
+                    {
+                        Directory.Delete(defaultBackupDiffPath, true);
+                    }
 
-            //         Directory.CreateDirectory(defaultBackupDiffPath);
-            //     }
+                    Directory.CreateDirectory(defaultBackupDiffPath);
+                }
 
-            //     UpdatableVersionList sourceUpdatableVersionList = default(UpdatableVersionList);
-            //     if (sourceVersion != null)
-            //     {
-            //         DirectoryInfo sourceDirectoryInfo = new DirectoryInfo(Path.Combine(Path.Combine(SourcePath, sourceVersion), Platform.ToString()));
-            //         FileInfo[] sourceVersionListFiles = sourceDirectoryInfo.GetFiles("GameFrameworkVersion.*.dat", SearchOption.TopDirectoryOnly);
-            //         byte[] sourceVersionListBytes = File.ReadAllBytes(sourceVersionListFiles[0].FullName);
-            //         sourceVersionListBytes = Utility.Compression.Decompress(sourceVersionListBytes);
-            //         using (Stream stream = new MemoryStream(sourceVersionListBytes))
-            //         {
-            //             sourceUpdatableVersionList = m_UpdatableVersionListSerializer.Deserialize(stream);
-            //         }
-            //     }
+                UpdatableVersionList sourceUpdatableVersionList = default(UpdatableVersionList);
+                if (sourceVersion != null)
+                {
+                    DirectoryInfo sourceDirectoryInfo = new DirectoryInfo(Path.Combine(Path.Combine(SourcePath, sourceVersion), Platform.ToString()));
+                    FileInfo[] sourceVersionListFiles = sourceDirectoryInfo.GetFiles("GameFrameworkVersion.*.dat", SearchOption.TopDirectoryOnly);
+                    byte[] sourceVersionListBytes = File.ReadAllBytes(sourceVersionListFiles[0].FullName);
+                    sourceVersionListBytes = Utility.Zip.Decompress(sourceVersionListBytes);
+                    using (Stream stream = new MemoryStream(sourceVersionListBytes))
+                    {
+                        sourceUpdatableVersionList = m_UpdatableVersionListSerializer.Deserialize(stream);
+                    }
+                }
 
-            //     UpdatableVersionList targetUpdatableVersionList = default(UpdatableVersionList);
-            //     DirectoryInfo targetDirectoryInfo = new DirectoryInfo(Path.Combine(Path.Combine(SourcePath, targetVersion), Platform.ToString()));
-            //     FileInfo[] targetVersionListFiles = targetDirectoryInfo.GetFiles("GameFrameworkVersion.*.dat", SearchOption.TopDirectoryOnly);
-            //     byte[] targetVersionListBytes = File.ReadAllBytes(targetVersionListFiles[0].FullName);
-            //     targetVersionListBytes = Utility.Compression.Decompress(targetVersionListBytes);
-            //     using (Stream stream = new MemoryStream(targetVersionListBytes))
-            //     {
-            //         targetUpdatableVersionList = m_UpdatableVersionListSerializer.Deserialize(stream);
-            //     }
+                UpdatableVersionList targetUpdatableVersionList = default(UpdatableVersionList);
+                DirectoryInfo targetDirectoryInfo = new DirectoryInfo(Path.Combine(Path.Combine(SourcePath, targetVersion), Platform.ToString()));
+                FileInfo[] targetVersionListFiles = targetDirectoryInfo.GetFiles("GameFrameworkVersion.*.dat", SearchOption.TopDirectoryOnly);
+                byte[] targetVersionListBytes = File.ReadAllBytes(targetVersionListFiles[0].FullName);
+                targetVersionListBytes = Utility.Zip.Decompress(targetVersionListBytes);
+                using (Stream stream = new MemoryStream(targetVersionListBytes))
+                {
+                    targetUpdatableVersionList = m_UpdatableVersionListSerializer.Deserialize(stream);
+                }
 
-            //     List<ResourcePackVersionList.Resource> resources = new List<ResourcePackVersionList.Resource>();
-            //     UpdatableVersionList.Resource[] sourceResources = sourceUpdatableVersionList.IsValid ? sourceUpdatableVersionList.GetResources() : EmptyResourceArray;
-            //     UpdatableVersionList.Resource[] targetResources = targetUpdatableVersionList.GetResources();
-            //     long offset = 0L;
-            //     foreach (UpdatableVersionList.Resource targetResource in targetResources)
-            //     {
-            //         bool ready = false;
-            //         foreach (UpdatableVersionList.Resource sourceResource in sourceResources)
-            //         {
-            //             if (sourceResource.Name != targetResource.Name || sourceResource.Variant != targetResource.Variant || sourceResource.Extension != targetResource.Extension)
-            //             {
-            //                 continue;
-            //             }
+                List<ResourcePackVersionList.Resource> resources = new List<ResourcePackVersionList.Resource>();
+                UpdatableVersionList.Resource[] sourceResources = sourceUpdatableVersionList.IsValid ? sourceUpdatableVersionList.GetResources() : EmptyResourceArray;
+                UpdatableVersionList.Resource[] targetResources = targetUpdatableVersionList.GetResources();
+                long offset = 0L;
+                foreach (UpdatableVersionList.Resource targetResource in targetResources)
+                {
+                    bool ready = false;
+                    foreach (UpdatableVersionList.Resource sourceResource in sourceResources)
+                    {
+                        if (sourceResource.Name != targetResource.Name || sourceResource.Variant != targetResource.Variant || sourceResource.Extension != targetResource.Extension)
+                        {
+                            continue;
+                        }
 
-            //             if (sourceResource.LoadType == targetResource.LoadType && sourceResource.Length == targetResource.Length && sourceResource.HashCode == targetResource.HashCode)
-            //             {
-            //                 ready = true;
-            //             }
+                        if (sourceResource.LoadType == targetResource.LoadType && sourceResource.Length == targetResource.Length && sourceResource.HashCode == targetResource.HashCode)
+                        {
+                            ready = true;
+                        }
 
-            //             break;
-            //         }
+                        break;
+                    }
 
-            //         if (!ready)
-            //         {
-            //             resources.Add(new ResourcePackVersionList.Resource(targetResource.Name, targetResource.Variant, targetResource.Extension, targetResource.LoadType, offset, targetResource.Length, targetResource.HashCode, targetResource.CompressedLength, targetResource.CompressedHashCode));
-            //             offset += targetResource.CompressedLength;
-            //         }
-            //     }
+                    if (!ready)
+                    {
+                        resources.Add(new ResourcePackVersionList.Resource(targetResource.Name, targetResource.Variant, targetResource.Extension, targetResource.LoadType, offset, targetResource.Length, targetResource.HashCode, targetResource.ZipHashCode, targetResource.ZipHashCode));
+                        offset += targetResource.ZipLength;
+                    }
+                }
 
-            //     ResourcePackVersionList.Resource[] resourceArray = resources.ToArray();
-            //     using (FileStream fileStream = new FileStream(defaultResourcePackName, FileMode.Create, FileAccess.Write))
-            //     {
-            //         if (!m_ResourcePackVersionListSerializer.Serialize(fileStream, new ResourcePackVersionList(0, 0L, 0, resourceArray)))
-            //         {
-            //             return false;
-            //         }
-            //     }
+                ResourcePackVersionList.Resource[] resourceArray = resources.ToArray();
+                using (FileStream fileStream = new FileStream(defaultResourcePackName, FileMode.Create, FileAccess.Write))
+                {
+                    if (!m_ResourcePackVersionListSerializer.Serialize(fileStream, new ResourcePackVersionList(0, 0L, 0, resourceArray)))
+                    {
+                        return false;
+                    }
+                }
 
-            //     int position = 0;
-            //     int hashCode = 0;
-            //     string targetDirectoryPath = targetDirectoryInfo.FullName;
-            //     using (FileStream fileStream = new FileStream(defaultResourcePackName, FileMode.Open, FileAccess.ReadWrite))
-            //     {
-            //         position = (int)fileStream.Length;
-            //         fileStream.Position = position;
-            //         foreach (ResourcePackVersionList.Resource resource in resourceArray)
-            //         {
-            //             string resourceName = Path.Combine(targetDirectoryPath, GetResourceFullName(resource.Name, resource.Variant, resource.HashCode));
-            //             if (!File.Exists(resourceName))
-            //             {
-            //                 return false;
-            //             }
+                int position = 0;
+                int hashCode = 0;
+                string targetDirectoryPath = targetDirectoryInfo.FullName;
+                using (FileStream fileStream = new FileStream(defaultResourcePackName, FileMode.Open, FileAccess.ReadWrite))
+                {
+                    position = (int)fileStream.Length;
+                    fileStream.Position = position;
+                    foreach (ResourcePackVersionList.Resource resource in resourceArray)
+                    {
+                        string resourceName = Path.Combine(targetDirectoryPath, GetResourceFullName(resource.Name, resource.Variant, resource.HashCode));
+                        if (!File.Exists(resourceName))
+                        {
+                            return false;
+                        }
 
-            //             byte[] resourceBytes = File.ReadAllBytes(resourceName);
-            //             fileStream.Write(resourceBytes, 0, resourceBytes.Length);
-            //             if (BackupDiff)
-            //             {
-            //                 string backupDiffName = Path.Combine(defaultBackupDiffPath, GetResourceFullName(resource.Name, resource.Variant, resource.HashCode));
-            //                 string directoryName = Path.GetDirectoryName(backupDiffName);
-            //                 if (!Directory.Exists(directoryName))
-            //                 {
-            //                     Directory.CreateDirectory(directoryName);
-            //                 }
+                        byte[] resourceBytes = File.ReadAllBytes(resourceName);
+                        fileStream.Write(resourceBytes, 0, resourceBytes.Length);
+                        if (BackupDiff)
+                        {
+                            string backupDiffName = Path.Combine(defaultBackupDiffPath, GetResourceFullName(resource.Name, resource.Variant, resource.HashCode));
+                            string directoryName = Path.GetDirectoryName(backupDiffName);
+                            if (!Directory.Exists(directoryName))
+                            {
+                                Directory.CreateDirectory(directoryName);
+                            }
 
-            //                 File.WriteAllBytes(backupDiffName, resourceBytes);
-            //             }
-            //         }
+                            File.WriteAllBytes(backupDiffName, resourceBytes);
+                        }
+                    }
 
-            //         if (fileStream.Position - position != offset)
-            //         {
-            //             return false;
-            //         }
+                    if (fileStream.Position - position != offset)
+                    {
+                        return false;
+                    }
 
-            //         fileStream.Position = position;
-            //         hashCode = Utility.Verifier.GetCrc32(fileStream);
+                    fileStream.Position = position;
+                    hashCode = Utility.Verifier.GetCrc32(fileStream);
 
-            //         fileStream.Position = 0L;
-            //         if (!m_ResourcePackVersionListSerializer.Serialize(fileStream, new ResourcePackVersionList(position, offset, hashCode, resourceArray)))
-            //         {
-            //             return false;
-            //         }
-            //     }
+                    fileStream.Position = 0L;
+                    if (!m_ResourcePackVersionListSerializer.Serialize(fileStream, new ResourcePackVersionList(position, offset, hashCode, resourceArray)))
+                    {
+                        return false;
+                    }
+                }
 
-            //     string backupDiffPath = Path.Combine(OutputPath, Utility.Text.Format("{0}-{1}-{2}", DefaultResourcePackName, sourceVersion ?? GetNoneVersion(targetVersion), targetVersion));
-            //     string resourcePackName = Utility.Text.Format("{0}.{1:x8}.{2}", backupDiffPath, hashCode, DefaultExtension);
-            //     if (File.Exists(resourcePackName))
-            //     {
-            //         File.Delete(resourcePackName);
-            //     }
+                string backupDiffPath = Path.Combine(OutputPath, Utility.Text.Format("{0}-{1}-{2}", DefaultResourcePackName, sourceVersion ?? GetNoneVersion(targetVersion), targetVersion));
+                string resourcePackName = Utility.Text.Format("{0}.{1:x8}.{2}", backupDiffPath, hashCode, DefaultExtension);
+                if (File.Exists(resourcePackName))
+                {
+                    File.Delete(resourcePackName);
+                }
 
-            //     File.Move(defaultResourcePackName, resourcePackName);
+                File.Move(defaultResourcePackName, resourcePackName);
 
-            //     if (BackupDiff)
-            //     {
-            //         if (BackupVersion)
-            //         {
-            //             File.Copy(targetVersionListFiles[0].FullName, Path.Combine(defaultBackupDiffPath, Path.GetFileName(targetVersionListFiles[0].FullName)));
-            //         }
+                if (BackupDiff)
+                {
+                    if (BackupVersion)
+                    {
+                        File.Copy(targetVersionListFiles[0].FullName, Path.Combine(defaultBackupDiffPath, Path.GetFileName(targetVersionListFiles[0].FullName)));
+                    }
 
-            //         if (Directory.Exists(backupDiffPath))
-            //         {
-            //             Directory.Delete(backupDiffPath, true);
-            //         }
+                    if (Directory.Exists(backupDiffPath))
+                    {
+                        Directory.Delete(backupDiffPath, true);
+                    }
 
-            //         Directory.Move(defaultBackupDiffPath, backupDiffPath);
-            //     }
+                    Directory.Move(defaultBackupDiffPath, backupDiffPath);
+                }
 
-            //     return true;
-            // }
-            // catch
-            // {
-            //     return false;
-            // }
-            return false;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private string GetNoneVersion(string targetVersion)

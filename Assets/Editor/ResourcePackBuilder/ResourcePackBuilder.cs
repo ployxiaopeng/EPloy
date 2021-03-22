@@ -19,16 +19,15 @@ namespace EPloy.Editor.ResourceTools
         private string[] m_VersionNamesForTargetDisplay = null;
         private string[] m_VersionNamesForSourceDisplay = null;
         private int m_PlatformIndex = 0;
-        private int m_CompressionHelperTypeNameIndex = 0;
         private int m_LengthLimitIndex = 0;
         private int m_TargetVersionIndex = 0;
         private bool[] m_SourceVersionIndexes = null;
         private int m_SourceVersionCount = 0;
 
-        [MenuItem("EPloy/ResTools/Builder", false, 43)]
+        [MenuItem("EPloy/ResTools/Pack打包", false, 43)]
         private static void Open()
         {
-            ResourcePackBuilder window = GetWindow<ResourcePackBuilder>("资源包 Builder", true);
+            ResourcePackBuilder window = GetWindow<ResourcePackBuilder>("Pack资源打包", true);
             window.minSize = new Vector2(800f, 400f);
         }
 
@@ -42,19 +41,6 @@ namespace EPloy.Editor.ResourceTools
 
             m_Controller.Load();
             RefreshVersionNames();
-
-            m_CompressionHelperTypeNameIndex = 0;
-            string[] compressionHelperTypeNames = m_Controller.GetCompressionHelperTypeNames();
-            for (int i = 0; i < compressionHelperTypeNames.Length; i++)
-            {
-                if (m_Controller.CompressionHelperTypeName == compressionHelperTypeNames[i])
-                {
-                    m_CompressionHelperTypeNameIndex = i;
-                    break;
-                }
-            }
-
-            m_Controller.RefreshCompressionHelper();
         }
 
         private void Update()
@@ -141,25 +127,10 @@ namespace EPloy.Editor.ResourceTools
                     EditorGUILayout.EndHorizontal();
                     EditorGUILayout.BeginHorizontal();
                     {
-                        EditorGUILayout.LabelField("Compression Helper", GUILayout.Width(160f));
-                        string[] names = m_Controller.GetCompressionHelperTypeNames();
-                        int selectedIndex = EditorGUILayout.Popup(m_CompressionHelperTypeNameIndex, names);
-                        if (selectedIndex != m_CompressionHelperTypeNameIndex)
-                        {
-                            m_CompressionHelperTypeNameIndex = selectedIndex;
-                            m_Controller.CompressionHelperTypeName = selectedIndex <= 0 ? string.Empty : names[selectedIndex];
-                            if (m_Controller.RefreshCompressionHelper())
-                            {
-                                Debug.Log("Set compression helper success.");
-                            }
-                            else
-                            {
-                                Debug.LogWarning("Set compression helper failure.");
-                            }
-                        }
+                        EditorGUILayout.LabelField("zip class : Utility.zip", GUILayout.Width(160f));
                     }
                     EditorGUILayout.EndHorizontal();
-                    if (m_Controller.Platform == Platform.Undefined || string.IsNullOrEmpty(m_Controller.CompressionHelperTypeName) || !m_Controller.IsValidWorkingDirectory)
+                    if (m_Controller.Platform == Platform.Undefined || !m_Controller.IsValidWorkingDirectory)
                     {
                         string message = string.Empty;
                         if (!m_Controller.IsValidWorkingDirectory)
@@ -180,16 +151,6 @@ namespace EPloy.Editor.ResourceTools
                             }
 
                             message += "Platform is invalid.";
-                        }
-
-                        if (string.IsNullOrEmpty(m_Controller.CompressionHelperTypeName))
-                        {
-                            if (!string.IsNullOrEmpty(message))
-                            {
-                                message += Environment.NewLine;
-                            }
-
-                            message += "Compression helper is invalid.";
                         }
 
                         EditorGUILayout.HelpBox(message, MessageType.Error);
@@ -352,7 +313,7 @@ namespace EPloy.Editor.ResourceTools
                 GUILayout.Space(2f);
                 EditorGUILayout.BeginHorizontal();
                 {
-                    EditorGUI.BeginDisabledGroup(m_Controller.Platform == Platform.Undefined || string.IsNullOrEmpty(m_Controller.CompressionHelperTypeName) || !m_Controller.IsValidWorkingDirectory || m_SourceVersionCount <= 0);
+                    EditorGUI.BeginDisabledGroup(m_Controller.Platform == Platform.Undefined || !m_Controller.IsValidWorkingDirectory || m_SourceVersionCount <= 0);
                     {
                         if (GUILayout.Button("Start Build Resource Packs"))
                         {

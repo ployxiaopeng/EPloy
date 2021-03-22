@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<EPloy>
+  <BuildReport>
+    <Summary>
+      <ProductName>EPloy</ProductName>
+      <CompanyName>DefaultCompany</CompanyName>
+      <GameIdentifier>com.DefaultCompany.EPloy</GameIdentifier>
+      <EPloyVersion>感谢E大</EPloyVersion>
+      <UnityVersion>2019.3.3f1</UnityVersion>
+      <ApplicableGameVersion>0.1</ApplicableGameVersion>
+      <InternalResourceVersion>0</InternalResourceVersion>
+      <Platforms>Windows</Platforms>
+      <AssetBundleCompression>LZ4</AssetBundleCompression>
+      <CompressionHelperTypeName>
+      </CompressionHelperTypeName>
+      <AdditionalCompressionSelected>False</AdditionalCompressionSelected>
+      <ForceRebuildAssetBundleSelected>False</ForceRebuildAssetBundleSelected>
+      <BuildEventHandlerTypeName>
+      </BuildEventHandlerTypeName>
+      <OutputDirectory>D:/EPloy/Assets/ABPack</OutputDirectory>
+      <BuildAssetBundleOptions>DeterministicAssetBundle</BuildAssetBundleOptions>
+    </Summary>
+    <Resources Count="0" />
+  </BuildReport>
+</EPloy>

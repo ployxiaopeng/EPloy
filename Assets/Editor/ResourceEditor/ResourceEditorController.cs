@@ -27,7 +27,7 @@ namespace EPloy.Editor.ResourceTools
 
         public ResourceEditorController()
         {
-            m_ConfigurationPath = Type.GetConfigurationPath<ResourceEditorConfigPathAttribute>() ?? Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "GameFramework/Configs/ResourceEditor.xml"));
+            m_ConfigurationPath = Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "Res/Configs/ResEditor.xml"));
             m_ResourceCollection = new ResourceCollection();
             m_ResourceCollection.OnLoadingResource += delegate (int index, int count)
             {

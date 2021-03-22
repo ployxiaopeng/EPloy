@@ -4,7 +4,7 @@ namespace EPloy.Editor.ResourceTools
     /// <summary>
     /// 对 AssetBundle 应用的压缩算法类型。
     /// </summary>
-    public enum AssetBundleCompressionType : byte
+    public enum AssetBundleZipType : byte
     {
         /// <summary>
         /// 不使用压缩算法。

@@ -26,7 +26,7 @@ namespace EPloy.Editor.ResourceTools
             private string m_ApplicableGameVersion = null;
             private int m_InternalResourceVersion = 0;
             private Platform m_Platforms = Platform.Undefined;
-            private AssetBundleCompressionType m_AssetBundleCompression;
+            private AssetBundleZipType m_AssetBundleCompression;
             private string m_CompressionHelperTypeName;
             private bool m_AdditionalCompressionSelected = false;
             private bool m_ForceRebuildAssetBundleSelected = false;
@@ -37,7 +37,7 @@ namespace EPloy.Editor.ResourceTools
             private SortedDictionary<string, ResourceData> m_ResourceDatas = null;
 
             public void Initialize(string buildReportPath, string productName, string companyName, string gameIdentifier, string gameFrameworkVersion, string unityVersion, string applicableGameVersion, int internalResourceVersion,
-                Platform platforms, AssetBundleCompressionType assetBundleCompression, string compressionHelperTypeName, bool additionalCompressionSelected, bool forceRebuildAssetBundleSelected, string buildEventHandlerTypeName, string outputDirectory, BuildAssetBundleOptions buildAssetBundleOptions, SortedDictionary<string, ResourceData> resourceDatas)
+                Platform platforms, AssetBundleZipType assetBundleCompression, string compressionHelperTypeName, bool additionalCompressionSelected, bool forceRebuildAssetBundleSelected, string buildEventHandlerTypeName, string outputDirectory, BuildAssetBundleOptions buildAssetBundleOptions, SortedDictionary<string, ResourceData> resourceDatas)
             {
                 if (string.IsNullOrEmpty(buildReportPath))
                 {

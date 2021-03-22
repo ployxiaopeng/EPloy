@@ -12,12 +12,12 @@ namespace EPloy.Editor.ResourceTools
         LoadFromFile = 0,
 
         /// <summary>
-        /// 使用内存方式加载。
+        /// 使用内存方式加载 比较快
         /// </summary>
         LoadFromMemory,
 
         /// <summary>
-        /// 使用二进制方式加载。
+        /// 使用二进制方式加载  比较稳
         /// </summary>
         LoadFromBinary,
 
