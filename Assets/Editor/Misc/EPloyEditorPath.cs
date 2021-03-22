@@ -5,12 +5,18 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using System;
+
 namespace EPloy.Editor
 {
     /// <summary>
-    /// BuildSettings 配置路径属性。
+    /// 配置路径属性。
     /// </summary>
-    public sealed class BuildSettingsConfigPathAttribute : ConfigPathAttribute
+    public static class EPloyEditorPath
     {
+        public static string BuildSettings = "Res/Configs/BuildSettings.xml";
+        public static string ResBuilder = "Res/Configs/ResBuilder.xml";
+        public static string ResEditor = "Res/Configs/ResEditor.xml";
+        public static string DataTable = "Res/DataTable";
     }
 }

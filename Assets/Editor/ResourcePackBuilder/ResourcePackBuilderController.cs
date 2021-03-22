@@ -21,7 +21,7 @@ namespace EPloy.Editor.ResourceTools
 
         public ResourcePackBuilderController()
         {
-            m_ConfigurationPath = Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "Res/Configs/ResBuilder.xml"));
+            m_ConfigurationPath = Utility.Path.GetRegularPath(Path.Combine(Application.dataPath,EPloyEditorPath.ResBuilder));
 
             m_UpdatableVersionListSerializer = new UpdatableVersionListSerializer();
             m_UpdatableVersionListSerializer.RegisterDeserializeCallback(0, BuiltinVersionListSerializer.UpdatableVersionListDeserializeCallback_V0);

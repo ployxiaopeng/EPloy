@@ -42,7 +42,6 @@ namespace EPloy.Editor.ResourceTools
             if (m_Controller.Load())
             {
                 Debug.Log("Load configuration success.");
-                m_Controller.RefreshBuildEventHandler();
             }
             else
             {

@@ -18,7 +18,7 @@ namespace EPloy.Editor
 
         static BuildSettings()
         {
-            s_ConfigurationPath = Type.GetConfigurationPath<BuildSettingsConfigPathAttribute>() ?? Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "Res/Configs/BuildSettings.xml"));
+            s_ConfigurationPath = Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, EPloyEditorPath.BuildSettings));
             s_DefaultSceneNames.Clear();
             s_SearchScenePaths.Clear();
 

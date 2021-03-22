@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using UnityEditor;
 using UnityEngine;
-using EPloy;
+using System.IO;
 
 namespace EPloy.Editor
 {
@@ -14,7 +14,7 @@ namespace EPloy.Editor
         /// <summary>
         /// 打开 Data Path 文件夹。
         /// </summary>
-        [MenuItem("EPloy/Open Folder/Data Path", false, 10)]
+        [MenuItem("EPloy/OpenFolder/Data Path", false, 10)]
         public static void OpenFolderDataPath()
         {
             Execute(Application.dataPath);
@@ -23,7 +23,7 @@ namespace EPloy.Editor
         /// <summary>
         /// 打开 Persistent Data Path 文件夹。
         /// </summary>
-        [MenuItem("EPloy/Open Folder/Persistent Data Path", false, 11)]
+        [MenuItem("EPloy/OpenFolder/PersistentData Path", false, 11)]
         public static void OpenFolderPersistentDataPath()
         {
             Execute(Application.persistentDataPath);
@@ -32,7 +32,7 @@ namespace EPloy.Editor
         /// <summary>
         /// 打开 Streaming Assets Path 文件夹。
         /// </summary>
-        [MenuItem("EPloy/Open Folder/Streaming Assets Path", false, 12)]
+        [MenuItem("EPloy/OpenFolder/StreamingAssets Path", false, 12)]
         public static void OpenFolderStreamingAssetsPath()
         {
             Execute(Application.streamingAssetsPath);
@@ -41,10 +41,19 @@ namespace EPloy.Editor
         /// <summary>
         /// 打开 Temporary Cache Path 文件夹。
         /// </summary>
-        [MenuItem("EPloy/Open Folder/Temporary Cache Path", false, 13)]
+        [MenuItem("EPloy/OpenFolder/TemporaryCache Path", false, 13)]
         public static void OpenFolderTemporaryCachePath()
         {
             Execute(Application.temporaryCachePath);
+        }
+
+        /// <summary>
+        /// 打开 DataTable 文件夹。
+        /// </summary>
+        [MenuItem("EPloy/OpenFolder/DataTable Path", false, 13)]
+        public static void OpenFolderDataTablePath()
+        {
+            Execute(Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, EPloyEditorPath.DataTable)));
         }
 
 #if UNITY_2018_3_OR_NEWER
@@ -52,10 +61,10 @@ namespace EPloy.Editor
         /// <summary>
         /// 打开 Console Log Path 文件夹。
         /// </summary>
-        [MenuItem("EPloy/Open Folder/Console Log Path", false, 14)]
+        [MenuItem("EPloy/OpenFolder/ConsoleLog Path", false, 14)]
         public static void OpenFolderConsoleLogPath()
         {
-            Execute(System.IO.Path.GetDirectoryName(Application.consoleLogPath));
+            Execute(Path.GetDirectoryName(Application.consoleLogPath));
         }
 
 #endif
@@ -78,7 +87,7 @@ namespace EPloy.Editor
                     break;
 
                 default:
-                    throw new EPloyException(Utility.Text.Format("Not support open folder on '{0}' platform.", Application.platform.ToString()));
+                    throw new EPloyException(Utility.Text.Format("Not support OpenFolder on '{0}' platform.", Application.platform.ToString()));
             }
         }
     }

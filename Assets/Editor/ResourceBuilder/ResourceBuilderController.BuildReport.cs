@@ -170,13 +170,6 @@ namespace EPloy.Editor.ResourceTools
                    // xmlAttribute.Value = GetExtension(resourceData);
                     xmlResource.Attributes.SetNamedItem(xmlAttribute);
 
-                    if (resourceData.FileSystem != null)
-                    {
-                        xmlAttribute = xmlDocument.CreateAttribute("FileSystem");
-                        xmlAttribute.Value = resourceData.FileSystem;
-                        xmlResource.Attributes.SetNamedItem(xmlAttribute);
-                    }
-
                     xmlAttribute = xmlDocument.CreateAttribute("LoadType");
                     xmlAttribute.Value = ((byte)resourceData.LoadType).ToString();
                     xmlResource.Attributes.SetNamedItem(xmlAttribute);
