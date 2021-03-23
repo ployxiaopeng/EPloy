@@ -18,5 +18,6 @@ namespace EPloy.Editor
         public static string ResBuilder = "Res/Configs/ResBuilder.xml";
         public static string ResEditor = "Res/Configs/ResEditor.xml";
         public static string DataTable = "Res/DataTable";
+        public static string ResCollection = "Res/Configs/ResCollection.xml";
     }
 }

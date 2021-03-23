@@ -119,25 +119,17 @@
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadDependencyAssetTask.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadResTaskbase.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadSceneTask.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Serializer\BuiltinVersionListSerializer.LocalVersionListDeserializeCallback.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Serializer\BuiltinVersionListSerializer.LocalVersionListSerializeCallback.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Serializer\BuiltinVersionListSerializer.ResourcePackVersionListDeserializeCallback.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Serializer\BuiltinVersionListSerializer.ResourcePackVersionListSerializeCallback.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Serializer\BuiltinVersionListSerializer.UpdatableVersionListDeserializeCallback.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Serializer\BuiltinVersionListSerializer.UpdatableVersionListSerializeCallback.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Serializer\BuiltinVersionListSerializer.UpdatableVersionListTryGetValueCallback.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Serializer\BuiltinVersionListSerializer.cs" />
+     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Serializer\LocalVersionListSerializer.cs" />
+     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Serializer\PackVersionListSerializer.cs" />
+     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Serializer\UpdatableVersionListSerializer.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\LocalVersionList.Resource.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\LocalVersionList.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\ReadOnlyVersionListSerializer.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\ResourcePackVersionList.Resource.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\ResourcePackVersionList.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\ResourcePackVersionListSerializer.cs" />
+     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\PackVersionList.Resource.cs" />
+     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\PackVersionList.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.Asset.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.Resource.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.ResourceGroup.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionListSerializer.cs" />
      <Compile Include="Assets\EPloy\Component\UI\UIComponent.cs" />
      <Compile Include="Assets\EPloy\Component\UI\UIEnum.cs" />
      <Compile Include="Assets\EPloy\Component\UI\UIForm.cs" />
@@ -340,7 +332,7 @@
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="ICSharpCode.SharpZipLib">
- <HintPath>D:/EPloy/Assets/EPloy/Base/Libraries/ICSharpCode.SharpZipLib.dll</HintPath>
+ <HintPath>D:/EPloy/Assets/Editor/Libraries/ICSharpCode.SharpZipLib.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

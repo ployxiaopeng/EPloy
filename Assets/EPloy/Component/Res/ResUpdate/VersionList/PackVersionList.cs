@@ -3,7 +3,7 @@
     /// <summary>
     /// 资源包版本资源列表。
     /// </summary>
-    public partial struct ResourcePackVersionList
+    public partial struct PackVersionList
     {
         private static readonly Resource[] EmptyResourceArray = new Resource[] { };
 
@@ -20,7 +20,7 @@
         /// <param name="length">资源数据长度。</param>
         /// <param name="hashCode">资源数据哈希值。</param>
         /// <param name="resources">包含的资源集合。</param>
-        public ResourcePackVersionList(int offset, long length, int hashCode, Resource[] resources)
+        public PackVersionList(int offset, long length, int hashCode, Resource[] resources)
         {
             m_IsValid = true;
             m_Offset = offset;

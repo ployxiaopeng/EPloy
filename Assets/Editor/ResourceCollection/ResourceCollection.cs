@@ -26,7 +26,7 @@ namespace EPloy.Editor.ResourceTools
 
         public ResourceCollection()
         {
-            // m_ConfigurationPath = Type.GetConfigurationPath<ResourceCollectionConfigPathAttribute>() ?? Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "GameFramework/Configs/ResourceCollection.xml"));
+            m_ConfigurationPath =Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, EPloyEditorPath.ResCollection));
             m_Resources = new SortedDictionary<string, Resource>(StringComparer.Ordinal);
             m_Assets = new SortedDictionary<string, Asset>(StringComparer.Ordinal);
         }
@@ -47,11 +47,11 @@ namespace EPloy.Editor.ResourceTools
             }
         }
 
-        public event Action<int, int> OnLoadingResource = null;
+        public event EPloyAction<int, int> OnLoadingResource = null;
 
-        public event Action<int, int> OnLoadingAsset = null;
+        public event EPloyAction<int, int> OnLoadingAsset = null;
 
-        public event Action OnLoadCompleted = null;
+        public event EPloyAction OnLoadCompleted = null;
 
         public void Clear()
         {
@@ -72,9 +72,9 @@ namespace EPloy.Editor.ResourceTools
             {
                 XmlDocument xmlDocument = new XmlDocument();
                 xmlDocument.Load(m_ConfigurationPath);
-                XmlNode xmlRoot = xmlDocument.SelectSingleNode("UnityGameFramework");
-                XmlNode xmlCollection = xmlRoot.SelectSingleNode("ResourceCollection");
-                XmlNode xmlResources = xmlCollection.SelectSingleNode("Resources");
+                XmlNode xmlRoot = xmlDocument.SelectSingleNode("EPloy");
+                XmlNode xmlCollection = xmlRoot.SelectSingleNode("ResCollection");
+                XmlNode xmlResources = xmlCollection.SelectSingleNode("Res");
                 XmlNode xmlAssets = xmlCollection.SelectSingleNode("Assets");
 
                 XmlNodeList xmlNodeList = null;
@@ -91,7 +91,7 @@ namespace EPloy.Editor.ResourceTools
                     }
 
                     xmlNode = xmlNodeList.Item(i);
-                    if (xmlNode.Name != "Resource")
+                    if (xmlNode.Name != "Res")
                     {
                         continue;
                     }
@@ -114,7 +114,7 @@ namespace EPloy.Editor.ResourceTools
                     string[] resourceGroups = xmlNode.Attributes.GetNamedItem("ResourceGroups") != null ? xmlNode.Attributes.GetNamedItem("ResourceGroups").Value.Split(',') : null;
                     if (!AddResource(name, variant, fileSystem, (LoadType)loadType, packed, resourceGroups))
                     {
-                       // Debug.LogWarning(Utility.Text.Format("Can not add resource '{0}'.", GetResourceFullName(name, variant)));
+                       Debug.LogWarning(Utility.Text.Format("Can not add resource '{0}'.", GetResourceFullName(name, variant)));
                         continue;
                     }
                 }
@@ -139,7 +139,7 @@ namespace EPloy.Editor.ResourceTools
                     string variant = xmlNode.Attributes.GetNamedItem("ResourceVariant") != null ? xmlNode.Attributes.GetNamedItem("ResourceVariant").Value : null;
                     if (!AssignAsset(guid, name, variant))
                     {
-                       // Debug.LogWarning(Utility.Text.Format("Can not assign asset '{0}' to resource '{1}'.", guid, GetResourceFullName(name, variant)));
+                        Debug.LogWarning(Utility.Text.Format("Can not assign asset '{0}' to resource '{1}'.", guid, GetResourceFullName(name, variant)));
                         continue;
                     }
                 }
@@ -170,13 +170,13 @@ namespace EPloy.Editor.ResourceTools
                 XmlDocument xmlDocument = new XmlDocument();
                 xmlDocument.AppendChild(xmlDocument.CreateXmlDeclaration("1.0", "UTF-8", null));
 
-                XmlElement xmlRoot = xmlDocument.CreateElement("UnityGameFramework");
+                XmlElement xmlRoot = xmlDocument.CreateElement("EPloy");
                 xmlDocument.AppendChild(xmlRoot);
 
-                XmlElement xmlCollection = xmlDocument.CreateElement("ResourceCollection");
+                XmlElement xmlCollection = xmlDocument.CreateElement("ResCollection");
                 xmlRoot.AppendChild(xmlCollection);
 
-                XmlElement xmlResources = xmlDocument.CreateElement("Resources");
+                XmlElement xmlResources = xmlDocument.CreateElement("Res");
                 xmlCollection.AppendChild(xmlResources);
 
                 XmlElement xmlAssets = xmlDocument.CreateElement("Assets");
@@ -187,7 +187,7 @@ namespace EPloy.Editor.ResourceTools
 
                 foreach (Resource resource in m_Resources.Values)
                 {
-                    xmlElement = xmlDocument.CreateElement("Resource");
+                    xmlElement = xmlDocument.CreateElement("Res");
                     xmlAttribute = xmlDocument.CreateAttribute("Name");
                     xmlAttribute.Value = resource.Name;
                     xmlElement.Attributes.SetNamedItem(xmlAttribute);

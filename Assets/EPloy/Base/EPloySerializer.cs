@@ -9,6 +9,31 @@ namespace EPloy
     /// <typeparam name="T">要序列化的数据类型。</typeparam>
     public abstract class EPloySerializer<T>
     {
+        /// <summary>
+        /// 序列化回调函数。
+        /// </summary>
+        /// <param name="stream">目标流。</param>
+        /// <param name="data">要序列化的数据。</param>
+        /// <returns>是否序列化数据成功。</returns>
+        public delegate bool SerializeCallback(Stream stream, T data);
+        /// <summary>
+        /// 反序列化回调函数。
+        /// </summary>
+        /// <param name="stream">指定流。</param>
+        /// <returns>反序列化的数据。</returns>
+        public delegate T DeserializeCallback(Stream stream);
+        /// <summary>
+        /// 尝试从指定流获取指定键的值回调函数。
+        /// </summary>
+        /// <param name="stream">指定流。</param>
+        /// <param name="key">指定键。</param>
+        /// <param name="value">指定键的值。</param>
+        /// <returns>是否从指定流获取指定键的值成功。</returns>
+        public delegate bool TryGetValueCallback(Stream stream, string key, out object value);
+
+        protected const string DefaultExtension = "dat";
+        protected const int CachedHashBytesLength = 4;
+        protected static readonly byte[] s_CachedHashBytes = new byte[CachedHashBytesLength];
         private readonly Dictionary<byte, SerializeCallback> m_SerializeCallbacks;
         private readonly Dictionary<byte, DeserializeCallback> m_DeserializeCallbacks;
         private readonly Dictionary<byte, TryGetValueCallback> m_TryGetValueCallbacks;
@@ -26,28 +51,10 @@ namespace EPloy
         }
 
         /// <summary>
-        /// 序列化回调函数。
+        /// 获取数据头标识。
         /// </summary>
-        /// <param name="stream">目标流。</param>
-        /// <param name="data">要序列化的数据。</param>
-        /// <returns>是否序列化数据成功。</returns>
-        public delegate bool SerializeCallback(Stream stream, T data);
-
-        /// <summary>
-        /// 反序列化回调函数。
-        /// </summary>
-        /// <param name="stream">指定流。</param>
-        /// <returns>反序列化的数据。</returns>
-        public delegate T DeserializeCallback(Stream stream);
-
-        /// <summary>
-        /// 尝试从指定流获取指定键的值回调函数。
-        /// </summary>
-        /// <param name="stream">指定流。</param>
-        /// <param name="key">指定键。</param>
-        /// <param name="value">指定键的值。</param>
-        /// <returns>是否从指定流获取指定键的值成功。</returns>
-        public delegate bool TryGetValueCallback(Stream stream, string key, out object value);
+        /// <returns>数据头标识。</returns>
+        protected abstract byte[] GetHeader();
 
         /// <summary>
         /// 注册序列化回调函数。
@@ -194,10 +201,37 @@ namespace EPloy
             return callback(stream, key, out value);
         }
 
-        /// <summary>
-        /// 获取数据头标识。
-        /// </summary>
-        /// <returns>数据头标识。</returns>
-        protected abstract byte[] GetHeader();
+        protected int AssetNameToDependencyAssetNamesComparer(KeyValuePair<string, string[]> a, KeyValuePair<string, string[]> b)
+        {
+            return a.Key.CompareTo(b.Key);
+        }
+
+        protected int GetAssetNameIndex(List<KeyValuePair<string, string[]>> assetNameToDependencyAssetNames, string assetName)
+        {
+            return GetAssetNameIndexWithBinarySearch(assetNameToDependencyAssetNames, assetName, 0, assetNameToDependencyAssetNames.Count - 1);
+        }
+
+        protected int GetAssetNameIndexWithBinarySearch(List<KeyValuePair<string, string[]>> assetNameToDependencyAssetNames, string assetName, int leftIndex, int rightIndex)
+        {
+            if (leftIndex > rightIndex)
+            {
+                return -1;
+            }
+
+            int middleIndex = (leftIndex + rightIndex) / 2;
+            if (assetNameToDependencyAssetNames[middleIndex].Key == assetName)
+            {
+                return middleIndex;
+            }
+
+            if (assetNameToDependencyAssetNames[middleIndex].Key.CompareTo(assetName) > 0)
+            {
+                return GetAssetNameIndexWithBinarySearch(assetNameToDependencyAssetNames, assetName, leftIndex, middleIndex - 1);
+            }
+            else
+            {
+                return GetAssetNameIndexWithBinarySearch(assetNameToDependencyAssetNames, assetName, middleIndex + 1, rightIndex);
+            }
+        }
     }
 }

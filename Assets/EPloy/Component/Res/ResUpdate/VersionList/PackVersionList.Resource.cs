@@ -1,6 +1,6 @@
 ﻿namespace EPloy.Res
 {
-    public partial struct ResourcePackVersionList
+    public partial struct PackVersionList
     {
         /// <summary>
         /// 资源。

@@ -824,8 +824,6 @@ namespace EPloy.Editor.ResourceTools
 
             UpdatableVersionList versionList = new UpdatableVersionList(ApplicableGameVersion, InternalResourceVersion, assets, resources, resourceGroups);
             UpdatableVersionListSerializer serializer = new UpdatableVersionListSerializer();
-            serializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.UpdatableVersionListSerializeCallback_V0);
-            serializer.RegisterSerializeCallback(1, BuiltinVersionListSerializer.UpdatableVersionListSerializeCallback_V1);
             string updatableVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, RemoteVersionListFileName));
 
             byte[] bytes = File.ReadAllBytes(updatableVersionListPath);
@@ -856,9 +854,7 @@ namespace EPloy.Editor.ResourceTools
             }
 
             LocalVersionList versionList = new LocalVersionList(resources);
-            ReadOnlyVersionListSerializer serializer = new ReadOnlyVersionListSerializer();
-            serializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.LocalVersionListSerializeCallback_V0);
-            serializer.RegisterSerializeCallback(1, BuiltinVersionListSerializer.LocalVersionListSerializeCallback_V1);
+            LocalVersionListSerializer serializer = new LocalVersionListSerializer();
             string readOnlyVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputPackedPath, LocalVersionListFileName));
             using (FileStream fileStream = new FileStream(readOnlyVersionListPath, FileMode.Create, FileAccess.Write))
             {

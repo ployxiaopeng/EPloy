@@ -17,19 +17,13 @@ namespace EPloy.Editor.ResourceTools
 
         private readonly string m_ConfigurationPath;
         private readonly UpdatableVersionListSerializer m_UpdatableVersionListSerializer;
-        private readonly ResourcePackVersionListSerializer m_ResourcePackVersionListSerializer;
+        private readonly PackVersionListSerializer m_PackVersionListSerializer;
 
         public ResourcePackBuilderController()
         {
             m_ConfigurationPath = Utility.Path.GetRegularPath(Path.Combine(Application.dataPath,EPloyEditorPath.ResBuilder));
-
             m_UpdatableVersionListSerializer = new UpdatableVersionListSerializer();
-            m_UpdatableVersionListSerializer.RegisterDeserializeCallback(0, BuiltinVersionListSerializer.UpdatableVersionListDeserializeCallback_V0);
-            m_UpdatableVersionListSerializer.RegisterDeserializeCallback(1, BuiltinVersionListSerializer.UpdatableVersionListDeserializeCallback_V1);
-
-            m_ResourcePackVersionListSerializer = new ResourcePackVersionListSerializer();
-            m_ResourcePackVersionListSerializer.RegisterSerializeCallback(0, BuiltinVersionListSerializer.ResourcePackVersionListSerializeCallback_V0);
-
+            m_PackVersionListSerializer = new PackVersionListSerializer();
             Platform = Platform.Windows;
         }
 
@@ -364,7 +358,7 @@ namespace EPloy.Editor.ResourceTools
                     targetUpdatableVersionList = m_UpdatableVersionListSerializer.Deserialize(stream);
                 }
 
-                List<ResourcePackVersionList.Resource> resources = new List<ResourcePackVersionList.Resource>();
+                List<PackVersionList.Resource> resources = new List<PackVersionList.Resource>();
                 UpdatableVersionList.Resource[] sourceResources = sourceUpdatableVersionList.IsValid ? sourceUpdatableVersionList.GetResources() : EmptyResourceArray;
                 UpdatableVersionList.Resource[] targetResources = targetUpdatableVersionList.GetResources();
                 long offset = 0L;
@@ -388,15 +382,15 @@ namespace EPloy.Editor.ResourceTools
 
                     if (!ready)
                     {
-                        resources.Add(new ResourcePackVersionList.Resource(targetResource.Name, targetResource.Variant, targetResource.Extension, targetResource.LoadType, offset, targetResource.Length, targetResource.HashCode, targetResource.ZipHashCode, targetResource.ZipHashCode));
+                        resources.Add(new PackVersionList.Resource(targetResource.Name, targetResource.Variant, targetResource.Extension, targetResource.LoadType, offset, targetResource.Length, targetResource.HashCode, targetResource.ZipHashCode, targetResource.ZipHashCode));
                         offset += targetResource.ZipLength;
                     }
                 }
 
-                ResourcePackVersionList.Resource[] resourceArray = resources.ToArray();
+                PackVersionList.Resource[] resourceArray = resources.ToArray();
                 using (FileStream fileStream = new FileStream(defaultResourcePackName, FileMode.Create, FileAccess.Write))
                 {
-                    if (!m_ResourcePackVersionListSerializer.Serialize(fileStream, new ResourcePackVersionList(0, 0L, 0, resourceArray)))
+                    if (!m_PackVersionListSerializer.Serialize(fileStream, new PackVersionList(0, 0L, 0, resourceArray)))
                     {
                         return false;
                     }
@@ -409,7 +403,7 @@ namespace EPloy.Editor.ResourceTools
                 {
                     position = (int)fileStream.Length;
                     fileStream.Position = position;
-                    foreach (ResourcePackVersionList.Resource resource in resourceArray)
+                    foreach (PackVersionList.Resource resource in resourceArray)
                     {
                         string resourceName = Path.Combine(targetDirectoryPath, GetResourceFullName(resource.Name, resource.Variant, resource.HashCode));
                         if (!File.Exists(resourceName))
@@ -441,7 +435,7 @@ namespace EPloy.Editor.ResourceTools
                     hashCode = Utility.Verifier.GetCrc32(fileStream);
 
                     fileStream.Position = 0L;
-                    if (!m_ResourcePackVersionListSerializer.Serialize(fileStream, new ResourcePackVersionList(position, offset, hashCode, resourceArray)))
+                    if (!m_PackVersionListSerializer.Serialize(fileStream, new PackVersionList(position, offset, hashCode, resourceArray)))
                     {
                         return false;
                     }
