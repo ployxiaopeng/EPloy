@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using EPloy.ObjectPool;
 using EPloy.TaskPool;
+using UnityEngine;
 
 namespace EPloy.Res
 {
@@ -33,7 +34,21 @@ namespace EPloy.Res
         public ObjectPoolBase ResourcePool { get; private set; }
 
         private const int CachedHashBytesLength = 4;
-        public string ReadWritePath { get; private set; }
+        public string ReadWritePath
+        {
+            get
+            {
+                return Application.persistentDataPath;
+            }
+        }
+        public string ReadPath
+        {
+            get
+            {
+                return Application.streamingAssetsPath;
+            }
+        }
+
         /// <summary>
         /// 资产信息
         /// </summary>

@@ -2,6 +2,7 @@
 using EPloy.Res;
 using System;
 using EPloy.TaskPool;
+using UnityEngine;
 
 namespace EPloy
 {
@@ -22,6 +23,7 @@ namespace EPloy
         {
             base.Init();
             resLoader = ResLoader.CreateResLoader();
+            initTool();
         }
 
         public void Update()

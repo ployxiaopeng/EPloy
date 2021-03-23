@@ -26,17 +26,14 @@ namespace EPloy.Res
         /// </summary>
         public UpdatableVersionListSerializer()
         {
-#if UNITY_EDITOR
             base.RegisterSerializeCallback(0, UpdatableVersionListSerializeCallback_V0);
             base.RegisterSerializeCallback(1, UpdatableVersionListSerializeCallback_V1);
-#endif
+
             base.RegisterDeserializeCallback(0, UpdatableVersionListDeserializeCallback_V0);
             base.RegisterDeserializeCallback(1, UpdatableVersionListDeserializeCallback_V1);
             base.RegisterTryGetValueCallback(0, UpdatableVersionListTryGetValueCallback_V0);
             base.RegisterTryGetValueCallback(1, UpdatableVersionListTryGetValueCallback_V1_V2);
         }
-
-#if UNITY_EDITOR
 
         /// <summary>
         /// 序列化可更新模式版本资源列表（版本 0）回调函数。
@@ -174,8 +171,6 @@ namespace EPloy.Res
             Array.Clear(s_CachedHashBytes, 0, CachedHashBytesLength);
             return true;
         }
-
-#endif
 
         /// <summary>
         /// 反序列化可更新模式版本资源列表（版本 0）回调函数。

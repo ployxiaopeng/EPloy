@@ -57,8 +57,7 @@
      <Compile Include="Assets\Editor\ResourceAnalyzer\ResourceAnalyzerController.Stamp.cs" />
      <Compile Include="Assets\Editor\ResourceAnalyzer\ResourceAnalyzerController.cs" />
      <Compile Include="Assets\Editor\ResourceAnalyzer\ScatteredAssetsOrder.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\AssetBundleCompressionType.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\Platform.cs" />
+     <Compile Include="Assets\Editor\ResourceBuilder\ResEnum.cs" />
      <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilder.cs" />
      <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilderController.AssetData.cs" />
      <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilderController.BuildReport.cs" />

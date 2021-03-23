@@ -1018,7 +1018,7 @@ namespace EPloy.Editor.ResourceTools
                 buildOptions |= BuildAssetBundleOptions.ForceRebuildAssetBundle;
             }
 
-            if (AssetBundleZip == AssetBundleZipType.Uncompressed)
+            if (AssetBundleZip == AssetBundleZipType.UnZip)
             {
                 buildOptions |= BuildAssetBundleOptions.UncompressedAssetBundle;
             }
