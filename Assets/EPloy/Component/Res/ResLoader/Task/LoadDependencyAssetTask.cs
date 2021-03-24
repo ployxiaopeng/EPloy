@@ -7,11 +7,6 @@
     {
         private LoadResTaskBase m_MainTask;
 
-        public LoadDependAssetTask()
-        {
-            m_MainTask = null;
-        }
-
         public override bool IsScene
         {
             get

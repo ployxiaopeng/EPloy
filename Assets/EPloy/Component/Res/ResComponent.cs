@@ -17,13 +17,28 @@ namespace EPloy
 
     public partial class ResComponent : Component
     {
+        public string ReadWritePath
+        {
+            get
+            {
+                return Application.persistentDataPath;
+            }
+        }
+        public string ReadPath
+        {
+            get
+            {
+                return Application.streamingAssetsPath;
+            }
+        }
+
         private ResLoader resLoader;
 
         protected override void Init()
         {
             base.Init();
             resLoader = ResLoader.CreateResLoader();
-            initTool();
+            InitTool();
         }
 
         public void Update()

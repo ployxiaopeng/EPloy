@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using EPloy.ObjectPool;
 using EPloy.TaskPool;
-using UnityEngine;
 
 namespace EPloy.Res
 {
@@ -34,31 +33,20 @@ namespace EPloy.Res
         public ObjectPoolBase ResourcePool { get; private set; }
 
         private const int CachedHashBytesLength = 4;
-        public string ReadWritePath
-        {
-            get
-            {
-                return Application.persistentDataPath;
-            }
-        }
-        public string ReadPath
-        {
-            get
-            {
-                return Application.streamingAssetsPath;
-            }
-        }
 
         /// <summary>
-        /// 资产信息
+        /// 资产路径
         /// </summary>
-        internal Dictionary<string, AssetInfo> AssetInfos { get; private set; }
+        internal string ResPath = null;
         /// <summary>
-        /// 资原信息
+        /// 资产信息 版本检验用
+        /// </summary>
+        internal Dictionary<string, AssetInfo> VersionInfos { get; private set; }
+        /// <summary>
+        /// 资源信息 资源加载用
         /// </summary>
         internal Dictionary<ResName, ResInfo> ResInfos { get; private set; }
-        //private SortedDictionary<ResName, ReadWriteResourceInfo> m_ReadWriteResourceInfos;
-        //private readonly Dictionary<string, ResourceGroup> m_ResourceGroups;                                                                  
+        // internal SortedDictionary<ResName, ReadWriteResourceInfo> m_ReadWriteResourceInfos;                                                              
 
         private ResLoader()
         {
@@ -67,12 +55,19 @@ namespace EPloy.Res
             ResourceDependCount = new Dictionary<object, int>();
             AssetToResourceMap = new Dictionary<object, object>();
             SceneToAssetMap = new Dictionary<string, object>(StringComparer.Ordinal);
-            //LoadBytesCallbacks = new LoadBytesCallbacks(OnLoadBinarySuccess, OnLoadBinaryFailure);
             CachedHashBytes = new byte[CachedHashBytesLength];
             AssetPool = null;
             ResourcePool = null;
+            ResPath = null;
             SetObjectPoolManager();
         }
+        /// <summary>
+        /// 加载资源版本信息 默认 传入的路径为所以资源所在路径
+        /// </summary>
+        // public void LoadResVersionListInfo( ,string ResPath, string VersionListName,LoadBinaryCallbacks loadBinaryCallbacks)
+        // {
+          
+        // }
 
         /// <summary>
         /// 关闭并清理加载资源器。
@@ -307,7 +302,7 @@ namespace EPloy.Res
                 return null;
             }
 
-            return Utility.Path.GetRegularPath(Path.Combine(ReadWritePath, resInfo.ResName.FullName));
+            return Utility.Path.GetRegularPath(Path.Combine(ResPath, resInfo.ResName.FullName));
         }
 
         /// <summary>
@@ -455,13 +450,13 @@ namespace EPloy.Res
                 throw new EPloyException("Asset name is invalid.");
             }
 
-            if (AssetInfos == null)
+            if (VersionInfos == null)
             {
                 return null;
             }
 
             AssetInfo assetInfo = null;
-            if (AssetInfos.TryGetValue(assetName, out assetInfo))
+            if (VersionInfos.TryGetValue(assetName, out assetInfo))
             {
                 return assetInfo;
             }

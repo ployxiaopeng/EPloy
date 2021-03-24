@@ -104,11 +104,11 @@
      <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolManager.ObjectPool.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResComponent.Tool.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResComponent.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResIniter.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadAssetCallbacks.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadBinaryCallbacks.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadBytesCallbacks.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadSceneCallbacks.cs" />
+     <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadResAgent.Helper.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadResAgent.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Object\AssetInfo.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Object\AssetObject.cs" />
@@ -118,6 +118,7 @@
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\ResInfo.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\ResLoader.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadAssetTask.cs" />
+     <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadBinaryTask.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadDependencyAssetTask.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadResTaskbase.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadSceneTask.cs" />

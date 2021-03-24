@@ -7,11 +7,6 @@ namespace EPloy.Res
     {
         private LoadAssetCallbacks m_LoadAssetCallbacks;
 
-        public LoadAssetTask()
-        {
-            m_LoadAssetCallbacks = null;
-        }
-
         public override bool IsScene
         {
             get

@@ -23,16 +23,6 @@ namespace EPloy.Res
         public int TotalDependAssetCount { get; set; }
         public DateTime StartTime { get; set; }
 
-        public LoadResTaskBase()
-        {
-            AssetType = null;
-            UserData = null;
-            StartTime = default(DateTime);
-            ResInfo = null;
-            DependAssetsName = null;
-            DependAssets = null;
-        }
-
         public string AssetName
         {
             get
@@ -52,9 +42,9 @@ namespace EPloy.Res
             UserData = userData;
         }
 
-        public void LoadAsset(LoadResAgent loadResAgent, ObjectBase resObject)
+        public void SetResObject(ResObject resObject)
         {
-
+            ResObject = resObject;
         }
 
         public virtual void OnLoadAssetSuccess(LoadResAgent agent, object asset, float duration)

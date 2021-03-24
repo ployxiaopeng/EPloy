@@ -5,11 +5,6 @@ namespace EPloy.Res
     {
         private LoadSceneCallbacks m_LoadSceneCallbacks;
 
-        public LoadSceneTask()
-        {
-            m_LoadSceneCallbacks = null;
-        }
-
         public override bool IsScene
         {
             get

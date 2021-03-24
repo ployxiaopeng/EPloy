@@ -31,49 +31,20 @@ namespace EPloy.Res
         private static readonly HashSet<string> s_LoadingAssetNames = new HashSet<string>(StringComparer.Ordinal);
         private static readonly HashSet<string> s_LoadingResNames = new HashSet<string>(StringComparer.Ordinal);
 
-        public string ReadWritePath { get; private set; }
         public DecryptResCallback DecryptResCallback { get; private set; }
-        /// <summary>
-        /// 获取加载资源任务。
-        /// </summary>
         public LoadResTaskBase Task { get; private set; }
+        private string ResPath;
 
-        public UnityWebRequest UnityWebRequest;
         /// <summary>
         /// 初始化加载资源代理
         /// </summary>
         /// <param name="readWritePath">资源读写区路径。</param>
         /// <param name="decryptResourceCallback">解密资源回调函数。</param>
-        public void Initialize(string readWritePath, DecryptResCallback decryptResCallback)
+        public void Initialize(DecryptResCallback decryptResCallback, string resPath)
         {
-            ReadWritePath = readWritePath;
+            ResPath = resPath;
             DecryptResCallback = decryptResCallback ?? throw new EPloyException("Decrypt resource callback is invalid.");
             Task = null;
-        }
-
-        /// <summary>
-        /// 加载资源代理轮询。
-        /// </summary>
-        /// <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
-        /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
-        public void Update()
-        {
-            UpdateUnityWebRequest();
-        }
-
-        /// <summary>
-        /// 关闭并清理加载资源代理。
-        /// </summary>
-        public void OnDestroy()
-        {
-            Reset();
-        }
-
-        public static void Clear()
-        {
-            s_CachedResNames.Clear();
-            s_LoadingAssetNames.Clear();
-            s_LoadingResNames.Clear();
         }
 
         /// <summary>
@@ -104,7 +75,7 @@ namespace EPloy.Res
                 ObjectBase assetObject = ResLoader.Instance.AssetPool.Spawn(Task.AssetName);
                 if (assetObject != null)
                 {
-                    OnAssetObjectReady(assetObject);
+                    OnAssetReady(assetObject);
                     return StartTaskStatus.Done;
                 }
             }
@@ -130,7 +101,6 @@ namespace EPloy.Res
             ObjectBase resObject = ResLoader.Instance.ResourcePool.Spawn(resName);
             if (resObject != null)
             {
-                OnResourceObjectReady(resObject);
                 return StartTaskStatus.CanResume;
             }
 
@@ -139,13 +109,14 @@ namespace EPloy.Res
             string fullPath = null;
             if (!s_CachedResNames.TryGetValue(resName, out fullPath))
             {
-                fullPath = Utility.Path.GetRegularPath(Path.Combine(ReadWritePath, resInfo.ResName.FullName));
+                fullPath = Utility.Path.GetRegularPath(Path.Combine(ResPath, resInfo.ResName.FullName));
                 s_CachedResNames.Add(resName, fullPath);
             }
 
             switch (resInfo.LoadType)
             {
                 case LoadType.LoadFromFile:
+                    ReadFile(fullPath);
                     break;
                 case LoadType.LoadFromMemory:
                     ReadBytes(fullPath);
@@ -158,14 +129,6 @@ namespace EPloy.Res
             return StartTaskStatus.CanResume;
         }
 
-        /// <summary>
-        /// 重置加载资源代理。
-        /// </summary>
-        public void Reset()
-        {
-            Task = null;
-        }
-
         private static bool IsAssetLoading(string assetName)
         {
             return s_LoadingAssetNames.Contains(assetName);
@@ -176,7 +139,7 @@ namespace EPloy.Res
             return s_LoadingResNames.Contains(resName);
         }
 
-        private void OnAssetObjectReady(ObjectBase assetObject)
+        private void OnAssetReady(ObjectBase assetObject)
         {
             object asset = assetObject.Target;
             if (Task.IsScene)
@@ -188,35 +151,14 @@ namespace EPloy.Res
             Task.Done = true;
         }
 
-        private void OnResourceObjectReady(ObjectBase resObject)
+        // 所有依赖资源加载完毕  加载主资源
+        private void OnResObjectReady(ResObject resObject)
         {
-            Task.LoadAsset(this, resObject);
+            Task.SetResObject(resObject);
+            LoadAsset(resObject.Target, Task.AssetName, Task.AssetType, Task.IsScene);
         }
 
-        private void OnError(LoadResStatus status, string errorMessage)
-        {
-            Task.OnLoadAssetFailure(this, status, errorMessage);
-            s_LoadingAssetNames.Remove(Task.AssetName);
-            s_LoadingResNames.Remove(Task.ResInfo.ResName.Name);
-            Task.Done = true;
-        }
-
-        private void OnLoadResReadBytesComplete(byte[] bytes)
-        {
-            ResInfo resInfo = Task.ResInfo;
-            DecryptResCallback(bytes, 0, bytes.Length, resInfo.ResName.Name, resInfo.ResName.Variant, resInfo.ResName.Extension, (byte)resInfo.LoadType, resInfo.Length, resInfo.HashCode);
-            // ParseBytes(bytes);
-        }
-
-        private void OnLoadResParseBytesComplete(object asset)
-        {
-            ResObject resObject = ResObject.Create(Task.AssetName, asset);
-            ResLoader.Instance.ResourcePool.Register(resObject, true);
-            s_LoadingResNames.Remove(Task.AssetName);
-            OnResourceObjectReady(resObject);
-        }
-
-        private void OnLoadResComplete(object asset)
+        private void OnComplete(object asset)
         {
             ObjectBase assetObject = null;
             if (Task.IsScene)
@@ -245,41 +187,53 @@ namespace EPloy.Res
             }
 
             s_LoadingAssetNames.Remove(Task.AssetName);
-            OnAssetObjectReady(assetObject);
+            OnAssetReady(assetObject);
         }
 
-        private void UpdateUnityWebRequest()
+        private void OnReadFileComplete(object res)
         {
-            if (UnityWebRequest == null || UnityWebRequest.isDone)
-            {
-                return;
-            }
-            if (string.IsNullOrEmpty(UnityWebRequest.error))
-            {
-                OnLoadResComplete(UnityWebRequest.downloadHandler.data);
-                UnityWebRequest.Dispose();
-                UnityWebRequest = null;
-                return;
-            }
-            bool isError = false;
-#if UNITY_2020_2_OR_NEWER
-                        isError = UnityWebRequest.result != UnityWebRequest.Result.Success;
-#elif UNITY_2017_1_OR_NEWER
-            isError = UnityWebRequest.isNetworkError || UnityWebRequest.isHttpError;
-#endif
-            string msg = Utility.Text.Format("Can not load asset bundle '{0}' with error message '{1}'.", Task.ResInfo.ResName.Name, isError ? UnityWebRequest.error : null);
-            OnError(LoadResStatus.NotExist, msg);
+            ResObject resObject = ResObject.Create(Task.AssetName, res);
+            ResLoader.Instance.ResourcePool.Register(resObject, true);
+            s_LoadingAssetNames.Remove(Task.AssetName);
+            OnResObjectReady(resObject);
+        }
+
+        private void OnError(LoadResStatus status, string errorMessage)
+        {
+            Task.OnLoadAssetFailure(this, status, errorMessage);
+            s_LoadingAssetNames.Remove(Task.AssetName);
+            s_LoadingResNames.Remove(Task.ResInfo.ResName.Name);
+            Task.Done = true;
+        }
+
+        private void OnReadBytesComplete(byte[] bytes)
+        {
+            ResInfo resInfo = Task.ResInfo;
+            DecryptResCallback(bytes, 0, bytes.Length, resInfo.ResName.Name, resInfo.ResName.Variant,
+            resInfo.ResName.Extension, (byte)resInfo.LoadType, resInfo.Length, resInfo.HashCode);
+            ParseBytes(bytes);
+        }
+
+        private void OnParseBytesComplete(object asset)
+        {
+            ResObject resObject = ResObject.Create(Task.AssetName, asset);
+            ResLoader.Instance.ResourcePool.Register(resObject, true);
+            s_LoadingResNames.Remove(Task.AssetName);
         }
 
         /// <summary>
-        /// 开始异步读取资源二进制流。
+        /// 关闭并清理加载资源代理。
         /// </summary>
-        /// <param name="fullPath">要加载资源的完整路径名。</param>
-        public void ReadBytes(string fullPath)
+        public void OnDestroy()
         {
-            UnityWebRequest = UnityWebRequest.Get(Utility.Path.GetRemotePath(fullPath));
-            UnityWebRequest.SendWebRequest();
+            Reset();
         }
 
+        public static void Clear()
+        {
+            s_CachedResNames.Clear();
+            s_LoadingAssetNames.Clear();
+            s_LoadingResNames.Clear();
+        }
     }
 }
