@@ -1,14 +1,8 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
-// Homepage: https://gameframework.cn/
-// Feedback: mailto:ellan@gameframework.cn
-//------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.IO;
+using EPloy.SystemFile;
 
-namespace EPloy.FileSystem
+namespace EPloy
 {
     /// <summary>
     /// 通用文件系统流。

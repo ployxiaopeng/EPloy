@@ -1,21 +1,14 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
-// Homepage: https://gameframework.cn/
-// Feedback: mailto:ellan@gameframework.cn
-//------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace EPloy.FileSystem
+namespace EPloy.SystemFile
 {
     /// <summary>
     /// 文件系统。
     /// </summary>
-    internal sealed partial class FileSystem
+    public sealed partial class FileSystem
     {
         private const int ClusterSize = 1024 * 4;
         private const int CachedBytesLength = 0x1000;

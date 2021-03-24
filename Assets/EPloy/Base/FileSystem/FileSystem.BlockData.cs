@@ -1,13 +1,7 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
-// Homepage: https://gameframework.cn/
-// Feedback: mailto:ellan@gameframework.cn
-//------------------------------------------------------------
-
-namespace EPloy.FileSystem
+﻿
+namespace EPloy.SystemFile
 {
-    internal sealed partial class FileSystem : IFileSystem
+    public sealed partial class FileSystem : IFileSystem
     {
         /// <summary>
         /// 块数据。

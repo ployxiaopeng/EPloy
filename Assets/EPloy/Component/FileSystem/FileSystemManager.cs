@@ -8,25 +8,25 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using EPloy.SystemFile;
 
-namespace EPloy.FileSystem
+namespace EPloy
 {
     /// <summary>
-    /// 文件系统管理器。
+    /// 文件系统组件。
     /// </summary>
-    internal sealed class FileSystemManager 
+    public class FileSystemComponent : Component
     {
-        private readonly Dictionary<string, FileSystem> m_FileSystems;
+        private const string AndroidFileSystemPrefixString = "jar:";
 
-        private IFileSystemHelper m_FileSystemHelper;
+        private readonly Dictionary<string, FileSystem> m_FileSystems;
 
         /// <summary>
         /// 初始化文件系统管理器的新实例。
         /// </summary>
-        public FileSystemManager()
+        public FileSystemComponent()
         {
             m_FileSystems = new Dictionary<string, FileSystem>(StringComparer.Ordinal);
-            m_FileSystemHelper = null;
         }
 
         /// <summary>
@@ -45,14 +45,14 @@ namespace EPloy.FileSystem
         /// </summary>
         /// <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
         /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
-        internal  void Update(float elapseSeconds, float realElapseSeconds)
+        internal void Update(float elapseSeconds, float realElapseSeconds)
         {
         }
 
         /// <summary>
         /// 关闭并清理文件系统管理器。
         /// </summary>
-        internal  void Shutdown()
+        internal void Shutdown()
         {
             while (m_FileSystems.Count > 0)
             {
@@ -64,19 +64,6 @@ namespace EPloy.FileSystem
             }
         }
 
-        /// <summary>
-        /// 设置文件系统辅助器。
-        /// </summary>
-        /// <param name="fileSystemHelper">文件系统辅助器。</param>
-        public void SetFileSystemHelper(IFileSystemHelper fileSystemHelper)
-        {
-            if (fileSystemHelper == null)
-            {
-                throw new EPloyException("File system helper is invalid.");
-            }
-
-            m_FileSystemHelper = fileSystemHelper;
-        }
 
         /// <summary>
         /// 检查是否存在文件系统。
@@ -124,11 +111,6 @@ namespace EPloy.FileSystem
         /// <returns>创建的文件系统。</returns>
         public IFileSystem CreateFileSystem(string fullPath, FileSystemAccess access, int maxFileCount, int maxBlockCount)
         {
-            if (m_FileSystemHelper == null)
-            {
-                throw new EPloyException("File system helper is invalid.");
-            }
-
             if (string.IsNullOrEmpty(fullPath))
             {
                 throw new EPloyException("Full path is invalid.");
@@ -150,7 +132,7 @@ namespace EPloy.FileSystem
                 throw new EPloyException(Utility.Text.Format("File system '{0}' is already exist.", fullPath));
             }
 
-            FileSystemStream fileSystemStream = m_FileSystemHelper.CreateFileSystemStream(fullPath, access, true);
+            FileSystemStream fileSystemStream = CreateFileSystemStream(fullPath, access, true);
             if (fileSystemStream == null)
             {
                 throw new EPloyException(Utility.Text.Format("Create file system stream for '{0}' failure.", fullPath));
@@ -174,11 +156,6 @@ namespace EPloy.FileSystem
         /// <returns>加载的文件系统。</returns>
         public IFileSystem LoadFileSystem(string fullPath, FileSystemAccess access)
         {
-            if (m_FileSystemHelper == null)
-            {
-                throw new EPloyException("File system helper is invalid.");
-            }
-
             if (string.IsNullOrEmpty(fullPath))
             {
                 throw new EPloyException("Full path is invalid.");
@@ -195,7 +172,7 @@ namespace EPloy.FileSystem
                 throw new EPloyException(Utility.Text.Format("File system '{0}' is already exist.", fullPath));
             }
 
-            FileSystemStream fileSystemStream = m_FileSystemHelper.CreateFileSystemStream(fullPath, access, false);
+            FileSystemStream fileSystemStream = CreateFileSystemStream(fullPath, access, false);
             if (fileSystemStream == null)
             {
                 throw new EPloyException(Utility.Text.Format("Create file system stream for '{0}' failure.", fullPath));
@@ -264,6 +241,17 @@ namespace EPloy.FileSystem
             foreach (KeyValuePair<string, FileSystem> fileSystem in m_FileSystems)
             {
                 results.Add(fileSystem.Value);
+            }
+        }
+        private FileSystemStream CreateFileSystemStream(string fullPath, FileSystemAccess access, bool createNew)
+        {
+            if (fullPath.StartsWith(AndroidFileSystemPrefixString, StringComparison.Ordinal))
+            {
+                return new AndroidFileSystemStream(fullPath, access, createNew);
+            }
+            else
+            {
+                return new CommonFileSystemStream(fullPath, access, createNew);
             }
         }
     }

@@ -55,17 +55,14 @@
      <Compile Include="Assets\EPloy\Base\Entity\Entity.cs" />
      <Compile Include="Assets\EPloy\Base\Entity\GameEntity.cs" />
      <Compile Include="Assets\EPloy\Base\Entity\IEntity.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\CommonFileSystemStream.cs" />
      <Compile Include="Assets\EPloy\Base\FileSystem\FileInfo.cs" />
      <Compile Include="Assets\EPloy\Base\FileSystem\FileSystem.BlockData.cs" />
      <Compile Include="Assets\EPloy\Base\FileSystem\FileSystem.HeaderData.cs" />
      <Compile Include="Assets\EPloy\Base\FileSystem\FileSystem.StringData.cs" />
      <Compile Include="Assets\EPloy\Base\FileSystem\FileSystem.cs" />
      <Compile Include="Assets\EPloy\Base\FileSystem\FileSystemAccess.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\FileSystemManager.cs" />
      <Compile Include="Assets\EPloy\Base\FileSystem\FileSystemStream.cs" />
      <Compile Include="Assets\EPloy\Base\FileSystem\IFileSystem.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\IFileSystemHelper.cs" />
      <Compile Include="Assets\EPloy\Base\ObjectPool\ObjectBase.cs" />
      <Compile Include="Assets\EPloy\Base\ObjectPool\ObjectInfo.cs" />
      <Compile Include="Assets\EPloy\Base\ObjectPool\ObjectPoolBase.cs" />
@@ -110,6 +107,9 @@
      <Compile Include="Assets\EPloy\Component\Event\FrameEvent\DataTableFailureEvt.cs" />
      <Compile Include="Assets\EPloy\Component\Event\FrameEvent\DataTableSuccessEvt.cs" />
      <Compile Include="Assets\EPloy\Component\Event\FrameEvent\FrameEvent.cs" />
+     <Compile Include="Assets\EPloy\Component\FileSystem\AndroidFileSystemStream.cs" />
+     <Compile Include="Assets\EPloy\Component\FileSystem\CommonFileSystemStream.cs" />
+     <Compile Include="Assets\EPloy\Component\FileSystem\FileSystemManager.cs" />
      <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolComponent.cs" />
      <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolManager.Object.cs" />
      <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolManager.ObjectPool.cs" />
