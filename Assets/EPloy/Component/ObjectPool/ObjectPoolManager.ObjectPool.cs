@@ -12,10 +12,10 @@ namespace EPloy
         /// <typeparam name="T">对象类型。</typeparam>
         private class ObjectPool : ObjectPoolBase
         {
-            private  UnOrderMultiMap<string, Object> m_Objects;
-            private  Dictionary<object, Object> m_ObjectMap;
-            private  List<Object> m_CanReleaseObjects;//未使用能释放的对象
-            private  List<Object> m_ToReleaseObjects;//确定能释放的对象
+            private UnOrderMultiMap<string, Object> m_Objects;
+            private Dictionary<object, Object> m_ObjectMap;
+            private List<Object> m_CanReleaseObjects;//未使用能释放的对象
+            private List<Object> m_ToReleaseObjects;//确定能释放的对象
 
             private Type m_ObjectType;
             private int m_Capacity;
@@ -172,7 +172,7 @@ namespace EPloy
             /// <returns>要检查的对象是否存在。</returns>
             public override bool CanSpawn(string name)
             {
-                List<Object> objectRange = default(List<Object>);
+                TypeLinkedList<Object> objectRange = default(TypeLinkedList<Object>);
                 if (m_Objects.TryGetValue(name, out objectRange))
                 {
                     foreach (Object internalObject in objectRange)
@@ -194,7 +194,7 @@ namespace EPloy
             /// <returns>要获取的对象。</returns>
             public override ObjectBase Spawn(string name)
             {
-                List<Object> objectRange = default(List<Object>);
+                TypeLinkedList<Object> objectRange = default(TypeLinkedList<Object>);
                 if (m_Objects.TryGetValue(name, out objectRange))
                 {
                     foreach (Object internalObject in objectRange)
@@ -308,15 +308,17 @@ namespace EPloy
             /// <returns>所有对象信息。</returns>
             public override ObjectInfo[] GetAllObjectInfos()
             {
-                List<ObjectInfo> results = new List<ObjectInfo>();
-                foreach (KeyValuePair<string,List<Object>> objectRanges in m_Objects.Dictionary())
+                TypeLinkedList<ObjectInfo> results = new TypeLinkedList<ObjectInfo>();
+                foreach (KeyValuePair<string, TypeLinkedList<Object>> objectRanges in m_Objects)
                 {
                     foreach (Object internalObject in objectRanges.Value)
                     {
-                        results.Add(new ObjectInfo(internalObject.Name,internalObject.LastUseTime, internalObject.SpawnCount));
+                        results.Add(new ObjectInfo(internalObject.Name, internalObject.LastUseTime, internalObject.SpawnCount));
                     }
                 }
-                return results.ToArray();
+                ObjectInfo[] ObjectInfo = new ObjectInfo[results.Count];
+                results.CopyTo(ObjectInfo, 0);
+                return ObjectInfo;
             }
 
             private Object GetObject(object target)
@@ -326,7 +328,7 @@ namespace EPloy
                     throw new EPloyException("Target is invalid.");
                 }
 
-                Object  internalObject = null;
+                Object internalObject = null;
                 if (m_ObjectMap.TryGetValue(target, out internalObject))
                 {
                     return internalObject;
@@ -383,7 +385,7 @@ namespace EPloy
                 m_CanReleaseObjects.Clear();
                 m_ToReleaseObjects.Clear();
             }
-  
+
         }
     }
 }

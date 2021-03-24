@@ -83,7 +83,7 @@ namespace EPloy
         {
             Type type = component.GetType();
 
-            List<ISystem> AwakeSystems = this.awakeSystems[type];
+            TypeLinkedList<ISystem> AwakeSystems = this.awakeSystems[type];
             if (AwakeSystems != null)
             {
                 foreach (ISystem awakeSystem in AwakeSystems)
@@ -122,7 +122,7 @@ namespace EPloy
                     continue;
                 }
 
-                List<ISystem> StartSystems = this.startSystems[component.GetType()];
+                TypeLinkedList<ISystem> StartSystems = this.startSystems[component.GetType()];
                 if (StartSystems == null)
                 {
                     continue;
@@ -161,7 +161,7 @@ namespace EPloy
                     continue;
                 }
 
-                List<ISystem> UpdateSystems = this.updateSystems[component.GetType()];
+                TypeLinkedList<ISystem> UpdateSystems = this.updateSystems[component.GetType()];
                 if (UpdateSystems == null)
                 {
                     updates.RemoveAt(i);

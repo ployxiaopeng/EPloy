@@ -189,7 +189,7 @@ namespace EPloy
         private void HandleEvent(EventArg eventArg)
         {
             bool noHandlerException = false;
-            List<EventHandler<EventArg>> range = default(List<EventHandler<EventArg>>);
+            TypeLinkedList<EventHandler<EventArg>> range = default(TypeLinkedList<EventHandler<EventArg>>);
             if (m_EventHandlers.TryGetValue(eventArg.id, out range))
             {
                 foreach (var evt in range)
