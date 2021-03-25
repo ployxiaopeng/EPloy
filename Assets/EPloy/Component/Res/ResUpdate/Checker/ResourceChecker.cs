@@ -10,27 +10,8 @@ namespace EPloy.Res
     /// </summary>
     internal sealed partial class ResourceChecker
     {
-        private ResComponent Res
-        {
-            get
-            {
-                return GameEntry.Res;
-            }
-        }
-        private ResUpdater ResUpdater
-        {
-            get
-            {
-                return ResUpdater.Instance;
-            }
-        }
-        private ResStore ResStore
-        {
-            get
-            {
-                return ResStore.Instance;
-            }
-        }
+        private ResUpdater ResUpdater;
+        private ResStore ResStore;
 
         private readonly Dictionary<ResName, CheckInfo> m_CheckInfos;
         private string m_CurrentVariant;
@@ -38,21 +19,6 @@ namespace EPloy.Res
         private bool m_UpdatableVersionListReady;
         private bool m_ReadOnlyVersionListReady;
         private bool m_ReadWriteVersionListReady;
-
-        private string RemoteVersionListFileName
-        {
-            get
-            {
-                return ResUpdater.RemoteVersionListFileName;
-            }
-        }
-        private string LocalVersionListFileName
-        {
-            get
-            {
-                return ResUpdater.LocalVersionListFileName;
-            }
-        }
 
         private string ResPath
         {
@@ -76,8 +42,10 @@ namespace EPloy.Res
         /// <summary>
         /// 初始化资源检查器的新实例。
         /// </summary>
-        public ResourceChecker()
+        public ResourceChecker(ResUpdater resUpdater, ResStore resStore)
         {
+            ResUpdater = resUpdater;
+            ResStore = resStore;
             m_CheckInfos = new Dictionary<ResName, CheckInfo>();
             m_CurrentVariant = null;
             m_IgnoreOtherVariant = false;
@@ -244,7 +212,7 @@ namespace EPloy.Res
         /// <returns>是否恢复成功。</returns>
         private bool TryRecoverReadWriteVersionList()
         {
-            string file = Utility.Path.GetRegularPath(Path.Combine(ResPath, LocalVersionListFileName));
+            string file = Utility.Path.GetRegularPath(Path.Combine(ResPath, Config.LocalVersionListFileName));
             string backupFile = Utility.Text.Format("{0}.{1}", file, BackupExtension);
 
             try
@@ -306,7 +274,7 @@ namespace EPloy.Res
             try
             {
                 memoryStream = new MemoryStream(bytes, false);
-                UpdatableVersionList versionList = Res.UpdatableVersionListSerializer.Deserialize(memoryStream);
+                UpdatableVersionList versionList = ResStore.UpdatableVersionListSerializer.Deserialize(memoryStream);
                 if (!versionList.IsValid)
                 {
                     throw new EPloyException("Deserialize updatable version list failure.");
@@ -419,7 +387,7 @@ namespace EPloy.Res
             try
             {
                 memoryStream = new MemoryStream(bytes, false);
-                LocalVersionList versionList = GameEntry.Res.LocalVersionListSerializer.Deserialize(memoryStream);
+                LocalVersionList versionList = ResStore.LocalVersionListSerializer.Deserialize(memoryStream);
                 if (!versionList.IsValid)
                 {
                     throw new EPloyException("Deserialize read write version list failure.");

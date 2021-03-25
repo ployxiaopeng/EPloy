@@ -22,13 +22,7 @@ namespace EPloy.Res
     /// </summary>
     public sealed class ResUpdater
     {
-        internal const int FileSystemMaxFileCount = 1024 * 16;
-        internal const int FileSystemMaxBlockCount = 1024 * 256;
-        internal const string RemoteVersionListFileName = "Version.dat";
-        internal const string LocalVersionListFileName = "Version.dat";
-        internal const string DefaultExtension = "dat";
         internal const string BackupExtension = "bak";
-
         internal const string ResPath = "bak";
 
         private static ResUpdater instance = null;
@@ -52,6 +46,8 @@ namespace EPloy.Res
                 return GameEntry.FileSystem;
             }
         }
+
+        private ResourceChecker ResourceChecker;
         /// <summary>
         ///  更新资源需要的文件系统
         /// </summary>
@@ -68,7 +64,7 @@ namespace EPloy.Res
 
         private ResUpdater()
         {
-
+            ResourceChecker = new ResourceChecker(this, ResStore.Instance);
         }
 
         /// <summary>
@@ -81,7 +77,7 @@ namespace EPloy.Res
             {
                 throw new EPloyException("Check resources complete callback is invalid.");
             }
-            // m_ResourceChecker.CheckResources(m_CurrentVariant, ignoreOtherVariant);
+            ResourceChecker.CheckResources("m_CurrentVariant", ignoreOtherVariant);
         }
 
         internal IFileSystem GetFileSystem(string fileSystemName, bool storageInReadOnly)
@@ -94,7 +90,7 @@ namespace EPloy.Res
             IFileSystem fileSystem = null;
             if (!ReadWriteFileSystems.TryGetValue(fileSystemName, out fileSystem))
             {
-                string fullPath = Utility.Path.GetRegularPath(Path.Combine(ResPath, Utility.Text.Format("{0}.{1}", fileSystemName, DefaultExtension)));
+                string fullPath = Utility.Path.GetRegularPath(Path.Combine(ResPath, Utility.Text.Format("{0}.{1}", fileSystemName, Config.DefaultExtension)));
                 fileSystem = FileSystem.GetFileSystem(fullPath);
                 if (fileSystem == null)
                 {
@@ -110,7 +106,7 @@ namespace EPloy.Res
                             Directory.CreateDirectory(directory);
                         }
 
-                        fileSystem = FileSystem.CreateFileSystem(fullPath, FileSystemAccess.ReadWrite, FileSystemMaxFileCount, FileSystemMaxBlockCount);
+                        fileSystem = FileSystem.CreateFileSystem(fullPath, FileSystemAccess.ReadWrite, Config.FileSystemMaxFileCount, Config.FileSystemMaxBlockCount);
                     }
 
                     ReadWriteFileSystems.Add(fileSystemName, fileSystem);

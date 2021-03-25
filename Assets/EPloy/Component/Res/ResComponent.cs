@@ -22,7 +22,7 @@ namespace EPloy
         public static string ReadWritePath = Application.persistentDataPath;
         public static string ReadPath = Application.streamingAssetsPath;
 
-        private ResLoader ResLoader; 
+        private ResLoader ResLoader;
         private ResUpdater ResUpdater;
         private ResStore ResStore;
 
@@ -32,7 +32,6 @@ namespace EPloy
             ResLoader = ResLoader.CreateResLoader();
             ResUpdater = ResUpdater.CreateResUpdater();
             ResStore = ResStore.CreateResStore();
-            InitTool();
         }
 
         public void Update()
@@ -135,6 +134,16 @@ namespace EPloy
         public TaskInfo[] GetAllLoadAssetInfos()
         {
             return ResLoader.GetAllLoadAssetInfos();
+        }
+
+        /// <summary>
+        /// 检查版本资源列表。
+        /// </summary>
+        /// <param name="latestInternalResourceVersion">最新的内部资源版本号。</param>
+        /// <returns>检查版本资源列表结果。</returns>
+        public CheckVersionListResult CheckVersionList(int latestInternalResourceVersion)
+        {
+            return CheckVersionListResult.Updated;
         }
     }
 }

@@ -11,10 +11,7 @@ namespace EPloy.Editor.ResourceTools
 {
     public sealed partial class ResourceBuilderController
     {
-        private const string RemoteVersionListFileName = "RemoteVersion.dat";
-        private const string LocalVersionListFileName = "LocalVersion.dat";
-        private const string DefaultExtension = "dat";
-        private const string NoneOptionName = "<None>";
+        
         private static readonly int AssetsStringLength = "Assets".Length;
 
         private readonly string m_ConfigurationPath;
@@ -799,7 +796,7 @@ namespace EPloy.Editor.ResourceTools
 
             UpdatableVersionList versionList = new UpdatableVersionList(ApplicableGameVersion, InternalResourceVersion, assets, resources, fileSystems, resourceGroups);
             UpdatableVersionListSerializer serializer = new UpdatableVersionListSerializer();
-            string updatableVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, RemoteVersionListFileName));
+            string updatableVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, Config.RemoteVersionListFileName));
             using (FileStream fileStream = new FileStream(updatableVersionListPath, FileMode.Create, FileAccess.Write))
             {
                 if (!serializer.Serialize(fileStream, versionList))
@@ -815,8 +812,8 @@ namespace EPloy.Editor.ResourceTools
             int compressedLength = bytes.Length;
             File.WriteAllBytes(updatableVersionListPath, bytes);
             int compressedHashCode = Utility.Verifier.GetCrc32(bytes);
-            int dotPosition = RemoteVersionListFileName.LastIndexOf('.');
-            string versionListFullNameWithCrc32 = Utility.Text.Format("{0}.{2:x8}.{1}", RemoteVersionListFileName.Substring(0, dotPosition), RemoteVersionListFileName.Substring(dotPosition + 1), hashCode);
+            int dotPosition = Config.RemoteVersionListFileName.LastIndexOf('.');
+            string versionListFullNameWithCrc32 = Utility.Text.Format("{0}.{2:x8}.{1}", Config.RemoteVersionListFileName.Substring(0, dotPosition), Config.RemoteVersionListFileName.Substring(dotPosition + 1), hashCode);
             string updatableVersionListPathWithCrc32 = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, versionListFullNameWithCrc32));
             File.Move(updatableVersionListPath, updatableVersionListPathWithCrc32);
 
@@ -963,7 +960,7 @@ namespace EPloy.Editor.ResourceTools
 
             if (OutputFullSelected)
             {
-                string fullNameWithCrc32AndExtension = variant != null ? Utility.Text.Format("{0}.{1}.{2:x8}.{3}", name, variant, hashCode, DefaultExtension) : Utility.Text.Format("{0}.{1:x8}.{2}", name, hashCode, DefaultExtension);
+                string fullNameWithCrc32AndExtension = variant != null ? Utility.Text.Format("{0}.{1}.{2:x8}.{3}", name, variant, hashCode, Config.DefaultExtension) : Utility.Text.Format("{0}.{1:x8}.{2}", name, hashCode, Config.DefaultExtension);
                 string fullPath = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, fullNameWithCrc32AndExtension));
                 string fullDirectoryName = Path.GetDirectoryName(fullPath);
                 if (!Directory.Exists(fullDirectoryName))
@@ -1141,7 +1138,7 @@ namespace EPloy.Editor.ResourceTools
                 }
             }
 
-            return DefaultExtension;
+            return Config.DefaultExtension;
         }
     }
 }

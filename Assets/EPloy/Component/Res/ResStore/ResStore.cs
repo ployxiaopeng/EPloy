@@ -26,6 +26,11 @@ namespace EPloy.Res
             }
         }
 
+
+        internal PackVersionListSerializer PackVersionListSerializer { get; private set; }
+        internal UpdatableVersionListSerializer UpdatableVersionListSerializer { get; private set; }
+        internal LocalVersionListSerializer LocalVersionListSerializer { get; private set; }
+
         public ObjectPoolBase AssetPool { get; private set; }
         public ObjectPoolBase ResourcePool { get; private set; }
 
@@ -53,6 +58,9 @@ namespace EPloy.Res
             ResInfos = new Dictionary<ResName, ResInfo>();
             ReadWriteResInfos = new SortedDictionary<ResName, ReadWriteResInfo>();
             ResGroups = new Dictionary<string, ResGroup>();
+            LocalVersionListSerializer = new LocalVersionListSerializer();
+            PackVersionListSerializer = new PackVersionListSerializer();
+            UpdatableVersionListSerializer = new UpdatableVersionListSerializer();
             SetObjectPoolManager();
         }
 
