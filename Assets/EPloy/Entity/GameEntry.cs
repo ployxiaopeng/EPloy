@@ -9,6 +9,11 @@ namespace EPloy
     /// </summary>
     public static class GameEntry
     {
+        public static EventComponent Event { get; set; }
+        public static ObjectPoolComponent ObjectPool { get; set; }
+        public static ResComponent Res { get; set; }
+        public static FileSystemComponent FileSystem { get; set; }
+
         private static GameEntity game = null;
         public static GameEntity Game
         {
@@ -22,10 +27,6 @@ namespace EPloy
                 return game;
             }
         }
-
-        public static EventComponent Event { get; set; }
-        public static ObjectPoolComponent ObjectPool { get; set; }
-        public static ResComponent Res { get; set; }
 
         private static GameSystem gameSystem = null;
         public static GameSystem GameSystem

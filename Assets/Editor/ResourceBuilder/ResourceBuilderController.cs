@@ -103,11 +103,7 @@ namespace EPloy.Editor.ResourceTools
         {
             get
             {
-#if UNITY_5_6_OR_NEWER
                 return PlayerSettings.applicationIdentifier;
-#else
-                return PlayerSettings.bundleIdentifier;
-#endif
             }
         }
 

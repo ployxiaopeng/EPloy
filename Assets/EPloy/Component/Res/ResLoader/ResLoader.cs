@@ -6,6 +6,9 @@ using EPloy.TaskPool;
 
 namespace EPloy.Res
 {
+    /// <summary>
+    /// 资源加载器
+    /// </summary>
     public sealed class ResLoader
     {
         private static ResLoader instance = null;
@@ -27,26 +30,13 @@ namespace EPloy.Res
         public Dictionary<object, int> ResourceDependCount { get; private set; }
         public Dictionary<object, object> AssetToResourceMap { get; private set; }
         public Dictionary<string, object> SceneToAssetMap { get; private set; }
-        public LoadBytesCallbacks LoadBytesCallbacks { get; private set; }
         public byte[] CachedHashBytes { get; private set; }
-        public ObjectPoolBase AssetPool { get; private set; }
-        public ObjectPoolBase ResourcePool { get; private set; }
-
         private const int CachedHashBytesLength = 4;
 
         /// <summary>
         /// 资产路径
         /// </summary>
         internal string ResPath = null;
-        /// <summary>
-        /// 资产信息 版本检验用
-        /// </summary>
-        internal Dictionary<string, AssetInfo> VersionInfos { get; private set; }
-        /// <summary>
-        /// 资源信息 资源加载用
-        /// </summary>
-        internal Dictionary<ResName, ResInfo> ResInfos { get; private set; }
-        // internal SortedDictionary<ResName, ReadWriteResourceInfo> m_ReadWriteResourceInfos;                                                              
 
         private ResLoader()
         {
@@ -56,18 +46,7 @@ namespace EPloy.Res
             AssetToResourceMap = new Dictionary<object, object>();
             SceneToAssetMap = new Dictionary<string, object>(StringComparer.Ordinal);
             CachedHashBytes = new byte[CachedHashBytesLength];
-            AssetPool = null;
-            ResourcePool = null;
-            ResPath = null;
-            SetObjectPoolManager();
         }
-        /// <summary>
-        /// 加载资源版本信息 默认 传入的路径为所以资源所在路径
-        /// </summary>
-        // public void LoadResVersionListInfo( ,string ResPath, string VersionListName,LoadBinaryCallbacks loadBinaryCallbacks)
-        // {
-          
-        // }
 
         /// <summary>
         /// 关闭并清理加载资源器。
@@ -97,7 +76,7 @@ namespace EPloy.Res
         /// <returns>检查资源是否存在的结果。</returns>
         public HasResult HasAsset(string assetName)
         {
-            ResInfo resInfo = GetResInfo(assetName);
+            ResInfo resInfo =  ResStore.Instance.GetResInfo(assetName);
             if (resInfo == null)
             {
                 return HasResult.NotExist;
@@ -235,7 +214,7 @@ namespace EPloy.Res
         /// <param name="userData">用户自定义数据。</param>
         public void LoadBinary(string binaryAssetName, LoadBinaryCallbacks loadBinaryCallbacks, object userData)
         {
-            ResInfo resourceInfo = GetResInfo(binaryAssetName);
+            ResInfo resourceInfo = ResStore.Instance.GetResInfo(binaryAssetName);
             if (resourceInfo == null)
             {
                 string errorMessage = Utility.Text.Format("Can not load binary '{0}' which is not exist.", binaryAssetName);
@@ -286,7 +265,7 @@ namespace EPloy.Res
         /// <remarks>此方法仅适用于二进制资源存储在磁盘（而非文件系统）中的情况。若二进制资源存储在文件系统中时，返回值将始终为空。</remarks>
         public string GetBinaryPath(string binaryAssetName)
         {
-            ResInfo resInfo = GetResInfo(binaryAssetName);
+            ResInfo resInfo =  ResStore.Instance.GetResInfo(binaryAssetName);
             if (resInfo == null)
             {
                 return null;
@@ -317,7 +296,7 @@ namespace EPloy.Res
             relativePath = null;
             fileName = null;
 
-            ResInfo resInfo = GetResInfo(binaryAssetName);
+            ResInfo resInfo =  ResStore.Instance.GetResInfo(binaryAssetName);
             if (resInfo == null)
             {
                 return false;
@@ -343,7 +322,7 @@ namespace EPloy.Res
         /// <returns>二进制资源的长度。</returns>
         public int GetBinaryLength(string binaryAssetName)
         {
-            ResInfo resInfo = GetResInfo(binaryAssetName);
+            ResInfo resInfo =  ResStore.Instance.GetResInfo(binaryAssetName);
             if (resInfo == null)
             {
                 return -1;
@@ -369,16 +348,6 @@ namespace EPloy.Res
         public TaskInfo[] GetAllLoadAssetInfos()
         {
             return TaskPool.GetAllTaskInfos();
-        }
-
-        /// <summary>
-        /// 设置对象池管理器。
-        /// </summary>
-        /// <param name="objectPoolManager">对象池管理器。</param>
-        private void SetObjectPoolManager()
-        {
-            AssetPool = GameEntry.ObjectPool.CreateObjectPool(typeof(AssetObject), "AssetPool");
-            ResourcePool = GameEntry.ObjectPool.CreateObjectPool(typeof(AssetObject), "ResPool");
         }
 
         private bool LoadDependencyAsset(string assetName, LoadResTaskBase mainTask, object userData)
@@ -428,76 +397,19 @@ namespace EPloy.Res
                 return false;
             }
 
-            AssetInfo assetInfo = GetAssetInfo(assetName);
+            AssetInfo assetInfo =  ResStore.Instance.GetAssetInfo(assetName);
             if (assetInfo == null)
             {
                 return false;
             }
 
-            resInfo = GetResInfo(assetInfo.ResName);
+            resInfo =  ResStore.Instance.GetResInfo(assetInfo.ResName);
             if (resInfo == null)
             {
                 return false;
             }
             dependencyAssetNames = assetInfo.GetDependencyAssetNames();
             return resInfo.Ready;
-        }
-
-        private AssetInfo GetAssetInfo(string assetName)
-        {
-            if (string.IsNullOrEmpty(assetName))
-            {
-                throw new EPloyException("Asset name is invalid.");
-            }
-
-            if (VersionInfos == null)
-            {
-                return null;
-            }
-
-            AssetInfo assetInfo = null;
-            if (VersionInfos.TryGetValue(assetName, out assetInfo))
-            {
-                return assetInfo;
-            }
-
-            return null;
-        }
-        private ResInfo GetResInfo(ResName resName)
-        {
-            if (ResInfos == null)
-            {
-                return null;
-            }
-
-            ResInfo resInfo = null;
-            if (ResInfos.TryGetValue(resName, out resInfo))
-            {
-                return resInfo;
-            }
-
-            return null;
-        }
-        private ResInfo GetResInfo(string assetName)
-        {
-            if (ResInfos == null)
-            {
-                return null;
-            }
-
-            AssetInfo assetInfo = GetAssetInfo(assetName);
-            if (assetInfo == null)
-            {
-                return null;
-            }
-
-            ResInfo resInfo = null;
-            if (ResInfos.TryGetValue(resInfo.ResName, out resInfo))
-            {
-                return resInfo;
-            }
-
-            return null;
         }
     }
 }

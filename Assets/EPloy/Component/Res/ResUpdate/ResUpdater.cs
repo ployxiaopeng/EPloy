@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using EPloy.ObjectPool;
 using EPloy.TaskPool;
+using EPloy.SystemFile;
 
 namespace EPloy.Res
 {
@@ -16,8 +17,13 @@ namespace EPloy.Res
     /// <param name="updateTotalZipLength">可更新的压缩后总大小。</param>
     public delegate void CheckResCompleteCallback(int movedCount, int removedCount, int updateCount, long updateTotalLength, long updateTotalZipLength);
 
+    /// <summary>
+    /// 资源更新器
+    /// </summary>
     public sealed class ResUpdater
     {
+        internal const int FileSystemMaxFileCount = 1024 * 16;
+        internal const int FileSystemMaxBlockCount = 1024 * 256;
         internal const string RemoteVersionListFileName = "Version.dat";
         internal const string LocalVersionListFileName = "Version.dat";
         internal const string DefaultExtension = "dat";
@@ -38,7 +44,19 @@ namespace EPloy.Res
                 return CreateResUpdater();
             }
         }
-       
+
+        internal FileSystemComponent FileSystem
+        {
+            get
+            {
+                return GameEntry.FileSystem;
+            }
+        }
+        /// <summary>
+        ///  更新资源需要的文件系统
+        /// </summary>
+        internal Dictionary<string, IFileSystem> ReadWriteFileSystems { get; private set; }
+
         /// <summary>
         /// 变体 暂时不知道不知道鬼
         /// </summary>
@@ -66,6 +84,39 @@ namespace EPloy.Res
             // m_ResourceChecker.CheckResources(m_CurrentVariant, ignoreOtherVariant);
         }
 
+        internal IFileSystem GetFileSystem(string fileSystemName, bool storageInReadOnly)
+        {
+            if (string.IsNullOrEmpty(fileSystemName))
+            {
+                throw new EPloyException("File system name is invalid.");
+            }
 
+            IFileSystem fileSystem = null;
+            if (!ReadWriteFileSystems.TryGetValue(fileSystemName, out fileSystem))
+            {
+                string fullPath = Utility.Path.GetRegularPath(Path.Combine(ResPath, Utility.Text.Format("{0}.{1}", fileSystemName, DefaultExtension)));
+                fileSystem = FileSystem.GetFileSystem(fullPath);
+                if (fileSystem == null)
+                {
+                    if (File.Exists(fullPath))
+                    {
+                        fileSystem = FileSystem.LoadFileSystem(fullPath, FileSystemAccess.ReadWrite);
+                    }
+                    else
+                    {
+                        string directory = Path.GetDirectoryName(fullPath);
+                        if (!Directory.Exists(directory))
+                        {
+                            Directory.CreateDirectory(directory);
+                        }
+
+                        fileSystem = FileSystem.CreateFileSystem(fullPath, FileSystemAccess.ReadWrite, FileSystemMaxFileCount, FileSystemMaxBlockCount);
+                    }
+
+                    ReadWriteFileSystems.Add(fileSystemName, fileSystem);
+                }
+            }
+            return fileSystem;
+        }
     }
 }

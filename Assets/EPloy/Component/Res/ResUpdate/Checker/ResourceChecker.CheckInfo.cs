@@ -7,29 +7,159 @@
         /// </summary>
         public sealed partial class CheckInfo
         {
-            public ResName ResName { get; private set; }
-            public CheckStatus Status { get; private set; }
-            public bool NeedRemove { get; private set; }
-            public bool NeedMoveToDisk { get; private set; }
-            public bool NeedMoveToFileSystem { get; private set; }
-            public RemoteVersionInfo VersionInfo { get; private set; }
-            public LocalVersionInfo ReadOnlyInfo { get; private set; }
-            public LocalVersionInfo ReadWriteInfo { get; private set; }
-            public string CachedFileSystemName { get; private set; }
+            private RemoteVersionInfo VersionInfo;
+            private LocalVersionInfo ReadWriteInfo;
 
+            /// <summary>
+            /// 获取资源名称。
+            /// </summary>
+            public ResName ResName
+            {
+                get;
+                private set;
+            }
+
+            /// <summary>
+            /// 获取资源检查状态。
+            /// </summary>
+            public CheckStatus Status
+            {
+                get;
+                private set;
+            }
+
+            /// <summary>
+            /// 获取是否需要移除读写区的资源。
+            /// </summary>
+            public bool NeedRemove
+            {
+                get;
+                private set;
+            }
+
+            /// <summary>
+            /// 获取是否需要将读写区的资源移动到磁盘。
+            /// </summary>
+            public bool NeedMoveToDisk
+            {
+                get;
+                private set;
+            }
+
+            /// <summary>
+            /// 获取是否需要将读写区的资源移动到文件系统。
+            /// </summary>
+            public bool NeedMoveToFileSystem
+            {
+                get;
+                private set;
+            }
+
+            /// <summary>
+            /// 获取资源所在的文件系统名称。
+            /// </summary>
+            public string FileSystemName
+            {
+                get;
+                private set;
+            }
+
+            /// <summary>
+            /// 获取资源是否使用文件系统。
+            /// </summary>
+            public bool ReadWriteUseFileSystem
+            {
+                get
+                {
+                    return ReadWriteInfo.UseFileSystem;
+                }
+            }
+
+            /// <summary>
+            /// 获取读写资源所在的文件系统名称。
+            /// </summary>
+            public string ReadWriteFileSystemName
+            {
+                get
+                {
+                    return ReadWriteInfo.FileSystemName;
+                }
+            }
+
+            /// <summary>
+            /// 获取资源加载方式。
+            /// </summary>
+            public LoadType LoadType
+            {
+                get
+                {
+                    return VersionInfo.LoadType;
+                }
+            }
+
+            /// <summary>
+            /// 获取资源大小。
+            /// </summary>
+            public int Length
+            {
+                get
+                {
+                    return VersionInfo.Length;
+                }
+            }
+
+            /// <summary>
+            /// 获取资源哈希值。
+            /// </summary>
+            public int HashCode
+            {
+                get
+                {
+                    return VersionInfo.HashCode;
+                }
+            }
+
+            /// <summary>
+            /// 获取压缩后大小。
+            /// </summary>
+            public int ZipLength
+            {
+                get
+                {
+                    return VersionInfo.ZipLength;
+                }
+            }
+
+            /// <summary>
+            /// 获取压缩后哈希值。
+            /// </summary>
+            public int ZipHashCode
+            {
+                get
+                {
+                    return VersionInfo.ZipHashCode;
+                }
+            }
+
+            /// <summary>
+            /// 临时缓存资源所在的文件系统名称。
+            /// </summary>
+            public string CachedFileSystemName
+            {
+                get;
+                private set;
+            }
             /// <summary>
             /// 初始化资源检查信息的新实例。
             /// </summary>
             /// <param name="resourceName">资源名称。</param>
-            public CheckInfo(ResName resourceName)
+            public CheckInfo(ResName resName)
             {
-                ResName = resourceName;
+                ResName = resName;
                 Status = CheckStatus.Unknown;
                 NeedRemove = false;
                 NeedMoveToDisk = false;
-                NeedMoveToFileSystem = false;
                 VersionInfo = default(RemoteVersionInfo);
-                ReadOnlyInfo = default(LocalVersionInfo);
                 ReadWriteInfo = default(LocalVersionInfo);
                 CachedFileSystemName = null;
             }
@@ -59,23 +189,6 @@
                 }
 
                 VersionInfo = new RemoteVersionInfo(CachedFileSystemName, loadType, length, hashCode, zipLength, zipHashCode);
-                CachedFileSystemName = null;
-            }
-
-            /// <summary>
-            /// 设置资源在只读区中的信息。
-            /// </summary>
-            /// <param name="loadType">资源加载方式。</param>
-            /// <param name="length">资源大小。</param>
-            /// <param name="hashCode">资源哈希值。</param>
-            public void SetReadOnlyInfo(LoadType loadType, int length, int hashCode)
-            {
-                if (ReadOnlyInfo.Exist)
-                {
-                    throw new EPloyException(Utility.Text.Format("You must set readonly info of '{0}' only once.", ResName.FullName));
-                }
-
-                ReadOnlyInfo = new LocalVersionInfo(CachedFileSystemName, loadType, length, hashCode);
                 CachedFileSystemName = null;
             }
 
@@ -112,12 +225,7 @@
 
                 if (ResName.Variant == null || ResName.Variant == currentVariant)
                 {
-                    if (ReadOnlyInfo.Exist && ReadOnlyInfo.FileSystemName == VersionInfo.FileSystemName && ReadOnlyInfo.LoadType == VersionInfo.LoadType && ReadOnlyInfo.Length == VersionInfo.Length && ReadOnlyInfo.HashCode == VersionInfo.HashCode)
-                    {
-                        Status = CheckStatus.StorageInReadOnly;
-                        NeedRemove = ReadWriteInfo.Exist;
-                    }
-                    else if (ReadWriteInfo.Exist && ReadWriteInfo.LoadType == VersionInfo.LoadType && ReadWriteInfo.Length == VersionInfo.Length && ReadWriteInfo.HashCode == VersionInfo.HashCode)
+                    if (ReadWriteInfo.Exist && ReadWriteInfo.LoadType == VersionInfo.LoadType && ReadWriteInfo.Length == VersionInfo.Length && ReadWriteInfo.HashCode == VersionInfo.HashCode)
                     {
                         bool differentFileSystem = ReadWriteInfo.FileSystemName != VersionInfo.FileSystemName;
                         Status = CheckStatus.StorageInReadWrite;

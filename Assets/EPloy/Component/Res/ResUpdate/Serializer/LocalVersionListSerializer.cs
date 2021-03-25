@@ -52,7 +52,7 @@ namespace EPloy.Res
             using (BinaryWriter binaryWriter = new BinaryWriter(stream, Encoding.UTF8))
             {
                 binaryWriter.Write(s_CachedHashBytes);
-                LocalVersionList.Resource[] resources = versionList.GetResources();
+                LocalVersionList.Resource[] resources = versionList.Resources;
                 binaryWriter.Write(resources.Length);
                 foreach (LocalVersionList.Resource resource in resources)
                 {
@@ -85,7 +85,7 @@ namespace EPloy.Res
             using (BinaryWriter binaryWriter = new BinaryWriter(stream, Encoding.UTF8))
             {
                 binaryWriter.Write(s_CachedHashBytes);
-                LocalVersionList.Resource[] resources = versionList.GetResources();
+                LocalVersionList.Resource[] resources = versionList.Resources;
                 binaryWriter.Write7BitEncodedInt32(resources.Length);
                 foreach (LocalVersionList.Resource resource in resources)
                 {
@@ -126,7 +126,7 @@ namespace EPloy.Res
                     resources[i] = new LocalVersionList.Resource(name, variant, null, loadType, length, hashCode);
                 }
 
-                return new LocalVersionList(resources);
+                return new LocalVersionList(resources,null);
             }
         }
 
@@ -153,7 +153,22 @@ namespace EPloy.Res
                     resources[i] = new LocalVersionList.Resource(name, variant, extension, loadType, length, hashCode);
                 }
 
-                return new LocalVersionList(resources);
+                int fileSystemCount = binaryReader.Read7BitEncodedInt32();
+                LocalVersionList.FileSystem[] fileSystems = fileSystemCount > 0 ? new LocalVersionList.FileSystem[fileSystemCount] : null;
+                for (int i = 0; i < fileSystemCount; i++)
+                {
+                    string name = binaryReader.ReadEncryptedString(encryptBytes);
+                    int resourceIndexCount = binaryReader.Read7BitEncodedInt32();
+                    int[] resourceIndexes = resourceIndexCount > 0 ? new int[resourceIndexCount] : null;
+                    for (int j = 0; j < resourceIndexCount; j++)
+                    {
+                        resourceIndexes[j] = binaryReader.Read7BitEncodedInt32();
+                    }
+
+                    fileSystems[i] = new LocalVersionList.FileSystem(name, resourceIndexes);
+                }
+
+                return new LocalVersionList(resources, fileSystems);
             }
         }
     }

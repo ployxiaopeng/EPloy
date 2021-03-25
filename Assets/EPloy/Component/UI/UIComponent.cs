@@ -152,7 +152,7 @@ namespace EPloy
             }
             else
             {
-                uiGroup.OpenUIForm(false, assetObject.Res, uiName, userData);
+                uiGroup.OpenUIForm(false, assetObject.Asset, uiName, userData);
             }
         }
 

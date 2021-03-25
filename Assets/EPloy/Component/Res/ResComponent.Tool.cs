@@ -3,13 +3,14 @@ using EPloy.Res;
 using System;
 using System.Collections.Generic;
 
+
 namespace EPloy
 {
     public partial class ResComponent : Component
     {
-        private PackVersionListSerializer PackVersionListSerializer;
-        private UpdatableVersionListSerializer UpdatableVersionListSerializer;
-        private LocalVersionListSerializer LocalVersionListSerializer;
+        public PackVersionListSerializer PackVersionListSerializer { get; private set; }
+        public UpdatableVersionListSerializer UpdatableVersionListSerializer { get; private set; }
+        public LocalVersionListSerializer LocalVersionListSerializer { get; private set; }
         // 资源文件名
         private Dictionary<ResName, string> m_CachedFileSystemNames;
 

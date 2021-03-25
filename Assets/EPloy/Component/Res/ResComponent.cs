@@ -3,6 +3,8 @@ using EPloy.Res;
 using System;
 using EPloy.TaskPool;
 using UnityEngine;
+using EPloy.SystemFile;
+using System.Collections.Generic;
 
 namespace EPloy
 {
@@ -17,38 +19,30 @@ namespace EPloy
 
     public partial class ResComponent : Component
     {
-        public string ReadWritePath
-        {
-            get
-            {
-                return Application.persistentDataPath;
-            }
-        }
-        public string ReadPath
-        {
-            get
-            {
-                return Application.streamingAssetsPath;
-            }
-        }
+        public static string ReadWritePath = Application.persistentDataPath;
+        public static string ReadPath = Application.streamingAssetsPath;
 
-        private ResLoader resLoader;
+        private ResLoader ResLoader; 
+        private ResUpdater ResUpdater;
+        private ResStore ResStore;
 
         protected override void Init()
         {
             base.Init();
-            resLoader = ResLoader.CreateResLoader();
+            ResLoader = ResLoader.CreateResLoader();
+            ResUpdater = ResUpdater.CreateResUpdater();
+            ResStore = ResStore.CreateResStore();
             InitTool();
         }
 
         public void Update()
         {
-            resLoader.Update();
+            ResLoader.Update();
         }
 
         public void OnDestroy()
         {
-            resLoader.OnDestroy();
+            ResLoader.OnDestroy();
         }
 
         /// <summary>
@@ -63,7 +57,7 @@ namespace EPloy
                 throw new EPloyException("Asset name is invalid.");
             }
 
-            return resLoader.HasAsset(assetName);
+            return ResLoader.HasAsset(assetName);
         }
 
         /// <summary>
@@ -75,7 +69,7 @@ namespace EPloy
         /// <param name="userData">用户自定义数据。</param>
         public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks, object userData = null)
         {
-            resLoader.LoadAsset(assetName, assetType, loadAssetCallbacks, userData);
+            ResLoader.LoadAsset(assetName, assetType, loadAssetCallbacks, userData);
         }
 
         /// <summary>
@@ -87,7 +81,7 @@ namespace EPloy
         /// <param name="userData">用户自定义数据。</param>
         public void LoadScene(string sceneAssetName, LoadSceneCallbacks loadSceneCallbacks, object userData = null)
         {
-            resLoader.LoadScene(sceneAssetName, loadSceneCallbacks, userData);
+            ResLoader.LoadScene(sceneAssetName, loadSceneCallbacks, userData);
         }
 
         /// <summary>
@@ -98,7 +92,7 @@ namespace EPloy
         /// <param name="userData">用户自定义数据。</param>
         public void LoadBinary(string binaryAssetName, LoadBinaryCallbacks loadBinaryCallbacks, object userData = null)
         {
-            resLoader.LoadBinary(binaryAssetName, loadBinaryCallbacks, userData);
+            ResLoader.LoadBinary(binaryAssetName, loadBinaryCallbacks, userData);
         }
 
         /// <summary>
@@ -109,7 +103,7 @@ namespace EPloy
         /// <remarks>此方法仅适用于二进制资源存储在磁盘（而非文件系统）中的情况。若二进制资源存储在文件系统中时，返回值将始终为空。</remarks>
         public string GetBinaryPath(string binaryAssetName)
         {
-            return resLoader.GetBinaryPath(binaryAssetName);
+            return ResLoader.GetBinaryPath(binaryAssetName);
         }
 
         /// <summary>
@@ -121,7 +115,7 @@ namespace EPloy
         /// <returns>是否获取二进制资源的实际路径成功。</returns>
         public bool GetBinaryPath(string binaryAssetName, out string relativePath, out string fileName)
         {
-            return resLoader.GetBinaryPath(binaryAssetName, out relativePath, out fileName);
+            return ResLoader.GetBinaryPath(binaryAssetName, out relativePath, out fileName);
         }
 
         /// <summary>
@@ -131,7 +125,7 @@ namespace EPloy
         /// <returns>二进制资源的长度。</returns>
         public int GetBinaryLength(string binaryAssetName)
         {
-            return resLoader.GetBinaryLength(binaryAssetName);
+            return ResLoader.GetBinaryLength(binaryAssetName);
         }
 
         /// <summary>
@@ -140,7 +134,7 @@ namespace EPloy
         /// <returns>所有加载资源任务的信息。</returns>
         public TaskInfo[] GetAllLoadAssetInfos()
         {
-            return resLoader.GetAllLoadAssetInfos();
+            return ResLoader.GetAllLoadAssetInfos();
         }
     }
 }

@@ -12,6 +12,7 @@ using EPloy.SystemFile;
 
 namespace EPloy
 {
+
     /// <summary>
     /// 文件系统组件。
     /// </summary>
@@ -41,18 +42,9 @@ namespace EPloy
         }
 
         /// <summary>
-        /// 文件系统管理器轮询。
-        /// </summary>
-        /// <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
-        /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
-        internal void Update(float elapseSeconds, float realElapseSeconds)
-        {
-        }
-
-        /// <summary>
         /// 关闭并清理文件系统管理器。
         /// </summary>
-        internal void Shutdown()
+        public void OnDestroy()
         {
             while (m_FileSystems.Count > 0)
             {
@@ -63,7 +55,6 @@ namespace EPloy
                 }
             }
         }
-
 
         /// <summary>
         /// 检查是否存在文件系统。
@@ -243,6 +234,7 @@ namespace EPloy
                 results.Add(fileSystem.Value);
             }
         }
+    
         private FileSystemStream CreateFileSystemStream(string fullPath, FileSystemAccess access, bool createNew)
         {
             if (fullPath.StartsWith(AndroidFileSystemPrefixString, StringComparison.Ordinal))

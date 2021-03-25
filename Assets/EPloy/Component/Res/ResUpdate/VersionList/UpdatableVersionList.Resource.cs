@@ -1,4 +1,4 @@
-﻿namespace EPloy.Res
+﻿namespace  EPloy.Res
 {
     public partial struct UpdatableVersionList
     {

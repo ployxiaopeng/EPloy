@@ -1,11 +1,4 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
-// Homepage: https://gameframework.cn/
-// Feedback: mailto:ellan@gameframework.cn
-//------------------------------------------------------------
-
-using EPloy.ObjectPool;
+﻿using EPloy.ObjectPool;
 using System.Collections.Generic;
 
 namespace EPloy.Res
@@ -17,12 +10,15 @@ namespace EPloy.Res
     internal sealed class AssetObject : ObjectBase
     {
         public List<object> DependAssets { get; private set; }
-        public object Res { get; private set; }
+        /// <summary>
+        /// 存储的资源对象。
+        /// </summary>
+        public object Asset { get; private set; }
 
         public AssetObject()
         {
             DependAssets = new List<object>();
-            Res = null;
+            Asset = null;
         }
 
         public static AssetObject Create(string name, object target, List<object> dependAssets, object res)
@@ -40,7 +36,7 @@ namespace EPloy.Res
             AssetObject assetObject = ReferencePool.Acquire<AssetObject>();
             assetObject.Initialize(name, target);
             assetObject.DependAssets.AddRange(dependAssets);
-            assetObject.Res = res;
+            assetObject.Asset = res;
 
             foreach (object dependAsset in dependAssets)
             {
@@ -62,7 +58,7 @@ namespace EPloy.Res
         {
             base.Clear();
             DependAssets = new List<object>();
-            Res = null;
+            Asset = null;
         }
 
         protected internal override void OnUnspawn()
@@ -70,7 +66,7 @@ namespace EPloy.Res
             base.OnUnspawn();
             foreach (object dependencyAsset in DependAssets)
             {
-                ResLoader.Instance.AssetPool.Unspawn(dependencyAsset);
+                ResStore.Instance.AssetPool.Unspawn(dependencyAsset);
             }
         }
 
