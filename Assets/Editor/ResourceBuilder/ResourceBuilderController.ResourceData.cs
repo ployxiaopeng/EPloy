@@ -44,6 +44,13 @@ namespace EPloy.Editor.ResourceTools
                 }
             }
 
+            public string FileSystem
+            {
+                get
+                {
+                    return m_FileSystem;
+                }
+            }
             public bool IsLoadFromBinary
             {
                 get

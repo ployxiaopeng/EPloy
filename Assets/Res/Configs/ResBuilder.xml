@@ -2,7 +2,7 @@
 <EPloy>
   <ResourceBuilder>
     <Settings>
-      <InternalResourceVersion>0</InternalResourceVersion>
+      <InternalResourceVersion>1</InternalResourceVersion>
       <Platforms>1</Platforms>
       <AssetBundleZip>1</AssetBundleZip>
       <ZipHelperTypeName>
@@ -14,7 +14,6 @@
       <OutputDirectory>D:/EPloy/Assets/ABPack</OutputDirectory>
       <OutputPackageSelected>True</OutputPackageSelected>
       <OutputFullSelected>True</OutputFullSelected>
-      <OutputPackedSelected>True</OutputPackedSelected>
     </Settings>
   </ResourceBuilder>
 </EPloy>

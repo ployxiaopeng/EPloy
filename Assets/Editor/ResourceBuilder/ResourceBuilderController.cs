@@ -80,7 +80,7 @@ namespace EPloy.Editor.ResourceTools
             ForceRebuildAssetBundleSelected = false;
             BuildEventHandlerTypeName = string.Empty;
             OutputDirectory = string.Empty;
-            OutputPackageSelected = OutputFullSelected = OutputPackedSelected = true;
+            OutputPackageSelected = OutputFullSelected = true;
         }
 
         public string ProductName
@@ -186,12 +186,6 @@ namespace EPloy.Editor.ResourceTools
         }
 
         public bool OutputFullSelected
-        {
-            get;
-            set;
-        }
-
-        public bool OutputPackedSelected
         {
             get;
             set;
@@ -361,10 +355,6 @@ namespace EPloy.Editor.ResourceTools
                         case "OutputFullSelected":
                             OutputFullSelected = bool.Parse(xmlNode.InnerText);
                             break;
-
-                        case "OutputPackedSelected":
-                            OutputPackedSelected = bool.Parse(xmlNode.InnerText);
-                            break;
                     }
                 }
             }
@@ -424,9 +414,6 @@ namespace EPloy.Editor.ResourceTools
                 xmlSettings.AppendChild(xmlElement);
                 xmlElement = xmlDocument.CreateElement("OutputFullSelected");
                 xmlElement.InnerText = OutputFullSelected.ToString();
-                xmlSettings.AppendChild(xmlElement);
-                xmlElement = xmlDocument.CreateElement("OutputPackedSelected");
-                xmlElement.InnerText = OutputPackedSelected.ToString();
                 xmlSettings.AppendChild(xmlElement);
 
                 string configurationDirectoryName = Path.GetDirectoryName(m_ConfigurationPath);
@@ -608,16 +595,7 @@ namespace EPloy.Editor.ResourceTools
                 m_BuildReport.LogInfo("Output full is not selected.");
             }
 
-            string outputPackedPath = Utility.Text.Format("{0}{1}/", OutputPackedPath, platformName);
-            if (OutputPackedSelected)
-            {
-                Directory.CreateDirectory(outputPackedPath);
-                m_BuildReport.LogInfo("Output packed is selected, path is '{0}'.", outputPackedPath);
-            }
-            else
-            {
-                m_BuildReport.LogInfo("Output packed is not selected.");
-            }
+            m_BuildReport.LogInfo("Output packed is not selected.");
 
             // Clean working path
             List<string> validNames = new List<string>();
@@ -688,7 +666,7 @@ namespace EPloy.Editor.ResourceTools
 
                 m_BuildReport.LogInfo("Start process asset bundle '{0}' for '{1}'...", fullName, platformName);
 
-                if (!ProcessAssetBundle(platform, workingPath, outputPackagePath, outputFullPath, outputPackedPath, AdditionalZipSelected, assetBundleResourceDatas[i].Name, assetBundleResourceDatas[i].Variant))
+                if (!ProcessAssetBundle(platform, workingPath, outputPackagePath, outputFullPath, AdditionalZipSelected, assetBundleResourceDatas[i].Name, assetBundleResourceDatas[i].Variant))
                 {
                     return false;
                 }
@@ -711,7 +689,7 @@ namespace EPloy.Editor.ResourceTools
 
                 m_BuildReport.LogInfo("Start process binary '{0}' for '{1}'...", fullName, platformName);
 
-                if (!ProcessBinary(platform, workingPath, outputPackagePath, outputFullPath, outputPackedPath, AdditionalZipSelected, binaryResourceDatas[i].Name, binaryResourceDatas[i].Variant))
+                if (!ProcessBinary(platform, workingPath, outputPackagePath, outputFullPath, AdditionalZipSelected, binaryResourceDatas[i].Name, binaryResourceDatas[i].Variant))
                 {
                     return false;
                 }
@@ -725,12 +703,6 @@ namespace EPloy.Editor.ResourceTools
                 m_BuildReport.LogInfo("Process updatable version list for '{0}' complete, updatable version list path is '{1}', length is '{2}', hash code is '{3}[0x{3:X8}]', compressed length is '{4}', compressed hash code is '{5}[0x{5:X8}]'.", platformName, versionListData.Path, versionListData.Length.ToString(), versionListData.HashCode, versionListData.CompressedLength.ToString(), versionListData.CompressedHashCode);
             }
 
-            if (OutputPackedSelected)
-            {
-                ProcessReadOnlyVersionList(outputPackedPath, platform);
-                m_BuildReport.LogInfo("Process read only version list for '{0}' complete.", platformName);
-            }
-
             if (ProcessResourceComplete != null)
             {
                 ProcessResourceComplete(platform);
@@ -740,7 +712,7 @@ namespace EPloy.Editor.ResourceTools
             return true;
         }
 
-        private bool ProcessAssetBundle(Platform platform, string workingPath, string outputPackagePath, string outputFullPath, string outputPackedPath, bool additionalZipSelected, string name, string variant)
+        private bool ProcessAssetBundle(Platform platform, string workingPath, string outputPackagePath, string outputFullPath, bool additionalZipSelected, string name, string variant)
         {
             string fullName = GetResourceFullName(name, variant);
             ResourceData resourceData = m_ResourceDatas[fullName];
@@ -762,10 +734,10 @@ namespace EPloy.Editor.ResourceTools
                 bytes = Utility.Encryption.GetXorBytes(bytes, hashBytes);
             }
 
-            return ProcessOutput(platform, outputPackagePath, outputFullPath, outputPackedPath, additionalZipSelected, name, variant, resourceData, bytes, length, hashCode, compressedLength, compressedHashCode);
+            return ProcessOutput(platform, outputPackagePath, outputFullPath, additionalZipSelected, name, variant, resourceData, bytes, length, hashCode, compressedLength, compressedHashCode);
         }
 
-        private bool ProcessBinary(Platform platform, string workingPath, string outputPackagePath, string outputFullPath, string outputPackedPath, bool additionalZipSelected, string name, string variant)
+        private bool ProcessBinary(Platform platform, string workingPath, string outputPackagePath, string outputFullPath, bool additionalZipSelected, string name, string variant)
         {
             string fullName = GetResourceFullName(name, variant);
             ResourceData resourceData = m_ResourceDatas[fullName];
@@ -788,7 +760,7 @@ namespace EPloy.Editor.ResourceTools
                 bytes = Utility.Encryption.GetXorBytes(bytes, hashBytes);
             }
 
-            return ProcessOutput(platform, outputPackagePath, outputFullPath, outputPackedPath, additionalZipSelected, name, variant, resourceData, bytes, length, hashCode, compressedLength, compressedHashCode);
+            return ProcessOutput(platform, outputPackagePath, outputFullPath, additionalZipSelected, name, variant, resourceData, bytes, length, hashCode, compressedLength, compressedHashCode);
         }
 
         private VersionListData ProcessUpdatableVersionList(string outputFullPath, Platform platform)
@@ -811,6 +783,13 @@ namespace EPloy.Editor.ResourceTools
                 resources[index++] = new UpdatableVersionList.Resource(resourceData.Name, resourceData.Variant, GetExtension(resourceData), (byte)resourceData.LoadType, resourceCode.Length, resourceCode.HashCode, resourceCode.CompressedLength, resourceCode.CompressedHashCode, GetAssetIndexes(resourceData));
             }
 
+            string[] fileSystemNames = GetFileSystemNames(resourceDatas);
+            UpdatableVersionList.FileSystem[] fileSystems = new UpdatableVersionList.FileSystem[fileSystemNames.Length];
+            for (int i = 0; i < fileSystems.Length; i++)
+            {
+                fileSystems[i] = new UpdatableVersionList.FileSystem(fileSystemNames[i], GetResourceIndexesFromFileSystem(resourceDatas, fileSystemNames[i]));
+            }
+
             string[] resourceGroupNames = GetResourceGroupNames(resourceDatas);
             UpdatableVersionList.ResourceGroup[] resourceGroups = new UpdatableVersionList.ResourceGroup[resourceGroupNames.Length];
             for (int i = 0; i < resourceGroups.Length; i++)
@@ -818,9 +797,16 @@ namespace EPloy.Editor.ResourceTools
                 resourceGroups[i] = new UpdatableVersionList.ResourceGroup(resourceGroupNames[i], GetResourceIndexesFromResourceGroup(resourceDatas, resourceGroupNames[i]));
             }
 
-            UpdatableVersionList versionList = new UpdatableVersionList(ApplicableGameVersion, InternalResourceVersion, assets, resources, resourceGroups);
+            UpdatableVersionList versionList = new UpdatableVersionList(ApplicableGameVersion, InternalResourceVersion, assets, resources, fileSystems, resourceGroups);
             UpdatableVersionListSerializer serializer = new UpdatableVersionListSerializer();
             string updatableVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, RemoteVersionListFileName));
+            using (FileStream fileStream = new FileStream(updatableVersionListPath, FileMode.Create, FileAccess.Write))
+            {
+                if (!serializer.Serialize(fileStream, versionList))
+                {
+                    throw new EPloyException("Serialize updatable version list failure.");
+                }
+            }
 
             byte[] bytes = File.ReadAllBytes(updatableVersionListPath);
             int length = bytes.Length;
@@ -835,30 +821,6 @@ namespace EPloy.Editor.ResourceTools
             File.Move(updatableVersionListPath, updatableVersionListPathWithCrc32);
 
             return new VersionListData(updatableVersionListPathWithCrc32, length, hashCode, compressedLength, compressedHashCode);
-        }
-
-        private void ProcessReadOnlyVersionList(string outputPackedPath, Platform platform)
-        {
-            ResourceData[] packedResourceDatas = GetPackedResourceDatas();
-
-            LocalVersionList.Resource[] resources = new LocalVersionList.Resource[packedResourceDatas.Length];
-            for (int i = 0; i < resources.Length; i++)
-            {
-                ResourceData resourceData = packedResourceDatas[i];
-                ResourceCode resourceCode = resourceData.GetCode(platform);
-                resources[i] = new LocalVersionList.Resource(resourceData.Name, resourceData.Variant, GetExtension(resourceData), (byte)resourceData.LoadType, resourceCode.Length, resourceCode.HashCode);
-            }
-
-            LocalVersionList versionList = new LocalVersionList(resources);
-            LocalVersionListSerializer serializer = new LocalVersionListSerializer();
-            string readOnlyVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputPackedPath, LocalVersionListFileName));
-            using (FileStream fileStream = new FileStream(readOnlyVersionListPath, FileMode.Create, FileAccess.Write))
-            {
-                if (!serializer.Serialize(fileStream, versionList))
-                {
-                    throw new EPloyException("Serialize read only version list failure.");
-                }
-            }
         }
 
         private int[] GetDependencyAssetIndexes(string assetName)
@@ -915,6 +877,39 @@ namespace EPloy.Editor.ResourceTools
             return packedResourceDatas.ToArray();
         }
 
+        private string[] GetFileSystemNames(IEnumerable<ResourceData> resourceDatas)
+        {
+            HashSet<string> fileSystemNames = new HashSet<string>();
+            foreach (ResourceData resourceData in resourceDatas)
+            {
+                if (resourceData.FileSystem == null)
+                {
+                    continue;
+                }
+
+                fileSystemNames.Add(resourceData.FileSystem);
+            }
+
+            return fileSystemNames.OrderBy(x => x).ToArray();
+        }
+
+        private int[] GetResourceIndexesFromFileSystem(IEnumerable<ResourceData> resourceDatas, string fileSystemName)
+        {
+            int index = 0;
+            List<int> resourceIndexes = new List<int>();
+            foreach (ResourceData resourceData in resourceDatas)
+            {
+                if (resourceData.FileSystem == fileSystemName)
+                {
+                    resourceIndexes.Add(index);
+                }
+
+                index++;
+            }
+
+            resourceIndexes.Sort();
+            return resourceIndexes.ToArray();
+        }
 
         private string[] GetResourceGroupNames(IEnumerable<ResourceData> resourceDatas)
         {
@@ -952,7 +947,7 @@ namespace EPloy.Editor.ResourceTools
             return resourceIndexes.ToArray();
         }
 
-        private bool ProcessOutput(Platform platform, string outputPackagePath, string outputFullPath, string outputPackedPath, bool additionalZipSelected, string name, string variant, ResourceData resourceData, byte[] bytes, int length, int hashCode, int compressedLength, int compressedHashCode)
+        private bool ProcessOutput(Platform platform, string outputPackagePath, string outputFullPath, bool additionalZipSelected, string name, string variant, ResourceData resourceData, byte[] bytes, int length, int hashCode, int compressedLength, int compressedHashCode)
         {
             string fullNameWithExtension = Utility.Text.Format("{0}.{1}", GetResourceFullName(name, variant), GetExtension(resourceData));
 
@@ -964,18 +959,6 @@ namespace EPloy.Editor.ResourceTools
                 {
                     Directory.CreateDirectory(packageDirectoryName);
                 }
-            }
-
-            if (OutputPackedSelected && resourceData.Packed)
-            {
-                string packedPath = Utility.Path.GetRegularPath(Path.Combine(outputPackedPath, fullNameWithExtension));
-                string packedDirectoryName = Path.GetDirectoryName(packedPath);
-                if (!Directory.Exists(packedDirectoryName))
-                {
-                    Directory.CreateDirectory(packedDirectoryName);
-                }
-
-                File.WriteAllBytes(packedPath, bytes);
             }
 
             if (OutputFullSelected)

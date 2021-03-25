@@ -213,15 +213,6 @@ namespace EPloy.Editor.ResourceTools
                     EditorGUILayout.EndHorizontal();
                     EditorGUILayout.BeginHorizontal();
                     {
-                        EditorGUI.BeginDisabledGroup(!m_Controller.OutputPackedSelected);
-                        EditorGUILayout.LabelField("Output Packed Path", GUILayout.Width(160f));
-                        GUILayout.Label(m_Controller.OutputPackedPath);
-                        EditorGUI.EndDisabledGroup();
-                        m_Controller.OutputPackedSelected = EditorGUILayout.ToggleLeft("Generate", m_Controller.OutputPackedSelected, GUILayout.Width(70f));
-                    }
-                    EditorGUILayout.EndHorizontal();
-                    EditorGUILayout.BeginHorizontal();
-                    {
                         EditorGUILayout.LabelField("Build Report Path", GUILayout.Width(160f));
                         GUILayout.Label(m_Controller.BuildReportPath);
                     }
