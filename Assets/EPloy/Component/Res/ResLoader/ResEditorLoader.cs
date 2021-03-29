@@ -14,8 +14,22 @@ namespace EPloy
     /// <summary>
     /// 编辑器资源组件。
     /// </summary>
-    public sealed class EditorResComponent : Component
+    public sealed class ResEditorLoader
     {
+        private static ResEditorLoader instance = null;
+        public static ResEditorLoader CreateResEditorLoader()
+        {
+            if (instance == null) instance = new ResEditorLoader();
+            return instance;
+        }
+        internal static ResEditorLoader Instance
+        {
+            get
+            {
+                return CreateResEditorLoader();
+            }
+        }
+
         private static readonly int AssetsStringLength = "Assets".Length;
         private bool EnableCachedAssets = true;
         private int LoadAssetCountPerFrame = 5;
@@ -216,7 +230,7 @@ namespace EPloy
         /// <param name="priority">加载资源的优先级。</param>
         /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadAsset(string assetName, Type assetType, int priority, LoadAssetCallbacks loadAssetCallbacks)
+        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks)
         {
             if (loadAssetCallbacks == null)
             {
@@ -385,8 +399,8 @@ namespace EPloy
                 return;
             }
 
-            string binaryPath = GetBinaryPath(binaryAssetName);
-            if (binaryPath == null)
+            string binaryPath = null;
+            if (!GetBinaryPath(binaryAssetName, out binaryPath))
             {
                 if (loadBinaryCallbacks.LoadBinaryFailureCallback != null)
                 {
@@ -416,14 +430,15 @@ namespace EPloy
         /// <param name="binaryAssetName">要获取实际路径的二进制资源的名称。</param>
         /// <returns>二进制资源的实际路径。</returns>
         /// <remarks>此方法仅适用于二进制资源存储在磁盘（而非文件系统）中的情况。若二进制资源存储在文件系统中时，返回值将始终为空。</remarks>
-        public string GetBinaryPath(string binaryAssetName)
+        public bool GetBinaryPath(string binaryAssetName, out string fileName)
         {
+            fileName = null;
             if (!HasFile(binaryAssetName))
             {
-                return null;
+                return false;
             }
-
-            return Application.dataPath.Substring(0, Application.dataPath.Length - AssetsStringLength) + binaryAssetName;
+            fileName = Application.dataPath.Substring(0, Application.dataPath.Length - AssetsStringLength) + binaryAssetName;
+            return true;
         }
 
         /// <summary>
@@ -433,8 +448,8 @@ namespace EPloy
         /// <returns>二进制资源的长度。</returns>
         public int GetBinaryLength(string binaryAssetName)
         {
-            string binaryPath = GetBinaryPath(binaryAssetName);
-            if (string.IsNullOrEmpty(binaryPath))
+            string binaryPath = null;
+            if (!GetBinaryPath(binaryAssetName, out binaryPath))
             {
                 return -1;
             }

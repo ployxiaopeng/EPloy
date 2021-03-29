@@ -7,6 +7,9 @@ namespace EPloy
     public class Init : MonoBehaviour
     {
         internal static Init Instance = null;
+
+        public bool isEditorRes = true;
+        
         private void Awake()
         {
             if (Instance == null)

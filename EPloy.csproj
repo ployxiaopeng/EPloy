@@ -114,7 +114,6 @@
      <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolComponent.cs" />
      <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolManager.Object.cs" />
      <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolManager.ObjectPool.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\EditorResComponent.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResComponent.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResHelper.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadAssetCallbacks.cs" />
@@ -124,10 +123,10 @@
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\UnloadSceneCallbacks.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadResAgent.Helper.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadResAgent.cs" />
+     <Compile Include="Assets\EPloy\Component\Res\ResLoader\ResEditorLoader.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\ResEnum.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\ResLoader.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadAssetTask.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadBinaryTask.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadDependencyAssetTask.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadResTaskbase.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadSceneTask.cs" />

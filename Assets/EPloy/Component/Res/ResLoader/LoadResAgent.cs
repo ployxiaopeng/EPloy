@@ -31,7 +31,6 @@ namespace EPloy.Res
         private static readonly HashSet<string> s_LoadingAssetNames = new HashSet<string>(StringComparer.Ordinal);
         private static readonly HashSet<string> s_LoadingResNames = new HashSet<string>(StringComparer.Ordinal);
 
-        public DecryptResCallback DecryptResCallback { get; private set; }
         public LoadResTaskBase Task { get; private set; }
         private string ResPath;
 
@@ -40,10 +39,9 @@ namespace EPloy.Res
         /// </summary>
         /// <param name="readWritePath">资源读写区路径。</param>
         /// <param name="decryptResourceCallback">解密资源回调函数。</param>
-        public void Initialize(DecryptResCallback decryptResCallback, string resPath)
+        public void Initialize(string resPath)
         {
             ResPath = resPath;
-            DecryptResCallback = decryptResCallback ?? throw new EPloyException("Decrypt resource callback is invalid.");
             Task = null;
         }
 
@@ -209,8 +207,8 @@ namespace EPloy.Res
         private void OnReadBytesComplete(byte[] bytes)
         {
             ResInfo resInfo = Task.ResInfo;
-            DecryptResCallback(bytes, 0, bytes.Length, resInfo.ResName.Name, resInfo.ResName.Variant,
-            resInfo.ResName.Extension, (byte)resInfo.LoadType, resInfo.Length, resInfo.HashCode);
+            ResLoader.Instance.DecryptResCallback(bytes, 0, bytes.Length, resInfo.ResName.Name, resInfo.ResName.Variant,
+            resInfo.ResName.Extension, resInfo.FileSystemName, (byte)resInfo.LoadType, resInfo.Length, resInfo.HashCode);
             ParseBytes(bytes);
         }
 

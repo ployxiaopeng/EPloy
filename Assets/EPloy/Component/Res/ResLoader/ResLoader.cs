@@ -76,7 +76,7 @@ namespace EPloy.Res
         /// <returns>检查资源是否存在的结果。</returns>
         public HasResult HasAsset(string assetName)
         {
-            ResInfo resInfo =  ResStore.Instance.GetResInfo(assetName);
+            ResInfo resInfo = ResStore.Instance.GetResInfo(assetName);
             if (resInfo == null)
             {
                 return HasResult.NotExist;
@@ -265,7 +265,7 @@ namespace EPloy.Res
         /// <remarks>此方法仅适用于二进制资源存储在磁盘（而非文件系统）中的情况。若二进制资源存储在文件系统中时，返回值将始终为空。</remarks>
         public string GetBinaryPath(string binaryAssetName)
         {
-            ResInfo resInfo =  ResStore.Instance.GetResInfo(binaryAssetName);
+            ResInfo resInfo = ResStore.Instance.GetResInfo(binaryAssetName);
             if (resInfo == null)
             {
                 return null;
@@ -291,12 +291,11 @@ namespace EPloy.Res
         /// <param name="relativePath">二进制资源或存储二进制资源的文件系统，相对于只读区或者读写区的相对路径。</param>
         /// <param name="fileName">若二进制资源存储在文件系统中，则指示二进制资源在文件系统中的名称，否则此参数返回空。</param>
         /// <returns>是否获取二进制资源的实际路径成功。</returns>
-        public bool GetBinaryPath(string binaryAssetName, out string relativePath, out string fileName)
+        public bool GetBinaryPath(string binaryAssetName, out string fileName)
         {
-            relativePath = null;
             fileName = null;
 
-            ResInfo resInfo =  ResStore.Instance.GetResInfo(binaryAssetName);
+            ResInfo resInfo = ResStore.Instance.GetResInfo(binaryAssetName);
             if (resInfo == null)
             {
                 return false;
@@ -311,7 +310,7 @@ namespace EPloy.Res
             {
                 return false;
             }
-            relativePath = resInfo.ResName.FullName;
+            fileName = resInfo.ResName.FullName;
             return true;
         }
 
@@ -322,7 +321,7 @@ namespace EPloy.Res
         /// <returns>二进制资源的长度。</returns>
         public int GetBinaryLength(string binaryAssetName)
         {
-            ResInfo resInfo =  ResStore.Instance.GetResInfo(binaryAssetName);
+            ResInfo resInfo = ResStore.Instance.GetResInfo(binaryAssetName);
             if (resInfo == null)
             {
                 return -1;
@@ -348,6 +347,28 @@ namespace EPloy.Res
         public TaskInfo[] GetAllLoadAssetInfos()
         {
             return TaskPool.GetAllTaskInfos();
+        }
+
+        /// <summary>
+        ///  解密函数
+        /// </summary>
+        public void DecryptResCallback(byte[] bytes, int startIndex, int count, string name, string variant, string extension, string fileSystem, byte loadType, int length, int hashCode)
+        {
+            Utility.Converter.GetBytes(hashCode, CachedHashBytes);
+            switch ((LoadType)loadType)
+            {
+                case LoadType.LoadFromMemory:
+                    Utility.Encryption.GetQuickSelfXorBytes(bytes, CachedHashBytes);
+                    break;
+
+                case LoadType.LoadFromBinary:
+                    Utility.Encryption.GetSelfXorBytes(bytes, CachedHashBytes);
+                    break;
+
+                default:
+                    throw new EPloyException("Not supported load type when decrypt resource.");
+            }
+            Array.Clear(CachedHashBytes, 0, CachedHashBytesLength);
         }
 
         private bool LoadDependencyAsset(string assetName, LoadResTaskBase mainTask)
@@ -397,13 +418,13 @@ namespace EPloy.Res
                 return false;
             }
 
-            AssetInfo assetInfo =  ResStore.Instance.GetAssetInfo(assetName);
+            AssetInfo assetInfo = ResStore.Instance.GetAssetInfo(assetName);
             if (assetInfo == null)
             {
                 return false;
             }
 
-            resInfo =  ResStore.Instance.GetResInfo(assetInfo.ResName);
+            resInfo = ResStore.Instance.GetResInfo(assetInfo.ResName);
             if (resInfo == null)
             {
                 return false;

@@ -23,6 +23,7 @@ namespace EPloy
         public static string ReadPath = Application.streamingAssetsPath;
 
         private ResLoader ResLoader;
+        private ResEditorLoader ResEditorLoader;
         private ResUpdater ResUpdater;
         private ResStore ResStore;
         private ResHelper ResHelper;
@@ -30,9 +31,17 @@ namespace EPloy
         protected override void InitComponent()
         {
             base.InitComponent();
-            ResLoader = ResLoader.CreateResLoader();
-            ResUpdater = ResUpdater.CreateResUpdater();
-            ResStore = ResStore.CreateResStore();
+            if (Init.Instance.isEditorRes)
+            {
+                ResEditorLoader = ResEditorLoader.CreateResEditorLoader();
+            }
+            else
+            {
+                ResEditorLoader = null;
+                ResLoader = ResLoader.CreateResLoader();
+                ResUpdater = ResUpdater.CreateResUpdater();
+                ResStore = ResStore.CreateResStore();
+            }
             ResHelper = new ResHelper(Init.Instance);
         }
 
@@ -57,8 +66,11 @@ namespace EPloy
             {
                 throw new EPloyException("Asset name is invalid.");
             }
-
-            return ResLoader.HasAsset(assetName);
+            if (ResEditorLoader == null)
+            {
+                return ResLoader.HasAsset(assetName);
+            }
+            return ResEditorLoader.HasAsset(assetName);
         }
 
         /// <summary>
@@ -70,7 +82,14 @@ namespace EPloy
         /// <param name="userData">用户自定义数据。</param>
         public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks)
         {
-            ResLoader.LoadAsset(assetName, assetType, loadAssetCallbacks);
+            if (ResEditorLoader == null)
+            {
+                ResLoader.LoadAsset(assetName, assetType, loadAssetCallbacks);
+            }
+            else
+            {
+                ResEditorLoader.LoadAsset(assetName, assetType, loadAssetCallbacks);
+            }
         }
 
         /// <summary>
@@ -80,9 +99,16 @@ namespace EPloy
         /// <param name="priority">加载场景资源的优先级。</param>
         /// <param name="loadSceneCallbacks">加载场景回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadScene(string sceneAssetName, LoadSceneCallbacks loadSceneCallbacks )
+        public void LoadScene(string sceneAssetName, LoadSceneCallbacks loadSceneCallbacks)
         {
-            ResLoader.LoadScene(sceneAssetName, loadSceneCallbacks);
+            if (ResEditorLoader == null)
+            {
+                ResLoader.LoadScene(sceneAssetName, loadSceneCallbacks);
+            }
+            else
+            {
+                ResEditorLoader.LoadScene(sceneAssetName, loadSceneCallbacks);
+            }
         }
 
         /// <summary>
@@ -93,7 +119,14 @@ namespace EPloy
         /// <param name="userData">用户自定义数据。</param>
         public void LoadBinary(string binaryAssetName, LoadBinaryCallbacks loadBinaryCallbacks)
         {
-            ResLoader.LoadBinary(binaryAssetName, loadBinaryCallbacks);
+            if (ResEditorLoader == null)
+            {
+                ResLoader.LoadBinary(binaryAssetName, loadBinaryCallbacks);
+            }
+            else
+            {
+                ResEditorLoader.LoadBinary(binaryAssetName, loadBinaryCallbacks);
+            }
         }
 
         /// <summary>
@@ -115,7 +148,16 @@ namespace EPloy
         /// <remarks>此方法仅适用于二进制资源存储在磁盘（而非文件系统）中的情况。若二进制资源存储在文件系统中时，返回值将始终为空。</remarks>
         public string GetBinaryPath(string binaryAssetName)
         {
-            return ResLoader.GetBinaryPath(binaryAssetName);
+            string binaryPath = null;
+            if (ResEditorLoader == null)
+            {
+                binaryPath = ResLoader.GetBinaryPath(binaryAssetName);
+            }
+            else
+            {
+                ResEditorLoader.GetBinaryPath(binaryAssetName, out binaryPath);
+            }
+            return binaryPath;
         }
 
         /// <summary>
@@ -125,9 +167,13 @@ namespace EPloy
         /// <param name="relativePath">二进制资源或存储二进制资源的文件系统，相对于只读区或者读写区的相对路径。</param>
         /// <param name="fileName">若二进制资源存储在文件系统中，则指示二进制资源在文件系统中的名称，否则此参数返回空。</param>
         /// <returns>是否获取二进制资源的实际路径成功。</returns>
-        public bool GetBinaryPath(string binaryAssetName, out string relativePath, out string fileName)
+        public bool GetBinaryPath(string binaryAssetName, out string fileName)
         {
-            return ResLoader.GetBinaryPath(binaryAssetName, out relativePath, out fileName);
+            if (ResEditorLoader == null)
+            {
+                return ResLoader.GetBinaryPath(binaryAssetName, out fileName);
+            }
+            return ResEditorLoader.GetBinaryPath(binaryAssetName, out fileName);
         }
 
         /// <summary>
@@ -137,7 +183,11 @@ namespace EPloy
         /// <returns>二进制资源的长度。</returns>
         public int GetBinaryLength(string binaryAssetName)
         {
-            return ResLoader.GetBinaryLength(binaryAssetName);
+            if (ResEditorLoader == null)
+            {
+                return ResLoader.GetBinaryLength(binaryAssetName);
+            }
+            return ResEditorLoader.GetBinaryLength(binaryAssetName);
         }
 
         /// <summary>
@@ -146,7 +196,11 @@ namespace EPloy
         /// <returns>所有加载资源任务的信息。</returns>
         public TaskInfo[] GetAllLoadAssetInfos()
         {
-            return ResLoader.GetAllLoadAssetInfos();
+            if (ResEditorLoader == null)
+            {
+                return ResLoader.GetAllLoadAssetInfos();
+            }
+            throw new EPloyException("Task no use in Editor");
         }
 
         /// <summary>
