@@ -214,7 +214,7 @@
             /// </summary>
             /// <param name="currentVariant">当前变体。</param>
             /// <param name="ignoreOtherVariant">是否忽略处理其它变体的资源，若不忽略则移除。</param>
-            public void RefreshStatus(string currentVariant, bool ignoreOtherVariant)
+            public void RefreshStatus(string currentVariant)
             {
                 if (!VersionInfo.Exist)
                 {
@@ -241,7 +241,7 @@
                 else
                 {
                     Status = CheckStatus.Unavailable;
-                    NeedRemove = !ignoreOtherVariant && ReadWriteInfo.Exist;
+                    NeedRemove = ReadWriteInfo.Exist;
                 }
             }
         }

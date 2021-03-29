@@ -13,12 +13,11 @@ namespace EPloy.Res
         private ResUpdater ResUpdater;
         private ResStore ResStore;
 
-        private readonly Dictionary<ResName, CheckInfo> m_CheckInfos;
-        private string m_CurrentVariant;
-        private bool m_IgnoreOtherVariant;
-        private bool m_UpdatableVersionListReady;
-        private bool m_ReadOnlyVersionListReady;
-        private bool m_ReadWriteVersionListReady;
+        private readonly Dictionary<ResName, CheckInfo> CheckInfos;
+        private string CurrentVariant;
+        private bool UpdatableVersionListReady;
+        private bool ReadOnlyVersionListReady;
+        private bool ReadWriteVersionListReady;
 
         private string ResPath
         {
@@ -39,6 +38,21 @@ namespace EPloy.Res
         public EPloyAction<ResName, string, LoadType, int, int, int, int> ResourceNeedUpdate;
         public EPloyAction<int, int, int, long, long> ResourceCheckComplete;
 
+        public LoadBytesCallbacks UpdatableVersionCallbacks
+        {
+            get
+            {
+                return new LoadBytesCallbacks(OnLoadUpdatableVersionListSuccess, OnLoadUpdatableVersionListFailure);
+            }
+        }
+        public LoadBytesCallbacks ReadWriteVersionCallbacks
+        {
+            get
+            {
+                return new LoadBytesCallbacks(OnLoadReadWriteVersionListSuccess, OnLoadReadWriteVersionListFailure);
+            }
+        }
+
         /// <summary>
         /// 初始化资源检查器的新实例。
         /// </summary>
@@ -46,12 +60,11 @@ namespace EPloy.Res
         {
             ResUpdater = resUpdater;
             ResStore = resStore;
-            m_CheckInfos = new Dictionary<ResName, CheckInfo>();
-            m_CurrentVariant = null;
-            m_IgnoreOtherVariant = false;
-            m_UpdatableVersionListReady = false;
-            m_ReadOnlyVersionListReady = false;
-            m_ReadWriteVersionListReady = false;
+            CheckInfos = new Dictionary<ResName, CheckInfo>();
+            CurrentVariant = null;
+            UpdatableVersionListReady = false;
+            ReadOnlyVersionListReady = false;
+            ReadWriteVersionListReady = false;
 
             ResourceNeedUpdate = null;
             ResourceCheckComplete = null;
@@ -62,18 +75,13 @@ namespace EPloy.Res
         /// </summary>
         public void Shutdown()
         {
-            m_CheckInfos.Clear();
+            CheckInfos.Clear();
         }
 
-        public void CheckResources(string currentVariant, bool ignoreOtherVariant)
+        public void CheckResources(string currentVariant)
         {
-            m_CurrentVariant = currentVariant;
-            m_IgnoreOtherVariant = ignoreOtherVariant;
-
+            CurrentVariant = currentVariant;
             TryRecoverReadWriteVersionList();
-            // m_ResourceManager.m_ResourceHelper.LoadBytes(Utility.Path.GetRemotePath(Path.Combine(ResPath, RemoteVersionListFileName)), new LoadBytesCallbacks(OnLoadUpdatableVersionListSuccess, OnLoadUpdatableVersionListFailure), null);
-            // m_ResourceManager.m_ResourceHelper.LoadBytes(Utility.Path.GetRemotePath(Path.Combine(m_ResourceManager.m_ReadOnlyPath, LocalVersionListFileName)), new LoadBytesCallbacks(OnLoadReadOnlyVersionListSuccess, OnLoadReadOnlyVersionListFailure), null);
-            // m_ResourceManager.m_ResourceHelper.LoadBytes(Utility.Path.GetRemotePath(Path.Combine(ResPath, LocalVersionListFileName)), new LoadBytesCallbacks(OnLoadReadWriteVersionListSuccess, OnLoadReadWriteVersionListFailure), null);
         }
 
         private void SetCachedFileSystemName(ResName ResName, string fileSystemName)
@@ -94,20 +102,20 @@ namespace EPloy.Res
         private CheckInfo GetOrAddCheckInfo(ResName ResName)
         {
             CheckInfo checkInfo = null;
-            if (m_CheckInfos.TryGetValue(ResName, out checkInfo))
+            if (CheckInfos.TryGetValue(ResName, out checkInfo))
             {
                 return checkInfo;
             }
 
             checkInfo = new CheckInfo(ResName);
-            m_CheckInfos.Add(checkInfo.ResName, checkInfo);
+            CheckInfos.Add(checkInfo.ResName, checkInfo);
 
             return checkInfo;
         }
 
         private void RefreshCheckInfoStatus()
         {
-            if (!m_UpdatableVersionListReady || !m_ReadOnlyVersionListReady || !m_ReadWriteVersionListReady)
+            if (!UpdatableVersionListReady || !ReadOnlyVersionListReady || !ReadWriteVersionListReady)
             {
                 return;
             }
@@ -117,10 +125,10 @@ namespace EPloy.Res
             int updateCount = 0;
             long updateTotalLength = 0L;
             long updateTotalZipLength = 0L;
-            foreach (KeyValuePair<ResName, CheckInfo> checkInfo in m_CheckInfos)
+            foreach (KeyValuePair<ResName, CheckInfo> checkInfo in CheckInfos)
             {
                 CheckInfo ci = checkInfo.Value;
-                ci.RefreshStatus(m_CurrentVariant, m_IgnoreOtherVariant);
+                ci.RefreshStatus(CurrentVariant);
                 if (ci.Status == CheckStatus.StorageInReadOnly)
                 {
                     ResStore.ResInfos.Add(ci.ResName, new ResInfo(ci.ResName, ci.FileSystemName, ci.LoadType, ci.Length, ci.HashCode, true));
@@ -263,9 +271,9 @@ namespace EPloy.Res
             }
         }
 
-        private void OnLoadUpdatableVersionListSuccess(string fileUri, byte[] bytes, float duration, object userData)
+        private void OnLoadUpdatableVersionListSuccess(string fileUri, byte[] bytes, float duration)
         {
-            if (m_UpdatableVersionListReady)
+            if (UpdatableVersionListReady)
             {
                 throw new EPloyException("Updatable version list has been parsed.");
             }
@@ -284,11 +292,10 @@ namespace EPloy.Res
                 UpdatableVersionList.Resource[] resources = versionList.GetResources();
                 UpdatableVersionList.FileSystem[] fileSystems = versionList.GetFileSystems();
                 UpdatableVersionList.ResourceGroup[] resourceGroups = versionList.GetResourceGroups();
-                // m_ResourceManager.m_ApplicableGameVersion = versionList.ApplicableGameVersion;
-                // m_ResourceManager.m_InternalResourceVersion = versionList.InternalResourceVersion;
-                //ResStore.VersionInfos = new Dictionary<string, AssetInfo>(assets.Length, StringComparer.Ordinal);
-                //ResStore.ResInfos = new Dictionary<ResName, ResInfo>(resources.Length, new ResNameComparer());
-                //ResStore.ReadWriteResInfos = new SortedDictionary<ResName, ReadWriteResInfo>(new ResNameComparer());
+                ResStore.SetResVersion(versionList.ApplicableGameVersion, versionList.InternalResourceVersion);
+                ResStore.VersionInfos = new Dictionary<string, AssetInfo>(assets.Length, StringComparer.Ordinal);
+                ResStore.ResInfos = new Dictionary<ResName, ResInfo>(resources.Length, new ResNameComparer());
+                ResStore.ReadWriteResInfos = new SortedDictionary<ResName, ReadWriteResInfo>(new ResNameComparer());
                 ResGroup defaultResourceGroup = ResStore.GetOrAddResourceGroup(string.Empty);
 
                 foreach (UpdatableVersionList.FileSystem fileSystem in fileSystems)
@@ -297,7 +304,7 @@ namespace EPloy.Res
                     foreach (int resourceIndex in resourceIndexes)
                     {
                         UpdatableVersionList.Resource resource = resources[resourceIndex];
-                        if (resource.Variant != null && resource.Variant != m_CurrentVariant)
+                        if (resource.Variant != null && resource.Variant != CurrentVariant)
                         {
                             continue;
                         }
@@ -308,7 +315,7 @@ namespace EPloy.Res
 
                 foreach (UpdatableVersionList.Resource resource in resources)
                 {
-                    if (resource.Variant != null && resource.Variant != m_CurrentVariant)
+                    if (resource.Variant != null && resource.Variant != CurrentVariant)
                     {
                         continue;
                     }
@@ -340,7 +347,7 @@ namespace EPloy.Res
                     foreach (int resourceIndex in resourceIndexes)
                     {
                         UpdatableVersionList.Resource resource = resources[resourceIndex];
-                        if (resource.Variant != null && resource.Variant != m_CurrentVariant)
+                        if (resource.Variant != null && resource.Variant != CurrentVariant)
                         {
                             continue;
                         }
@@ -349,7 +356,7 @@ namespace EPloy.Res
                     }
                 }
 
-                m_UpdatableVersionListReady = true;
+                UpdatableVersionListReady = true;
                 RefreshCheckInfoStatus();
             }
             catch (Exception exception)
@@ -371,14 +378,14 @@ namespace EPloy.Res
             }
         }
 
-        private void OnLoadUpdatableVersionListFailure(string fileUri, string errorMessage, object userData)
+        private void OnLoadUpdatableVersionListFailure(string fileUri, string errorMessage)
         {
             throw new EPloyException(Utility.Text.Format("Updatable version list '{0}' is invalid, error message is '{1}'.", fileUri, string.IsNullOrEmpty(errorMessage) ? "<Empty>" : errorMessage));
         }
 
-        private void OnLoadReadWriteVersionListSuccess(string fileUri, byte[] bytes, float duration, object userData)
+        private void OnLoadReadWriteVersionListSuccess(string fileUri, byte[] bytes, float duration)
         {
-            if (m_ReadWriteVersionListReady)
+            if (ReadWriteVersionListReady)
             {
                 throw new EPloyException("Read write version list has been parsed.");
             }
@@ -408,7 +415,7 @@ namespace EPloy.Res
                     SetReadWriteInfo(ResName, (LoadType)resource.LoadType, resource.Length, resource.HashCode);
                 }
 
-                m_ReadWriteVersionListReady = true;
+                ReadWriteVersionListReady = true;
                 RefreshCheckInfoStatus();
             }
             catch (Exception exception)
@@ -430,16 +437,15 @@ namespace EPloy.Res
             }
         }
 
-        private void OnLoadReadWriteVersionListFailure(string fileUri, string errorMessage, object userData)
+        private void OnLoadReadWriteVersionListFailure(string fileUri, string errorMessage)
         {
-            if (m_ReadWriteVersionListReady)
+            if (ReadWriteVersionListReady)
             {
                 throw new EPloyException("Read write version list has been parsed.");
             }
 
-            m_ReadWriteVersionListReady = true;
+            ReadWriteVersionListReady = true;
             RefreshCheckInfoStatus();
         }
     }
 }
-

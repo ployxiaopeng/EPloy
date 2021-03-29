@@ -8,7 +8,7 @@ namespace EPloy.Res
     /// <param name="asset">已加载的资源。</param>
     /// <param name="duration">加载持续时间。</param>
     /// <param name="userData">用户自定义数据。</param>
-    public delegate void LoadAssetSuccessCallback(string assetName, object asset, float duration, object userData);
+    public delegate void LoadAssetSuccessCallback(string assetName, object asset, float duration);
 
     /// <summary>
     /// 加载资源失败回调函数。
@@ -17,7 +17,7 @@ namespace EPloy.Res
     /// <param name="status">加载资源状态。</param>
     /// <param name="errorMessage">错误信息。</param>
     /// <param name="userData">用户自定义数据。</param>
-    public delegate void LoadAssetFailureCallback(string assetName, LoadResStatus status, string errorMessage, object userData);
+    public delegate void LoadAssetFailureCallback(string assetName, LoadResStatus status, string errorMessage);
 
     /// <summary>
     /// 加载依赖资源回调函数。
@@ -27,7 +27,7 @@ namespace EPloy.Res
     /// <param name="loadedCount">当前已加载依赖资源数量。</param>
     /// <param name="totalCount">总共加载依赖资源数量。</param>
     /// <param name="userData">用户自定义数据。</param>
-    public delegate void LoadDependAssetCallback(string assetName, string dependAssetName, int loadedCount, int totalCount, object userData);
+    public delegate void LoadDependAssetCallback(string assetName, string dependAssetName, int loadedCount, int totalCount);
 
     /// <summary>
     /// 加载资源回调函数集。

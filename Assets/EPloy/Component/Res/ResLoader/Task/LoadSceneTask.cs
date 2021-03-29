@@ -13,10 +13,10 @@ namespace EPloy.Res
             }
         }
 
-        public static LoadSceneTask Create(ResInfo resInfo, string[] dependAssetNames, LoadSceneCallbacks loadSceneCallbacks, object userData)
+        public static LoadSceneTask Create(ResInfo resInfo, string[] dependAssetNames, LoadSceneCallbacks loadSceneCallbacks)
         {
             LoadSceneTask loadSceneTask = ReferencePool.Acquire<LoadSceneTask>();
-            loadSceneTask.Initialize(null, resInfo, dependAssetNames, userData);
+            loadSceneTask.Initialize(null, resInfo, dependAssetNames);
             loadSceneTask.m_LoadSceneCallbacks = loadSceneCallbacks;
             return loadSceneTask;
         }
@@ -32,7 +32,7 @@ namespace EPloy.Res
             base.OnLoadAssetSuccess(agent, asset, duration);
             if (m_LoadSceneCallbacks.LoadSceneSuccessCallback != null)
             {
-                m_LoadSceneCallbacks.LoadSceneSuccessCallback(AssetName, duration, UserData);
+                m_LoadSceneCallbacks.LoadSceneSuccessCallback(AssetName, duration);
             }
         }
 
@@ -41,7 +41,7 @@ namespace EPloy.Res
             base.OnLoadAssetFailure(agent, status, errorMessage);
             if (m_LoadSceneCallbacks.LoadSceneFailureCallback != null)
             {
-                m_LoadSceneCallbacks.LoadSceneFailureCallback(AssetName, status, errorMessage, UserData);
+                m_LoadSceneCallbacks.LoadSceneFailureCallback(AssetName, status, errorMessage);
             }
         }
 
@@ -50,7 +50,7 @@ namespace EPloy.Res
             base.OnLoadDependAsset(agent, dependAssetName, dependAsset);
             if (m_LoadSceneCallbacks.LoadSceneDepenAssetCallback != null)
             {
-                m_LoadSceneCallbacks.LoadSceneDepenAssetCallback(AssetName, dependAssetName, DependAssets.Count, TotalDependAssetCount, UserData);
+                m_LoadSceneCallbacks.LoadSceneDepenAssetCallback(AssetName, dependAssetName, DependAssets.Count, TotalDependAssetCount);
             }
         }
     }

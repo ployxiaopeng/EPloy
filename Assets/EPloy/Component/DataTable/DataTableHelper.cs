@@ -32,33 +32,11 @@ namespace EPloy.Table
         {
             GameEntry.Res.LoadBinary(dataTableAssetName, LoadBinaryCallbacks);
         }
-
-        /// <summary>
-        /// 读取数据表。
-        /// </summary>
-        /// <param name="dataTableAssetName">数据表资源名称。</param>
-        /// <param name="userData">用户自定义数据。</param>
-        /// <returns>是否读取数据表成功。</returns>
-        public void ReadData(string dataTableAssetName, object userData)
-        {
-            GameEntry.Res.LoadBinary(dataTableAssetName, LoadBinaryCallbacks, userData);
-        }
-
         public bool ParseData(byte[] dataTableBytes)
         {
-            return ParseData(dataTableBytes, 0, dataTableBytes.Length, null);
+            return ParseData(dataTableBytes, 0, dataTableBytes.Length);
         }
 
-        public bool ParseData(byte[] dataTableBytes, object userData)
-        {
-            return ParseData(dataTableBytes, 0, dataTableBytes.Length, userData);
-        }
-
-        public bool ParseData(byte[] dataTableBytes, int startIndex, int length)
-        {
-            return ParseData(dataTableBytes, startIndex, length, null);
-        }
-        
         /// <summary>
         /// 解析数据表。
         /// </summary>
@@ -67,7 +45,7 @@ namespace EPloy.Table
         /// <param name="length">数据表二进制流的长度。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否解析数据表成功。</returns>
-        public bool ParseData(byte[] dataTableBytes, int startIndex, int length, object userData)
+        public bool ParseData(byte[] dataTableBytes, int startIndex, int length)
         {
             try
             {
@@ -80,7 +58,7 @@ namespace EPloy.Table
                             int dataRowBytesLength = binaryReader.Read7BitEncodedInt32();
                             if (!DataTableBase.AddDataRow(dataTableBytes, (int)binaryReader.BaseStream.Position, dataRowBytesLength))
                             {
-                                // Log.Warning("Can not parse data row bytes.");
+                                Log.Warning("Can not parse data row bytes.");
                                 return false;
                             }
 
@@ -98,16 +76,16 @@ namespace EPloy.Table
             }
         }
 
-        private void LoadBinaryFailureCallback(string dataAssetName, LoadResStatus status, string errorMessage, object userData)
+        private void LoadBinaryFailureCallback(string dataAssetName, LoadResStatus status, string errorMessage)
         {
             string appendErrorMessage = Utility.Text.Format("Load data failure, data asset name '{0}', status '{1}', error message '{2}'.", dataAssetName, status.ToString(), errorMessage);
             DataTableFailureEvt Evt = ReferencePool.Acquire<DataTableFailureEvt>();
-            Evt.SetData(dataAssetName, appendErrorMessage, userData);
+            Evt.SetData(dataAssetName, appendErrorMessage);
             GameEntry.Event.Fire(Evt);
             throw new EPloyException(appendErrorMessage);
         }
 
-        private void LoadBinarySuccessCallback(string dataAssetName, byte[] dataBytes, float duration, object userData)
+        private void LoadBinarySuccessCallback(string dataAssetName, byte[] dataBytes, float duration)
         {
             try
             {
@@ -117,13 +95,13 @@ namespace EPloy.Table
                 }
 
                 DataTableSuccessEvt Evt = ReferencePool.Acquire<DataTableSuccessEvt>();
-                Evt.SetData(dataAssetName, duration, userData);
+                Evt.SetData(dataAssetName, duration);
                 GameEntry.Event.Fire(Evt);
             }
             catch (Exception exception)
             {
                 DataTableFailureEvt Evt = ReferencePool.Acquire<DataTableFailureEvt>();
-                Evt.SetData(dataAssetName, exception.ToString(), userData);
+                Evt.SetData(dataAssetName, exception.ToString());
                 GameEntry.Event.Fire(Evt);
                 throw;
             }

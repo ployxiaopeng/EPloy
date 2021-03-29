@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EPloy.Res
 {
@@ -8,10 +9,33 @@ namespace EPloy.Res
     /// </summary>
     internal struct ResName : IComparable, IComparable<ResName>, IEquatable<ResName>
     {
-        private readonly string m_Name;
-        private readonly string m_Variant;
-        private readonly string m_Extension;
-        private string m_CachedFullName;
+        /// <summary>
+        /// 获取资源名称。
+        /// </summary>
+        public string Name
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取变体名称。
+        /// </summary>
+        public string Variant
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取扩展名称。
+        /// </summary>
+        public string Extension
+        {
+            get;
+            private set;
+        }
+        private string CachedFullName;
 
         /// <summary>
         /// 初始化资源名称的新实例。
@@ -31,55 +55,24 @@ namespace EPloy.Res
                 throw new EPloyException("Resource extension is invalid.");
             }
 
-            m_Name = name;
-            m_Variant = variant;
-            m_Extension = extension;
-            m_CachedFullName = null;
+            Name = name;
+            Variant = variant;
+            Extension = extension;
+            CachedFullName = null;
         }
 
-        /// <summary>
-        /// 获取资源名称。
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return m_Name;
-            }
-        }
 
-        /// <summary>
-        /// 获取变体名称。
-        /// </summary>
-        public string Variant
-        {
-            get
-            {
-                return m_Variant;
-            }
-        }
-
-        /// <summary>
-        /// 获取扩展名称。
-        /// </summary>
-        public string Extension
-        {
-            get
-            {
-                return m_Extension;
-            }
-        }
 
         public string FullName
         {
             get
             {
-                if (m_CachedFullName == null)
+                if (CachedFullName == null)
                 {
-                    m_CachedFullName = m_Variant != null ? Utility.Text.Format("{0}.{1}.{2}", m_Name, m_Variant, m_Extension) : Utility.Text.Format("{0}.{1}", m_Name, m_Extension);
+                    CachedFullName = Variant != null ? Utility.Text.Format("{0}.{1}.{2}", Name, Variant, Extension) : Utility.Text.Format("{0}.{1}", Name, Extension);
                 }
 
-                return m_CachedFullName;
+                return CachedFullName;
             }
         }
 
@@ -90,12 +83,12 @@ namespace EPloy.Res
 
         public override int GetHashCode()
         {
-            if (m_Variant == null)
+            if (Variant == null)
             {
-                return m_Name.GetHashCode() ^ m_Extension.GetHashCode();
+                return Name.GetHashCode() ^ Extension.GetHashCode();
             }
 
-            return m_Name.GetHashCode() ^ m_Variant.GetHashCode() ^ m_Extension.GetHashCode();
+            return Name.GetHashCode() ^ Variant.GetHashCode() ^ Extension.GetHashCode();
         }
 
         public override bool Equals(object obj)
@@ -105,7 +98,7 @@ namespace EPloy.Res
 
         public bool Equals(ResName value)
         {
-            return string.Equals(m_Name, value.m_Name, StringComparison.Ordinal) && string.Equals(m_Variant, value.m_Variant, StringComparison.Ordinal) && string.Equals(m_Extension, value.m_Extension, StringComparison.Ordinal);
+            return string.Equals(Name, value.Name, StringComparison.Ordinal) && string.Equals(Variant, value.Variant, StringComparison.Ordinal) && string.Equals(Extension, value.Extension, StringComparison.Ordinal);
         }
 
         public static bool operator ==(ResName a, ResName b)
@@ -135,19 +128,40 @@ namespace EPloy.Res
 
         public int CompareTo(ResName resName)
         {
-            int result = string.CompareOrdinal(m_Name, resName.m_Name);
+            int result = string.CompareOrdinal(Name, resName.Name);
             if (result != 0)
             {
                 return result;
             }
 
-            result = string.CompareOrdinal(m_Variant, resName.m_Variant);
+            result = string.CompareOrdinal(Variant, resName.Variant);
             if (result != 0)
             {
                 return result;
             }
 
-            return string.CompareOrdinal(m_Extension, resName.m_Extension);
+            return string.CompareOrdinal(Extension, resName.Extension);
+        }
+    }
+
+    /// <summary>
+    /// 资源名称比较器。
+    /// </summary>
+    internal sealed class ResNameComparer : IComparer<ResName>, IEqualityComparer<ResName>
+    {
+        public int Compare(ResName x, ResName y)
+        {
+            return x.CompareTo(y);
+        }
+
+        public bool Equals(ResName x, ResName y)
+        {
+            return x.Equals(y);
+        }
+
+        public int GetHashCode(ResName obj)
+        {
+            return obj.GetHashCode();
         }
     }
 }

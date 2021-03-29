@@ -97,7 +97,7 @@ namespace EPloy.Res
         /// <param name="priority">加载资源的优先级。</param>
         /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks, object userData)
+        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks)
         {
             ResInfo resInfo = null;
             string[] dependAssetNames = null;
@@ -106,7 +106,7 @@ namespace EPloy.Res
                 string errorMessage = Utility.Text.Format("Can not load asset '{0}'.", assetName);
                 if (loadAssetCallbacks.LoadAssetFailureCallback != null)
                 {
-                    loadAssetCallbacks.LoadAssetFailureCallback(assetName, resInfo != null && !resInfo.Ready ? LoadResStatus.NotReady : LoadResStatus.NotExist, errorMessage, userData);
+                    loadAssetCallbacks.LoadAssetFailureCallback(assetName, resInfo != null && !resInfo.Ready ? LoadResStatus.NotReady : LoadResStatus.NotExist, errorMessage);
                     return;
                 }
 
@@ -118,22 +118,22 @@ namespace EPloy.Res
                 string errorMessage = Utility.Text.Format("Can not load asset '{0}' which is a binary asset.", assetName);
                 if (loadAssetCallbacks.LoadAssetFailureCallback != null)
                 {
-                    loadAssetCallbacks.LoadAssetFailureCallback(assetName, LoadResStatus.TypeError, errorMessage, userData);
+                    loadAssetCallbacks.LoadAssetFailureCallback(assetName, LoadResStatus.TypeError, errorMessage);
                     return;
                 }
 
                 throw new EPloyException(errorMessage);
             }
 
-            LoadAssetTask mainTask = LoadAssetTask.Create(assetType, resInfo, dependAssetNames, loadAssetCallbacks, userData);
+            LoadAssetTask mainTask = LoadAssetTask.Create(assetType, resInfo, dependAssetNames, loadAssetCallbacks);
             foreach (string dependencyAssetName in dependAssetNames)
             {
-                if (!LoadDependencyAsset(dependencyAssetName, mainTask, userData))
+                if (!LoadDependencyAsset(dependencyAssetName, mainTask))
                 {
                     string errorMessage = Utility.Text.Format("Can not load dependency asset '{0}' when load asset '{1}'.", dependencyAssetName, assetName);
                     if (loadAssetCallbacks.LoadAssetFailureCallback != null)
                     {
-                        loadAssetCallbacks.LoadAssetFailureCallback(assetName, LoadResStatus.DependencyError, errorMessage, userData);
+                        loadAssetCallbacks.LoadAssetFailureCallback(assetName, LoadResStatus.DependencyError, errorMessage);
                         return;
                     }
 
@@ -155,7 +155,7 @@ namespace EPloy.Res
         /// <param name="priority">加载场景资源的优先级。</param>
         /// <param name="loadSceneCallbacks">加载场景回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadScene(string sceneAssetName, LoadSceneCallbacks loadSceneCallbacks, object userData)
+        public void LoadScene(string sceneAssetName, LoadSceneCallbacks loadSceneCallbacks)
         {
             ResInfo resInfo = null;
             string[] dependAssetNames = null;
@@ -164,7 +164,7 @@ namespace EPloy.Res
                 string errorMessage = Utility.Text.Format("Can not load scene '{0}'.", sceneAssetName);
                 if (loadSceneCallbacks.LoadSceneFailureCallback != null)
                 {
-                    loadSceneCallbacks.LoadSceneFailureCallback(sceneAssetName, resInfo != null && !resInfo.Ready ? LoadResStatus.NotReady : LoadResStatus.NotExist, errorMessage, userData);
+                    loadSceneCallbacks.LoadSceneFailureCallback(sceneAssetName, resInfo != null && !resInfo.Ready ? LoadResStatus.NotReady : LoadResStatus.NotExist, errorMessage);
                     return;
                 }
 
@@ -176,22 +176,22 @@ namespace EPloy.Res
                 string errorMessage = Utility.Text.Format("Can not load scene asset '{0}' which is a binary asset.", sceneAssetName);
                 if (loadSceneCallbacks.LoadSceneFailureCallback != null)
                 {
-                    loadSceneCallbacks.LoadSceneFailureCallback(sceneAssetName, LoadResStatus.TypeError, errorMessage, userData);
+                    loadSceneCallbacks.LoadSceneFailureCallback(sceneAssetName, LoadResStatus.TypeError, errorMessage);
                     return;
                 }
 
                 throw new EPloyException(errorMessage);
             }
 
-            LoadSceneTask mainTask = LoadSceneTask.Create(resInfo, dependAssetNames, loadSceneCallbacks, userData);
+            LoadSceneTask mainTask = LoadSceneTask.Create(resInfo, dependAssetNames, loadSceneCallbacks);
             foreach (string dependencyAssetName in dependAssetNames)
             {
-                if (!LoadDependencyAsset(dependencyAssetName, mainTask, userData))
+                if (!LoadDependencyAsset(dependencyAssetName, mainTask))
                 {
                     string errorMessage = Utility.Text.Format("Can not load dependency asset '{0}' when load scene '{1}'.", dependencyAssetName, sceneAssetName);
                     if (loadSceneCallbacks.LoadSceneFailureCallback != null)
                     {
-                        loadSceneCallbacks.LoadSceneFailureCallback(sceneAssetName, LoadResStatus.DependencyError, errorMessage, userData);
+                        loadSceneCallbacks.LoadSceneFailureCallback(sceneAssetName, LoadResStatus.DependencyError, errorMessage);
                         return;
                     }
 
@@ -212,7 +212,7 @@ namespace EPloy.Res
         /// <param name="binaryAssetName">要加载二进制资源的名称。</param>
         /// <param name="loadBinaryCallbacks">加载二进制资源回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadBinary(string binaryAssetName, LoadBinaryCallbacks loadBinaryCallbacks, object userData)
+        public void LoadBinary(string binaryAssetName, LoadBinaryCallbacks loadBinaryCallbacks)
         {
             ResInfo resourceInfo = ResStore.Instance.GetResInfo(binaryAssetName);
             if (resourceInfo == null)
@@ -220,7 +220,7 @@ namespace EPloy.Res
                 string errorMessage = Utility.Text.Format("Can not load binary '{0}' which is not exist.", binaryAssetName);
                 if (loadBinaryCallbacks.LoadBinaryFailureCallback != null)
                 {
-                    loadBinaryCallbacks.LoadBinaryFailureCallback(binaryAssetName, LoadResStatus.NotExist, errorMessage, userData);
+                    loadBinaryCallbacks.LoadBinaryFailureCallback(binaryAssetName, LoadResStatus.NotExist, errorMessage);
                     return;
                 }
 
@@ -232,7 +232,7 @@ namespace EPloy.Res
                 string errorMessage = Utility.Text.Format("Can not load binary '{0}' which is not ready.", binaryAssetName);
                 if (loadBinaryCallbacks.LoadBinaryFailureCallback != null)
                 {
-                    loadBinaryCallbacks.LoadBinaryFailureCallback(binaryAssetName, LoadResStatus.NotReady, errorMessage, userData);
+                    loadBinaryCallbacks.LoadBinaryFailureCallback(binaryAssetName, LoadResStatus.NotReady, errorMessage);
                     return;
                 }
 
@@ -244,7 +244,7 @@ namespace EPloy.Res
                 string errorMessage = Utility.Text.Format("Can not load binary '{0}' which is not a binary asset.", binaryAssetName);
                 if (loadBinaryCallbacks.LoadBinaryFailureCallback != null)
                 {
-                    loadBinaryCallbacks.LoadBinaryFailureCallback(binaryAssetName, LoadResStatus.TypeError, errorMessage, userData);
+                    loadBinaryCallbacks.LoadBinaryFailureCallback(binaryAssetName, LoadResStatus.TypeError, errorMessage);
                     return;
                 }
 
@@ -253,7 +253,7 @@ namespace EPloy.Res
 
 
             //string path = Utility.Path.GetRemotePath(Path.Combine(resourceInfo.StorageInReadOnly ? m_ResourceManager.m_ReadOnlyPath : m_ResourceManager.m_ReadWritePath, resourceInfo.ResourceName.FullName));
-            //m_ResourceManager.m_ResourceHelper.LoadBytes(path, m_LoadBytesCallbacks, LoadBinaryInfo.Create(binaryAssetName, resourceInfo, loadBinaryCallbacks, userData));
+            //m_ResourceManager.m_ResourceHelper.LoadBytes(path, m_LoadBytesCallbacks, LoadBinaryInfo.Create(binaryAssetName, resourceInfo, loadBinaryCallbacks));
 
         }
 
@@ -350,7 +350,7 @@ namespace EPloy.Res
             return TaskPool.GetAllTaskInfos();
         }
 
-        private bool LoadDependencyAsset(string assetName, LoadResTaskBase mainTask, object userData)
+        private bool LoadDependencyAsset(string assetName, LoadResTaskBase mainTask)
         {
             if (mainTask == null)
             {
@@ -369,10 +369,10 @@ namespace EPloy.Res
                 return false;
             }
 
-            LoadDependAssetTask dependencyTask = LoadDependAssetTask.Create(resInfo, dependencyAssetNames, mainTask, userData);
+            LoadDependAssetTask dependencyTask = LoadDependAssetTask.Create(resInfo, dependencyAssetNames, mainTask);
             foreach (string dependencyAssetName in dependencyAssetNames)
             {
-                if (!LoadDependencyAsset(dependencyAssetName, dependencyTask, userData))
+                if (!LoadDependencyAsset(dependencyAssetName, dependencyTask))
                 {
                     return false;
                 }

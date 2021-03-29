@@ -6,7 +6,14 @@ namespace EPloy
 {
     public class Init : MonoBehaviour
     {
-        
+        internal static Init Instance = null;
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+        }
         private void Start()
         {
             GameEntry.GameSystem.Add("Main", typeof(Init).Assembly);

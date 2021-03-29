@@ -15,10 +15,10 @@
             }
         }
 
-        public static LoadDependAssetTask Create(ResInfo resInfo, string[] dependencyAssetNames, LoadResTaskBase mainTask, object userData)
+        public static LoadDependAssetTask Create(ResInfo resInfo, string[] dependencyAssetNames, LoadResTaskBase mainTask)
         {
             LoadDependAssetTask loadDependencyAssetTask = ReferencePool.Acquire<LoadDependAssetTask>();
-            loadDependencyAssetTask.Initialize(null, resInfo, dependencyAssetNames, userData);
+            loadDependencyAssetTask.Initialize(null, resInfo, dependencyAssetNames);
             loadDependencyAssetTask.m_MainTask = mainTask;
             loadDependencyAssetTask.m_MainTask.TotalDependAssetCount++;
             return loadDependencyAssetTask;

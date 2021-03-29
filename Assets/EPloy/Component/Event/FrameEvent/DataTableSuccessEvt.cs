@@ -32,14 +32,6 @@ namespace EPloy
             private set;
         }
 
-        /// <summary>
-        /// 获取用户自定义数据。
-        /// </summary>
-        public object UserData
-        {
-            get;
-            private set;
-        }
 
         /// <summary>
         /// 设置成功事件数据
@@ -47,11 +39,10 @@ namespace EPloy
         /// <param name="dataAssetName">内容资源名称。</param>
         /// <param name="duration">加载持续时间。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void SetData(string dataAssetName, float duration, object userData)
+        public void SetData(string dataAssetName, float duration)
         {
             DataAssetName = dataAssetName;
             Duration = duration;
-            UserData = userData;
         }
 
         /// <summary>
@@ -61,7 +52,6 @@ namespace EPloy
         {
             DataAssetName = null;
             Duration = 0f;
-            UserData = null;
         }
     }
 }

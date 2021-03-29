@@ -36,7 +36,7 @@ namespace EPloy
             }
         }
 
-        protected override void Init()
+        protected override void InitComponent()
         {
             Capacity = Config.ObjectPoolCapacity;
             ExpireTime = Config.ObjectPoolExpireTime;

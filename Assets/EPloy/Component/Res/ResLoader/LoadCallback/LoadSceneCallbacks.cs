@@ -7,7 +7,7 @@ namespace EPloy.Res
     /// <param name="sceneAssetName">要加载的场景资源名称。</param>
     /// <param name="duration">加载持续时间。</param>
     /// <param name="userData">用户自定义数据。</param>
-    public delegate void LoadSceneSuccessCallback(string sceneAssetName, float duration, object userData);
+    public delegate void LoadSceneSuccessCallback(string sceneAssetName, float duration);
 
     /// <summary>
     /// 加载场景失败回调函数。
@@ -16,7 +16,7 @@ namespace EPloy.Res
     /// <param name="status">加载场景状态。</param>
     /// <param name="errorMessage">错误信息。</param>
     /// <param name="userData">用户自定义数据。</param>
-    public delegate void LoadSceneFailureCallback(string sceneAssetName, LoadResStatus status, string errorMessage, object userData);
+    public delegate void LoadSceneFailureCallback(string sceneAssetName, LoadResStatus status, string errorMessage);
 
     /// <summary>
     /// 加载场景时加载依赖资源回调函数。
@@ -26,7 +26,7 @@ namespace EPloy.Res
     /// <param name="loadedCount">当前已加载依赖资源数量。</param>
     /// <param name="totalCount">总共加载依赖资源数量。</param>
     /// <param name="userData">用户自定义数据。</param>
-    public delegate void LoadSceneDepenAssetCallback(string sceneAssetName, string dependAssetName, int loadedCount, int totalCount, object userData);
+    public delegate void LoadSceneDepenAssetCallback(string sceneAssetName, string dependAssetName, int loadedCount, int totalCount);
 
     /// <summary>
     /// 加载场景回调函数集。

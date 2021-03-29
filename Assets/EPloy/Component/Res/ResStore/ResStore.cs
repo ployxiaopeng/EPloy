@@ -26,6 +26,8 @@ namespace EPloy.Res
             }
         }
 
+        public string ApplicableGameVersion { get; private set; }
+        public int InternalResVersion { get; private set; }
 
         internal PackVersionListSerializer PackVersionListSerializer { get; private set; }
         internal UpdatableVersionListSerializer UpdatableVersionListSerializer { get; private set; }
@@ -62,6 +64,12 @@ namespace EPloy.Res
             PackVersionListSerializer = new PackVersionListSerializer();
             UpdatableVersionListSerializer = new UpdatableVersionListSerializer();
             SetObjectPoolManager();
+        }
+
+        internal void SetResVersion(string applicableGameVersion, int internalResVersion)
+        {
+            ApplicableGameVersion = applicableGameVersion;
+            InternalResVersion = internalResVersion;
         }
 
         /// <summary>

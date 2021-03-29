@@ -25,13 +25,15 @@ namespace EPloy
         private ResLoader ResLoader;
         private ResUpdater ResUpdater;
         private ResStore ResStore;
+        private ResHelper ResHelper;
 
-        protected override void Init()
+        protected override void InitComponent()
         {
-            base.Init();
+            base.InitComponent();
             ResLoader = ResLoader.CreateResLoader();
             ResUpdater = ResUpdater.CreateResUpdater();
             ResStore = ResStore.CreateResStore();
+            ResHelper = new ResHelper(Init.Instance);
         }
 
         public void Update()
@@ -66,9 +68,9 @@ namespace EPloy
         /// <param name="assetType">要加载资源的类型。</param>
         /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks, object userData = null)
+        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks)
         {
-            ResLoader.LoadAsset(assetName, assetType, loadAssetCallbacks, userData);
+            ResLoader.LoadAsset(assetName, assetType, loadAssetCallbacks);
         }
 
         /// <summary>
@@ -78,9 +80,9 @@ namespace EPloy
         /// <param name="priority">加载场景资源的优先级。</param>
         /// <param name="loadSceneCallbacks">加载场景回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadScene(string sceneAssetName, LoadSceneCallbacks loadSceneCallbacks, object userData = null)
+        public void LoadScene(string sceneAssetName, LoadSceneCallbacks loadSceneCallbacks )
         {
-            ResLoader.LoadScene(sceneAssetName, loadSceneCallbacks, userData);
+            ResLoader.LoadScene(sceneAssetName, loadSceneCallbacks);
         }
 
         /// <summary>
@@ -89,9 +91,20 @@ namespace EPloy
         /// <param name="binaryAssetName">要加载二进制资源的名称。</param>
         /// <param name="loadBinaryCallbacks">加载二进制资源回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadBinary(string binaryAssetName, LoadBinaryCallbacks loadBinaryCallbacks, object userData = null)
+        public void LoadBinary(string binaryAssetName, LoadBinaryCallbacks loadBinaryCallbacks)
         {
-            ResLoader.LoadBinary(binaryAssetName, loadBinaryCallbacks, userData);
+            ResLoader.LoadBinary(binaryAssetName, loadBinaryCallbacks);
+        }
+
+        /// <summary>
+        /// 直接加载数据流
+        /// </summary>
+        /// <param name="binaryAssetName">要加载二进制资源的名称。</param>
+        /// <param name="loadBinaryCallbacks">加载二进制资源回调函数集。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        public void LoadBytes(string fileUri, LoadBytesCallbacks loadBytesCallbacks = null)
+        {
+            ResHelper.LoadBytes(fileUri, loadBytesCallbacks);
         }
 
         /// <summary>

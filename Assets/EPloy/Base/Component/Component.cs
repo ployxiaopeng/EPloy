@@ -29,10 +29,10 @@ namespace EPloy
             InstanceId = instanceId;
             entity = _entity;
 
-            Init();
+            InitComponent();
         }
 
-        protected virtual void Init() { }
+        protected virtual void InitComponent() { }
 
         public virtual void Clear()
         {

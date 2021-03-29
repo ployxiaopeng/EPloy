@@ -47,7 +47,7 @@ namespace EPloy.Res
             }
         }
 
-        private ResourceChecker ResourceChecker;
+        private ResourceChecker ResChecker;
         /// <summary>
         ///  更新资源需要的文件系统
         /// </summary>
@@ -64,7 +64,7 @@ namespace EPloy.Res
 
         private ResUpdater()
         {
-            ResourceChecker = new ResourceChecker(this, ResStore.Instance);
+            ResChecker = new ResourceChecker(this, ResStore.Instance);
         }
 
         /// <summary>
@@ -77,7 +77,9 @@ namespace EPloy.Res
             {
                 throw new EPloyException("Check resources complete callback is invalid.");
             }
-            ResourceChecker.CheckResources("m_CurrentVariant", ignoreOtherVariant);
+            ResChecker.CheckResources(CurrentVariant);
+            GameEntry.Res.LoadBytes(Utility.Path.GetRemotePath(Path.Combine(ResPath, Config.RemoteVersionListFileName)), ResChecker.UpdatableVersionCallbacks);
+            GameEntry.Res.LoadBytes(Utility.Path.GetRemotePath(Path.Combine(ResPath, Config.LocalVersionListFileName)), ResChecker.ReadWriteVersionCallbacks);
         }
 
         internal IFileSystem GetFileSystem(string fileSystemName, bool storageInReadOnly)

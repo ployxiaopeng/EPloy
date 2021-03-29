@@ -15,10 +15,10 @@ namespace EPloy.Res
             }
         }
 
-        public static LoadAssetTask Create(Type assetType, ResInfo resInfo, string[] depenAssetNames, LoadAssetCallbacks loadAssetCallbacks, object userData)
+        public static LoadAssetTask Create(Type assetType, ResInfo resInfo, string[] depenAssetNames, LoadAssetCallbacks loadAssetCallbacks)
         {
             LoadAssetTask loadAssetTask = ReferencePool.Acquire<LoadAssetTask>();
-            loadAssetTask.Initialize(assetType, resInfo, depenAssetNames, userData);
+            loadAssetTask.Initialize(assetType, resInfo, depenAssetNames);
             loadAssetTask.m_LoadAssetCallbacks = loadAssetCallbacks;
             return loadAssetTask;
         }
@@ -34,7 +34,7 @@ namespace EPloy.Res
             base.OnLoadAssetSuccess(agent, asset, duration);
             if (m_LoadAssetCallbacks.LoadAssetSuccessCallback != null)
             {
-                m_LoadAssetCallbacks.LoadAssetSuccessCallback(AssetName, asset, duration, UserData);
+                m_LoadAssetCallbacks.LoadAssetSuccessCallback(AssetName, asset, duration);
             }
         }
 
@@ -43,7 +43,7 @@ namespace EPloy.Res
             base.OnLoadAssetFailure(agent, status, errorMessage);
             if (m_LoadAssetCallbacks.LoadAssetFailureCallback != null)
             {
-                m_LoadAssetCallbacks.LoadAssetFailureCallback(AssetName, status, errorMessage, UserData);
+                m_LoadAssetCallbacks.LoadAssetFailureCallback(AssetName, status, errorMessage);
             }
         }
 
@@ -52,7 +52,7 @@ namespace EPloy.Res
             base.OnLoadDependAsset(agent, dependAssetName, dependAsset);
             if (m_LoadAssetCallbacks.LoadDependAssetCallback != null)
             {
-                m_LoadAssetCallbacks.LoadDependAssetCallback(AssetName, dependAssetName, DependAssets.Count, TotalDependAssetCount, UserData);
+                m_LoadAssetCallbacks.LoadDependAssetCallback(AssetName, dependAssetName, DependAssets.Count, TotalDependAssetCount);
             }
         }
     }

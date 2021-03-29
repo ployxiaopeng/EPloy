@@ -15,7 +15,6 @@ namespace EPloy.Res
 
         public Type AssetType { get; private set; }
         public ResInfo ResInfo { get; private set; }
-        public object UserData { get; private set; }
         public string[] DependAssetsName { get; private set; }
         public List<object> DependAssets { get; private set; }
         public ResObject ResObject { get; private set; }
@@ -34,12 +33,11 @@ namespace EPloy.Res
         /// <summary>
         /// 初始化这个加载任务
         /// </summary>
-        protected void Initialize(Type assetType, ResInfo resInfo, string[] dependAssetNames, object userData)
+        protected void Initialize(Type assetType, ResInfo resInfo, string[] dependAssetNames)
         {
             AssetType = assetType;
             ResInfo = resInfo;
             DependAssetsName = dependAssetNames;
-            UserData = userData;
         }
 
         public void SetResObject(ResObject resObject)
@@ -64,7 +62,6 @@ namespace EPloy.Res
         {
             base.Clear();
             AssetType = null;
-            UserData = null;
             StartTime = default(DateTime);
             DependAssetsName = null;
             DependAssets = null;

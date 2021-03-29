@@ -7,7 +7,7 @@
     /// <param name="fileUri">文件路径。</param>
     /// <param name="errorMessage">错误信息。</param>
     /// <param name="userData">用户自定义数据。</param>
-    public delegate void LoadBytesFailureCallback(string fileUri, string errorMessage, object userData);
+    public delegate void LoadBytesFailureCallback(string fileUri, string errorMessage);
 
     /// <summary>
     /// 加载数据流成功回调函数。
@@ -16,7 +16,7 @@
     /// <param name="bytes">数据流。</param>
     /// <param name="duration">加载持续时间。</param>
     /// <param name="userData">用户自定义数据。</param>
-    public delegate void LoadBytesSuccessCallback(string fileUri, byte[] bytes, float duration, object userData);
+    public delegate void LoadBytesSuccessCallback(string fileUri, byte[] bytes, float duration);
 
     /// <summary>
     /// 加载数据流回调函数集。

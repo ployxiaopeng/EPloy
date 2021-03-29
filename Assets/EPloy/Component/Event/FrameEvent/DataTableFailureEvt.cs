@@ -34,25 +34,15 @@ namespace EPloy
         }
 
         /// <summary>
-        /// 获取用户自定义数据。
-        /// </summary>
-        public object UserData
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// 设置失败事件数据
         /// </summary>
         /// <param name="dataAssetName">内容资源名称。</param>
         /// <param name="errorMessage">错误信息。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void SetData(string dataAssetName, string errorMessage, object userData)
+        public void SetData(string dataAssetName, string errorMessage)
         {
             DataAssetName = dataAssetName;
             ErrorMessage = errorMessage;
-            UserData = userData;
         }
 
         /// <summary>
@@ -62,7 +52,6 @@ namespace EPloy
         {
             DataAssetName = null;
             ErrorMessage = null;
-            UserData = null;
         }
     }
 }
