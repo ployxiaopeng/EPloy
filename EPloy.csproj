@@ -157,6 +157,7 @@
      <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.Resource.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.ResourceGroup.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.cs" />
+     <Compile Include="Assets\EPloy\Component\Scene\SceneComponent.cs" />
      <Compile Include="Assets\EPloy\Component\UI\UIAttribute.cs" />
      <Compile Include="Assets\EPloy\Component\UI\UIComponent.cs" />
      <Compile Include="Assets\EPloy\Component\UI\UIForm.cs" />
