@@ -16,7 +16,7 @@ namespace EPloy.Res
         public static LoadSceneTask Create(ResInfo resInfo, string[] dependAssetNames, LoadSceneCallbacks loadSceneCallbacks)
         {
             LoadSceneTask loadSceneTask = ReferencePool.Acquire<LoadSceneTask>();
-            loadSceneTask.Initialize(null, resInfo, dependAssetNames);
+            loadSceneTask.Initialize(null, resInfo, dependAssetNames, null);
             loadSceneTask.m_LoadSceneCallbacks = loadSceneCallbacks;
             return loadSceneTask;
         }

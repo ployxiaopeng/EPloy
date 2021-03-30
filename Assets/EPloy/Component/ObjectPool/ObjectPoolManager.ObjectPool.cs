@@ -83,18 +83,16 @@ namespace EPloy
 
                 set
                 {
-                    if (value < 0f)
-                    {
-                        throw new EPloyException("AutoReleaseTime is invalid.");
-                    }
-
                     if (m_AutoReleaseTime == value)
                     {
                         return;
                     }
 
                     m_AutoReleaseTime = value;
-                    Release();
+                    if (m_AutoReleaseTime == 0)
+                    {
+                        Release();
+                    }
                 }
             }
 

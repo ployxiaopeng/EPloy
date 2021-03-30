@@ -6,9 +6,9 @@ namespace EPloy.ObjectPool
     /// <summary>
     /// 对象池基类。
     /// </summary>
-    public abstract class ObjectPoolBase:IReference
+    public abstract class ObjectPoolBase : IReference
     {
-        protected  string m_Name;
+        protected string m_Name;
 
         /// <summary>
         /// 设置对象池基本数据
@@ -58,9 +58,18 @@ namespace EPloy.ObjectPool
         }
 
         /// <summary>
-        /// 自动释放间隔
+        /// 自动释放读秒
         /// </summary>
         public abstract float AutoReleaseTime
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 对象过期秒数。
+        /// </summary>
+        public abstract float ExpireTime
         {
             get;
             set;
@@ -91,16 +100,7 @@ namespace EPloy.ObjectPool
         /// 回收对象。
         /// </summary>
         /// <param name="target">要回收的对象。</param>
-        public abstract  void Unspawn(object target);
-       
-        /// <summary>
-        /// 对象过期秒数。
-        /// </summary>
-        public abstract float ExpireTime
-        {
-            get;
-            set;
-        }
+        public abstract void Unspawn(object target);
 
         /// <summary>
         /// 释放对象池中的可释放对象。

@@ -27,7 +27,7 @@ namespace EPloy
         /// <summary>
         /// 实体组件
         /// </summary>
-        protected Dictionary<Type, Component> ComponentDictionary=new Dictionary<Type, Component>();
+        protected Dictionary<Type, Component> ComponentDictionary = new Dictionary<Type, Component>();
         /// <summary>
         /// 实体还有实体
         /// </summary>
@@ -49,20 +49,18 @@ namespace EPloy
         /// <param name="_id"></param>
         public virtual void Awake(int _id)
         {
+            Awake(_id, null, null);
+        }
+        public virtual void Awake(int _id, string name)
+        {
+            Awake(_id, null, name);
+        }
+        public virtual void Awake(int _id, Entity _parentEntity, string name)
+        {
             id = _id;
-            Debug.LogError("创建一个实体"+id);
-        }
-        public virtual void Awake(int _id,string name=null)
-        {
-            Awake(_id);
-            Name = name;
-            parentEntity = null;
-        }
-        public virtual void Awake(int _id, Entity _parentEntity, string name=null)
-        {
-            Awake(_id);
             Name = name;
             parentEntity = _parentEntity;
+            Log.Info(Utility.Text.Format("创建一个实体 id: {0} name: {1}", id, Name));
         }
 
         /// <summary>
@@ -107,7 +105,7 @@ namespace EPloy
                 return;
             }
             EntityDictionary.Add(entity.id, entity);
-            entity.Awake(entity.id, this);
+            entity.Awake(entity.id, this, entity.Name);
         }
 
         /// <summary>
@@ -129,7 +127,7 @@ namespace EPloy
         /// </summary>
         public void RemoveAllComponent()
         {
-            foreach (var  component in ComponentDictionary)
+            foreach (var component in ComponentDictionary)
             {
                 GameEntry.Game.WithIdComponent.ReleaseComponent(component.Value);
             }
@@ -143,7 +141,7 @@ namespace EPloy
             if (EntityDictionary.ContainsKey(entity.id))
             {
                 new EPloyException(Utility.Text.Format("entityId {0} is not in Entity ", entity.id));
-                return ;
+                return;
             }
             entity.RemoveAllComponent();
             EntityDictionary.Remove(entity.id);

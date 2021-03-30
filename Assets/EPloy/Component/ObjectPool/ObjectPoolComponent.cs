@@ -49,7 +49,7 @@ namespace EPloy
             foreach (KeyValuePair<TypeNamePair, ObjectPoolBase> objectPool in m_ObjectPools)
             {
                 objectPool.Value.AutoReleaseTime -= Time.deltaTime;
-                if (objectPool.Value.AutoReleaseTime < objectPool.Value.AutoReleaseTime)
+                if (objectPool.Value.AutoReleaseTime > 0)
                 {
                     return;
                 }

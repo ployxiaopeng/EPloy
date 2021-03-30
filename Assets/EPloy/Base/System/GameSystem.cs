@@ -176,7 +176,7 @@ namespace EPloy
                     }
                     catch (Exception e)
                     {
-                        new EPloyException(e.ToString());
+                        Log.Error(e.ToString());
                     }
                 }
             }

@@ -1,7 +1,4 @@
-﻿
-using EPloy.SystemFile;
-using EPloy.ObjectPool;
-using EPloy.Res;
+﻿using EPloy.Res;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -71,7 +68,16 @@ namespace EPloy
             }
         }
 
-        private void Update()
+
+        private ResEditorLoader()
+        {
+            CachedAssets = new Dictionary<string, UnityEngine.Object>(StringComparer.Ordinal);
+            LoadAssetInfos = new TypeLinkedList<LoadAssetInfo>();
+            LoadSceneInfos = new TypeLinkedList<LoadSceneInfo>();
+            UnloadSceneInfos = new TypeLinkedList<UnloadSceneInfo>();
+        }
+
+        public void Update()
         {
             if (LoadAssetInfos.Count > 0)
             {
@@ -107,7 +113,7 @@ namespace EPloy
                         {
                             if (loadAssetInfo.LoadAssetCallbacks.LoadAssetSuccessCallback != null)
                             {
-                                loadAssetInfo.LoadAssetCallbacks.LoadAssetSuccessCallback(loadAssetInfo.AssetName, asset, elapseSeconds);
+                                loadAssetInfo.LoadAssetCallbacks.LoadAssetSuccessCallback(loadAssetInfo.AssetName, asset, elapseSeconds, loadAssetInfo.UserData);
                             }
                         }
                         else
@@ -230,7 +236,7 @@ namespace EPloy
         /// <param name="priority">加载资源的优先级。</param>
         /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks)
+        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks, object userData)
         {
             if (loadAssetCallbacks == null)
             {
@@ -268,7 +274,7 @@ namespace EPloy
                 return;
             }
 
-            LoadAssetInfos.AddLast(new LoadAssetInfo(assetName, assetType, DateTime.UtcNow, 0.5f, loadAssetCallbacks));
+            LoadAssetInfos.AddLast(new LoadAssetInfo(assetName, assetType, DateTime.UtcNow, 0.5f, loadAssetCallbacks, userData));
         }
 
         /// <summary>
@@ -578,14 +584,19 @@ namespace EPloy
                 get;
                 private set;
             }
-
-            public LoadAssetInfo(string assetName, Type assetType, DateTime startTime, float delaySeconds, LoadAssetCallbacks loadAssetCallbacks)
+            public object UserData
+            {
+                get;
+                private set;
+            }
+            public LoadAssetInfo(string assetName, Type assetType, DateTime startTime, float delaySeconds, LoadAssetCallbacks loadAssetCallbacks, object userData)
             {
                 AssetName = assetName;
                 AssetType = assetType;
                 StartTime = startTime;
                 DelaySeconds = delaySeconds;
                 LoadAssetCallbacks = loadAssetCallbacks;
+                UserData = userData;
             }
         }
 

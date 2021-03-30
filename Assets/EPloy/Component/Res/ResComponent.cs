@@ -47,7 +47,14 @@ namespace EPloy
 
         public void Update()
         {
-            ResLoader.Update();
+            if (ResEditorLoader == null)
+            {
+                ResLoader.Update();
+            }
+            else
+            {
+                ResEditorLoader.Update();
+            }
         }
 
         public void OnDestroy()
@@ -80,15 +87,15 @@ namespace EPloy
         /// <param name="assetType">要加载资源的类型。</param>
         /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks)
+        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks, object userData = null)
         {
             if (ResEditorLoader == null)
             {
-                ResLoader.LoadAsset(assetName, assetType, loadAssetCallbacks);
+                ResLoader.LoadAsset(assetName, assetType, loadAssetCallbacks,userData);
             }
             else
             {
-                ResEditorLoader.LoadAsset(assetName, assetType, loadAssetCallbacks);
+                ResEditorLoader.LoadAsset(assetName, assetType, loadAssetCallbacks,userData);
             }
         }
 

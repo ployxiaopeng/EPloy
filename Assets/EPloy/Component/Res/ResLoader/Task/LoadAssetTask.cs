@@ -15,10 +15,10 @@ namespace EPloy.Res
             }
         }
 
-        public static LoadAssetTask Create(Type assetType, ResInfo resInfo, string[] depenAssetNames, LoadAssetCallbacks loadAssetCallbacks)
+        public static LoadAssetTask Create(Type assetType, ResInfo resInfo, string[] depenAssetNames, LoadAssetCallbacks loadAssetCallbacks,object userData)
         {
             LoadAssetTask loadAssetTask = ReferencePool.Acquire<LoadAssetTask>();
-            loadAssetTask.Initialize(assetType, resInfo, depenAssetNames);
+            loadAssetTask.Initialize(assetType, resInfo, depenAssetNames,userData);
             loadAssetTask.m_LoadAssetCallbacks = loadAssetCallbacks;
             return loadAssetTask;
         }
@@ -34,7 +34,7 @@ namespace EPloy.Res
             base.OnLoadAssetSuccess(agent, asset, duration);
             if (m_LoadAssetCallbacks.LoadAssetSuccessCallback != null)
             {
-                m_LoadAssetCallbacks.LoadAssetSuccessCallback(AssetName, asset, duration);
+                m_LoadAssetCallbacks.LoadAssetSuccessCallback(AssetName, asset, duration,UserData);
             }
         }
 

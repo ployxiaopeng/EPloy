@@ -12,7 +12,7 @@ namespace EPloy.Res
     internal abstract class LoadResTaskBase : TaskBase
     {
         public abstract bool IsScene { get; }
-
+        public object UserData { get; private set; }
         public Type AssetType { get; private set; }
         public ResInfo ResInfo { get; private set; }
         public string[] DependAssetsName { get; private set; }
@@ -33,10 +33,11 @@ namespace EPloy.Res
         /// <summary>
         /// 初始化这个加载任务
         /// </summary>
-        protected void Initialize(Type assetType, ResInfo resInfo, string[] dependAssetNames)
+        protected void Initialize(Type assetType, ResInfo resInfo, string[] dependAssetNames, object userData)
         {
             AssetType = assetType;
             ResInfo = resInfo;
+            UserData = userData;
             DependAssetsName = dependAssetNames;
         }
 

@@ -24,13 +24,17 @@ namespace EPloy
     {
         private Dictionary<GroupName, UIGroup> UIGroups;
         private Dictionary<UIName, GroupName> UINames;
+        private LoadAssetCallbacks LoadAssetCallbacks;
         private Transform UIParent;
         private ObjectPoolBase UIPool;
 
-        public UIComponent()
+        protected override void InitComponent()
         {
             UIGroups = new Dictionary<GroupName, UIGroup>();
             UINames = new Dictionary<UIName, GroupName>();
+            LoadAssetCallbacks = new LoadAssetCallbacks(LoadAssetSuccessCallback, LoadAssetFailureCallback);
+            UIParent = Init.Instance.transform.Find("UI/Canvas").transform;
+            SetObjectPool();
             foreach (var name in Enum.GetValues(typeof(GroupName)))
             {
                 AddUIGroup((GroupName)name);
@@ -127,8 +131,6 @@ namespace EPloy
         /// </summary>
         /// <param name="uiFormAssetName">界面资源名称。</param>
         /// <param name="uiGroupName">界面组名称。</param>
-        /// <param name="priority">加载界面资源的优先级。</param>
-        /// <param name="pauseCoveredUIForm">是否暂停被覆盖的界面。</param>
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>界面的序列编号。</returns>
         public void OpenUIForm(UIName uiName, GroupName groupName, object userData)
@@ -144,15 +146,17 @@ namespace EPloy
             }
 
             //TODO: 路径
-            string path = "uiName";
-            AssetObject assetObject = (AssetObject)UIPool.Spawn(path);
+            string path = AssetUtility.GetUIFormAsset(uiName.ToString());
+            UIFormObject assetObject = (UIFormObject)UIPool.Spawn(path);
             if (assetObject == null)
             {
-                //TODO: 加载
+                UIFormInfo UIFormInfo = ReferencePool.Acquire<UIFormInfo>();
+                UIFormInfo.SetInfo(uiName, uiGroup, userData);
+                GameEntry.Res.LoadAsset(path, typeof(GameObject), LoadAssetCallbacks, UIFormInfo);
             }
             else
             {
-                uiGroup.OpenUIForm(false, assetObject.Asset, uiName, userData);
+                uiGroup.OpenUIForm(false, assetObject.Target, uiName, userData);
             }
         }
 
@@ -192,7 +196,66 @@ namespace EPloy
         /// <param name="objectPoolManager">对象池管理器。</param>
         private void SetObjectPool()
         {
-            UIPool = GameEntry.ObjectPool.CreateObjectPool(typeof(AssetObject), "UIPool");
+            UIPool = GameEntry.ObjectPool.CreateObjectPool(typeof(UIFormObject), "UIPool");
+        }
+
+        private void LoadAssetSuccessCallback(string uiFormAssetName, object uiFormAsset, float duration, object userData)
+        {
+            UIFormInfo uIFormInfo = userData as UIFormInfo;
+            if (uIFormInfo == null)
+            {
+                string appendErrorMessage = Utility.Text.Format("can not fand UIFormInfo : {}", uiFormAssetName);
+                Log.Error(appendErrorMessage);
+                return;
+            }
+            object uiFormInstance = UnityEngine.Object.Instantiate((UnityEngine.Object)uiFormAsset);
+            UIFormObject assetObject = UIFormObject.Create(uiFormAssetName, uiFormAsset, uiFormInstance);
+            UIPool.Register(assetObject, true);
+            uIFormInfo.UIGroup.OpenUIForm(true, uiFormInstance, uIFormInfo.UIName, uIFormInfo.UserData);
+            ReferencePool.Release(uIFormInfo);
+        }
+
+        private void LoadAssetFailureCallback(string uiFormAssetName, LoadResStatus status, string errorMessage)
+        {
+            string appendErrorMessage = Utility.Text.Format("Load UI form failure, asset name '{0}', status '{1}', error message '{2}'.", uiFormAssetName, status.ToString(), errorMessage);
+            throw new EPloyException(appendErrorMessage);
+        }
+
+        /// <summary>
+        /// 异步资源时需要存储的信息
+        /// </summary>
+        private class UIFormInfo : IReference
+        {
+            public UIName UIName
+            {
+                get;
+                private set;
+            }
+
+            public UIGroup UIGroup
+            {
+                get;
+                private set;
+            }
+
+            public object UserData
+            {
+                get;
+                private set;
+            }
+
+            public void SetInfo(UIName uIName, UIGroup uiGroup, object userData)
+            {
+                UIName = uIName;
+                UIGroup = uiGroup;
+                UserData = userData;
+            }
+
+            public void Clear()
+            {
+                UIName = UIName.Default;
+                UIGroup = null;
+            }
         }
     }
 }

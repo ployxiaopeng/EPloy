@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{43c6d896-26a1-98ca-5a18-e38ce1b3e953}</ProjectGuid>
+    <ProjectGuid>{a96d1fe3-38ac-fa54-ea5e-e2b1013ff8bd}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>EPloy.Editor</AssemblyName>
+    <AssemblyName>Unity.Rider.Editor</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -22,11 +22,11 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_2019_3_3;UNITY_2019_3;UNITY_2019;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;PLATFORM_STANDALONE;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;ENABLE_LOG;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_2019_3_3;UNITY_2019_3;UNITY_2019;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;PLATFORM_STANDALONE;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;ENABLE_LOG;TEST_FRAMEWORK;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,7 +35,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <NoConfig>true</NoConfig>
@@ -45,43 +45,27 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Editor\Misc\BuildSettings.cs" />
-     <Compile Include="Assets\Editor\Misc\EPloyEditorPath.cs" />
-     <Compile Include="Assets\Editor\Misc\OpenFolder.cs" />
-     <Compile Include="Assets\Editor\Misc\ScriptingDefineSymbols.cs" />
-     <Compile Include="Assets\Editor\Misc\Type.cs" />
-     <Compile Include="Assets\Editor\ResourceAnalyzer\AssetsOrder.cs" />
-     <Compile Include="Assets\Editor\ResourceAnalyzer\DependencyData.cs" />
-     <Compile Include="Assets\Editor\ResourceAnalyzer\ResourceAnalyzer.cs" />
-     <Compile Include="Assets\Editor\ResourceAnalyzer\ResourceAnalyzerController.CircularDependencyChecker.cs" />
-     <Compile Include="Assets\Editor\ResourceAnalyzer\ResourceAnalyzerController.Stamp.cs" />
-     <Compile Include="Assets\Editor\ResourceAnalyzer\ResourceAnalyzerController.cs" />
-     <Compile Include="Assets\Editor\ResourceAnalyzer\ScatteredAssetsOrder.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\ResEnum.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilder.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilderController.AssetData.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilderController.BuildReport.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilderController.ResourceCode.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilderController.ResourceData.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilderController.VersionListData.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilderController.cs" />
-     <Compile Include="Assets\Editor\ResourceCollection\Asset.cs" />
-     <Compile Include="Assets\Editor\ResourceCollection\AssetType.cs" />
-     <Compile Include="Assets\Editor\ResourceCollection\LoadType.cs" />
-     <Compile Include="Assets\Editor\ResourceCollection\Resource.cs" />
-     <Compile Include="Assets\Editor\ResourceCollection\ResourceCollection.cs" />
-     <Compile Include="Assets\Editor\ResourceEditor\AssetSorterType.cs" />
-     <Compile Include="Assets\Editor\ResourceEditor\ResourceEditor.MenuState.cs" />
-     <Compile Include="Assets\Editor\ResourceEditor\ResourceEditor.ResourceFolder.cs" />
-     <Compile Include="Assets\Editor\ResourceEditor\ResourceEditor.ResourceItem.cs" />
-     <Compile Include="Assets\Editor\ResourceEditor\ResourceEditor.cs" />
-     <Compile Include="Assets\Editor\ResourceEditor\ResourceEditorController.cs" />
-     <Compile Include="Assets\Editor\ResourceEditor\SourceAsset.cs" />
-     <Compile Include="Assets\Editor\ResourceEditor\SourceFolder.cs" />
-     <Compile Include="Assets\Editor\ResourcePackBuilder\ResourcePackBuilder.cs" />
-     <Compile Include="Assets\Editor\ResourcePackBuilder\ResourcePackBuilderController.cs" />
-     <Compile Include="Assets\Editor\ResourceSyncTools\ResourceSyncTools.cs" />
-     <Compile Include="Assets\Editor\ResourceSyncTools\ResourceSyncToolsController.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\Discovery.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\EditorPluginInterop.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\LoggingLevel.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\PluginSettings.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\PostProcessors\RiderAssetPostprocessor.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\ProjectGeneration\FileIOProvider.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\ProjectGeneration\GUIDProvider.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\ProjectGeneration\ProjectGeneration.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\RiderInitializer.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\RiderScriptEditor.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\RiderScriptEditorData.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\UnitTesting\CallbackData.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\UnitTesting\CallbackInitializer.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\UnitTesting\RiderTestRunner.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\UnitTesting\TestEvent.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\UnitTesting\TestsCallback.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\Util\CommandLineParser.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\Util\FileSystemUtil.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\Util\LibcNativeInterop.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\Util\RiderMenu.cs" />
+     <Compile Include="Library\PackageCache\com.unity.ide.rider@1.1.4\Rider\Editor\Util\UnityUtils.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
@@ -636,9 +620,9 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="EPloy.csproj">
-      <Project>{44d596f6-9a6d-ece8-0a85-3e8bfe720cb0}</Project>
-      <Name>EPloy</Name>
+    <ProjectReference Include="UnityEditor.TestRunner.csproj">
+      <Project>{6f3e5c99-c993-dc94-a397-2ac91428fab0}</Project>
+      <Name>UnityEditor.TestRunner</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{ba2c5cd9-4f11-8171-b93c-96e5feda454e}</Project>
@@ -647,14 +631,6 @@
     <ProjectReference Include="UnityEngine.UI.csproj">
       <Project>{a6c50d23-ca9f-e45c-35a9-0bbdb45232ab}</Project>
       <Name>UnityEngine.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEditor.TestRunner.csproj">
-      <Project>{6f3e5c99-c993-dc94-a397-2ac91428fab0}</Project>
-      <Name>UnityEditor.TestRunner</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEngine.TestRunner.csproj">
-      <Project>{b8eb26d8-d9d2-e7ac-cb20-dcf6061d7240}</Project>
-      <Name>UnityEngine.TestRunner</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

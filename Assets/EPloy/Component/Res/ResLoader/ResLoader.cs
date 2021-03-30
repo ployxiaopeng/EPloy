@@ -97,7 +97,7 @@ namespace EPloy.Res
         /// <param name="priority">加载资源的优先级。</param>
         /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks)
+        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks,object userData)
         {
             ResInfo resInfo = null;
             string[] dependAssetNames = null;
@@ -125,7 +125,7 @@ namespace EPloy.Res
                 throw new EPloyException(errorMessage);
             }
 
-            LoadAssetTask mainTask = LoadAssetTask.Create(assetType, resInfo, dependAssetNames, loadAssetCallbacks);
+            LoadAssetTask mainTask = LoadAssetTask.Create(assetType, resInfo, dependAssetNames, loadAssetCallbacks,userData);
             foreach (string dependencyAssetName in dependAssetNames)
             {
                 if (!LoadDependencyAsset(dependencyAssetName, mainTask))

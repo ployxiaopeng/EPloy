@@ -1,6 +1,7 @@
-﻿
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace EPloy
 {
@@ -41,11 +42,22 @@ namespace EPloy
         {
             Handle = new GameObject(groupName.ToString());
             Handle.transform.SetParent(parent);
-            Handle.transform.localPosition = Vector3.zero;
             Canvas canvas = Handle.AddComponent<Canvas>();
+            Handle.AddComponent<GraphicRaycaster>();
+
+            RectTransform transform = Handle.GetComponent<RectTransform>();
+            transform.anchorMin = Vector2.zero;
+            transform.anchorMax = Vector2.one;
+            transform.localScale = Vector3.one;
+            transform.anchoredPosition3D = Vector3.zero;
+
             canvas.sortingOrder = Depth;
+            canvas.overrideSorting = true;
+
+            Handle.layer = 5;
             GroupName = groupName;
             UIForms = new TypeLinkedList<UIForm>();
+            ActiveUIForms = new List<UIForm>();
             Depth = (int)groupName;
         }
 
@@ -136,7 +148,22 @@ namespace EPloy
 
         public void OpenUIForm(bool isNew, object obj, UIName uiName, object userData)
         {
-            UIForm uiForm = GetUIForm(uiName);
+            UIForm uiForm = null;
+            if (isNew)
+            {
+                Type type = Type.GetType(uiName.ToString());
+                if (type == null || type.IsInstanceOfType(typeof(UIForm)))
+                {
+                    Log.Fatal("can not fand ui C# class  uiName : " + uiName);
+                    return;
+                }
+                uiForm = (UIForm)ReferencePool.Acquire(type);
+            }
+            else
+            {
+                uiForm = GetUIForm(uiName);
+            }
+
             if (uiForm == null)
             {
                 throw new EPloyException(Utility.Text.Format("UIForm {0} is invalid.", uiName));
@@ -146,7 +173,7 @@ namespace EPloy
             uiGo.transform.localPosition = Vector3.zero;
             uiGo.transform.localScale = Vector3.one;
             uiForm.Initialize(uiGo, GroupName, isNew, userData);
-            ActiveUIForms.Remove(uiForm);
+            ActiveUIForms.Add(uiForm);
         }
 
         /// <summary>
