@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using EPloy.ObjectPool;
 
 namespace EPloy
 {
     /// <summary>
     /// 界面 层级组
     /// </summary>
-    public class UIGroup : IReference
+    public sealed class UIGroup : IReference
     {
+        private ObjectPoolBase UIPool;
+        private Transform Parent;
         public GroupName GroupName { get; private set; }
         public int Depth { get; private set; }
 
@@ -38,27 +41,36 @@ namespace EPloy
         /// </summary>
         /// <param name="name">界面组名称。</param>
         /// <param name="depth">界面组深度。</param>
-        public void Initialize(GroupName groupName, Transform parent)
+        public void Initialize(GroupName groupName, Transform parent, ObjectPoolBase uIPool)
         {
-            Handle = new GameObject(groupName.ToString());
-            Handle.transform.SetParent(parent);
+            Depth = (int)groupName;
+            GroupName = groupName;
+            UIForms = new TypeLinkedList<UIForm>();
+            ActiveUIForms = new List<UIForm>();
+            UIPool = uIPool;
+            Parent = parent;
+            CreateGroupInstance();
+        }
+
+        private void CreateGroupInstance()
+        {
+            Handle = new GameObject(GroupName.ToString());
+            Handle.transform.SetParent(Parent);
             Canvas canvas = Handle.AddComponent<Canvas>();
             Handle.AddComponent<GraphicRaycaster>();
 
             RectTransform transform = Handle.GetComponent<RectTransform>();
+            transform.localScale = Vector3.one;
+            transform.localPosition = Vector3.zero;
             transform.anchorMin = Vector2.zero;
             transform.anchorMax = Vector2.one;
-            transform.localScale = Vector3.one;
-            transform.anchoredPosition3D = Vector3.zero;
+            transform.offsetMax = Vector2.zero;
+            transform.offsetMin = Vector2.zero;
 
             canvas.sortingOrder = Depth;
             canvas.overrideSorting = true;
 
             Handle.layer = 5;
-            GroupName = groupName;
-            UIForms = new TypeLinkedList<UIForm>();
-            ActiveUIForms = new List<UIForm>();
-            Depth = (int)groupName;
         }
 
         /// <summary>
@@ -91,6 +103,24 @@ namespace EPloy
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// 界面是否已经激活
+        /// </summary>
+        /// <param name="uiFormAssetName">界面资源名称。</param>
+        /// <returns>界面组中是否存在界面。</returns>
+        public bool HasActiveUIForm(UIName uiName)
+        {
+            UIForm uiForm = GetUIForm(uiName);
+            if (uiForm == null)
+            {
+                return false;
+            }
+            else
+            {
+                return ActiveUIForms.Contains(uiForm);
+            }
         }
 
         /// <summary>
@@ -146,18 +176,18 @@ namespace EPloy
             ActiveUIForms.Remove(uiForm);
         }
 
-        public void OpenUIForm(bool isNew, object obj, UIName uiName, object userData)
+        public void OpenUIForm(bool isNew, object obj, UIName uiName, Type uiFormType, object userData)
         {
             UIForm uiForm = null;
             if (isNew)
             {
-                Type type = Type.GetType(uiName.ToString());
-                if (type == null || type.IsInstanceOfType(typeof(UIForm)))
+                if (uiFormType == null || uiFormType.IsInstanceOfType(typeof(UIForm)))
                 {
                     Log.Fatal("can not fand ui C# class  uiName : " + uiName);
                     return;
                 }
-                uiForm = (UIForm)ReferencePool.Acquire(type);
+                uiForm = (UIForm)ReferencePool.Acquire(uiFormType);
+                UIForms.AddFirst(uiForm);
             }
             else
             {
@@ -172,7 +202,7 @@ namespace EPloy
             uiGo.transform.SetParent(Handle.transform);
             uiGo.transform.localPosition = Vector3.zero;
             uiGo.transform.localScale = Vector3.one;
-            uiForm.Initialize(uiGo, GroupName, isNew, userData);
+            uiForm.Initialize(uiGo, uiName, GroupName, isNew, userData);
             ActiveUIForms.Add(uiForm);
         }
 
@@ -209,11 +239,11 @@ namespace EPloy
         {
             foreach (UIForm uiForm in UIForms)
             {
-                //TODO: 清理obj 
-
+                UIPool.Unspawn(uiForm.Handle);
                 ReferencePool.Release(uiForm);
             }
             UIForms.Clear();
+            UIPool.ReleaseAllUnused();
         }
     }
 }

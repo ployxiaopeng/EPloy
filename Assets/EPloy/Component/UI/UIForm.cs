@@ -12,7 +12,7 @@ namespace EPloy
         /// ui名字
         /// </summary>
         /// <value></value>
-        public abstract UIName UIName { get; }
+        public UIName UIName { get; private set; }
         /// <summary>
         /// 获取界面实例。
         /// </summary>
@@ -26,6 +26,14 @@ namespace EPloy
         /// </summary>
         public bool isPause { get; private set; }
 
+        protected Transform transform
+        {
+            get
+            {
+                return Handle.transform;
+            }
+        }
+        
         /// <summary>
         /// 初始化界面。
         /// </summary>
@@ -34,17 +42,24 @@ namespace EPloy
         /// <param name="uiGroup">界面所属的界面组。</param>
         /// <param name="isNew">是否是新实例。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void Initialize(GameObject handle, GroupName groupName, bool isNew, object userData)
+        public void Initialize(GameObject handle, UIName uiName, GroupName groupName, bool isNew, object userData)
         {
             if (isNew)
             {
                 Handle = handle;
+                UIName = uiName;
                 Handle.name = UIName.ToString();
+                Create();
             }
             GroupName = groupName;
             isPause = false;
             Open(userData);
         }
+
+        /// <summary>
+        /// 界面生成。
+        /// </summary>
+        public abstract void Create();
 
         /// <summary>
         /// 界面打开。

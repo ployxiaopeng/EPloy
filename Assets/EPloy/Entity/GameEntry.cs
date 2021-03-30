@@ -12,11 +12,11 @@ namespace EPloy
         public static FileSystemComponent FileSystem { get; set; }
         public static ObjectPoolComponent ObjectPool { get; set; }
         public static EventComponent Event { get; set; }
-
+        public static DataStoreComponet DataStore { get; set; }
         public static ResComponent Res { get; set; }
 
         public static UIComponent UI { get; set; }
-        
+
         private static GameEntity game = null;
         public static GameEntity Game
         {

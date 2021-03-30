@@ -3,6 +3,12 @@ namespace EPloy
 {
     public static class Config
     {
+
+        /// <summary>
+        /// 服务端 版本文件名称
+        /// </summary>
+        public const string HotFixDllName = "EPloy";
+
         /// <summary>
         /// 服务端 版本文件名称
         /// </summary>

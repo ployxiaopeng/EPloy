@@ -20,14 +20,11 @@ namespace EPloy
     {
         private const string AndroidFileSystemPrefixString = "jar:";
 
-        private readonly Dictionary<string, FileSystem> m_FileSystems;
+        private Dictionary<string, FileSystem> FileSystems;
 
-        /// <summary>
-        /// 初始化文件系统管理器的新实例。
-        /// </summary>
-        public FileSystemComponent()
+        protected override void InitComponent()
         {
-            m_FileSystems = new Dictionary<string, FileSystem>(StringComparer.Ordinal);
+            FileSystems = new Dictionary<string, FileSystem>(StringComparer.Ordinal);
         }
 
         /// <summary>
@@ -37,7 +34,7 @@ namespace EPloy
         {
             get
             {
-                return m_FileSystems.Count;
+                return FileSystems.Count;
             }
         }
 
@@ -46,9 +43,9 @@ namespace EPloy
         /// </summary>
         public void OnDestroy()
         {
-            while (m_FileSystems.Count > 0)
+            while (FileSystems.Count > 0)
             {
-                foreach (KeyValuePair<string, FileSystem> fileSystem in m_FileSystems)
+                foreach (KeyValuePair<string, FileSystem> fileSystem in FileSystems)
                 {
                     DestroyFileSystem(fileSystem.Value, false);
                     break;
@@ -68,7 +65,7 @@ namespace EPloy
                 throw new EPloyException("Full path is invalid.");
             }
 
-            return m_FileSystems.ContainsKey(Utility.Path.GetRegularPath(fullPath));
+            return FileSystems.ContainsKey(Utility.Path.GetRegularPath(fullPath));
         }
 
         /// <summary>
@@ -84,7 +81,7 @@ namespace EPloy
             }
 
             FileSystem fileSystem = null;
-            if (m_FileSystems.TryGetValue(Utility.Path.GetRegularPath(fullPath), out fileSystem))
+            if (FileSystems.TryGetValue(Utility.Path.GetRegularPath(fullPath), out fileSystem))
             {
                 return fileSystem;
             }
@@ -118,7 +115,7 @@ namespace EPloy
             }
 
             fullPath = Utility.Path.GetRegularPath(fullPath);
-            if (m_FileSystems.ContainsKey(fullPath))
+            if (FileSystems.ContainsKey(fullPath))
             {
                 throw new EPloyException(Utility.Text.Format("File system '{0}' is already exist.", fullPath));
             }
@@ -135,7 +132,7 @@ namespace EPloy
                 throw new EPloyException(Utility.Text.Format("Create file system '{0}' failure.", fullPath));
             }
 
-            m_FileSystems.Add(fullPath, fileSystem);
+            FileSystems.Add(fullPath, fileSystem);
             return fileSystem;
         }
 
@@ -158,7 +155,7 @@ namespace EPloy
             }
 
             fullPath = Utility.Path.GetRegularPath(fullPath);
-            if (m_FileSystems.ContainsKey(fullPath))
+            if (FileSystems.ContainsKey(fullPath))
             {
                 throw new EPloyException(Utility.Text.Format("File system '{0}' is already exist.", fullPath));
             }
@@ -175,7 +172,7 @@ namespace EPloy
                 throw new EPloyException(Utility.Text.Format("Load file system '{0}' failure.", fullPath));
             }
 
-            m_FileSystems.Add(fullPath, fileSystem);
+            FileSystems.Add(fullPath, fileSystem);
             return fileSystem;
         }
 
@@ -193,7 +190,7 @@ namespace EPloy
 
             string fullPath = fileSystem.FullPath;
             ((FileSystem)fileSystem).Shutdown();
-            m_FileSystems.Remove(fullPath);
+            FileSystems.Remove(fullPath);
 
             if (deletePhysicalFile && File.Exists(fullPath))
             {
@@ -208,8 +205,8 @@ namespace EPloy
         public IFileSystem[] GetAllFileSystems()
         {
             int index = 0;
-            IFileSystem[] results = new IFileSystem[m_FileSystems.Count];
-            foreach (KeyValuePair<string, FileSystem> fileSystem in m_FileSystems)
+            IFileSystem[] results = new IFileSystem[FileSystems.Count];
+            foreach (KeyValuePair<string, FileSystem> fileSystem in FileSystems)
             {
                 results[index++] = fileSystem.Value;
             }
@@ -229,12 +226,12 @@ namespace EPloy
             }
 
             results.Clear();
-            foreach (KeyValuePair<string, FileSystem> fileSystem in m_FileSystems)
+            foreach (KeyValuePair<string, FileSystem> fileSystem in FileSystems)
             {
                 results.Add(fileSystem.Value);
             }
         }
-    
+
         private FileSystemStream CreateFileSystemStream(string fullPath, FileSystemAccess access, bool createNew)
         {
             if (fullPath.StartsWith(AndroidFileSystemPrefixString, StringComparison.Ordinal))

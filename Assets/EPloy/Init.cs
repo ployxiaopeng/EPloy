@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace EPloy
@@ -19,26 +18,22 @@ namespace EPloy
         }
         private void Start()
         {
-            GameEntry.GameSystem.Add("Main", typeof(Init).Assembly);
+            GameEntry.GameSystem.Add(Config.HotFixDllName, typeof(Init).Assembly);
+
             GameEntry.FileSystem = GameEntry.Game.AddComponent<FileSystemComponent>();
             GameEntry.ObjectPool = GameEntry.Game.AddComponent<ObjectPoolComponent>();
             GameEntry.Event = GameEntry.Game.AddComponent<EventComponent>();
+            GameEntry.DataStore = GameEntry.Game.AddComponent<DataStoreComponet>();
+
             GameEntry.Res = GameEntry.Game.AddComponent<ResComponent>();
             GameEntry.UI = GameEntry.Game.AddComponent<UIComponent>();
 
-            Entity entity = GameEntry.Game.CreateEntity("Game01");
-            GameEntry.Event.Subscribe(EventId.TestEvt, EvtTest);
             StartCoroutine(enumerator());
         }
         IEnumerator enumerator()
         {
-            yield return new WaitForSeconds(2f);
-            GameEntry.Event.Fire(ReferencePool.Acquire<TestEvt>());
-            GameEntry.UI.OpenUIForm(UIName.txstUIForm, GroupName.Default, null);
-        }
-        public void EvtTest(EventArg eventArg)
-        {
-            Log.Info("事件测试");
+            yield return new WaitForSeconds(1f);
+            GameEntry.UI.OpenUIForm(UIName.StartUI, GroupName.Default, null);
         }
 
         private void Update()
@@ -46,6 +41,4 @@ namespace EPloy
             GameEntry.GameSystem.Update();
         }
     }
-
-
 }

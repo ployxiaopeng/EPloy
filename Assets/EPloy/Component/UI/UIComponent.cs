@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace EPloy
 {
-
     [System]
     public class UIComponentUpdateSystem : UpdateSystem<UIComponent>
     {
@@ -22,23 +21,28 @@ namespace EPloy
     /// </summary>
     public class UIComponent : Component
     {
+        private Entity UIEntity;
         private Dictionary<GroupName, UIGroup> UIGroups;
         private Dictionary<UIName, GroupName> UINames;
+        private Dictionary<UIName, Type> UIFormTypes;
         private LoadAssetCallbacks LoadAssetCallbacks;
         private Transform UIParent;
         private ObjectPoolBase UIPool;
 
         protected override void InitComponent()
         {
+            UIEntity = GameEntry.Game.CreateEntity("UI");
             UIGroups = new Dictionary<GroupName, UIGroup>();
             UINames = new Dictionary<UIName, GroupName>();
+
             LoadAssetCallbacks = new LoadAssetCallbacks(LoadAssetSuccessCallback, LoadAssetFailureCallback);
             UIParent = Init.Instance.transform.Find("UI/Canvas").transform;
-            SetObjectPool();
+            UIPool = GameEntry.ObjectPool.CreateObjectPool(typeof(UIFormObject), "UIPool");
             foreach (var name in Enum.GetValues(typeof(GroupName)))
             {
                 AddUIGroup((GroupName)name);
             }
+            GetUIFormTypes();
         }
 
         /// <summary>
@@ -96,7 +100,7 @@ namespace EPloy
         private bool AddUIGroup(GroupName groupName)
         {
             UIGroup group = ReferencePool.Acquire<UIGroup>();
-            group.Initialize(groupName, UIParent);
+            group.Initialize(groupName, UIParent, UIPool);
             UIGroups.Add(groupName, group);
             return true;
         }
@@ -132,7 +136,6 @@ namespace EPloy
         /// <param name="uiFormAssetName">界面资源名称。</param>
         /// <param name="uiGroupName">界面组名称。</param>
         /// <param name="userData">用户自定义数据。</param>
-        /// <returns>界面的序列编号。</returns>
         public void OpenUIForm(UIName uiName, GroupName groupName, object userData)
         {
             UIGroup uiGroup = GetUIGroup(groupName);
@@ -145,7 +148,11 @@ namespace EPloy
                 UINames.Add(uiName, groupName);
             }
 
-            //TODO: 路径
+            // 这个判断待定
+            if (uiGroup.HasActiveUIForm(uiName))
+            {
+                throw new EPloyException(Utility.Text.Format("UIName {0} is open.", uiName));
+            }
             string path = AssetUtility.GetUIFormAsset(uiName.ToString());
             UIFormObject assetObject = (UIFormObject)UIPool.Spawn(path);
             if (assetObject == null)
@@ -156,7 +163,7 @@ namespace EPloy
             }
             else
             {
-                uiGroup.OpenUIForm(false, assetObject.Target, uiName, userData);
+                uiGroup.OpenUIForm(false, assetObject.Target, uiName, UIFormTypes[uiName], userData);
             }
         }
 
@@ -180,7 +187,7 @@ namespace EPloy
         /// </summary>
         /// <param name="uiForm">要激活的界面。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void RefocusUIForm(UIName uiName, object userData)
+        public void RefocusUIForm(UIName uiName, object userData = null)
         {
             if (!UINames.ContainsKey(uiName))
             {
@@ -191,12 +198,26 @@ namespace EPloy
         }
 
         /// <summary>
-        /// 设置对象池管理器。
+        /// 获取所有uiUIFormType
         /// </summary>
-        /// <param name="objectPoolManager">对象池管理器。</param>
-        private void SetObjectPool()
+        private void GetUIFormTypes()
         {
-            UIPool = GameEntry.ObjectPool.CreateObjectPool(typeof(UIFormObject), "UIPool");
+            UIFormTypes = new Dictionary<UIName, Type>();
+            Type[] Types = GameEntry.GameSystem.GetAssembly(Config.HotFixDllName).GetTypes();
+            foreach (Type type in Types)
+            {
+                object[] objects = type.GetCustomAttributes(typeof(UIAttribute), false);
+                if (objects.Length != 0)
+                {
+                    UIAttribute uiAttribute = (UIAttribute)objects[0];
+                    if (UIFormTypes.ContainsKey(uiAttribute.UIName))
+                    {
+                        Log.Error(Utility.Text.Format("uiName: {0} type: {1} is in UIFormTypes", uiAttribute.UIName, type));
+                        continue;
+                    }
+                    UIFormTypes.Add(uiAttribute.UIName, type);
+                }
+            }
         }
 
         private void LoadAssetSuccessCallback(string uiFormAssetName, object uiFormAsset, float duration, object userData)
@@ -211,7 +232,7 @@ namespace EPloy
             object uiFormInstance = UnityEngine.Object.Instantiate((UnityEngine.Object)uiFormAsset);
             UIFormObject assetObject = UIFormObject.Create(uiFormAssetName, uiFormAsset, uiFormInstance);
             UIPool.Register(assetObject, true);
-            uIFormInfo.UIGroup.OpenUIForm(true, uiFormInstance, uIFormInfo.UIName, uIFormInfo.UserData);
+            uIFormInfo.UIGroup.OpenUIForm(true, uiFormInstance, uIFormInfo.UIName, UIFormTypes[uIFormInfo.UIName], uIFormInfo.UserData);
             ReferencePool.Release(uIFormInfo);
         }
 

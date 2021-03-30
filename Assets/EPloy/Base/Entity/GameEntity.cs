@@ -12,10 +12,10 @@ namespace EPloy
 
         public WithIdComponent WithIdComponent
         {
-            get;private set;
+            get; private set;
         }
 
-        public override void Awake(int _id,string name)
+        public override void Awake(int _id, string name)
         {
             base.Awake(_id, name);
             ResetEntityId();
@@ -29,10 +29,12 @@ namespace EPloy
         /// 生成一个实体
         /// </summary>
         /// <returns></returns>
-        public Entity CreateEntity(string name =null)
+        public Entity CreateEntity(string name = null)
         {
             Entity entity = ReferencePool.Acquire<Entity>();
-            entity.Awake(GetNextEntityId(), name);
+            int id = GetNextEntityId();
+            entity.Awake(id, name);
+            EntityDictionary.Add(id, entity);
             return entity;
         }
 
@@ -51,19 +53,19 @@ namespace EPloy
         /// 获取一个不存在的实体Id
         /// </summary>
         /// <returns></returns>
-        public  int GetNextEntityId()
+        public int GetNextEntityId()
         {
             while (EntityDictionary.ContainsKey(RecordId))
             {
-               RecordId++;
+                RecordId++;
             }
             return RecordId;
         }
 
-        public  void ResetEntityId()
+        public void ResetEntityId()
         {
             //0是自己  其他所有的从1开始
-          RecordId = 1;
+            RecordId = 1;
         }
 
     }

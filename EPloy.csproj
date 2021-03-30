@@ -95,6 +95,8 @@
      <Compile Include="Assets\EPloy\Base\Utility\Utility.Verifier.Crc32.cs" />
      <Compile Include="Assets\EPloy\Base\Utility\Utility.Verifier.cs" />
      <Compile Include="Assets\EPloy\Base\Utility\Utility.Zip.cs" />
+     <Compile Include="Assets\EPloy\Component\DataStore\DataStoreAttribute.cs" />
+     <Compile Include="Assets\EPloy\Component\DataStore\DataStoreComponet.cs" />
      <Compile Include="Assets\EPloy\Component\DataTable\DataTable.cs" />
      <Compile Include="Assets\EPloy\Component\DataTable\DataTableBase.cs" />
      <Compile Include="Assets\EPloy\Component\DataTable\DataTableComponet.cs" />
@@ -155,6 +157,7 @@
      <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.Resource.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.ResourceGroup.cs" />
      <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.cs" />
+     <Compile Include="Assets\EPloy\Component\UI\UIAttribute.cs" />
      <Compile Include="Assets\EPloy\Component\UI\UIComponent.cs" />
      <Compile Include="Assets\EPloy\Component\UI\UIForm.cs" />
      <Compile Include="Assets\EPloy\Component\UI\UIFormObject.cs" />
@@ -166,7 +169,8 @@
      <Compile Include="Assets\EPloy\Event\EventId.cs" />
      <Compile Include="Assets\EPloy\Event\TestEvt.cs" />
      <Compile Include="Assets\EPloy\Init.cs" />
-     <Compile Include="Assets\EPloy\UIForm\txstUIForm.cs" />
+     <Compile Include="Assets\EPloy\UIForm\StartUIDataStore.cs" />
+     <Compile Include="Assets\EPloy\UIForm\StartUIForm.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
