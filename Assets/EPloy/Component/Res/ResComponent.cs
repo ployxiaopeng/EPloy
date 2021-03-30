@@ -31,7 +31,7 @@ namespace EPloy
         protected override void InitComponent()
         {
             base.InitComponent();
-            if (Init.Instance.isEditorRes)
+            if (GameStart.isEditorRes)
             {
                 ResEditorLoader = ResEditorLoader.CreateResEditorLoader();
             }
@@ -42,7 +42,7 @@ namespace EPloy
                 ResUpdater = ResUpdater.CreateResUpdater();
                 ResStore = ResStore.CreateResStore();
             }
-            ResHelper = new ResHelper(Init.Instance);
+           // ResHelper = new ResHelper(GameStart.Instance);
         }
 
         public void Update()
@@ -91,11 +91,11 @@ namespace EPloy
         {
             if (ResEditorLoader == null)
             {
-                ResLoader.LoadAsset(assetName, assetType, loadAssetCallbacks,userData);
+                ResLoader.LoadAsset(assetName, assetType, loadAssetCallbacks, userData);
             }
             else
             {
-                ResEditorLoader.LoadAsset(assetName, assetType, loadAssetCallbacks,userData);
+                ResEditorLoader.LoadAsset(assetName, assetType, loadAssetCallbacks, userData);
             }
         }
 

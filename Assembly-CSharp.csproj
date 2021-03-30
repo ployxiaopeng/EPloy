@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{44d596f6-9a6d-ece8-0a85-3e8bfe720cb0}</ProjectGuid>
+    <ProjectGuid>{204f820a-6b2b-0c90-08b2-5885357910ee}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>EPloy</AssemblyName>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -45,133 +45,10 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\EPloy\Base\BaseAttribute.cs" />
-     <Compile Include="Assets\EPloy\Base\Component\Component.cs" />
-     <Compile Include="Assets\EPloy\Base\Component\IComponent.cs" />
-     <Compile Include="Assets\EPloy\Base\Component\WithIdComponent.cs" />
-     <Compile Include="Assets\EPloy\Base\EPloyAction.cs" />
-     <Compile Include="Assets\EPloy\Base\EPloyException.cs" />
-     <Compile Include="Assets\EPloy\Base\EPloySerializer.cs" />
-     <Compile Include="Assets\EPloy\Base\Entity\Entity.cs" />
-     <Compile Include="Assets\EPloy\Base\Entity\GameEntity.cs" />
-     <Compile Include="Assets\EPloy\Base\Entity\IEntity.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\FileInfo.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\FileSystem.BlockData.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\FileSystem.HeaderData.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\FileSystem.StringData.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\FileSystem.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\FileSystemAccess.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\FileSystemStream.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\IFileSystem.cs" />
-     <Compile Include="Assets\EPloy\Base\Log.cs" />
-     <Compile Include="Assets\EPloy\Base\ObjectPool\ObjectBase.cs" />
-     <Compile Include="Assets\EPloy\Base\ObjectPool\ObjectInfo.cs" />
-     <Compile Include="Assets\EPloy\Base\ObjectPool\ObjectPoolBase.cs" />
-     <Compile Include="Assets\EPloy\Base\ReferencePool\IReference.cs" />
-     <Compile Include="Assets\EPloy\Base\ReferencePool\ReferencePool.ReferenceCollection.cs" />
-     <Compile Include="Assets\EPloy\Base\ReferencePool\ReferencePool.cs" />
-     <Compile Include="Assets\EPloy\Base\ReferencePool\ReferencePoolInfo.cs" />
-     <Compile Include="Assets\EPloy\Base\System\GameSystem.cs" />
-     <Compile Include="Assets\EPloy\Base\System\IAwakeSystem.cs" />
-     <Compile Include="Assets\EPloy\Base\System\IStartSystem.cs" />
-     <Compile Include="Assets\EPloy\Base\System\ISystem.cs" />
-     <Compile Include="Assets\EPloy\Base\System\IUpdateSystem.cs" />
-     <Compile Include="Assets\EPloy\Base\System\SystemAttribute.cs" />
-     <Compile Include="Assets\EPloy\Base\TaskPool\ITaskAgent.cs" />
-     <Compile Include="Assets\EPloy\Base\TaskPool\TaskBase.cs" />
-     <Compile Include="Assets\EPloy\Base\TaskPool\TaskInfo.cs" />
-     <Compile Include="Assets\EPloy\Base\TaskPool\TaskPool.cs" />
-     <Compile Include="Assets\EPloy\Base\TypeLinkedList.cs" />
-     <Compile Include="Assets\EPloy\Base\TypeNamePair.cs" />
-     <Compile Include="Assets\EPloy\Base\UnOrderMultiMap.cs" />
-     <Compile Include="Assets\EPloy\Base\Utility\BinaryExtension.cs" />
-     <Compile Include="Assets\EPloy\Base\Utility\Utility.Assembly.cs" />
-     <Compile Include="Assets\EPloy\Base\Utility\Utility.Converter.cs" />
-     <Compile Include="Assets\EPloy\Base\Utility\Utility.Encryption.cs" />
-     <Compile Include="Assets\EPloy\Base\Utility\Utility.Marshal.cs" />
-     <Compile Include="Assets\EPloy\Base\Utility\Utility.Path.cs" />
-     <Compile Include="Assets\EPloy\Base\Utility\Utility.Random.cs" />
-     <Compile Include="Assets\EPloy\Base\Utility\Utility.Text.cs" />
-     <Compile Include="Assets\EPloy\Base\Utility\Utility.Verifier.Crc32.cs" />
-     <Compile Include="Assets\EPloy\Base\Utility\Utility.Verifier.cs" />
-     <Compile Include="Assets\EPloy\Base\Utility\Utility.Zip.cs" />
-     <Compile Include="Assets\EPloy\Component\DataStore\DataStoreAttribute.cs" />
-     <Compile Include="Assets\EPloy\Component\DataStore\DataStoreComponet.cs" />
-     <Compile Include="Assets\EPloy\Component\DataTable\DataTable.cs" />
-     <Compile Include="Assets\EPloy\Component\DataTable\DataTableBase.cs" />
-     <Compile Include="Assets\EPloy\Component\DataTable\DataTableComponet.cs" />
-     <Compile Include="Assets\EPloy\Component\DataTable\DataTableHelper.cs" />
-     <Compile Include="Assets\EPloy\Component\DataTable\IDataRow.cs" />
-     <Compile Include="Assets\EPloy\Component\DataTable\IDataTable.cs" />
-     <Compile Include="Assets\EPloy\Component\DataTable\IDataTableHelper.cs" />
-     <Compile Include="Assets\EPloy\Component\Event\EventArg.cs" />
-     <Compile Include="Assets\EPloy\Component\Event\EventComponent.Event.cs" />
-     <Compile Include="Assets\EPloy\Component\Event\EventComponent.cs" />
-     <Compile Include="Assets\EPloy\Component\Event\FrameEvent\DataTableFailureEvt.cs" />
-     <Compile Include="Assets\EPloy\Component\Event\FrameEvent\DataTableSuccessEvt.cs" />
-     <Compile Include="Assets\EPloy\Component\Event\FrameEvent\FrameEvent.cs" />
-     <Compile Include="Assets\EPloy\Component\FileSystem\AndroidFileSystemStream.cs" />
-     <Compile Include="Assets\EPloy\Component\FileSystem\CommonFileSystemStream.cs" />
-     <Compile Include="Assets\EPloy\Component\FileSystem\FileSystemComponent.cs" />
-     <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolComponent.cs" />
-     <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolManager.Object.cs" />
-     <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolManager.ObjectPool.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResComponent.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResHelper.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadAssetCallbacks.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadBinaryCallbacks.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadBytesCallbacks.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadSceneCallbacks.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\UnloadSceneCallbacks.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadResAgent.Helper.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadResAgent.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\ResEditorLoader.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\ResEnum.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\ResLoader.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadAssetTask.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadDependencyAssetTask.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadResTaskbase.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadSceneTask.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\AssetInfo.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\AssetObject.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\ReadWriteResInfo.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\ResGroup.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\ResInfo.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\ResName.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\ResObject.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\ResStore.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\Serializer\LocalVersionListSerializer.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\Serializer\PackVersionListSerializer.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\Serializer\UpdatableVersionListSerializer.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Checker\ResourceChecker.CheckInfo.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Checker\ResourceChecker.LocalVersionInfo.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Checker\ResourceChecker.RemoteVersionInfo.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Checker\ResourceChecker.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\ResUpdateEnum.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\ResUpdater.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\LocalVersionList.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\PackVersionList.Resource.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\PackVersionList.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.Asset.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.FileSystem.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.Resource.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.ResourceGroup.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.cs" />
-     <Compile Include="Assets\EPloy\Component\Scene\SceneComponent.cs" />
-     <Compile Include="Assets\EPloy\Component\UI\UIAttribute.cs" />
-     <Compile Include="Assets\EPloy\Component\UI\UIComponent.cs" />
-     <Compile Include="Assets\EPloy\Component\UI\UIForm.cs" />
-     <Compile Include="Assets\EPloy\Component\UI\UIFormObject.cs" />
-     <Compile Include="Assets\EPloy\Component\UI\UIGroup.cs" />
-     <Compile Include="Assets\EPloy\Config\AssetUtility.cs" />
-     <Compile Include="Assets\EPloy\Config\Config.cs" />
-     <Compile Include="Assets\EPloy\Config\UIEnum.cs" />
-     <Compile Include="Assets\EPloy\Entity\GameEntry.cs" />
-     <Compile Include="Assets\EPloy\Event\EventId.cs" />
-     <Compile Include="Assets\EPloy\Event\TestEvt.cs" />
-     <Compile Include="Assets\EPloy\GameStart.cs" />
-     <Compile Include="Assets\EPloy\UIForm\StartUIDataStore.cs" />
-     <Compile Include="Assets\EPloy\UIForm\StartUIForm.cs" />
+     <Compile Include="Assets\Game\Init.cs" />
+     <None Include="Assets\Res\Configs\ResBuilder.xml" />
+     <None Include="Assets\ABPack\BuildReport\0_1_0\BuildLog.txt" />
+     <None Include="Assets\ABPack\BuildReport\0_1_0\BuildReport.xml" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
@@ -354,18 +231,6 @@
  </Reference>
  <Reference Include="UnityEditor">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEditor.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.VR">
- <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.Graphs">
- <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.WindowsStandalone.Extensions">
- <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="ICSharpCode.SharpZipLib">
- <HintPath>D:/EPloy/Assets/Editor/Libraries/ICSharpCode.SharpZipLib.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -714,17 +579,49 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Game.csproj">
-      <Project>{5cd54723-d347-88e0-d61e-3caf4a7bb1b0}</Project>
-      <Name>Game</Name>
+    <ProjectReference Include="Unity.Timeline.Editor.csproj">
+      <Project>{481a0034-cd94-cdbd-9c78-a881ebd5bce7}</Project>
+      <Name>Unity.Timeline.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="UnityEditor.UI.csproj">
-      <Project>{ba2c5cd9-4f11-8171-b93c-96e5feda454e}</Project>
-      <Name>UnityEditor.UI</Name>
+    <ProjectReference Include="Unity.VSCode.Editor.csproj">
+      <Project>{47e8aa27-64e1-efd9-0d96-8d3bba4c5a6f}</Project>
+      <Name>Unity.VSCode.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="EPloy.Editor.csproj">
+      <Project>{43c6d896-26a1-98ca-5a18-e38ce1b3e953}</Project>
+      <Name>EPloy.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="EPloy.csproj">
+      <Project>{44d596f6-9a6d-ece8-0a85-3e8bfe720cb0}</Project>
+      <Name>EPloy</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
+      <Project>{649c6097-54b6-2be7-c032-f0acc42f3629}</Project>
+      <Name>Unity.TextMeshPro.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
       <Project>{a6c50d23-ca9f-e45c-35a9-0bbdb45232ab}</Project>
       <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Timeline.csproj">
+      <Project>{5979c5c9-d5b2-9994-70a2-eb0bd7e65079}</Project>
+      <Name>Unity.Timeline</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.CollabProxy.Editor.csproj">
+      <Project>{63175e27-387a-fa27-d4bb-b0c6b96a1c68}</Project>
+      <Name>Unity.CollabProxy.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Rider.Editor.csproj">
+      <Project>{a96d1fe3-38ac-fa54-ea5e-e2b1013ff8bd}</Project>
+      <Name>Unity.Rider.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.TextMeshPro.csproj">
+      <Project>{8ca372ce-6503-78aa-1eec-eaab2be77587}</Project>
+      <Name>Unity.TextMeshPro</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEditor.UI.csproj">
+      <Project>{ba2c5cd9-4f11-8171-b93c-96e5feda454e}</Project>
+      <Name>UnityEditor.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

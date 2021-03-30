@@ -1,6 +1,8 @@
 {
     "name": "EPloy",
-    "references": [],
+    "references": [
+        "GUID:a9adc98a8bbc7664197eafd1814463cb"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": true,

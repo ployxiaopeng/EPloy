@@ -36,7 +36,7 @@ namespace EPloy
             UINames = new Dictionary<UIName, GroupName>();
 
             LoadAssetCallbacks = new LoadAssetCallbacks(LoadAssetSuccessCallback, LoadAssetFailureCallback);
-            UIParent = Init.Instance.transform.Find("UI/Canvas").transform;
+            UIParent = GameStart.Init.transform.Find("UI/Canvas").transform;
             UIPool = GameEntry.ObjectPool.CreateObjectPool(typeof(UIFormObject), "UIPool");
             foreach (var name in Enum.GetValues(typeof(GroupName)))
             {
