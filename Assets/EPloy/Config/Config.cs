@@ -1,7 +1,7 @@
 ﻿
 namespace EPloy
 {
-    public static class Config
+    public static partial class Config
     {
 
         /// <summary>

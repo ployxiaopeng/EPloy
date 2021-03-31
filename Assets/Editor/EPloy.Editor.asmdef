@@ -1,7 +1,9 @@
 {
     "name": "EPloy.Editor",
     "references": [
-        "GUID:b01534063fc953e409c51df30f9cc744"
+        "GUID:b01534063fc953e409c51df30f9cc744",
+        "GUID:5719280bc6816c044aa54db814bb4f6e",
+        "GUID:a2a3a21e9112732468fa8e88569aeb6e"
     ],
     "includePlatforms": [
         "Editor"

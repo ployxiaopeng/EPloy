@@ -120,6 +120,8 @@ tpsheetFileNames:
 - Assets/GameLOL/Textures/Roles/YueNvJiSi/YueNvJiSi.tpsheet
 - Assets/GameLOL/Textures/Roles/YuLinTieWei/YuLinTieWei.tpsheet
 - Assets/GameLOL/Textures/Roles/ZhanZhengLingZhu/ZhanZhengLingZhu.tpsheet
+- Assets/Res/Map/10100/Map10100.tpsheet
+- Assets/Res/Map/10101/Map10101.tpsheet
 - Assets/Res/Textures/Atlas/Dynamic/Bg1_JPG/Bg1_JPG.tpsheet
 - Assets/Res/Textures/Atlas/Dynamic/Bg2_JPG/Bg2_JPG.tpsheet
 - Assets/Res/Textures/Atlas/Dynamic/Bg3_JPG/Bg3_JPG.tpsheet
@@ -361,6 +363,8 @@ textureFileNames:
 - Assets/GameLOL/Textures/Roles/YueNvJiSi/YueNvJiSi.png
 - Assets/GameLOL/Textures/Roles/YuLinTieWei/YuLinTieWei.png
 - Assets/GameLOL/Textures/Roles/ZhanZhengLingZhu/ZhanZhengLingZhu.png
+- Assets/Res/Map/10100/Map10100.png
+- Assets/Res/Map/10101/Map10101.png
 - Assets/Res/Textures/Atlas/Dynamic/Bg1_JPG/Bg1_JPG.png
 - Assets/Res/Textures/Atlas/Dynamic/Bg2_JPG/Bg2_JPG.png
 - Assets/Res/Textures/Atlas/Dynamic/Bg3_JPG/Bg3_JPG.png
@@ -483,6 +487,8 @@ textureFileNames:
 - Assets/Res/Textures/UIAtlas/Atlas02/Atlas02.png
 - Assets/Res/Textures/UIAtlas/Atlas03/Atlas03.png
 normalmapFileNames:
+- 
+- 
 - 
 - 
 - 

@@ -1,15 +1,7 @@
-/************************************************************
-	文件: DataTableProcessor.ListFloatProcessor.cs
-	作者: 那位先生
-	邮箱: 1279544114@qq.com
-	日期: 2020/4/15 13:51:40
-	功能: 记录脚本信息
-*************************************************************/
-
 using System.Collections.Generic;
 using System.IO;
 
-namespace UnityGameFramework.Editor.DataTableTools
+namespace EPloy.Editor.DataTableTools
 {
     public sealed partial class DataTableProcessor
     {

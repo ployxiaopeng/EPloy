@@ -36,7 +36,7 @@ namespace EPloy
             UINames = new Dictionary<UIName, GroupName>();
 
             LoadAssetCallbacks = new LoadAssetCallbacks(LoadAssetSuccessCallback, LoadAssetFailureCallback);
-            UIParent = GameStart.Init.transform.Find("UI/Canvas").transform;
+            UIParent = GameStart.InitMono.transform.Find("UI/Canvas").transform;
             UIPool = GameEntry.ObjectPool.CreateObjectPool(typeof(UIFormObject), "UIPool");
             foreach (var name in Enum.GetValues(typeof(GroupName)))
             {
@@ -136,7 +136,7 @@ namespace EPloy
         /// <param name="uiFormAssetName">界面资源名称。</param>
         /// <param name="uiGroupName">界面组名称。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void OpenUIForm(UIName uiName, GroupName groupName, object userData)
+        public void OpenUIForm(UIName uiName, GroupName groupName, object userData = null)
         {
             UIGroup uiGroup = GetUIGroup(groupName);
             if (UINames.ContainsKey(uiName))

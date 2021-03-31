@@ -1,17 +1,10 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
-// Homepage: https://gameframework.cn/
-// Feedback: mailto:ellan@gameframework.cn
-//------------------------------------------------------------
-
-using GameFramework;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace UnityGameFramework.Editor.DataTableTools
+namespace EPloy.Editor.DataTableTools
 {
     public sealed partial class DataTableProcessor
     {
@@ -55,7 +48,7 @@ namespace UnityGameFramework.Editor.DataTableTools
                     return dataProcessor;
                 }
 
-                throw new GameFrameworkException(Utility.Text.Format("Not supported data processor type '{0}'.", type));
+                throw new EPloyException(Utility.Text.Format("Not supported data processor type '{0}'.", type));
             }
         }
     }

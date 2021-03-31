@@ -45,10 +45,35 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Game\Init.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\CLRBindings.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\System_Array_Binding.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\System_Collections_Generic_List_1_ILTypeInstance_Binding.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\System_Int32_Binding.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\System_Int64_Binding.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\System_Object_Binding.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\System_Single_Binding.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\System_String_Binding.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\UnityEngine_Debug_Binding.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\UnityEngine_GameObject_Binding.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\UnityEngine_Object_Binding.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\UnityEngine_Quaternion_Binding.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\UnityEngine_RectTransform_Binding.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\UnityEngine_Time_Binding.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\UnityEngine_Transform_Binding.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\UnityEngine_Vector2_Binding.cs" />
+     <Compile Include="Assets\Game\ILRuntime\Generated\UnityEngine_Vector3_Binding.cs" />
+     <None Include="Assets\Res\DataTables\Data\Entity.txt" />
      <None Include="Assets\Res\Configs\ResBuilder.xml" />
+     <None Include="Assets\Res\DataTables\Data\Map.txt" />
      <None Include="Assets\ABPack\BuildReport\0_1_0\BuildLog.txt" />
+     <None Include="Assets\Res\DataTables\Data\Text.txt" />
+     <None Include="Assets\Res\DataTables\Data\MapRes.txt" />
+     <None Include="Assets\Res\DataTables\Data\ResSprite.txt" />
+     <None Include="Assets\Res\DataTables\Data\MapEvt.txt" />
      <None Include="Assets\ABPack\BuildReport\0_1_0\BuildReport.xml" />
+     <None Include="Assets\Res\DataTables\Data\LanguageText.txt" />
+     <None Include="Assets\Res\Configs\DataTableCodeTemplate.txt" />
+     <None Include="Assets\Res\DataTables\Data\MapCell.txt" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
@@ -231,6 +256,24 @@
  </Reference>
  <Reference Include="UnityEditor">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="DemiLib">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DemiLib/DemiLib.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenPro">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTweenPro/DOTweenPro.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -615,6 +658,10 @@
       <Project>{a96d1fe3-38ac-fa54-ea5e-e2b1013ff8bd}</Project>
       <Name>Unity.Rider.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Libraries.csproj">
+      <Project>{8092c10e-de55-fe06-baa6-813fe7494e0f}</Project>
+      <Name>Libraries</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.csproj">
       <Project>{8ca372ce-6503-78aa-1eec-eaab2be77587}</Project>
       <Name>Unity.TextMeshPro</Name>
@@ -622,6 +669,10 @@
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{ba2c5cd9-4f11-8171-b93c-96e5feda454e}</Project>
       <Name>UnityEditor.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="GameMain.csproj">
+      <Project>{1c1dd7d1-9f7d-3eab-1c48-ff08a04d007c}</Project>
+      <Name>GameMain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

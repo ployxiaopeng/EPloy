@@ -164,6 +164,7 @@
      <Compile Include="Assets\EPloy\Component\UI\UIFormObject.cs" />
      <Compile Include="Assets\EPloy\Component\UI\UIGroup.cs" />
      <Compile Include="Assets\EPloy\Config\AssetUtility.cs" />
+     <Compile Include="Assets\EPloy\Config\Config.Res.cs" />
      <Compile Include="Assets\EPloy\Config\Config.cs" />
      <Compile Include="Assets\EPloy\Config\UIEnum.cs" />
      <Compile Include="Assets\EPloy\Entity\GameEntry.cs" />
@@ -365,7 +366,46 @@
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="ICSharpCode.SharpZipLib">
- <HintPath>D:/EPloy/Assets/Editor/Libraries/ICSharpCode.SharpZipLib.dll</HintPath>
+ <HintPath>D:/EPloy/Assets/Editor/01.EPloy/Libraries/ICSharpCode.SharpZipLib.dll</HintPath>
+ </Reference>
+ <Reference Include="TexturePackerImporter">
+ <HintPath>D:/EPloy/Assets/Editor/03.TexturePacker/TexturePackerImporter.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenProEditor">
+ <HintPath>D:/EPloy/Assets/Editor/07.DOTweenPro/DOTweenProEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="DemiLib">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DemiLib/DemiLib.dll</HintPath>
+ </Reference>
+ <Reference Include="DemiEditor">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DemiLib/Editor/DemiEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenEditor">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenPro">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTweenPro/DOTweenPro.dll</HintPath>
+ </Reference>
+ <Reference Include="ILRuntime.Mono.Cecil">
+ <HintPath>D:/EPloy/Assets/Libraries/ILRuntime/Plugins/ILRuntime.Mono.Cecil.dll</HintPath>
+ </Reference>
+ <Reference Include="ILRuntime.Mono.Cecil.Mdb">
+ <HintPath>D:/EPloy/Assets/Libraries/ILRuntime/Plugins/ILRuntime.Mono.Cecil.Mdb.dll</HintPath>
+ </Reference>
+ <Reference Include="ILRuntime.Mono.Cecil.Pdb">
+ <HintPath>D:/EPloy/Assets/Libraries/ILRuntime/Plugins/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -714,9 +754,9 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Game.csproj">
-      <Project>{5cd54723-d347-88e0-d61e-3caf4a7bb1b0}</Project>
-      <Name>Game</Name>
+    <ProjectReference Include="Libraries.csproj">
+      <Project>{8092c10e-de55-fe06-baa6-813fe7494e0f}</Project>
+      <Name>Libraries</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{ba2c5cd9-4f11-8171-b93c-96e5feda454e}</Project>

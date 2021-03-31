@@ -8,7 +8,7 @@ namespace EPloy.Editor
     /// <summary>
     /// 类型相关的实用函数。
     /// </summary>
-    internal static class Type
+    internal static class EPloyType
     {
         private static readonly string[] EPloyNames =
         {

@@ -6,12 +6,14 @@ namespace EPloy
     public static class GameStart
     {
         public static bool isEditorRes = true;
-        public static Transform Init;
+        public static MonoBehaviour InitMono;
 
-        public static void Awake(Transform init)
+        public static void Awake(MonoBehaviour mono)
         {
-            Init = init;
+            InitMono = mono;
+            Log.Info("HotFix Awake");
         }
+
         public static void Start()
         {
             GameEntry.GameSystem.Add(Config.HotFixDllName, typeof(GameStart).Assembly);
@@ -23,12 +25,28 @@ namespace EPloy
 
             GameEntry.Res = GameEntry.Game.AddComponent<ResComponent>();
             GameEntry.UI = GameEntry.Game.AddComponent<UIComponent>();
-        }
 
+
+            GameEntry.UI.OpenUIForm(UIName.StartUI, GroupName.Default);
+        }
 
         public static void Update()
         {
             GameEntry.GameSystem.Update();
+            Log.Info("HotFix Update");
+        }
+        public static void LateUpdate()
+        {
+
+        }
+        public static void FixUpdate()
+        {
+
+        }
+
+        public static void OnDestroy()
+        {
+
         }
     }
 }

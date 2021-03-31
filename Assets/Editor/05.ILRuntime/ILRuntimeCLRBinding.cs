@@ -2,14 +2,13 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-using ETModel;
 
-namespace Trinity.Editor
+namespace EPloy.Editor
 {
     [System.Reflection.Obfuscation(Exclude = true)]
     public class ILRuntimeCLRBinding
     {
-        [MenuItem("Tools/ILRuntime/CLR Binding Code")]
+        [MenuItem("EPloy/ILRuntime/ICR绑定Code")]
         static void GenerateCLRBinding()
         {
             List<Type> types = new List<Type>();
@@ -31,25 +30,23 @@ namespace Trinity.Editor
             //所有DLL内的类型的真实C#类型都是ILTypeInstance
             types.Add(typeof(List<ILRuntime.Runtime.Intepreter.ILTypeInstance>));
 
-            ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types, "Assets/Scripts/Model/Component/ILRuntime/Generated");
+            ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types, EPloyEditorPath.ILRuntimeGenerated);
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("Tools/ILRuntime/构建ICR绑定")]
+        [MenuItem("EPloy/ILRuntime/构建ICR绑定")]
         static void GenerateCLRBindingByAnalysis()
         {
             //用新的分析热更dll调用引用来生成绑定代码
             ILRuntime.Runtime.Enviorment.AppDomain domain = new ILRuntime.Runtime.Enviorment.AppDomain();
-            using (System.IO.FileStream fs = new System.IO.FileStream("Assets/Res/HotfixDLL/Hotfix.dll.bytes", System.IO.FileMode.Open, System.IO.FileAccess.Read))
+            using (System.IO.FileStream fs = new System.IO.FileStream(EPloyEditorPath.HotfixDLL, System.IO.FileMode.Open, System.IO.FileAccess.Read))
             {
                 domain.LoadAssembly(fs);
                 //Crossbind Adapter is needed to generate the correct binding code
                 ILRuntimeHelper.InitILRuntime(domain);
-                ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(domain, "Assets/Scripts/Model/Component/ILRuntime/Generated");
+                ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(domain, EPloyEditorPath.ILRuntimeGenerated);
                 AssetDatabase.Refresh();
             }
         }
-
     }
-
 }

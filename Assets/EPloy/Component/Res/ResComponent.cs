@@ -42,7 +42,7 @@ namespace EPloy
                 ResUpdater = ResUpdater.CreateResUpdater();
                 ResStore = ResStore.CreateResStore();
             }
-           // ResHelper = new ResHelper(GameStart.Instance);
+            ResHelper = new ResHelper(GameStart.InitMono);
         }
 
         public void Update()

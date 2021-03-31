@@ -45,43 +45,83 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Editor\Misc\BuildSettings.cs" />
-     <Compile Include="Assets\Editor\Misc\EPloyEditorPath.cs" />
-     <Compile Include="Assets\Editor\Misc\OpenFolder.cs" />
-     <Compile Include="Assets\Editor\Misc\ScriptingDefineSymbols.cs" />
-     <Compile Include="Assets\Editor\Misc\Type.cs" />
-     <Compile Include="Assets\Editor\ResourceAnalyzer\AssetsOrder.cs" />
-     <Compile Include="Assets\Editor\ResourceAnalyzer\DependencyData.cs" />
-     <Compile Include="Assets\Editor\ResourceAnalyzer\ResourceAnalyzer.cs" />
-     <Compile Include="Assets\Editor\ResourceAnalyzer\ResourceAnalyzerController.CircularDependencyChecker.cs" />
-     <Compile Include="Assets\Editor\ResourceAnalyzer\ResourceAnalyzerController.Stamp.cs" />
-     <Compile Include="Assets\Editor\ResourceAnalyzer\ResourceAnalyzerController.cs" />
-     <Compile Include="Assets\Editor\ResourceAnalyzer\ScatteredAssetsOrder.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\ResEnum.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilder.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilderController.AssetData.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilderController.BuildReport.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilderController.ResourceCode.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilderController.ResourceData.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilderController.VersionListData.cs" />
-     <Compile Include="Assets\Editor\ResourceBuilder\ResourceBuilderController.cs" />
-     <Compile Include="Assets\Editor\ResourceCollection\Asset.cs" />
-     <Compile Include="Assets\Editor\ResourceCollection\AssetType.cs" />
-     <Compile Include="Assets\Editor\ResourceCollection\LoadType.cs" />
-     <Compile Include="Assets\Editor\ResourceCollection\Resource.cs" />
-     <Compile Include="Assets\Editor\ResourceCollection\ResourceCollection.cs" />
-     <Compile Include="Assets\Editor\ResourceEditor\AssetSorterType.cs" />
-     <Compile Include="Assets\Editor\ResourceEditor\ResourceEditor.MenuState.cs" />
-     <Compile Include="Assets\Editor\ResourceEditor\ResourceEditor.ResourceFolder.cs" />
-     <Compile Include="Assets\Editor\ResourceEditor\ResourceEditor.ResourceItem.cs" />
-     <Compile Include="Assets\Editor\ResourceEditor\ResourceEditor.cs" />
-     <Compile Include="Assets\Editor\ResourceEditor\ResourceEditorController.cs" />
-     <Compile Include="Assets\Editor\ResourceEditor\SourceAsset.cs" />
-     <Compile Include="Assets\Editor\ResourceEditor\SourceFolder.cs" />
-     <Compile Include="Assets\Editor\ResourcePackBuilder\ResourcePackBuilder.cs" />
-     <Compile Include="Assets\Editor\ResourcePackBuilder\ResourcePackBuilderController.cs" />
-     <Compile Include="Assets\Editor\ResourceSyncTools\ResourceSyncTools.cs" />
-     <Compile Include="Assets\Editor\ResourceSyncTools\ResourceSyncToolsController.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableCodeGenerator.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.BoolProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.ByteProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.CharProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.Color32Processor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.ColorProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.CommentProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.DataProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.DataProcessorUtility.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.DateTimeProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.DecimalProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.DoubleProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.FloatProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.GenericDataProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.IdProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.IntProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.ListFloatProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.ListIntProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.ListStringProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.ListuIntProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.LongProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.QuaternionProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.RectProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.SByteProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.ShortProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.StringProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.UIntProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.ULongProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.UShortProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.Vector2Processor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.Vector3Processor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.Vector4Processor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\Misc\BuildSettings.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\Misc\EPloyEditorPath.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\Misc\OpenFolder.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\Misc\ScriptingDefineSymbols.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\Misc\Type.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceAnalyzer\AssetsOrder.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceAnalyzer\DependencyData.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceAnalyzer\ResourceAnalyzer.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceAnalyzer\ResourceAnalyzerController.CircularDependencyChecker.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceAnalyzer\ResourceAnalyzerController.Stamp.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceAnalyzer\ResourceAnalyzerController.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceAnalyzer\ScatteredAssetsOrder.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceBuilder\ResEnum.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceBuilder\ResourceBuilder.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceBuilder\ResourceBuilderController.AssetData.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceBuilder\ResourceBuilderController.BuildReport.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceBuilder\ResourceBuilderController.ResourceCode.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceBuilder\ResourceBuilderController.ResourceData.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceBuilder\ResourceBuilderController.VersionListData.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceBuilder\ResourceBuilderController.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceCollection\Asset.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceCollection\AssetType.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceCollection\LoadType.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceCollection\Resource.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceCollection\ResourceCollection.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceEditor\AssetSorterType.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceEditor\ResourceEditor.MenuState.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceEditor\ResourceEditor.ResourceFolder.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceEditor\ResourceEditor.ResourceItem.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceEditor\ResourceEditor.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceEditor\ResourceEditorController.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceEditor\SourceAsset.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceEditor\SourceFolder.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourcePackBuilder\ResourcePackBuilder.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourcePackBuilder\ResourcePackBuilderController.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceSyncTools\ResourceSyncTools.cs" />
+     <Compile Include="Assets\Editor\01.EPloy\ResourceSyncTools\ResourceSyncToolsController.cs" />
+     <Compile Include="Assets\Editor\02.DataTableGenerator\DataTableGenerator.cs" />
+     <Compile Include="Assets\Editor\02.DataTableGenerator\DataTableGeneratorMenu.cs" />
+     <Compile Include="Assets\Editor\05.ILRuntime\ILRuntimeCLRBinding.cs" />
+     <Compile Include="Assets\Editor\06.UIParticles\MenuOption.cs" />
+     <Compile Include="Assets\Editor\06.UIParticles\UiParticlesEditor.cs" />
+     <Compile Include="Assets\Editor\07.DOTweenPro\DOTweenAnimationInspector.cs" />
+     <None Include="Assets\Editor\03.TexturePacker\SettingsTexturePackerImporter.txt" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
@@ -275,7 +315,46 @@
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="ICSharpCode.SharpZipLib">
- <HintPath>D:/EPloy/Assets/Editor/Libraries/ICSharpCode.SharpZipLib.dll</HintPath>
+ <HintPath>D:/EPloy/Assets/Editor/01.EPloy/Libraries/ICSharpCode.SharpZipLib.dll</HintPath>
+ </Reference>
+ <Reference Include="TexturePackerImporter">
+ <HintPath>D:/EPloy/Assets/Editor/03.TexturePacker/TexturePackerImporter.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenProEditor">
+ <HintPath>D:/EPloy/Assets/Editor/07.DOTweenPro/DOTweenProEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="DemiLib">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DemiLib/DemiLib.dll</HintPath>
+ </Reference>
+ <Reference Include="DemiEditor">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DemiLib/Editor/DemiEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenEditor">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenPro">
+ <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTweenPro/DOTweenPro.dll</HintPath>
+ </Reference>
+ <Reference Include="ILRuntime.Mono.Cecil">
+ <HintPath>D:/EPloy/Assets/Libraries/ILRuntime/Plugins/ILRuntime.Mono.Cecil.dll</HintPath>
+ </Reference>
+ <Reference Include="ILRuntime.Mono.Cecil.Mdb">
+ <HintPath>D:/EPloy/Assets/Libraries/ILRuntime/Plugins/ILRuntime.Mono.Cecil.Mdb.dll</HintPath>
+ </Reference>
+ <Reference Include="ILRuntime.Mono.Cecil.Pdb">
+ <HintPath>D:/EPloy/Assets/Libraries/ILRuntime/Plugins/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
  <HintPath>D:/EPloy/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
@@ -639,6 +718,14 @@
     <ProjectReference Include="EPloy.csproj">
       <Project>{44d596f6-9a6d-ece8-0a85-3e8bfe720cb0}</Project>
       <Name>EPloy</Name>
+    </ProjectReference>
+    <ProjectReference Include="Libraries.csproj">
+      <Project>{8092c10e-de55-fe06-baa6-813fe7494e0f}</Project>
+      <Name>Libraries</Name>
+    </ProjectReference>
+    <ProjectReference Include="GameMain.csproj">
+      <Project>{1c1dd7d1-9f7d-3eab-1c48-ff08a04d007c}</Project>
+      <Name>GameMain</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{ba2c5cd9-4f11-8171-b93c-96e5feda454e}</Project>

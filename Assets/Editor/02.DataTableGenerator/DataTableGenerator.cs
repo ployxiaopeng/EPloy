@@ -1,33 +1,20 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
-// Homepage: https://gameframework.cn/
-// Feedback: mailto:ellan@gameframework.cn
-//------------------------------------------------------------
-
-using GameFramework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
-using UnityGameFramework.Editor.DataTableTools;
 
-namespace Editor.DataTableTools
+namespace EPloy.Editor.DataTableTools
 {
     public sealed class DataTableGenerator
     {
-        public const string DataTablePath = "Assets/Res/DataTables/Data";
-        public const string DataBinaryPath = "Assets/Res/DataTables/Binary";
-        public const string CSharpCodePath = "Assets/Scripts/Hotfix/DataTable";
-        public const string CSharpCodeTemplateFileName = "Assets/Res/Configs/DataTableCodeTemplate.txt";
         private static readonly Regex EndWithNumberRegex = new Regex(@"\d+$");
         private static readonly Regex NameRegex = new Regex(@"^[A-Z][A-Za-z0-9_]*$");
 
         public static DataTableProcessor CreateDataTableProcessor(string dataTableName)
         {
-            return new DataTableProcessor(Utility.Path.GetRegularPath(Path.Combine(DataTablePath, dataTableName + ".txt")), Encoding.GetEncoding("GB2312"), 1, 2, null, 3, 4, 1);
+            return new DataTableProcessor(Utility.Path.GetRegularPath(Path.Combine(EPloyEditorPath.DataTablePath, dataTableName + ".txt")), Encoding.GetEncoding("GB2312"), 1, 2, null, 3, 4, 1);
         }
 
         public static bool CheckRawData(DataTableProcessor dataTableProcessor, string dataTableName)
@@ -52,7 +39,7 @@ namespace Editor.DataTableTools
 
         public static void GenerateDataFile(DataTableProcessor dataTableProcessor, string dataTableName)
         {
-            string binaryDataFileName = Utility.Path.GetRegularPath(Path.Combine(DataBinaryPath, dataTableName + ".bytes"));
+            string binaryDataFileName = Utility.Path.GetRegularPath(Path.Combine(EPloyEditorPath.DataBinaryPath, dataTableName + ".bytes"));
             if (!dataTableProcessor.GenerateDataFile(binaryDataFileName, Encoding.UTF8) && File.Exists(binaryDataFileName))
             {
                 File.Delete(binaryDataFileName);
@@ -61,10 +48,10 @@ namespace Editor.DataTableTools
         [System.Diagnostics.Conditional("TABLE")]
         public static void GenerateCodeFile(DataTableProcessor dataTableProcessor, string dataTableName)
         {
-            dataTableProcessor.SetCodeTemplate(CSharpCodeTemplateFileName, Encoding.UTF8);
+            dataTableProcessor.SetCodeTemplate(EPloyEditorPath.CSharpCodeTemplateFileName, Encoding.UTF8);
             dataTableProcessor.SetCodeGenerator(DataTableCodeGenerator);
 
-            string csharpCodeFileName = Utility.Path.GetRegularPath(Path.Combine(CSharpCodePath, "DR" + dataTableName + ".cs"));
+            string csharpCodeFileName = Utility.Path.GetRegularPath(Path.Combine(EPloyEditorPath.CSharpCodePath, "DR" + dataTableName + ".cs"));
             if (!dataTableProcessor.GenerateCodeFile(csharpCodeFileName, Encoding.UTF8, dataTableName) && File.Exists(csharpCodeFileName))
             {
                 File.Delete(csharpCodeFileName);
@@ -76,7 +63,7 @@ namespace Editor.DataTableTools
             string dataTableName = (string)userData;
 
             codeContent.Replace("__DATA_TABLE_CREATE_TIME__", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-            codeContent.Replace("__DATA_TABLE_NAME_SPACE__", "ETHotfix");
+            codeContent.Replace("__DATA_TABLE_NAME_SPACE__", "EPloy");
             codeContent.Replace("__DATA_TABLE_CLASS_NAME__", "DR" + dataTableName);
             codeContent.Replace("__DATA_TABLE_COMMENT__", dataTableProcessor.GetValue(0, 1) + "。");
             codeContent.Replace("__DATA_TABLE_ID_COMMENT__", "获取" + dataTableProcessor.GetComment(dataTableProcessor.IdColumn) + "。");
@@ -437,7 +424,7 @@ namespace Editor.DataTableTools
             {
                 if (index < 0 || index >= m_Items.Count)
                 {
-                    throw new GameFrameworkException(Utility.Text.Format("GetItem with invalid index '{0}'.", index.ToString()));
+                    throw new EPloyException(Utility.Text.Format("GetItem with invalid index '{0}'.", index.ToString()));
                 }
 
                 return m_Items[index];
