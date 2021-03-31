@@ -1,0 +1,1989 @@
+fileFormatVersion: 2
+guid: 018d520ee7df12f4cb53e17bac75f9ad
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: map10101_1office2_4
+    21300002: map10101_1office2_6
+    21300004: map10101_baihuyin
+    21300006: map10101_dibiaolouti
+    21300008: map10101_dibiaolouti2
+    21300010: map10101_digongshimen1_1
+    21300012: map10101_digongshimen1_2
+    21300014: map10101_digongshimen1_3
+    21300016: map10101_qinglongyin
+    21300018: map10101_sancaizhudi1_1
+    21300020: map10101_sancaizhudi1_2
+    21300022: map10101_sancaizhudi1_3
+    21300024: map10101_sancaizhudi1_4
+    21300026: map10101_sancaizhudi1_5
+    21300028: map10101_sancaizhudi1_6
+    21300030: map10101_sancaizhudi1_7
+    21300032: map10101_sancaizhudi1_8
+    21300034: map10101_sancaizhudi1_9
+    21300036: map10101_sancaizhudi1_10
+    21300038: map10101_sancaizhudi1_11
+    21300040: map10101_sancaizhudi1_12
+    21300042: map10101_sancaizhudi1_13
+    21300044: map10101_shenshouyinzuo1_1
+    21300046: map10101_shenshouyinzuo1_2
+    21300048: map10101_shenshouyinzuo1_3
+    21300050: map10101_shenshouyinzuo1_4
+    21300052: map10101_shenshouyinzuo1_5
+    21300054: map10101_shenshouyinzuo1_6
+    21300056: map10101_shenshouyinzuo1_7
+    21300058: map10101_shenshouyinzuo1_8
+    21300060: map10101_shenshouyinzuo1_9
+    21300062: map10101_shenshouyinzuok1_1
+    21300064: map10101_shenshouyinzuok1_2
+    21300066: map10101_shenshouyinzuok1_3
+    21300068: map10101_shenshouyinzuok1_4
+    21300070: map10101_shenshouyinzuok1_5
+    21300072: map10101_shenshouyinzuok1_6
+    21300074: map10101_shenshouyinzuok1_7
+    21300076: map10101_shenshouyinzuok1_8
+    21300078: map10101_shenshouyinzuok1_9
+    21300080: map10101_stone1_1
+    21300082: map10101_stone1_2
+    21300084: map10101_stone2_1
+    21300086: map10101_stone2_2
+    21300088: map10101_stone2_3
+    21300090: map10101_stone2_4
+    21300092: map10101_stonewall1_5
+    21300094: map10101_stonewall1_6
+    21300096: map10101_stonewall1_7
+    21300098: map10101_stonewall1_8
+    21300100: map10101_stonewall1_9
+    21300102: map10101_Stop1_1
+    21300104: map10101_Thing1_2
+    21300106: map10101_Thing1_3
+    21300108: map10101_Thing1_4
+    21300110: map10101_Thing2_1
+    21300112: map10101_Thing2_2
+    21300114: map10101_Thing2_3
+    21300116: map10101_Thing2_4
+    21300118: map10101_Thing3_1
+    21300120: map10101_Thing3_2
+    21300122: map10101_Thing3_3
+    21300124: map10101_Thing3_4
+    21300126: map10101_Thing3_5
+    21300128: map10101_Thing3_6
+    21300130: map10101_Thing3_7
+    21300132: map10101_Thing3_8
+    21300134: map10101_Thing3_9
+    21300136: map10101_Thing4_5
+    21300138: map10101_Thing4_6
+    21300140: map10101_Thing5_1
+    21300142: map10101_Thing5_2
+    21300144: map10101_Thing5_3
+    21300146: map10101_Thing5_4
+    21300148: map10101_Thing6_1
+    21300150: map10101_Thing6_2
+    21300152: map10101_Thing6_3
+    21300154: map10101_Thing6_4
+    21300156: map10101_transfer
+    21300158: map10101_trees1_1
+    21300160: map10101_trees1_2
+    21300162: map10101_trees1_3
+    21300164: map10101_trees1_4
+    21300166: map10101_trees1_5
+    21300168: map10101_trees1_6
+    21300170: map10101_trees3_1
+    21300172: map10101_trees3_2
+    21300174: map10101_trees4_1
+    21300176: map10101_trees4_2
+    21300178: map10101_trees4_3
+    21300180: map10101_trees4_4
+    21300182: map10101_trees5
+    21300184: map10101_trees6_1
+    21300186: map10101_trees6_2
+    21300188: map10101_trees6_3
+    21300190: map10101_trees6_4
+    21300192: map10101_trees6_5
+    21300194: map10101_trees6_6
+    21300196: map10101_trees8_1
+    21300198: map10101_trees8_2
+    21300200: map10101_trees8_3
+    21300202: map10101_trees8_4
+    21300204: map10101_trees8_5
+    21300206: map10101_trees8_6
+    21300208: map10101_trees8_7
+    21300210: map10101_trees8_8
+    21300212: map10101_trees8_9
+    21300214: map10101_trees9_1
+    21300216: map10101_trees9_2
+    21300218: map10101_trees9_3
+    21300220: map10101_trees9_4
+    21300222: map10101_trees10_1
+    21300224: map10101_trees10_2
+    21300226: map10101_trees10_3
+    21300228: map10101_trees10_4
+    21300230: map10101_white1_1
+    21300232: map10101_white1_2
+    21300234: map10101_white1_3
+    21300236: map10101_white1_4
+    21300238: map10101_white1_5
+    21300240: map10101_white1_6
+    21300242: map10101_white1_7
+    21300244: map10101_white1_8
+    21300246: map10101_white1_9
+    21300248: map10101_white1_10
+    21300250: map10101_white2_1
+    21300252: map10101_white2_2
+    21300254: map10101_white3_1
+    21300256: map10101_white3_2
+    21300258: map10101_white3_3
+    21300260: map10101_white3_4
+    21300262: map10101_white4_1
+    21300264: map10101_white4_2
+    21300266: map10101_white5_1
+    21300268: map10101_white5_2
+    21300270: map10101_white5_3
+    21300272: map10101_white5_4
+    21300274: map10101_white5_5
+    21300276: map10101_xuanwuyin
+    21300278: map10101_zhuqueyin
+    21300280: map10101_caodui1_1
+    21300282: map10101_caodui1_2
+    21300284: map10101_caodui1_3
+    21300286: map10101_caodui1_4
+    21300288: map10101_caodui1_5
+    21300290: map10101_caodui1_6
+    21300292: map10101_caodui1_7
+    21300294: map10101_caodui1_8
+    21300296: map10101_caodui1_9
+    21300298: map10101_digong1_1
+    21300300: map10101_digong1_2
+    21300302: map10101_digong1_3
+    21300304: map10101_digong1_4
+    21300306: map10101_digong1_5
+    21300308: map10101_digong1_6
+    21300310: map10101_digong1_7
+    21300312: map10101_digong1_8
+    21300314: map10101_digong1_9
+    21300316: map10101_digong1_10
+    21300318: map10101_digong1_11
+    21300320: map10101_digong1_12
+    21300322: map10101_digong1_13
+    21300324: map10101_digoqiang1_1
+    21300326: map10101_digoqiang1_2
+    21300328: map10101_digoqiang1_3
+    21300330: map10101_digoqiang1_4
+    21300332: map10101_digoshitou1_1
+    21300334: map10101_digoshitou1_2
+    21300336: map10101_huachong1_1
+    21300338: map10101_huachong1_2
+    21300340: map10101_huachong1_3
+    21300342: map10101_huachong1_4
+    21300344: map10101_huachong1_5
+    21300346: map10101_huachong1_6
+    21300348: map10101_huachong1_7
+    21300350: map10101_huachong1_8
+    21300352: map10101_indoor1_1
+    21300354: map10101_indoor1_2
+    21300356: map10101_indoor1_3
+    21300358: map10101_indoor1_4
+    21300360: map10101_indoor2
+    21300362: map10101_stone2_5
+    21300364: map10101_stone2_6
+    21300366: map10101_stone5_1
+    21300368: map10101_stone5_2
+    21300370: map10101_stone5_3
+    21300372: map10101_stone5_4
+    21300374: map10101_stone5_5
+    21300376: map10101_stone5_6
+    21300378: map10101_stone5_7
+    21300380: map10101_stone5_8
+    21300382: map10101_stone5_9
+    21300384: map10101_stone5_10
+    21300386: map10101_stone5_11
+    21300388: map10101_stone5_12
+    21300390: map10101_stone5_13
+    21300392: map10101_stone5_14
+    21300394: map10101_stone5_15
+    21300396: map10101_stone5_16
+    21300398: map10101_thorn
+    21300400: map10101_shenshouyinzuok1_10
+  externalObjects: {}
+  serializedVersion: 9
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: map10101_baihuyin
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 413
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f35320912545e44c9aed42d0ddb90d6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_caodui1_1
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 515
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 955220a1cbe00d54ea92e87c729fc9b5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_caodui1_2
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 515
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93563f8005a6b204bb56da9ef1627be1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_caodui1_3
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 515
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 029185beec199eb4db07900c59d96787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_caodui1_4
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 105
+        width: 100
+        height: 102
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af42313d27a4f7d4c8bfdc1f1b206d17
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_caodui1_5
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 102
+        width: 100
+        height: 105
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 401808c486eed9a4e9e1e5c6d3f1d294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_caodui1_6
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 515
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c635b3957dcfe140a045e365485e7fa
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_caodui1_7
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 515
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86d997aa593f08444a050bedbd431cfb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_caodui1_8
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 413
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b12275f08c3ae14c9db432044e69c19
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_caodui1_9
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 413
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b2dd4164e6c0f544af34c8d6e874146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_dibiaolouti
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 311
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c340c7e0e4ade541a93798dbecfad4c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_dibiaolouti2
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 515
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5991e13f27a086479ba9e8ae7166996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_digong1_1
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 209
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7df757edb19a3274fa3a83e8c6c49c33
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_digong1_2
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 209
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d410e827e79d8843920405a9eb67c13
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_digong1_3
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 209
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 217942404d5595c4da8c1eada12e293f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_digong1_4
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 107
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 483424528abf7f74894ef4fdb0b72199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_digong1_11
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 209
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3793c7a23b01a2e40b94f3ed66097e09
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_digong1_12
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 209
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edbbfae731ed63d4083be12767c01609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_digong1_13
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 209
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0eec916393104134d8fef05f1674e1e3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_digongshimen1_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 107
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96b579260520f364da66265df7fe41cd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_digongshimen1_2
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 209
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9225ef5fd02b27749b480f909ee0321d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_digongshimen1_3
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 311
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b4456f9b6684a04e8db9c452ffdd10e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_digoqiang1_1
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 106
+        width: 100
+        height: 101
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d89547e7adb1e2c488a0eac45234ecac
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_digoqiang1_2
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 311
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5c9545388e5b5847ae04b8e4f6be577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_digoqiang1_3
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 311
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 491d7ea2af3846844b9624ed54219ceb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_digoqiang1_4
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 311
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdf81dfd69f05bb44bea278662a12263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_digoshitou1_1
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 311
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22911180d1a376845a7378bb9e3dd1a2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_digoshitou1_2
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 311
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf4b5604771d96f46978f0753dd4c7eb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_indoor1_2
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 209
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2bf67c43abacc94592bf8cbcca47226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_indoor1_3
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 209
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9ed1687b5e6a29448d9175bd7a37e90
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_indoor2
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 209
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edcf59ee101ed6f42a5f2336e704b079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_qinglongyin
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 311
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3428b1967bb7f88458515a168a4869ff
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_sancaizhudi1_1
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 515
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3ba9117637dae747902de105e515e0e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_sancaizhudi1_2
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 821
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05a28e158ba711d42a20ce878ac2debe
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_sancaizhudi1_3
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 821
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb60f3e6885b8e545963c2c4558aec2b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_sancaizhudi1_4
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 821
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8c9879eb5ed3774f85d22f653ce673d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_sancaizhudi1_5
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 821
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ac45f239b2825d49937ee22b6c1aa26
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_sancaizhudi1_6
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 821
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62396bb7f8d729e4d9f83241282392da
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_sancaizhudi1_7
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 821
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28c506721b0cffa44ae4439a72b39861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_sancaizhudi1_8
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 821
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b80667197a82a446b35a3a5ff6298ac
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_sancaizhudi1_9
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 821
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40820b92b5b34d3428e7af5dec12e977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_sancaizhudi1_10
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 515
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a55ea9f75a352a48a8a2fe35b3b1dfb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuo1_1
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 821
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c6ee7559d80be045b1c1e415dd713aa
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuo1_2
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 821
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35e60d90c86cb404fbc6d51789b36c1c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuo1_3
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 923
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69b13310d5f62b141acd8342ba803bc6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuo1_4
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 923
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b640b5a3bd084554d81d9e01765ddef3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuo1_5
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 923
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c976f339fdd18941af280dbd65d3898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuo1_6
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 923
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90b7b2539c7868c44a414e36317a9771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuo1_7
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 923
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b1c36cdddec8f54bb5592853af7a8f2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuo1_8
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 923
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2fd3c49d9c0fb746a99b567f7fdac8d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuo1_9
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 923
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e723e7e0c1b73f645b7efa0e33c957e1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuok1_1
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 923
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bf63429626cd9c498f296657d12552a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuok1_2
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 719
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91a36fa7c13ffe943be765443787a07c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuok1_3
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 719
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16e1753e7588ae24cb44268967721ff6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuok1_4
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 617
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38155594991445444b5b7ca3999c649a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuok1_5
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 617
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0eee6e6b3c8744e48bede82e3ccab4d1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuok1_6
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 617
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b172d8fd1ce54cb4e920594d0cb6858c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuok1_7
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 617
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49769dc1d351cd34ab6fc5d572132b39
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuok1_8
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 617
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a95731b0dcf8d34e898b383829d4909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuok1_9
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 515
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2578bb6d548e7814f802606244e251ee
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_shenshouyinzuok1_10
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 923
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bd335595a52ead4da188665d1032e24
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_stone2_1
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 515
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95d68b64f1d616a40bd3ab0b38764d7c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_stone2_2
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 617
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f738df47061096745bb8d83811f3fcce
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_stone2_3
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 617
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efdcb37da1ee2484c9895eab281f9bbb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_stone2_4
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 617
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36379e3f84f8ac540ab5d2792a99f2b2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_stone2_5
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 617
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93aeff15223a17b4b8768b593878ddf6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_stone2_6
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 719
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4298ea21076711240bc1c80c1d5c88c1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_stone5_14
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 719
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7173daf9f4060434ca846d78a0cf0fa0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_stone5_15
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 719
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0758d45749a40694a9ff4a0e982ffd0f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_stone5_16
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 719
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e10b5d0b940021044bba2b1252e865d5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_Stop1_1
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 413
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 039fa9d4b7455684497915aec0c47a6e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_Thing5_1
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 413
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc30474f00c23ec4cad91c3690813119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_Thing5_2
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 413
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93769c4dcb4471e46bab5196eab19994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_Thing5_3
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 413
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48a124c191e7cfc45aff7274655171bc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_Thing5_4
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 413
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5a0c57d7107dab4e89f7448f14bc93a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_Thing6_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 311
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da7f83f1b7af3d6478bc30d230ed9655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_Thing6_2
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 311
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b88e9d32aec0794d8b3968a7074467b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_Thing6_3
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 413
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c81d0714ebf74514990bf476ee6529f3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_Thing6_4
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 413
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d001400b907fd57499737e37b82a0c5a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_thorn
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 719
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82726110f5681a24998f39bcecf64320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_trees4_4
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 719
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dac189a67e8fd2f4986cbe26c555e440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_white4_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 617
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3317a1fa439ce8e49aaf8fc71dbafba7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_white4_2
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 719
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91b44e39543c2cb4fbe03a733027c09d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_xuanwuyin
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 719
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 487b479d2b91b0e449feba7b573f80b7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: map10101_zhuqueyin
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 923
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b2e31800cd159248ab85c7e5eb2de16
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

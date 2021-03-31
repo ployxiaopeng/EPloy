@@ -1,0 +1,201 @@
+syntax = "proto3";
+package ETModel;
+
+//客户端注册请求
+message C2G_Register // IRequest
+{
+	int32 RpcId = 90;
+	string Account = 1; //账号
+	string Password = 2; //密码
+}
+
+//客户端注册请求回复
+message G2C_Register // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//登录请求
+message C2R_Login // IRequest
+{
+	int32 RpcId = 90;
+	string	Account	 = 1;	// 帐号
+	string	Password = 2;	// 密码
+}
+//登录请求回复
+message R2C_Login // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string Address = 1;
+	int64 Key	    = 2;
+}
+
+//注销请求
+message C2R_Logout // IRequest
+{
+	int32 RpcId = 90;
+}
+
+//登录网关请求
+message C2G_LoginGate // IRequest
+{
+	int32 RpcId = 90;
+	int64 Key = 1;	// 帐号
+}
+//登录网关请求回复
+message G2C_LoginGate // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 UserID = 1;
+}
+
+//玩家匹配请求
+message C2G_StartMatch // IRequest
+{
+	int32 RpcId = 90;
+}
+//玩家匹配请求回复
+message G2C_StartMatch // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+//玩家匹配成功
+message G2C_Match // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+//玩家信息
+message GamerInfo
+{
+	int64 UserID = 1; //玩家ID
+}
+
+//返回大厅
+message C2G_ReturnLobby // IMessage
+{
+	int32 RpcId = 90;
+}
+
+//一位玩家加入匹配（广播）
+message A2C_LandMatcherPlusOne // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 MatchingNumber = 1; // 当前排队人数
+}
+//一位玩家离开匹配（广播）
+message A2C_LandMatcherReduceOne // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+	int32 MatchingNumber = 1; // 当前排队人数
+}
+
+//进入房间(广播)
+message A2C_GamerEnterRoom // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+    repeated GamerInfo Gamers = 1;
+}
+//退出房间(广播)
+message A2C_GamerExitRoom // IActorMessage
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+    int64 UserID = 1;
+}
+
+//获取房间内玩家信息请求
+message C2G_GetUserInfoInRoom // IRequest
+{
+	int32 RpcId = 90;
+	int64 UserID = 1;
+}
+//获取房间内玩家信息返回
+message G2C_GetUserInfoInRoom // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string NickName = 1;
+	int32 Wins = 2;
+	int32 Loses = 3;
+	int64 Money = 4;
+}
+
+//客户端准备游戏消息
+message C2G_GamerReady // IRequest
+{
+	int32 RpcId = 90;
+}
+//服务端准备游戏消息
+message A2M_GamerReady // IActorMessage
+{
+	int64 ActorId = 94;
+	int64 UserID = 1;	
+}
+
+message G2C_TestHotfixMessage // IMessage
+{
+	string Info = 1;
+}
+
+message C2M_TestActorRequest // IActorLocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 91;
+	string Info = 1;
+}
+
+message M2C_TestActorResponse // IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string Info = 1;
+}
+
+message PlayerInfo // IMessage
+{
+	int32 RpcId = 90;
+}
+//获取用户信息
+message C2G_UserInfo // IRequest
+{
+	int32 RpcId = 90;
+}
+//获取用户信息回复 设置用户信息回复
+message G2C_UserInfo // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	string UserName = 1;
+	int32 Level = 2;
+	int64 Money = 3;
+	int64 Phone = 4;
+	string Email = 5;
+	string Sex = 6;
+	string Title = 7;
+}
+//设置用户信息
+message C2G_SetUserInfo // IRequest
+{
+	int32 RpcId = 90;
+	int64 Phone = 1;
+	string Email = 2;
+	string Sex = 3;
+	string Title = 4;
+}
