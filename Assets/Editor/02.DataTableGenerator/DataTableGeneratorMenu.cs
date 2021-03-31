@@ -8,7 +8,7 @@ namespace EPloy.Editor.DataTableTools
 {
     public sealed class DataTableGeneratorMenu
     {
-        [MenuItem("EPloy/Table工具")]
+        [MenuItem("EPloy/Table工具/Generator")]
         public static void GenerateDataTables()
         {
             //文本格式标准化

@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 namespace EPloy.Editor
@@ -39,13 +40,28 @@ namespace EPloy.Editor
         {
             //用新的分析热更dll调用引用来生成绑定代码
             ILRuntime.Runtime.Enviorment.AppDomain domain = new ILRuntime.Runtime.Enviorment.AppDomain();
-            using (System.IO.FileStream fs = new System.IO.FileStream(EPloyEditorPath.HotfixDLL, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+            using (System.IO.FileStream fs = new System.IO.FileStream(EPloyEditorPath.AssetHotfixDLL, System.IO.FileMode.Open, System.IO.FileAccess.Read))
             {
                 domain.LoadAssembly(fs);
                 //Crossbind Adapter is needed to generate the correct binding code
                 ILRuntimeHelper.InitILRuntime(domain);
                 ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(domain, EPloyEditorPath.ILRuntimeGenerated);
                 AssetDatabase.Refresh();
+            }
+        }
+
+        [MenuItem("EPloy/ILRuntime/更新HotfixDll")]
+        static void UpdateHotfixDll()
+        {
+            if (!EditorApplication.isPlayingOrWillChangePlaymode)
+            {
+                //复制dll pdb
+                File.Copy(EPloyEditorPath.EditorHotfixDLL, EPloyEditorPath.AssetHotfixDLL, true);
+                File.Copy(EPloyEditorPath.EditorHotfixPdb, EPloyEditorPath.AssetHotfixPdb, true);
+                //刷新资源
+                AssetDatabase.Refresh();
+
+                Log.Info("更新HotFix dll!");
             }
         }
     }

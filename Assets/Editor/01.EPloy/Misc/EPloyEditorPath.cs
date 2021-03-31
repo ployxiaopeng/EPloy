@@ -1,11 +1,7 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2021 Jiang Yin. All rights reserved.
-// Homepage: https://gameframework.cn/
-// Feedback: mailto:ellan@gameframework.cn
-//------------------------------------------------------------
-
+﻿
 using System;
+using System.IO;
+using UnityEngine;
 
 namespace EPloy.Editor
 {
@@ -26,6 +22,10 @@ namespace EPloy.Editor
         public const string CSharpCodeTemplateFileName = "Assets/Res/Configs/DataTableCodeTemplate.txt";
 
         public const string ILRuntimeGenerated = "Assets/GameMain/ILRuntime/Generated";
-        public const string HotfixDLL = "Assets/Res/HotfixDLL/Hotfix.dll.bytes";
+        public const string AssetHotfixDLL = "Assets/StreamingAssets/Hotfix.dll.bytes";
+        public const string AssetHotfixPdb = "Assets/StreamingAssets/Hotfix.pdb.bytes";
+
+        public static string EditorHotfixDLL = System.Environment.CurrentDirectory + "/Library/ScriptAssemblies/EPloy.dll";
+        public static string EditorHotfixPdb = System.Environment.CurrentDirectory+"/Library/ScriptAssemblies/EPloy.pdb";
     }
 }

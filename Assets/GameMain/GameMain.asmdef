@@ -1,0 +1,15 @@
+{
+    "name": "GameMain",
+    "references": [
+        "GUID:5719280bc6816c044aa54db814bb4f6e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
