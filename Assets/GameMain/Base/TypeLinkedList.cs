@@ -307,7 +307,8 @@ namespace EPloy
             LinkedListNode<T> first = LinkedList.First;
             if (first == null)
             {
-                throw new EPloyException("First is invalid.");
+                Log.Fatal("First is invalid.");
+                return;
             }
 
             LinkedList.RemoveFirst();
@@ -322,7 +323,8 @@ namespace EPloy
             LinkedListNode<T> last = LinkedList.Last;
             if (last == null)
             {
-                throw new EPloyException("Last is invalid.");
+                Log.Fatal("Last is invalid.");
+                return;
             }
 
             LinkedList.RemoveLast();
@@ -389,7 +391,8 @@ namespace EPloy
             {
                 if (linkedList == null)
                 {
-                    throw new EPloyException("Linked list is invalid.");
+                    Log.Fatal("Linked list is invalid.");
+                    return;
                 }
 
                 m_Enumerator = linkedList.GetEnumerator();

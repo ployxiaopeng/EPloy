@@ -75,7 +75,8 @@ namespace EPloy.Res
         {
             if (checkResCompleteCallback == null)
             {
-                throw new EPloyException("Check resources complete callback is invalid.");
+                Log.Fatal("Check resources complete callback is invalid.");
+                return;
             }
             ResChecker.CheckResources(CurrentVariant);
             GameEntry.Res.LoadBytes(Utility.Path.GetRemotePath(Path.Combine(ResPath, Config.RemoteVersionListFileName)), ResChecker.UpdatableVersionCallbacks);
@@ -86,7 +87,8 @@ namespace EPloy.Res
         {
             if (string.IsNullOrEmpty(fileSystemName))
             {
-                throw new EPloyException("File system name is invalid.");
+                Log.Fatal("File system name is invalid.");
+                return null;
             }
 
             IFileSystem fileSystem = null;

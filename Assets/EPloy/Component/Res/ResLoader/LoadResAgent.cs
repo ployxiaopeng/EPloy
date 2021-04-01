@@ -52,7 +52,7 @@ namespace EPloy.Res
         /// <returns>开始处理任务的状态。</returns>
         public StartTaskStatus Start(LoadResTaskBase task)
         {
-            Task = task ?? throw new EPloyException("Task is invalid.");
+            Task = task ?? throw new Exception("Task is invalid.");
             Task.StartTime = DateTime.Now;
             ResInfo resInfo = Task.ResInfo;
 
@@ -179,7 +179,7 @@ namespace EPloy.Res
                     }
                     else
                     {
-                        throw new EPloyException("Can not find dependency resource.");
+                        Log.Fatal("Can not find dependency resource.");
                     }
                 }
             }

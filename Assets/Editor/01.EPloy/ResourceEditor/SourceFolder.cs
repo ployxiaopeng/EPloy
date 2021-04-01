@@ -77,7 +77,7 @@ namespace EPloy.Editor.ResourceTools
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Source folder name is invalid.");
+                 Log.Fatal("Source folder name is invalid.");
             }
 
             foreach (SourceFolder folder in m_Folders)
@@ -95,13 +95,13 @@ namespace EPloy.Editor.ResourceTools
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Source folder name is invalid.");
+                 Log.Fatal("Source folder name is invalid.");
             }
 
             SourceFolder folder = GetFolder(name);
             if (folder != null)
             {
-                throw new EPloyException("Source folder is already exist.");
+                 Log.Fatal("Source folder is already exist.");
             }
 
             folder = new SourceFolder(name, this);
@@ -119,7 +119,7 @@ namespace EPloy.Editor.ResourceTools
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Source asset name is invalid.");
+                 Log.Fatal("Source asset name is invalid.");
             }
 
             foreach (SourceAsset asset in m_Assets)
@@ -137,23 +137,23 @@ namespace EPloy.Editor.ResourceTools
         {
             if (string.IsNullOrEmpty(guid))
             {
-                throw new EPloyException("Source asset guid is invalid.");
+                 Log.Fatal("Source asset guid is invalid.");
             }
 
             if (string.IsNullOrEmpty(path))
             {
-                throw new EPloyException("Source asset path is invalid.");
+                 Log.Fatal("Source asset path is invalid.");
             }
 
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Source asset name is invalid.");
+                 Log.Fatal("Source asset name is invalid.");
             }
 
             SourceAsset asset = GetAsset(name);
             if (asset != null)
             {
-                throw new EPloyException(Utility.Text.Format("Source asset '{0}' is already exist.", name));
+                 Log.Fatal(Utility.Text.Format("Source asset '{0}' is already exist.", name));
             }
 
             asset = new SourceAsset(guid, path, name, this);

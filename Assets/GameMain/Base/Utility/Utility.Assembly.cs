@@ -50,7 +50,8 @@ namespace EPloy
             {
                 if (results == null)
                 {
-                    throw new EPloyException("Results is invalid.");
+                    Log.Fatal("Results is invalid.");
+                    return;
                 }
 
                 results.Clear();
@@ -69,7 +70,8 @@ namespace EPloy
             {
                 if (string.IsNullOrEmpty(typeName))
                 {
-                    throw new EPloyException("Type name is invalid.");
+                    Log.Fatal("Type name is invalid.");
+                    return default(Type);
                 }
 
                 Type type = null;

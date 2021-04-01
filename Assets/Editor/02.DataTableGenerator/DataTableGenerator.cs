@@ -68,7 +68,7 @@ namespace EPloy.Editor.DataTableTools
             codeContent.Replace("__DATA_TABLE_COMMENT__", dataTableProcessor.GetValue(0, 1) + "。");
             codeContent.Replace("__DATA_TABLE_ID_COMMENT__", "获取" + dataTableProcessor.GetComment(dataTableProcessor.IdColumn) + "。");
             codeContent.Replace("__DATA_TABLE_PROPERTIES__", GenerateDataTableProperties(dataTableProcessor));
-           // codeContent.Replace("__DATA_TABLE_STRING_PARSER__", GenerateDataTableStringParser(dataTableProcessor));
+            // codeContent.Replace("__DATA_TABLE_STRING_PARSER__", GenerateDataTableStringParser(dataTableProcessor));
             codeContent.Replace("__DATA_TABLE_BYTES_PARSER__", GenerateDataTableBytesParser(dataTableProcessor));
             //codeContent.Replace("__DATA_TABLE_STREAM_PARSER__", GenerateDataTableStreamParser(dataTableProcessor));
             //codeContent.Replace("__DATA_TABLE_PROPERTY_ARRAY__", GenerateDataTablePropertyArray(dataTableProcessor));
@@ -228,7 +228,7 @@ namespace EPloy.Editor.DataTableTools
                 .AppendLine("                }")
                 .AppendLine("            }")
                 .AppendLine()
-              //  .AppendLine("            GeneratePropertyArray();")
+                //  .AppendLine("            GeneratePropertyArray();")
                 .AppendLine("            return true;")
                 .Append("        }");
 
@@ -424,7 +424,7 @@ namespace EPloy.Editor.DataTableTools
             {
                 if (index < 0 || index >= m_Items.Count)
                 {
-                    throw new EPloyException(Utility.Text.Format("GetItem with invalid index '{0}'.", index.ToString()));
+                    Log.Fatal(Utility.Text.Format("GetItem with invalid index '{0}'.", index.ToString()));
                 }
 
                 return m_Items[index];

@@ -56,7 +56,8 @@ namespace EPloy.Res
         {
             if (unloadSceneSuccessCallback == null)
             {
-                throw new EPloyException("Unload scene success callback is invalid.");
+                Log.Fatal("Unload scene success callback is invalid.");
+                return;
             }
 
             UnloadSceneSuccessCallback = unloadSceneSuccessCallback;

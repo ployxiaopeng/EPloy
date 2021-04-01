@@ -29,17 +29,17 @@ namespace EPloy.Editor.DataTableTools
         {
             if (string.IsNullOrEmpty(dataTableFileName))
             {
-                throw new EPloyException("Data table file name is invalid.");
+                 Log.Fatal("Data table file name is invalid.");
             }
 
             if (!dataTableFileName.EndsWith(".txt"))
             {
-                throw new EPloyException(Utility.Text.Format("Data table file '{0}' is not a txt.", dataTableFileName));
+                 Log.Fatal(Utility.Text.Format("Data table file '{0}' is not a txt.", dataTableFileName));
             }
 
             if (!File.Exists(dataTableFileName))
             {
-                throw new EPloyException(Utility.Text.Format("Data table file '{0}' is not exist.", dataTableFileName));
+                 Log.Fatal(Utility.Text.Format("Data table file '{0}' is not exist.", dataTableFileName));
             }
 
             string[] lines = File.ReadAllLines(dataTableFileName, encoding);
@@ -61,7 +61,7 @@ namespace EPloy.Editor.DataTableTools
                 }
                 else if (rawValue.Length != rawColumnCount)
                 {
-                    throw new EPloyException(Utility.Text.Format("Table:{3},Raw Column is '{1}', but line '{0}' column is '{2}'.", i.ToString(), rawColumnCount.ToString(), rawValue.Length.ToString(), dataTableFileName));
+                     Log.Fatal(Utility.Text.Format("Table:{3},Raw Column is '{1}', but line '{0}' column is '{2}'.", i.ToString(), rawColumnCount.ToString(), rawValue.Length.ToString(), dataTableFileName));
                 }
 
                 rawValues.Add(rawValue);
@@ -71,52 +71,52 @@ namespace EPloy.Editor.DataTableTools
 
             if (nameRow < 0)
             {
-                throw new EPloyException(Utility.Text.Format("Name row '{0}' is invalid.", nameRow.ToString()));
+                 Log.Fatal(Utility.Text.Format("Name row '{0}' is invalid.", nameRow.ToString()));
             }
 
             if (typeRow < 0)
             {
-                throw new EPloyException(Utility.Text.Format("Type row '{0}' is invalid.", typeRow.ToString()));
+                 Log.Fatal(Utility.Text.Format("Type row '{0}' is invalid.", typeRow.ToString()));
             }
 
             if (contentStartRow < 0)
             {
-                throw new EPloyException(Utility.Text.Format("Content start row '{0}' is invalid.", contentStartRow.ToString()));
+                 Log.Fatal(Utility.Text.Format("Content start row '{0}' is invalid.", contentStartRow.ToString()));
             }
 
             if (idColumn < 0)
             {
-                throw new EPloyException(Utility.Text.Format("Id column '{0}' is invalid.", idColumn.ToString()));
+                 Log.Fatal(Utility.Text.Format("Id column '{0}' is invalid.", idColumn.ToString()));
             }
 
             if (nameRow >= rawRowCount)
             {
-                throw new EPloyException(Utility.Text.Format("Name row '{0}' >= raw row count '{1}' is not allow.", nameRow.ToString(), rawRowCount.ToString()));
+                 Log.Fatal(Utility.Text.Format("Name row '{0}' >= raw row count '{1}' is not allow.", nameRow.ToString(), rawRowCount.ToString()));
             }
 
             if (typeRow >= rawRowCount)
             {
-                throw new EPloyException(Utility.Text.Format("Type row '{0}' >= raw row count '{1}' is not allow.", typeRow.ToString(), rawRowCount.ToString()));
+                 Log.Fatal(Utility.Text.Format("Type row '{0}' >= raw row count '{1}' is not allow.", typeRow.ToString(), rawRowCount.ToString()));
             }
 
             if (defaultValueRow.HasValue && defaultValueRow.Value >= rawRowCount)
             {
-                throw new EPloyException(Utility.Text.Format("Default value row '{0}' >= raw row count '{1}' is not allow.", defaultValueRow.Value.ToString(), rawRowCount.ToString()));
+                 Log.Fatal(Utility.Text.Format("Default value row '{0}' >= raw row count '{1}' is not allow.", defaultValueRow.Value.ToString(), rawRowCount.ToString()));
             }
 
             if (commentRow.HasValue && commentRow.Value >= rawRowCount)
             {
-                throw new EPloyException(Utility.Text.Format("Comment row '{0}' >= raw row count '{1}' is not allow.", commentRow.Value.ToString(), rawRowCount.ToString()));
+                 Log.Fatal(Utility.Text.Format("Comment row '{0}' >= raw row count '{1}' is not allow.", commentRow.Value.ToString(), rawRowCount.ToString()));
             }
 
             if (contentStartRow > rawRowCount)
             {
-                throw new EPloyException(Utility.Text.Format("Content start row '{0}' > raw row count '{1}' is not allow.", contentStartRow.ToString(), rawRowCount.ToString()));
+                 Log.Fatal(Utility.Text.Format("Content start row '{0}' > raw row count '{1}' is not allow.", contentStartRow.ToString(), rawRowCount.ToString()));
             }
 
             if (idColumn >= rawColumnCount)
             {
-                throw new EPloyException(Utility.Text.Format("Id column '{0}' >= raw column count '{1}' is not allow.", idColumn.ToString(), rawColumnCount.ToString()));
+                 Log.Fatal(Utility.Text.Format("Id column '{0}' >= raw column count '{1}' is not allow.", idColumn.ToString(), rawColumnCount.ToString()));
             }
 
             m_NameRow = m_RawValues[nameRow];
@@ -179,7 +179,7 @@ namespace EPloy.Editor.DataTableTools
         {
             if (rawColumn < 0 || rawColumn >= RawColumnCount)
             {
-                throw new EPloyException(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
+                 Log.Fatal(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
             }
 
             return m_DataProcessor[rawColumn].IsId;
@@ -189,7 +189,7 @@ namespace EPloy.Editor.DataTableTools
         {
             if (rawRow < 0 || rawRow >= RawRowCount)
             {
-                throw new EPloyException(Utility.Text.Format("Raw row '{0}' is out of range.", rawRow.ToString()));
+                 Log.Fatal(Utility.Text.Format("Raw row '{0}' is out of range.", rawRow.ToString()));
             }
 
             return GetValue(rawRow, 0).StartsWith(CommentLineSeparator);
@@ -199,7 +199,7 @@ namespace EPloy.Editor.DataTableTools
         {
             if (rawColumn < 0 || rawColumn >= RawColumnCount)
             {
-                throw new EPloyException(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
+                 Log.Fatal(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
             }
 
             return string.IsNullOrEmpty(GetName(rawColumn)) || m_DataProcessor[rawColumn].IsComment;
@@ -209,7 +209,7 @@ namespace EPloy.Editor.DataTableTools
         {
             if (rawColumn < 0 || rawColumn >= RawColumnCount)
             {
-                throw new EPloyException(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
+                 Log.Fatal(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
             }
 
             if (IsIdColumn(rawColumn))
@@ -224,7 +224,7 @@ namespace EPloy.Editor.DataTableTools
         {
             if (rawColumn < 0 || rawColumn >= RawColumnCount)
             {
-                throw new EPloyException(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
+                 Log.Fatal(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
             }
 
             return m_DataProcessor[rawColumn].IsSystem;
@@ -234,7 +234,7 @@ namespace EPloy.Editor.DataTableTools
         {
             if (rawColumn < 0 || rawColumn >= RawColumnCount)
             {
-                throw new EPloyException(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
+                 Log.Fatal(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
             }
 
             return m_DataProcessor[rawColumn].Type;
@@ -244,7 +244,7 @@ namespace EPloy.Editor.DataTableTools
         {
             if (rawColumn < 0 || rawColumn >= RawColumnCount)
             {
-                throw new EPloyException(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
+                 Log.Fatal(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
             }
 
             return m_DataProcessor[rawColumn].LanguageKeyword;
@@ -254,7 +254,7 @@ namespace EPloy.Editor.DataTableTools
         {
             if (rawColumn < 0 || rawColumn >= RawColumnCount)
             {
-                throw new EPloyException(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
+                 Log.Fatal(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
             }
 
             return m_DefaultValueRow != null ? m_DefaultValueRow[rawColumn] : null;
@@ -264,7 +264,7 @@ namespace EPloy.Editor.DataTableTools
         {
             if (rawColumn < 0 || rawColumn >= RawColumnCount)
             {
-                throw new EPloyException(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
+                 Log.Fatal(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
             }
 
             return m_CommentRow != null ? m_CommentRow[rawColumn] : null;
@@ -274,12 +274,12 @@ namespace EPloy.Editor.DataTableTools
         {
             if (rawRow < 0 || rawRow >= RawRowCount)
             {
-                throw new EPloyException(Utility.Text.Format("Raw row '{0}' is out of range.", rawRow.ToString()));
+                 Log.Fatal(Utility.Text.Format("Raw row '{0}' is out of range.", rawRow.ToString()));
             }
 
             if (rawColumn < 0 || rawColumn >= RawColumnCount)
             {
-                throw new EPloyException(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
+                 Log.Fatal(Utility.Text.Format("Raw column '{0}' is out of range.", rawColumn.ToString()));
             }
 
             return m_RawValues[rawRow][rawColumn];
@@ -289,7 +289,7 @@ namespace EPloy.Editor.DataTableTools
         {
             if (string.IsNullOrEmpty(outputFileName))
             {
-                throw new EPloyException("Output file name is invalid.");
+                 Log.Fatal("Output file name is invalid.");
             }
 
             try
@@ -384,12 +384,12 @@ namespace EPloy.Editor.DataTableTools
         {
             if (string.IsNullOrEmpty(m_CodeTemplate))
             {
-                throw new EPloyException("You must set code template first.");
+                 Log.Fatal("You must set code template first.");
             }
 
             if (string.IsNullOrEmpty(outputFileName))
             {
-                throw new EPloyException("Output file name is invalid.");
+                 Log.Fatal("Output file name is invalid.");
             }
 
             try

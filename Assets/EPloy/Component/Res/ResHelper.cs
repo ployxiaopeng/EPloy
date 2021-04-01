@@ -27,7 +27,7 @@ namespace EPloy.Res
         /// <param name="userData">用户自定义数据。</param>
         public void LoadBytes(string fileUri, LoadBytesCallbacks loadBytesCallbacks)
         {
-            Mono.StartCoroutine(LoadBytesCo(fileUri, loadBytesCallbacks));
+            // Mono.StartCoroutine(LoadBytesCo(fileUri, loadBytesCallbacks));
         }
 
         /// <summary>
@@ -78,32 +78,32 @@ namespace EPloy.Res
             */
         }
 
-        private IEnumerator LoadBytesCo(string fileUri, LoadBytesCallbacks loadBytesCallbacks)
-        {
-            bool isError = false;
-            byte[] bytes = null;
-            string errorMessage = null;
-            DateTime startTime = DateTime.UtcNow;
+        // private IEnumerator LoadBytesCo(string fileUri, LoadBytesCallbacks loadBytesCallbacks)
+        // {
+        //     bool isError = false;
+        //     byte[] bytes = null;
+        //     string errorMessage = null;
+        //     DateTime startTime = DateTime.UtcNow;
 
-            UnityWebRequest unityWebRequest = UnityWebRequest.Get(fileUri);
+        //     UnityWebRequest unityWebRequest = UnityWebRequest.Get(fileUri);
 
-            yield return unityWebRequest.SendWebRequest();
+        //     yield return unityWebRequest.SendWebRequest();
 
-            isError = unityWebRequest.isNetworkError || unityWebRequest.isHttpError;
+        //     isError = unityWebRequest.isNetworkError || unityWebRequest.isHttpError;
 
-            bytes = unityWebRequest.downloadHandler.data;
-            errorMessage = isError ? unityWebRequest.error : null;
-            unityWebRequest.Dispose();
-            if (!isError)
-            {
-                float elapseSeconds = (float)(DateTime.UtcNow - startTime).TotalSeconds;
-                loadBytesCallbacks.LoadBytesSuccessCallback(fileUri, bytes, elapseSeconds);
-            }
-            else if (loadBytesCallbacks.LoadBytesFailureCallback != null)
-            {
-                loadBytesCallbacks.LoadBytesFailureCallback(fileUri, errorMessage);
-            }
-        }
+        //     bytes = unityWebRequest.downloadHandler.data;
+        //     errorMessage = isError ? unityWebRequest.error : null;
+        //     unityWebRequest.Dispose();
+        //     if (!isError)
+        //     {
+        //         float elapseSeconds = (float)(DateTime.UtcNow - startTime).TotalSeconds;
+        //         loadBytesCallbacks.LoadBytesSuccessCallback(fileUri, bytes, elapseSeconds);
+        //     }
+        //     else if (loadBytesCallbacks.LoadBytesFailureCallback != null)
+        //     {
+        //         loadBytesCallbacks.LoadBytesFailureCallback(fileUri, errorMessage);
+        //     }
+        // }
 
 
         // private IEnumerator UnloadSceneCo(string sceneAssetName, UnloadSceneCallbacks unloadSceneCallbacks, object userData)

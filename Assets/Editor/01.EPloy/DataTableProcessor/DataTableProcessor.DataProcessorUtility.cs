@@ -48,7 +48,8 @@ namespace EPloy.Editor.DataTableTools
                     return dataProcessor;
                 }
 
-                throw new EPloyException(Utility.Text.Format("Not supported data processor type '{0}'.", type));
+                Log.Fatal(Utility.Text.Format("Not supported data processor type '{0}'.", type));
+                return null;
             }
         }
     }

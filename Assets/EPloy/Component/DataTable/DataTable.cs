@@ -12,7 +12,7 @@ namespace EPloy.Table
     /// 数据表。
     /// </summary>
     /// <typeparam name="T">数据表行的类型。</typeparam>
-    public sealed class DataTable<T> : DataTableBase, IEnumerable<T> where T : class, IDataRow, new()
+    public sealed class DataTable<T> : DataTableBase where T : class, IDataRow, new() //, IEnumerable<T> 
     {
         private readonly Dictionary<int, T> DataSet;
 
@@ -81,7 +81,8 @@ namespace EPloy.Table
         {
             if (condition == null)
             {
-                throw new EPloyException("Condition is invalid.");
+                Log.Fatal("Condition is invalid.");
+                return false;
             }
 
             foreach (KeyValuePair<int, T> dataRow in DataSet)
@@ -121,7 +122,8 @@ namespace EPloy.Table
         {
             if (condition == null)
             {
-                throw new EPloyException("Condition is invalid.");
+                Log.Fatal("Condition is invalid.");
+                return default(T);
             }
 
             foreach (KeyValuePair<int, T> dataRow in DataSet)
@@ -144,7 +146,8 @@ namespace EPloy.Table
         {
             if (condition == null)
             {
-                throw new EPloyException("Condition is invalid.");
+                Log.Fatal("Condition is invalid.");
+                return null;
             }
 
             List<T> results = new List<T>();
@@ -198,12 +201,8 @@ namespace EPloy.Table
             }
             catch (Exception exception)
             {
-                if (exception is EPloyException)
-                {
-                    throw;
-                }
-
-                throw new EPloyException(Utility.Text.Format("Can not parse data row bytes for data table '{0}' with exception '{1}'.", new TypeNamePair(typeof(T), Name).ToString(), exception.ToString()), exception);
+                Log.Fatal(Utility.Text.Format("Can not parse data row bytes for data table '{0}' with exception '{1}'.", new TypeNamePair(typeof(T), Name).ToString(), exception.ToString()));
+                return false;
             }
         }
 
@@ -238,25 +237,26 @@ namespace EPloy.Table
         /// 返回循环访问集合的枚举数。
         /// </summary>
         /// <returns>循环访问集合的枚举数。</returns>
-        public IEnumerator<T> GetEnumerator()
-        {
-            return DataSet.Values.GetEnumerator();
-        }
+        // public IEnumerator<T> GetEnumerator()
+        // {
+        //     return DataSet.Values.GetEnumerator();
+        // }
 
         /// <summary>
         /// 返回循环访问集合的枚举数。
         /// </summary>
         /// <returns>循环访问集合的枚举数。</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return DataSet.Values.GetEnumerator();
-        }
+        // IEnumerator IEnumerable.GetEnumerator()
+        // {
+        //     return DataSet.Values.GetEnumerator();
+        // }
 
         private void InternalAddDataRow(T dataRow)
         {
             if (HasDataRow(dataRow.Id))
             {
-                throw new EPloyException(Utility.Text.Format("Already exist '{0}' in data table '{1}'.", dataRow.Id.ToString(), new TypeNamePair(typeof(T), Name).ToString()));
+                Log.Fatal(Utility.Text.Format("Already exist '{0}' in data table '{1}'.", dataRow.Id.ToString(), new TypeNamePair(typeof(T), Name).ToString()));
+                return;
             }
 
             DataSet.Add(dataRow.Id, dataRow);

@@ -101,7 +101,6 @@ namespace EPloy
                             {
                                 asset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(loadAssetInfo.AssetName);
                             }
-
                             if (EnableCachedAssets && asset != null)
                             {
                                 CachedAssets.Add(loadAssetInfo.AssetName, asset);
@@ -124,10 +123,16 @@ namespace EPloy
                             }
                         }
 
-                        LinkedListNode<LoadAssetInfo> next = current.Next;
-                        LoadAssetInfos.Remove(loadAssetInfo);
-                        current = next;
-                        count++;
+                        LoadAssetInfos.RemoveFirst();
+                        if (LoadAssetInfos.Count > 1)
+                        {
+                            current = LoadAssetInfos.First;
+                            count++;
+                        }
+                        else
+                        {
+                            current = null;
+                        }
                     }
                     else
                     {

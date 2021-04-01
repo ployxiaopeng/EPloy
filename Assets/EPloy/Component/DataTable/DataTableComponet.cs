@@ -19,7 +19,7 @@ namespace EPloy
                 return GameEntry.Res;
             }
         }
-    
+
         /// <summary>
         /// 初始化数据表管理器的新实例。
         /// </summary>
@@ -65,7 +65,7 @@ namespace EPloy
         /// <param name="ensureSize">要确保二进制流缓存分配内存的大小。</param>
         public void EnsureCachedBytesSize(int ensureSize)
         {
-            
+
         }
 
         /// <summary>
@@ -105,12 +105,14 @@ namespace EPloy
         {
             if (dataRowType == null)
             {
-                throw new EPloyException("Data row type is invalid.");
+                Log.Fatal("Data row type is invalid.");
+                return null;
             }
 
             if (!typeof(IDataRow).IsAssignableFrom(dataRowType))
             {
-                throw new EPloyException(Utility.Text.Format("Data row type '{0}' is invalid.", dataRowType.FullName));
+                Log.Fatal(Utility.Text.Format("Data row type '{0}' is invalid.", dataRowType.FullName));
+                return null;
             }
 
             return InternalGetDataTable(new TypeNamePair(dataRowType));
@@ -142,18 +144,21 @@ namespace EPloy
         {
             if (dataRowType == null)
             {
-                throw new EPloyException("Data row type is invalid.");
+                Log.Fatal("Data row type is invalid.");
+                return null;
             }
 
             if (!typeof(IDataRow).IsAssignableFrom(dataRowType))
             {
-                throw new EPloyException(Utility.Text.Format("Data row type '{0}' is invalid.", dataRowType.FullName));
+                Log.Fatal(Utility.Text.Format("Data row type '{0}' is invalid.", dataRowType.FullName));
+                return null;
             }
 
             TypeNamePair typeNamePair = new TypeNamePair(dataRowType, name);
             if (InternalHasDataTable(typeNamePair))
             {
-                throw new EPloyException(Utility.Text.Format("Already exist data table '{0}'.", typeNamePair.ToString()));
+                Log.Fatal(Utility.Text.Format("Already exist data table '{0}'.", typeNamePair.ToString()));
+                return null;
             }
 
             Type dataTableType = typeof(DataTable<>).MakeGenericType(dataRowType);
@@ -171,12 +176,14 @@ namespace EPloy
             TypeNamePair typeNamePair = new TypeNamePair(dataRowType);
             if (InternalHasDataTable(typeNamePair))
             {
-                throw new EPloyException(Utility.Text.Format("Data row type '{0}' is invalid.", dataRowType.FullName));
+                Log.Fatal(Utility.Text.Format("Data row type '{0}' is invalid.", dataRowType.FullName));
+                return;
             }
             HasResult result = Res.HasAsset(assetName);
             if (result != HasResult.BinaryOnDisk)
             {
-                throw new EPloyException(Utility.Text.Format("{0}  type must be BinaryOnDisk  but is {1}.", assetName, result.ToString()));
+                Log.Fatal(Utility.Text.Format("{0}  type must be BinaryOnDisk  but is {1}.", assetName, result.ToString()));
+                return;
             }
             DataTableBase dataTableBase = GetDataTable(dataRowType);
             dataTableBase.ReadData(assetName);
@@ -219,6 +226,6 @@ namespace EPloy
             return false;
         }
 
-        
+
     }
 }

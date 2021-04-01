@@ -6,7 +6,7 @@ namespace EPloy
     /// <summary>
     /// 游戏逻辑事件基类。
     /// </summary>
-    public abstract class EventArg : EventArgs, IReference
+    public abstract class EventArg : IReference
     {
         /// <summary>
         /// 事件id

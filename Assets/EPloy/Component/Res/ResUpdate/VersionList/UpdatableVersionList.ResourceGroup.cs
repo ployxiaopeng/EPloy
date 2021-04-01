@@ -21,7 +21,7 @@
             {
                 if (name == null)
                 {
-                    throw new EPloyException("Name is invalid.");
+                    Log.Fatal("Name is invalid.");
                 }
 
                 m_Name = name;

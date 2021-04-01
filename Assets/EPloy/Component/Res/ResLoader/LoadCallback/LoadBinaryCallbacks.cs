@@ -51,10 +51,11 @@ namespace EPloy.Res
         {
             if (loadBinarySuccessCallback == null)
             {
-                throw new EPloyException("Load binary success callback is invalid.");
+                Log.Fatal("Load binary success callback is invalid.");
+                return;
             }
 
-           LoadBinarySuccessCallback = loadBinarySuccessCallback;
+            LoadBinarySuccessCallback = loadBinarySuccessCallback;
             LoadBinaryFailureCallback = loadBinaryFailureCallback;
         }
     }

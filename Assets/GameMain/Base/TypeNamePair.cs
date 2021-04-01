@@ -6,7 +6,7 @@ namespace EPloy
     /// <summary>
     /// 类型和名称的组合值。
     /// </summary>
-    internal struct TypeNamePair : IEquatable<TypeNamePair>
+    public struct TypeNamePair : IEquatable<TypeNamePair>
     {
         private readonly Type m_Type;
         private readonly string m_Name;
@@ -29,7 +29,7 @@ namespace EPloy
         {
             if (type == null)
             {
-                throw new EPloyException("Type is invalid.");
+                Log.Fatal("Type is invalid.");
             }
 
             m_Type = type;
@@ -66,11 +66,12 @@ namespace EPloy
         {
             if (m_Type == null)
             {
-                throw new EPloyException("Type is invalid.");
+                Log.Fatal("Type is invalid.");
+                return null;
             }
 
             string typeName = m_Type.FullName;
-            return string.IsNullOrEmpty(m_Name) ? typeName :  Utility.Text.Format("{0}.{1}", typeName, m_Name);
+            return string.IsNullOrEmpty(m_Name) ? typeName : Utility.Text.Format("{0}.{1}", typeName, m_Name);
         }
 
         /// <summary>

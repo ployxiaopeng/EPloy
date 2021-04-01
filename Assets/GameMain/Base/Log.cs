@@ -94,7 +94,8 @@ namespace EPloy
                     break;
 
                 default:
-                    throw new EPloyException(message.ToString());
+                    UnityEngine.Debug.LogError(message.ToString());
+                     break;
             }
         }
 

@@ -102,18 +102,21 @@ namespace EPloy
 
                 if (code == null)
                 {
-                    throw new EPloyException("Code is invalid.");
+                    Log.Fatal("Code is invalid.");
+                    return;
                 }
 
                 int codeLength = code.Length;
                 if (codeLength <= 0)
                 {
-                    throw new EPloyException("Code length is invalid.");
+                    Log.Fatal("Code length is invalid.");
+                    return;
                 }
 
                 if (startIndex < 0 || length < 0 || startIndex + length > bytes.Length)
                 {
-                    throw new EPloyException("Start index or length is invalid.");
+                    Log.Fatal("Start index or length is invalid.");
+                    return;
                 }
 
                 int codeIndex = startIndex % codeLength;

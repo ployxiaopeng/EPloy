@@ -23,7 +23,7 @@ namespace EPloy
         {
             if(_entity==null)
             {
-                new EPloyException("entity is Null");
+               Log.Fatal("entity is Null");
                 return;
             }
             InstanceId = instanceId;

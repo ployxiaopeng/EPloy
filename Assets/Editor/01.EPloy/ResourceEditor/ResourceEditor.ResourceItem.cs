@@ -17,12 +17,12 @@ namespace EPloy.Editor.ResourceTools
             {
                 if (resource == null)
                 {
-                    throw new EPloyException("Resource is invalid.");
+                    Log.Fatal("Resource is invalid.");
                 }
 
                 if (folder == null)
                 {
-                    throw new EPloyException("Resource folder is invalid.");
+                    Log.Fatal("Resource folder is invalid.");
                 }
 
                 Name = name;

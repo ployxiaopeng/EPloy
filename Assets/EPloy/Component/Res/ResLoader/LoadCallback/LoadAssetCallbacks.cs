@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace EPloy.Res
 {
     /// <summary>
@@ -74,7 +76,7 @@ namespace EPloy.Res
         /// <param name="loadDependAssetCallback">加载资源时加载依赖资源回调函数。</param>
         public LoadAssetCallbacks(LoadAssetSuccessCallback loadAssetSuccessCallback, LoadAssetFailureCallback loadAssetFailureCallback, LoadDependAssetCallback loadDependAssetCallback)
         {
-            this.LoadAssetSuccessCallback = loadAssetSuccessCallback ?? throw new EPloyException("Load asset success callback is invalid.");
+            this.LoadAssetSuccessCallback = loadAssetSuccessCallback ?? throw new Exception("Load asset success callback is invalid.");
             this.LoadAssetFailureCallback = loadAssetFailureCallback;
             this.LoadDependAssetCallback = loadDependAssetCallback;
         }

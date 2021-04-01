@@ -18,7 +18,8 @@ namespace EPloy
         {
             if (uiFormAsset == null)
             {
-                throw new EPloyException("UI form asset is invalid.");
+                Log.Fatal("UI form asset is invalid.");
+                return null;
             }
             UIFormObject uIFormObject = ReferencePool.Acquire<UIFormObject>();
             uIFormObject.Initialize(name, uiFormInstance);

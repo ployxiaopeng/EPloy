@@ -52,7 +52,7 @@ namespace EPloy
                     ((Action<float>)action)(a);
                 });
             });
-     
+
             appDomain.DelegateManager.RegisterDelegateConvertor<EventHandler<ILTypeInstance>>((act) =>
             {
                 return new EventHandler<ILTypeInstance>((sender, e) =>
@@ -69,7 +69,6 @@ namespace EPloy
             appDomain.RegisterCrossBindingAdaptor(new IMessageAdaptor());
             appDomain.RegisterCrossBindingAdaptor(new IDisposableAdaptor());
             appDomain.RegisterCrossBindingAdaptor(new IAsyncStateMachineAdaptor());
-            appDomain.RegisterCrossBindingAdaptor(new ICoroutineAdapter());
 
             //TODO:注册值类型绑定
             appDomain.RegisterValueTypeBinder(typeof(Vector3), new Vector3Binder());

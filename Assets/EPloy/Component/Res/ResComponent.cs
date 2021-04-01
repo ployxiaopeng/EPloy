@@ -71,7 +71,8 @@ namespace EPloy
         {
             if (string.IsNullOrEmpty(assetName))
             {
-                throw new EPloyException("Asset name is invalid.");
+                Log.Fatal("Asset name is invalid.");
+                return HasResult.NotExist;
             }
             if (ResEditorLoader == null)
             {
@@ -207,7 +208,8 @@ namespace EPloy
             {
                 return ResLoader.GetAllLoadAssetInfos();
             }
-            throw new EPloyException("Task no use in Editor");
+            Log.Fatal("Task no use in Editor");
+             return null;
         }
 
         /// <summary>

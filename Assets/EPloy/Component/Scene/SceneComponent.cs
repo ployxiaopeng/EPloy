@@ -60,7 +60,8 @@ namespace EPloy
         {
             if (string.IsNullOrEmpty(sceneAssetName))
             {
-                throw new EPloyException("Scene asset name is invalid.");
+                Log.Fatal("Scene asset name is invalid.");
+                return false;
             }
 
             return LoadedSceneAssetNames.Contains(sceneAssetName);
@@ -83,7 +84,8 @@ namespace EPloy
         {
             if (results == null)
             {
-                throw new EPloyException("Results is invalid.");
+                Log.Fatal("Results is invalid.");
+                return;
             }
 
             results.Clear();
@@ -99,7 +101,8 @@ namespace EPloy
         {
             if (string.IsNullOrEmpty(sceneAssetName))
             {
-                throw new EPloyException("Scene asset name is invalid.");
+                Log.Fatal("Scene asset name is invalid.");
+                return false;
             }
 
             return LoadingSceneAssetNames.Contains(sceneAssetName);
@@ -122,7 +125,8 @@ namespace EPloy
         {
             if (results == null)
             {
-                throw new EPloyException("Results is invalid.");
+                Log.Fatal("Results is invalid.");
+                return;
             }
 
             results.Clear();
@@ -138,7 +142,8 @@ namespace EPloy
         {
             if (string.IsNullOrEmpty(sceneAssetName))
             {
-                throw new EPloyException("Scene asset name is invalid.");
+                Log.Fatal("Scene asset name is invalid.");
+                return false;
             }
 
             return UnloadingSceneAssetNames.Contains(sceneAssetName);
@@ -161,7 +166,8 @@ namespace EPloy
         {
             if (results == null)
             {
-                throw new EPloyException("Results is invalid.");
+                Log.Fatal("Results is invalid.");
+                return;
             }
 
             results.Clear();
@@ -186,22 +192,26 @@ namespace EPloy
         {
             if (string.IsNullOrEmpty(sceneAssetName))
             {
-                throw new EPloyException("Scene asset name is invalid.");
+                Log.Fatal("Scene asset name is invalid.");
+                return;
             }
 
             if (SceneIsUnloading(sceneAssetName))
             {
-                throw new EPloyException(Utility.Text.Format("Scene asset '{0}' is being unloaded.", sceneAssetName));
+                Log.Fatal(Utility.Text.Format("Scene asset '{0}' is being unloaded.", sceneAssetName));
+                return;
             }
 
             if (SceneIsLoading(sceneAssetName))
             {
-                throw new EPloyException(Utility.Text.Format("Scene asset '{0}' is being loaded.", sceneAssetName));
+                Log.Fatal(Utility.Text.Format("Scene asset '{0}' is being loaded.", sceneAssetName));
+                return;
             }
 
             if (SceneIsLoaded(sceneAssetName))
             {
-                throw new EPloyException(Utility.Text.Format("Scene asset '{0}' is already loaded.", sceneAssetName));
+                Log.Fatal(Utility.Text.Format("Scene asset '{0}' is already loaded.", sceneAssetName));
+                return;
             }
 
             LoadingSceneAssetNames.Add(sceneAssetName);
@@ -226,21 +236,25 @@ namespace EPloy
         {
             if (string.IsNullOrEmpty(sceneAssetName))
             {
-                throw new EPloyException("Scene asset name is invalid.");
+                Log.Fatal("Scene asset name is invalid.");
+                return;
             }
             if (SceneIsUnloading(sceneAssetName))
             {
-                throw new EPloyException(Utility.Text.Format("Scene asset '{0}' is being unloaded.", sceneAssetName));
+                Log.Fatal(Utility.Text.Format("Scene asset '{0}' is being unloaded.", sceneAssetName));
+                return;
             }
 
             if (SceneIsLoading(sceneAssetName))
             {
-                throw new EPloyException(Utility.Text.Format("Scene asset '{0}' is being loaded.", sceneAssetName));
+                Log.Fatal(Utility.Text.Format("Scene asset '{0}' is being loaded.", sceneAssetName));
+                return;
             }
 
             if (!SceneIsLoaded(sceneAssetName))
             {
-                throw new EPloyException(Utility.Text.Format("Scene asset '{0}' is not loaded yet.", sceneAssetName));
+                Log.Fatal(Utility.Text.Format("Scene asset '{0}' is not loaded yet.", sceneAssetName));
+                return;
             }
 
             UnloadingSceneAssetNames.Add(sceneAssetName);
@@ -257,7 +271,7 @@ namespace EPloy
         {
             LoadingSceneAssetNames.Remove(sceneAssetName);
             string appendErrorMessage = Utility.Text.Format("Load scene failure, scene asset name '{0}', status '{1}', error message '{2}'.", sceneAssetName, status.ToString(), errorMessage);
-            throw new EPloyException(appendErrorMessage);
+            Log.Fatal(appendErrorMessage);
         }
 
         private void LoadSceneDependencyAssetCallback(string sceneAssetName, string dependencyAssetName, int loadedCount, int totalCount)
@@ -274,7 +288,7 @@ namespace EPloy
         private void UnloadSceneFailureCallback(string sceneAssetName)
         {
             UnloadingSceneAssetNames.Remove(sceneAssetName);
-            throw new EPloyException(Utility.Text.Format("Unload scene failure, scene asset name '{0}'.", sceneAssetName));
+            Log.Fatal(Utility.Text.Format("Unload scene failure, scene asset name '{0}'.", sceneAssetName));
         }
     }
 }

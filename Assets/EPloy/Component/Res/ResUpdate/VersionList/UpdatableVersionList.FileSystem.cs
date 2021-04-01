@@ -1,4 +1,4 @@
-﻿namespace  EPloy.Res
+﻿namespace EPloy.Res
 {
     public partial struct UpdatableVersionList
     {
@@ -21,7 +21,7 @@
             {
                 if (name == null)
                 {
-                    throw new EPloyException("Name is invalid.");
+                    Log.Fatal("Name is invalid.");
                 }
 
                 m_Name = name;

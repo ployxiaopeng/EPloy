@@ -45,7 +45,8 @@ namespace EPloy.SystemFile
                 int length = Utility.Converter.GetBytes(value, s_CachedBytes);
                 if (length > byte.MaxValue)
                 {
-                    throw new EPloyException(Utility.Text.Format("String '{0}' is too long.", value));
+                    Log.Fatal(Utility.Text.Format("String '{0}' is too long.", value));
+                    return default(StringData);
                 }
 
                 Utility.Encryption.GetSelfXorBytes(s_CachedBytes, encryptBytes);

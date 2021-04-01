@@ -23,7 +23,8 @@ namespace EPloy
             {
                 if (bytes == null)
                 {
-                    throw new EPloyException("Bytes is invalid.");
+                    Log.Fatal("Bytes is invalid.");
+                    return null;
                 }
 
                 return Compress(bytes, 0, bytes.Length);
@@ -39,7 +40,8 @@ namespace EPloy
             {
                 if (bytes == null)
                 {
-                    throw new EPloyException("Bytes is invalid.");
+                    Log.Fatal("Bytes is invalid.");
+                    return false;
                 }
 
                 return Compress(bytes, 0, bytes.Length, compressedStream);
@@ -176,7 +178,8 @@ namespace EPloy
             {
                 if (bytes == null)
                 {
-                    throw new EPloyException("Bytes is invalid.");
+                    Log.Fatal("Bytes is invalid.");
+                    return null;
                 }
 
                 return Decompress(bytes, 0, bytes.Length);
@@ -192,7 +195,8 @@ namespace EPloy
             {
                 if (bytes == null)
                 {
-                    throw new EPloyException("Bytes is invalid.");
+                    Log.Fatal("Bytes is invalid.");
+                    return false;
                 }
 
                 return Decompress(bytes, 0, bytes.Length, decompressedStream);

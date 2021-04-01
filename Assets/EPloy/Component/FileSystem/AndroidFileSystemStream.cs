@@ -24,19 +24,22 @@ namespace EPloy
             AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             if (unityPlayer == null)
             {
-                throw new EPloyException("Unity player is invalid.");
+                Log.Fatal("Unity player is invalid.");
+                return;
             }
 
             AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
             if (currentActivity == null)
             {
-                throw new EPloyException("Current activity is invalid.");
+                Log.Fatal("Current activity is invalid.");
+                return;
             }
 
             AndroidJavaObject assetManager = currentActivity.Call<AndroidJavaObject>("getAssets");
             if (assetManager == null)
             {
-                throw new EPloyException("Asset manager is invalid.");
+                Log.Fatal("Asset manager is invalid.");
+                return;
             }
 
             s_AssetManager = assetManager;
@@ -60,30 +63,35 @@ namespace EPloy
         {
             if (string.IsNullOrEmpty(fullPath))
             {
-                throw new EPloyException("Full path is invalid.");
+                Log.Fatal("Full path is invalid.");
+                return;
             }
 
             if (access != FileSystemAccess.Read)
             {
-                throw new EPloyException(Utility.Text.Format("'{0}' is not supported in AndroidFileSystemStream.", access.ToString()));
+                Log.Fatal(Utility.Text.Format("'{0}' is not supported in AndroidFileSystemStream.", access.ToString()));
+                return;
             }
 
             if (createNew)
             {
-                throw new EPloyException("Create new is not supported in AndroidFileSystemStream.");
+                Log.Fatal("Create new is not supported in AndroidFileSystemStream.");
+                return;
             }
 
             int position = fullPath.LastIndexOf(SplitFlag, StringComparison.Ordinal);
             if (position < 0)
             {
-                throw new EPloyException("Can not find split flag in full path.");
+                Log.Fatal("Can not find split flag in full path.");
+                return;
             }
 
             string fileName = fullPath.Substring(position + SplitFlagLength);
             m_FileStream = InternalOpen(fileName);
             if (m_FileStream == null)
             {
-                throw new EPloyException(Utility.Text.Format("Open file '{0}' from Android asset manager failure.", fullPath));
+                Log.Fatal(Utility.Text.Format("Open file '{0}' from Android asset manager failure.", fullPath));
+                return;
             }
 
             m_FileStreamRawObject = m_FileStream.GetRawObject();
@@ -96,7 +104,8 @@ namespace EPloy
         {
             get
             {
-                throw new EPloyException("Get position is not supported in AndroidFileSystemStream.");
+                Log.Fatal("Get position is not supported in AndroidFileSystemStream.");
+                return 0;
             }
             set
             {
@@ -121,7 +130,7 @@ namespace EPloy
         /// <param name="length">要设置的文件系统流的长度。</param>
         protected override internal void SetLength(long length)
         {
-            throw new EPloyException("SetLength is not supported in AndroidFileSystemStream.");
+            Log.Fatal("SetLength is not supported in AndroidFileSystemStream.");
         }
 
         /// <summary>
@@ -158,7 +167,7 @@ namespace EPloy
         /// 从文件系统流中读取一个字节。
         /// </summary>
         /// <returns>读取的字节，若已经到达文件结尾，则返回 -1。</returns>
-        protected override internal  int ReadByte()
+        protected override internal int ReadByte()
         {
             return InternalRead();
         }
@@ -184,7 +193,7 @@ namespace EPloy
         /// <param name="value">要写入的字节。</param>
         protected override internal void WriteByte(byte value)
         {
-            throw new EPloyException("WriteByte is not supported in AndroidFileSystemStream.");
+            Log.Fatal("WriteByte is not supported in AndroidFileSystemStream.");
         }
 
         /// <summary>
@@ -195,7 +204,7 @@ namespace EPloy
         /// <param name="length">存储写入文件内容的二进制流的长度。</param>
         protected override internal void Write(byte[] buffer, int startIndex, int length)
         {
-            throw new EPloyException("Write is not supported in AndroidFileSystemStream.");
+            Log.Fatal("Write is not supported in AndroidFileSystemStream.");
         }
 
         /// <summary>
@@ -203,7 +212,7 @@ namespace EPloy
         /// </summary>
         protected override internal void Flush()
         {
-            throw new EPloyException("Flush is not supported in AndroidFileSystemStream.");
+            Log.Fatal("Flush is not supported in AndroidFileSystemStream.");
         }
 
         /// <summary>

@@ -121,7 +121,7 @@
             {
                 if (string.IsNullOrEmpty(name))
                 {
-                    throw new EPloyException("Name is invalid.");
+                    Log.Fatal("Name is invalid.");
                 }
 
                 Name = name;
@@ -169,7 +169,7 @@
             {
                 if (name == null)
                 {
-                    throw new EPloyException("Name is invalid.");
+                     Log.Fatal("Name is invalid.");
                 }
 
                 Name = name;

@@ -32,7 +32,8 @@ namespace EPloy
             {
                 if (ensureSize < 0)
                 {
-                    throw new EPloyException("Ensure size is invalid.");
+                    Log.Fatal("Ensure size is invalid.");
+                    return;
                 }
 
                 if (s_CachedHGlobalPtr == IntPtr.Zero || s_CachedHGlobalSize < ensureSize)
@@ -75,11 +76,12 @@ namespace EPloy
             /// <param name="structure">要转换的对象。</param>
             /// <param name="structureSize">要转换的对象的大小。</param>
             /// <returns>存储转换结果的二进制流。</returns>
-            internal static byte[] StructureToBytes<T>(T structure, int structureSize)
+            public static byte[] StructureToBytes<T>(T structure, int structureSize)
             {
                 if (structureSize < 0)
                 {
-                    throw new EPloyException("Structure size is invalid.");
+                    Log.Fatal("Structure size is invalid.");
+                    return null;
                 }
 
                 EnsureCachedHGlobalSize(structureSize);
@@ -107,7 +109,7 @@ namespace EPloy
             /// <param name="structure">要转换的对象。</param>
             /// <param name="structureSize">要转换的对象的大小。</param>
             /// <param name="result">存储转换结果的二进制流。</param>
-            internal static void StructureToBytes<T>(T structure, int structureSize, byte[] result)
+            public static void StructureToBytes<T>(T structure, int structureSize, byte[] result)
             {
                 StructureToBytes(structure, structureSize, result, 0);
             }
@@ -132,26 +134,30 @@ namespace EPloy
             /// <param name="structureSize">要转换的对象的大小。</param>
             /// <param name="result">存储转换结果的二进制流。</param>
             /// <param name="startIndex">写入存储转换结果的二进制流的起始位置。</param>
-            internal static void StructureToBytes<T>(T structure, int structureSize, byte[] result, int startIndex)
+            public static void StructureToBytes<T>(T structure, int structureSize, byte[] result, int startIndex)
             {
                 if (structureSize < 0)
                 {
-                    throw new EPloyException("Structure size is invalid.");
+                    Log.Fatal("Structure size is invalid.");
+                    return;
                 }
 
                 if (result == null)
                 {
-                    throw new EPloyException("Result is invalid.");
+                    Log.Fatal("Result is invalid.");
+                    return;
                 }
 
                 if (startIndex < 0)
                 {
-                    throw new EPloyException("Start index is invalid.");
+                    Log.Fatal("Start index is invalid.");
+                    return;
                 }
 
                 if (startIndex + structureSize > result.Length)
                 {
-                    throw new EPloyException("Result length is not enough.");
+                    Log.Fatal("Result length is not enough.");
+                    return;
                 }
 
                 EnsureCachedHGlobalSize(structureSize);
@@ -189,7 +195,7 @@ namespace EPloy
             /// <param name="structureSize">要转换的对象的大小。</param>
             /// <param name="buffer">要转换的二进制流。</param>
             /// <returns>存储转换结果的对象。</returns>
-            internal static T BytesToStructure<T>(int structureSize, byte[] buffer)
+            public static T BytesToStructure<T>(int structureSize, byte[] buffer)
             {
                 return BytesToStructure<T>(structureSize, buffer, 0);
             }
@@ -202,26 +208,30 @@ namespace EPloy
             /// <param name="buffer">要转换的二进制流。</param>
             /// <param name="startIndex">读取要转换的二进制流的起始位置。</param>
             /// <returns>存储转换结果的对象。</returns>
-            internal static T BytesToStructure<T>(int structureSize, byte[] buffer, int startIndex)
+            public static T BytesToStructure<T>(int structureSize, byte[] buffer, int startIndex)
             {
                 if (structureSize < 0)
                 {
-                    throw new EPloyException("Structure size is invalid.");
+                    Log.Fatal("Structure size is invalid.");
+                    return default(T);
                 }
 
                 if (buffer == null)
                 {
-                    throw new EPloyException("Buffer is invalid.");
+                    Log.Fatal("Buffer is invalid.");
+                    return default(T);
                 }
 
                 if (startIndex < 0)
                 {
-                    throw new EPloyException("Start index is invalid.");
+                    Log.Fatal("Start index is invalid.");
+                    return default(T);
                 }
 
                 if (startIndex + structureSize > buffer.Length)
                 {
-                    throw new EPloyException("Buffer length is not enough.");
+                    Log.Fatal("Buffer length is not enough.");
+                    return default(T);
                 }
 
                 EnsureCachedHGlobalSize(structureSize);

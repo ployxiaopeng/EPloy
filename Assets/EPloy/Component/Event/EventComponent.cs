@@ -103,7 +103,8 @@ namespace EPloy
         {
             if (handler == null)
             {
-                throw new EPloyException("Event handler is invalid.");
+                Log.Fatal("Event handler is invalid.");
+                return false;
             }
 
             return m_EventHandlers.Contains(evtId, handler);
@@ -114,15 +115,17 @@ namespace EPloy
         /// </summary>
         /// <param name="id">事件类型编号。</param>
         /// <param name="handler">要订阅的事件处理函数。</param>
-        public void Subscribe(int evtId,EventHandler<EventArg> handler)
+        public void Subscribe(int evtId, EventHandler<EventArg> handler)
         {
             if (handler == null)
             {
-                throw new EPloyException("Event handler is invalid.");
+                Log.Fatal("Event handler is invalid.");
+                return;
             }
             else if (Check(evtId, handler))
             {
-                throw new EPloyException(Utility.Text.Format("Event '{0}' not allow duplicate handler.", evtId.ToString()));
+                Log.Fatal(Utility.Text.Format("Event '{0}' not allow duplicate handler.", evtId.ToString()));
+                return;
             }
             else
             {
@@ -135,15 +138,17 @@ namespace EPloy
         /// </summary>
         /// <param name="id">事件类型编号。</param>
         /// <param name="handler">要取消订阅的事件处理函数。</param>
-        public void Unsubscribe(int evtId,EventHandler<EventArg> handler)
+        public void Unsubscribe(int evtId, EventHandler<EventArg> handler)
         {
             if (handler == null)
             {
-                throw new EPloyException("Event handler is invalid.");
+                Log.Fatal("Event handler is invalid.");
+                return;
             }
             if (!m_EventHandlers.Remove(evtId, handler))
             {
-                throw new EPloyException(Utility.Text.Format("Event '{0}' not exists specified handler.", evtId.ToString()));
+                Log.Fatal(Utility.Text.Format("Event '{0}' not exists specified handler.", evtId.ToString()));
+                return;
             }
         }
 
@@ -156,7 +161,8 @@ namespace EPloy
         {
             if (eventArg == null)
             {
-                throw new EPloyException("Event is invalid.");
+                Log.Fatal("Event is invalid.");
+                return;
             }
 
             Event eventNode = Event.Create(eventArg);
@@ -175,7 +181,8 @@ namespace EPloy
         {
             if (eventArg == null)
             {
-                throw new EPloyException("Event is invalid.");
+                Log.Fatal("Event is invalid.");
+                return;
             }
 
             HandleEvent(eventArg);
@@ -205,7 +212,7 @@ namespace EPloy
 
             if (noHandlerException)
             {
-                throw new EPloyException(Utility.Text.Format("Event '{0}' not allow no handler.", eventArg.GetType()));
+                Log.Fatal(Utility.Text.Format("Event '{0}' not allow no handler.", eventArg.GetType()));
             }
         }
     }

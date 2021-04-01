@@ -25,12 +25,14 @@ namespace EPloy.Res
         {
             if (dependAssets == null)
             {
-                throw new EPloyException("Dependency assets is invalid.");
+                Log.Fatal("Dependency assets is invalid.");
+                return null;
             }
 
             if (res == null)
             {
-                throw new EPloyException("Resource is invalid.");
+                Log.Fatal("Resource is invalid.");
+                return null;
             }
 
             AssetObject assetObject = ReferencePool.Acquire<AssetObject>();

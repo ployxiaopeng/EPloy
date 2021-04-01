@@ -82,7 +82,7 @@ namespace EPloy
                 m_SpawnCount--;
                 if (m_SpawnCount < 0)
                 {
-                    throw new EPloyException(Utility.Text.Format("Object '{0}' spawn count is less than 0.", Name));
+                   Log.Fatal(Utility.Text.Format("Object '{0}' spawn count is less than 0.", Name));
                 }
             }
 

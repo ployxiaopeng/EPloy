@@ -6,9 +6,9 @@ namespace EPloy
     public static class GameStart
     {
         public static bool isEditorRes = true;
-        public static MonoBehaviour InitMono;
+        public static Init InitMono;
 
-        public static void Awake(MonoBehaviour mono)
+        public static void Awake(Init mono)
         {
             InitMono = mono;
             Log.Info("HotFix Awake");
@@ -16,7 +16,7 @@ namespace EPloy
 
         public static void Start()
         {
-            GameEntry.GameSystem.Add(Config.HotFixDllName, typeof(GameStart).Assembly);
+            GameEntry.GameSystem.Add(Config.HotFixDllName, Init.ILRuntimeMgr.GetHotfixTypes);
 
             GameEntry.FileSystem = GameEntry.Game.AddComponent<FileSystemComponent>();
             GameEntry.ObjectPool = GameEntry.Game.AddComponent<ObjectPoolComponent>();
@@ -27,13 +27,13 @@ namespace EPloy
             GameEntry.UI = GameEntry.Game.AddComponent<UIComponent>();
 
 
+
             GameEntry.UI.OpenUIForm(UIName.StartUI, GroupName.Default);
         }
 
         public static void Update()
         {
             GameEntry.GameSystem.Update();
-            Log.Info("HotFix Update");
         }
         public static void LateUpdate()
         {

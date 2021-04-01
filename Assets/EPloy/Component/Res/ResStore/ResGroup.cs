@@ -22,12 +22,14 @@ namespace EPloy.Res
         {
             if (name == null)
             {
-                throw new EPloyException("Name is invalid.");
+                Log.Fatal("Name is invalid.");
+                return;
             }
 
             if (resourceInfos == null)
             {
-                throw new EPloyException("Resource infos is invalid.");
+                Log.Fatal("Resource infos is invalid.");
+                return;
             }
 
             m_Name = name;
@@ -167,7 +169,8 @@ namespace EPloy.Res
         {
             if (results == null)
             {
-                throw new EPloyException("Results is invalid.");
+                Log.Fatal("Results is invalid.");
+                return;
             }
 
             results.Clear();
@@ -201,7 +204,8 @@ namespace EPloy.Res
         {
             if (results == null)
             {
-                throw new EPloyException("Results is invalid.");
+               Log.Fatal("Results is invalid.");
+               return;
             }
 
             results.Clear();

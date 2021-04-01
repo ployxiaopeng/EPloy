@@ -185,7 +185,8 @@
             {
                 if (VersionInfo.Exist)
                 {
-                    throw new EPloyException(Utility.Text.Format("You must set version info of '{0}' only once.", ResName.FullName));
+                    Log.Fatal(Utility.Text.Format("You must set version info of '{0}' only once.", ResName.FullName));
+                    return;
                 }
 
                 VersionInfo = new RemoteVersionInfo(CachedFileSystemName, loadType, length, hashCode, zipLength, zipHashCode);
@@ -202,7 +203,8 @@
             {
                 if (ReadWriteInfo.Exist)
                 {
-                    throw new EPloyException(Utility.Text.Format("You must set read-write info of '{0}' only once.", ResName.FullName));
+                    Log.Fatal(Utility.Text.Format("You must set read-write info of '{0}' only once.", ResName.FullName));
+                    return;
                 }
 
                 ReadWriteInfo = new LocalVersionInfo(CachedFileSystemName, loadType, length, hashCode);

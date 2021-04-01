@@ -145,7 +145,8 @@ namespace EPloy.Res
                             IFileSystem fileSystem = ResUpdater.GetFileSystem(ci.ReadWriteFileSystemName, false);
                             if (!fileSystem.SaveAsFile(resourceFullName, resourcePath))
                             {
-                                throw new EPloyException(Utility.Text.Format("Save as file '{0}' to '{1}' from file system '{2}' error.", resourceFullName, fileSystem.FullPath));
+                                Log.Fatal(Utility.Text.Format("Save as file '{0}' to '{1}' from file system '{2}' error.", resourceFullName, fileSystem.FullPath));
+                                return;
                             }
 
                             fileSystem.DeleteFile(resourceFullName);
@@ -156,7 +157,8 @@ namespace EPloy.Res
                             IFileSystem fileSystem = ResUpdater.GetFileSystem(ci.FileSystemName, false);
                             if (!fileSystem.WriteFile(resourceFullName, resourcePath))
                             {
-                                throw new EPloyException(Utility.Text.Format("Write resource '{0}' to file system '{1}' error.", resourceFullName, fileSystem.FullPath));
+                                Log.Fatal(Utility.Text.Format("Write resource '{0}' to file system '{1}' error.", resourceFullName, fileSystem.FullPath));
+                                return;
                             }
 
                             if (File.Exists(resourcePath))
@@ -183,7 +185,7 @@ namespace EPloy.Res
                 }
                 else
                 {
-                    throw new EPloyException(Utility.Text.Format("Check resources '{0}' error with unknown status.", ci.ResName.FullName));
+                    Log.Fatal(Utility.Text.Format("Check resources '{0}' error with unknown status.", ci.ResName.FullName));
                 }
 
                 if (ci.NeedRemove)
@@ -275,7 +277,8 @@ namespace EPloy.Res
         {
             if (UpdatableVersionListReady)
             {
-                throw new EPloyException("Updatable version list has been parsed.");
+                Log.Fatal("Updatable version list has been parsed.");
+                return;
             }
 
             MemoryStream memoryStream = null;
@@ -285,7 +288,8 @@ namespace EPloy.Res
                 UpdatableVersionList versionList = ResStore.UpdatableVersionListSerializer.Deserialize(memoryStream);
                 if (!versionList.IsValid)
                 {
-                    throw new EPloyException("Deserialize updatable version list failure.");
+                    Log.Fatal("Deserialize updatable version list failure.");
+                    return;
                 }
 
                 UpdatableVersionList.Asset[] assets = versionList.GetAssets();
@@ -294,8 +298,8 @@ namespace EPloy.Res
                 UpdatableVersionList.ResourceGroup[] resourceGroups = versionList.GetResourceGroups();
                 ResStore.SetResVersion(versionList.ApplicableGameVersion, versionList.InternalResourceVersion);
                 ResStore.VersionInfos = new Dictionary<string, AssetInfo>(assets.Length, StringComparer.Ordinal);
-                ResStore.ResInfos = new Dictionary<ResName, ResInfo>(resources.Length, new ResNameComparer());
-                ResStore.ReadWriteResInfos = new SortedDictionary<ResName, ReadWriteResInfo>(new ResNameComparer());
+                // ResStore.ResInfos = new Dictionary<ResName, ResInfo>(resources.Length, new ResNameComparer());
+                // ResStore.ReadWriteResInfos = new SortedDictionary<ResName, ReadWriteResInfo>(new ResNameComparer());
                 ResGroup defaultResourceGroup = ResStore.GetOrAddResourceGroup(string.Empty);
 
                 foreach (UpdatableVersionList.FileSystem fileSystem in fileSystems)
@@ -361,12 +365,7 @@ namespace EPloy.Res
             }
             catch (Exception exception)
             {
-                if (exception is EPloyException)
-                {
-                    throw;
-                }
-
-                throw new EPloyException(Utility.Text.Format("Parse updatable version list exception '{0}'.", exception.ToString()), exception);
+                Log.Fatal(Utility.Text.Format("Parse updatable version list exception '{0}'.", exception.ToString()));
             }
             finally
             {
@@ -380,14 +379,15 @@ namespace EPloy.Res
 
         private void OnLoadUpdatableVersionListFailure(string fileUri, string errorMessage)
         {
-            throw new EPloyException(Utility.Text.Format("Updatable version list '{0}' is invalid, error message is '{1}'.", fileUri, string.IsNullOrEmpty(errorMessage) ? "<Empty>" : errorMessage));
+            Log.Fatal(Utility.Text.Format("Updatable version list '{0}' is invalid, error message is '{1}'.", fileUri, string.IsNullOrEmpty(errorMessage) ? "<Empty>" : errorMessage));
         }
 
         private void OnLoadReadWriteVersionListSuccess(string fileUri, byte[] bytes, float duration)
         {
             if (ReadWriteVersionListReady)
             {
-                throw new EPloyException("Read write version list has been parsed.");
+                Log.Fatal("Read write version list has been parsed.");
+                return;
             }
 
             MemoryStream memoryStream = null;
@@ -397,7 +397,7 @@ namespace EPloy.Res
                 LocalVersionList versionList = ResStore.LocalVersionListSerializer.Deserialize(memoryStream);
                 if (!versionList.IsValid)
                 {
-                    throw new EPloyException("Deserialize read write version list failure.");
+                    Log.Fatal("Deserialize read write version list failure.");
                 }
 
                 foreach (LocalVersionList.FileSystem fileSystem in versionList.FileSystems)
@@ -420,12 +420,7 @@ namespace EPloy.Res
             }
             catch (Exception exception)
             {
-                if (exception is EPloyException)
-                {
-                    throw;
-                }
-
-                throw new EPloyException(Utility.Text.Format("Parse read write version list exception '{0}'.", exception.ToString()), exception);
+                Log.Fatal(Utility.Text.Format("Parse read write version list exception '{0}'.", exception.ToString()));
             }
             finally
             {
@@ -441,7 +436,8 @@ namespace EPloy.Res
         {
             if (ReadWriteVersionListReady)
             {
-                throw new EPloyException("Read write version list has been parsed.");
+                Log.Fatal("Read write version list has been parsed.");
+                return;
             }
 
             ReadWriteVersionListReady = true;

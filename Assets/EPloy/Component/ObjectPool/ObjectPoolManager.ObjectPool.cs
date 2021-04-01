@@ -58,7 +58,8 @@ namespace EPloy
                 {
                     if (value < 0)
                     {
-                        throw new EPloyException("Capacity is invalid.");
+                        Log.Fatal("Capacity is invalid.");
+                        return;
                     }
 
                     if (m_Capacity == value)
@@ -110,7 +111,8 @@ namespace EPloy
                 {
                     if (value < 0f)
                     {
-                        throw new EPloyException("ExpireTime is invalid.");
+                        Log.Fatal("ExpireTime is invalid.");
+                        return;
                     }
 
                     if (ExpireTime == value)
@@ -148,7 +150,8 @@ namespace EPloy
             {
                 if (obj == null)
                 {
-                    throw new EPloyException("Object is invalid.");
+                    Log.Fatal("Object is invalid.");
+                    return;
                 }
 
                 Object internalObject = ReferencePool.Acquire<Object>();
@@ -215,7 +218,8 @@ namespace EPloy
             {
                 if (target == null)
                 {
-                    throw new EPloyException("Target is invalid.");
+                    Log.Fatal("Target is invalid.");
+                    return;
                 }
 
                 Object internalObject = GetObject(target);
@@ -229,7 +233,7 @@ namespace EPloy
                 }
                 else
                 {
-                    throw new EPloyException(Utility.Text.Format("Can not find target in object pool '{0}', target type is '{1}', target value is '{2}'.", new TypeNamePair(target.GetType(), Name).ToString(), target.GetType().FullName, target.ToString()));
+                    Log.Fatal(Utility.Text.Format("Can not find target in object pool '{0}', target type is '{1}', target value is '{2}'.", new TypeNamePair(target.GetType(), Name).ToString(), target.GetType().FullName, target.ToString()));
                 }
             }
 
@@ -280,13 +284,15 @@ namespace EPloy
             {
                 if (target == null)
                 {
-                    throw new EPloyException("Target is invalid.");
+                    Log.Fatal("Target is invalid.");
+                    return false;
                 }
 
                 Object internalObject = GetObject(target);
                 if (internalObject == null)
                 {
-                    throw new EPloyException("Can not release object which is not found.");
+                    Log.Fatal("Can not release object which is not found.");
+                    return false;
                 }
 
                 if (internalObject.IsInUse)
@@ -323,7 +329,8 @@ namespace EPloy
             {
                 if (target == null)
                 {
-                    throw new EPloyException("Target is invalid.");
+                    Log.Fatal("Target is invalid.");
+                    return null;
                 }
 
                 Object internalObject = null;
@@ -338,7 +345,8 @@ namespace EPloy
             {
                 if (results == null)
                 {
-                    throw new EPloyException("Results is invalid.");
+                    Log.Fatal("Results is invalid.");
+                    return;
                 }
 
                 results.Clear();

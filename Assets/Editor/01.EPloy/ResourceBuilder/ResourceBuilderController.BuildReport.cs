@@ -41,7 +41,8 @@ namespace EPloy.Editor.ResourceTools
             {
                 if (string.IsNullOrEmpty(buildReportPath))
                 {
-                    throw new EPloyException("Build report path is invalid.");
+                    Log.Fatal("Build report path is invalid.");
+                    return;
                 }
 
                 m_BuildReportName = Utility.Path.GetRegularPath(Path.Combine(buildReportPath, BuildReportName));
@@ -167,7 +168,7 @@ namespace EPloy.Editor.ResourceTools
                     }
 
                     xmlAttribute = xmlDocument.CreateAttribute("Extension");
-                   // xmlAttribute.Value = GetExtension(resourceData);
+                    // xmlAttribute.Value = GetExtension(resourceData);
                     xmlResource.Attributes.SetNamedItem(xmlAttribute);
 
                     xmlAttribute = xmlDocument.CreateAttribute("LoadType");

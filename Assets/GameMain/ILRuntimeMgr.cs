@@ -1,13 +1,15 @@
 ﻿using ILRuntime.CLR.Method;
 using ILRuntime.CLR.TypeSystem;
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.Networking;
 using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
+using PdbReaderProvider = ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider;
 
 namespace EPloy
 {
@@ -28,7 +30,6 @@ namespace EPloy
             return instance;
         }
 
-        // public static string HotfixDLLAsset = string.Format("Assets/Res/HotfixDLL/{0}.bytes");
         private const string HotfixName = "EPloy";
         private const string GameStartStr = "EPloy.GameStart";
         private const string AwakeStr = "Awake";
@@ -44,7 +45,7 @@ namespace EPloy
         private Assembly editorAssembly;
 
         private bool IsILRuntime;
-        private List<Type> Types;
+        private Type[] Types;
         private IMethod hUpdate;
         private IMethod hLateUpdate;
         private IMethod hFixUpdate;
@@ -85,38 +86,7 @@ namespace EPloy
             }
             AppDomain = new AppDomain();
             ILRuntimeHelper.InitILRuntime(AppDomain);
-            StartLoad();
-        }
-
-        /// <summary>
-        /// 加载热更新DLL
-        /// </summary>
-        private void StartLoad()
-        {
-            if (!IsILRuntime)
-            {
-                Debug.LogError("ERR: is not Editor module in mobile platform");
-                return;
-            }
-            // TextAsset dllAsset = await Init.Resource.AwaitLoadAsset<TextAsset>(AssetUtility.GetHotfixDLLAsset("Hotfix.dll"));
-            // byte[] dll = dllAsset.bytes;
-            // Debug.Log("hotfix dll加载完毕");
-
-#if  UNITY_EDITOR
-            // TextAsset pdbAsset = await Init.Resource.AwaitLoadAsset<TextAsset>(AssetUtility.GetHotfixDLLAsset("Hotfix.pdb"));
-            // byte[] pdb = pdbAsset.bytes;
-            // Debug.Log("hotfix pdb加载完毕");
-
-            // AppDomain.LoadAssembly(new MemoryStream(dll), new MemoryStream(pdb), new Mono.Cecil.Pdb.PdbReaderProvider());
-
-            //启动调试服务器
-            AppDomain.DebugService.StartDebugService(56000);
-            //设置Unity主线程ID 这样就可以用Profiler看性能消耗了
-            AppDomain.UnityMainThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
-#else
-            AppDomain.LoadAssembly(new MemoryStream(dll));
-#endif
-            Init.instance.StartCoroutine(HotfixStart());
+            Init.instance.StartCoroutine(LoadHotfixDll());
         }
 
         public void Update()
@@ -170,13 +140,63 @@ namespace EPloy
         /// <summary>
         /// 获取所有热更新层类的Type对象
         /// </summary>
-        public List<Type> GetHotfixTypes
+        public Type[] GetHotfixTypes
         {
             get
             {
-                if (Types == null) Types = AppDomain.LoadedTypes.Values.Select(x => x.ReflectionType).ToList();
+                if (Types == null) Types = AppDomain.LoadedTypes.Values.Select(x => x.ReflectionType).ToArray();
                 return Types;
             }
+        }
+
+        private IEnumerator LoadHotfixDll()
+        {
+            if (!IsILRuntime)
+            {
+                Debug.LogError("ERR: is not Editor module in mobile platform");
+                yield break; ;
+            }
+
+            # region 加载  Hotfix.dll
+            bool isError = false;
+            UnityWebRequest hotfixDllRequest = UnityWebRequest.Get(GetHotfixAsset("Hotfix.dll"));
+            yield return hotfixDllRequest.SendWebRequest();
+            isError = hotfixDllRequest.isNetworkError || hotfixDllRequest.isHttpError;
+            if (isError)
+            {
+                Debug.LogError("load hotfixDll err : " + hotfixDllRequest.error);
+                yield break; ;
+            }
+            byte[] hotfixDll = hotfixDllRequest.downloadHandler.data;
+            hotfixDllRequest.Dispose();
+            Debug.Log("hotfix dll加载完毕");
+            #endregion
+
+            #region 加载  Hotfix.pdb
+#if UNITY_EDITOR
+            UnityWebRequest pdbRequest = UnityWebRequest.Get(GetHotfixAsset("Hotfix.pdb"));
+            yield return pdbRequest.SendWebRequest();
+            isError = pdbRequest.isNetworkError || pdbRequest.isHttpError;
+            if (isError)
+            {
+                Debug.LogError("load hotfix pdb err : " + pdbRequest.error);
+                yield break; ;
+            }
+            byte[] hotfixPbd = pdbRequest.downloadHandler.data;
+            pdbRequest.Dispose();
+            Debug.Log("hotfix pdb加载完毕");
+
+            AppDomain.LoadAssembly(new MemoryStream(hotfixDll), new MemoryStream(hotfixPbd), new PdbReaderProvider());
+            //启动调试服务器
+            AppDomain.DebugService.StartDebugService(56000);
+            //设置Unity主线程ID 这样就可以用Profiler看性能消耗了
+            AppDomain.UnityMainThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
+#else
+            AppDomain.LoadAssembly(new MemoryStream(hotfixDll));
+#endif
+            #endregion
+
+            Init.instance.StartCoroutine(HotfixStart());
         }
 
         /// <summary>
@@ -187,18 +207,18 @@ namespace EPloy
             yield return null;
             IType type = AppDomain.LoadedTypes[GameStartStr];
 
-            AppDomain.Invoke(GameStartStr, AwakeStr, null, null);
+            AppDomain.Invoke(GameStartStr, AwakeStr, null, new[] { Init.instance });
             AppDomain.Invoke(GameStartStr, StartStr, null, null);
             hUpdate = type.GetMethod(UpdateStr, 0);
             hLateUpdate = type.GetMethod(LateUpdateStr, 0);
-            instance.OpenHotfixUpdate = true;
+            OpenHotfixUpdate = true;
         }
 
 #if UNITY_EDITOR
         private IEnumerator EditorHotfixStart()
         {
             editorAssembly = Assembly.Load(HotfixName);
-            Types = editorAssembly.GetTypes().ToList();
+            Types = editorAssembly.GetTypes().ToArray();
             Type type = editorAssembly.GetType(GameStartStr);
             MethodInfo awake = type.GetMethod(AwakeStr, BindingFlags.Public | BindingFlags.Static);
             awake.Invoke(null, new[] { Init.instance });
@@ -211,5 +231,14 @@ namespace EPloy
             instance.OpenHotfixUpdate = true;
         }
 #endif
+
+        private string GetHotfixAsset(string name)
+        {
+#if UNITY_EDITOR
+            return string.Format("{0}/{1}.bytes", Application.streamingAssetsPath, name);
+#else
+            return string.Format("{0}/{1}.bytes", Application.persistentDataPath, name);
+#endif
+        }
     }
 }

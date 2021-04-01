@@ -44,17 +44,20 @@ namespace EPloy.SystemFile
         {
             if (string.IsNullOrEmpty(fullPath))
             {
-                throw new EPloyException("Full path is invalid.");
+                Log.Fatal("Full path is invalid.");
+                return;
             }
 
             if (access == FileSystemAccess.Unspecified)
             {
-                throw new EPloyException("Access is invalid.");
+                Log.Fatal("Access is invalid.");
+                return;
             }
 
             if (stream == null)
             {
-                throw new EPloyException("Stream is invalid.");
+                Log.Fatal("Stream is invalid.");
+                return;
             }
 
             m_FullPath = fullPath;
@@ -131,17 +134,21 @@ namespace EPloy.SystemFile
         {
             if (maxFileCount <= 0)
             {
-                throw new EPloyException("Max file count is invalid.");
+                Log.Fatal("Max file count is invalid.");
+                return null;
             }
 
             if (maxBlockCount <= 0)
             {
-                throw new EPloyException("Max block count is invalid.");
+                Log.Fatal("Max block count is invalid.");
+                return null;
             }
 
             if (maxFileCount > maxBlockCount)
             {
-                throw new EPloyException("Max file count can not larger than max block count.");
+                Log.Fatal("Max file count can not larger than max block count.");
+                return null;
+
             }
 
             FileSystem fileSystem = new FileSystem(fullPath, access, stream);
@@ -234,7 +241,8 @@ namespace EPloy.SystemFile
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Name is invalid.");
+                Log.Fatal("Name is invalid.");
+                return default(FileInfo);
             }
 
             int blockIndex = 0;
@@ -272,7 +280,8 @@ namespace EPloy.SystemFile
         {
             if (results == null)
             {
-                throw new EPloyException("Results is invalid.");
+                Log.Fatal("Results is invalid.");
+                return;
             }
 
             results.Clear();
@@ -292,7 +301,8 @@ namespace EPloy.SystemFile
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Name is invalid.");
+                Log.Fatal("Name is invalid.");
+                return false;
             }
 
             return m_FileDatas.ContainsKey(name);
@@ -307,12 +317,14 @@ namespace EPloy.SystemFile
         {
             if (m_Access != FileSystemAccess.Read && m_Access != FileSystemAccess.ReadWrite)
             {
-                throw new EPloyException("File system is not readable.");
+                Log.Fatal("File system is not readable.");
+                return null;
             }
 
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Name is invalid.");
+                Log.Fatal("Name is invalid.");
+                return null;
             }
 
             FileInfo fileInfo = GetFileInfo(name);
@@ -342,7 +354,8 @@ namespace EPloy.SystemFile
         {
             if (buffer == null)
             {
-                throw new EPloyException("Buffer is invalid.");
+                Log.Fatal("Buffer is invalid.");
+                return 0;
             }
 
             return ReadFile(name, buffer, 0, buffer.Length);
@@ -359,7 +372,8 @@ namespace EPloy.SystemFile
         {
             if (buffer == null)
             {
-                throw new EPloyException("Buffer is invalid.");
+                Log.Fatal("Buffer is invalid.");
+                return 0;
             }
 
             return ReadFile(name, buffer, startIndex, buffer.Length - startIndex);
@@ -377,22 +391,26 @@ namespace EPloy.SystemFile
         {
             if (m_Access != FileSystemAccess.Read && m_Access != FileSystemAccess.ReadWrite)
             {
-                throw new EPloyException("File system is not readable.");
+                Log.Fatal("File system is not readable.");
+                return 0;
             }
 
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Name is invalid.");
+                Log.Fatal("Name is invalid.");
+                return 0;
             }
 
             if (buffer == null)
             {
-                throw new EPloyException("Buffer is invalid.");
+                Log.Fatal("Buffer is invalid.");
+                return 0;
             }
 
             if (startIndex < 0 || length < 0 || startIndex + length > buffer.Length)
             {
-                throw new EPloyException("Start index or length is invalid.");
+                Log.Fatal("Start index or length is invalid.");
+                return 0;
             }
 
             FileInfo fileInfo = GetFileInfo(name);
@@ -425,22 +443,26 @@ namespace EPloy.SystemFile
         {
             if (m_Access != FileSystemAccess.Read && m_Access != FileSystemAccess.ReadWrite)
             {
-                throw new EPloyException("File system is not readable.");
+                Log.Fatal("File system is not readable.");
+                return 0;
             }
 
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Name is invalid.");
+                Log.Fatal("Name is invalid.");
+                return 0;
             }
 
             if (stream == null)
             {
-                throw new EPloyException("Stream is invalid.");
+                Log.Fatal("Stream is invalid.");
+                return 0;
             }
 
             if (!stream.CanWrite)
             {
-                throw new EPloyException("Stream is not writable.");
+                Log.Fatal("Stream is not writable.");
+                return 0;
             }
 
             FileInfo fileInfo = GetFileInfo(name);
@@ -481,22 +503,26 @@ namespace EPloy.SystemFile
         {
             if (m_Access != FileSystemAccess.Read && m_Access != FileSystemAccess.ReadWrite)
             {
-                throw new EPloyException("File system is not readable.");
+                Log.Fatal("File system is not readable.");
+                return null;
             }
 
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Name is invalid.");
+                Log.Fatal("Name is invalid.");
+                return null;
             }
 
             if (offset < 0)
             {
-                throw new EPloyException("Index is invalid.");
+                Log.Fatal("Index is invalid.");
+                return null;
             }
 
             if (length < 0)
             {
-                throw new EPloyException("Length is invalid.");
+                Log.Fatal("Length is invalid.");
+                return null;
             }
 
             FileInfo fileInfo = GetFileInfo(name);
@@ -536,7 +562,8 @@ namespace EPloy.SystemFile
         {
             if (buffer == null)
             {
-                throw new EPloyException("Buffer is invalid.");
+                Log.Fatal("Buffer is invalid.");
+                return 0;
             }
 
             return ReadFileSegment(name, 0, buffer, 0, buffer.Length);
@@ -578,7 +605,8 @@ namespace EPloy.SystemFile
         {
             if (buffer == null)
             {
-                throw new EPloyException("Buffer is invalid.");
+                Log.Fatal("Buffer is invalid.");
+                return 0;
             }
 
             return ReadFileSegment(name, offset, buffer, 0, buffer.Length);
@@ -610,27 +638,32 @@ namespace EPloy.SystemFile
         {
             if (m_Access != FileSystemAccess.Read && m_Access != FileSystemAccess.ReadWrite)
             {
-                throw new EPloyException("File system is not readable.");
+                Log.Fatal("File system is not readable.");
+                return 0;
             }
 
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Name is invalid.");
+                Log.Fatal("Name is invalid.");
+                return 0;
             }
 
             if (offset < 0)
             {
-                throw new EPloyException("Index is invalid.");
+                Log.Fatal("Index is invalid.");
+                return 0;
             }
 
             if (buffer == null)
             {
-                throw new EPloyException("Buffer is invalid.");
+                Log.Fatal("Buffer is invalid.");
+                return 0;
             }
 
             if (startIndex < 0 || length < 0 || startIndex + length > buffer.Length)
             {
-                throw new EPloyException("Start index or length is invalid.");
+                Log.Fatal("Start index or length is invalid.");
+                return 0;
             }
 
             FileInfo fileInfo = GetFileInfo(name);
@@ -683,32 +716,38 @@ namespace EPloy.SystemFile
         {
             if (m_Access != FileSystemAccess.Read && m_Access != FileSystemAccess.ReadWrite)
             {
-                throw new EPloyException("File system is not readable.");
+                Log.Fatal("File system is not readable.");
+                return 0;
             }
 
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Name is invalid.");
+                Log.Fatal("Name is invalid.");
+                return 0;
             }
 
             if (offset < 0)
             {
-                throw new EPloyException("Index is invalid.");
+                Log.Fatal("Index is invalid.");
+                return 0;
             }
 
             if (stream == null)
             {
-                throw new EPloyException("Stream is invalid.");
+                Log.Fatal("Stream is invalid.");
+                return 0;
             }
 
             if (!stream.CanWrite)
             {
-                throw new EPloyException("Stream is not writable.");
+                Log.Fatal("Stream is not writable.");
+                return 0;
             }
 
             if (length < 0)
             {
-                throw new EPloyException("Length is invalid.");
+                Log.Fatal("Length is invalid.");
+                return 0;
             }
 
             FileInfo fileInfo = GetFileInfo(name);
@@ -747,7 +786,8 @@ namespace EPloy.SystemFile
         {
             if (buffer == null)
             {
-                throw new EPloyException("Buffer is invalid.");
+                Log.Fatal("Buffer is invalid.");
+                return false;
             }
 
             return WriteFile(name, buffer, 0, buffer.Length);
@@ -764,7 +804,8 @@ namespace EPloy.SystemFile
         {
             if (buffer == null)
             {
-                throw new EPloyException("Buffer is invalid.");
+                Log.Fatal("Buffer is invalid.");
+                return false;
             }
 
             return WriteFile(name, buffer, startIndex, buffer.Length - startIndex);
@@ -782,27 +823,32 @@ namespace EPloy.SystemFile
         {
             if (m_Access != FileSystemAccess.Write && m_Access != FileSystemAccess.ReadWrite)
             {
-                throw new EPloyException("File system is not writable.");
+                Log.Fatal("File system is not writable.");
+                return false;
             }
 
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Name is invalid.");
+                Log.Fatal("Name is invalid.");
+                return false;
             }
 
             if (name.Length > byte.MaxValue)
             {
-                throw new EPloyException(Utility.Text.Format("Name '{0}' is too long.", name));
+                Log.Fatal(Utility.Text.Format("Name '{0}' is too long.", name));
+                return false;
             }
 
             if (buffer == null)
             {
-                throw new EPloyException("Buffer is invalid.");
+                Log.Fatal("Buffer is invalid.");
+                return false;
             }
 
             if (startIndex < 0 || length < 0 || startIndex + length > buffer.Length)
             {
-                throw new EPloyException("Start index or length is invalid.");
+                Log.Fatal("Start index or length is invalid.");
+                return false;
             }
 
             bool hasFile = false;
@@ -844,27 +890,32 @@ namespace EPloy.SystemFile
         {
             if (m_Access != FileSystemAccess.Write && m_Access != FileSystemAccess.ReadWrite)
             {
-                throw new EPloyException("File system is not writable.");
+                Log.Fatal("File system is not writable.");
+                return false;
             }
 
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Name is invalid.");
+                Log.Fatal("Name is invalid.");
+                return false;
             }
 
             if (name.Length > byte.MaxValue)
             {
-                throw new EPloyException(Utility.Text.Format("Name '{0}' is too long.", name));
+                Log.Fatal(Utility.Text.Format("Name '{0}' is too long.", name));
+                return false;
             }
 
             if (stream == null)
             {
-                throw new EPloyException("Stream is invalid.");
+                Log.Fatal("Stream is invalid.");
+                return false;
             }
 
             if (!stream.CanRead)
             {
-                throw new EPloyException("Stream is not readable.");
+                Log.Fatal("Stream is not readable.");
+                return false;
             }
 
             bool hasFile = false;
@@ -907,7 +958,8 @@ namespace EPloy.SystemFile
         {
             if (string.IsNullOrEmpty(filePath))
             {
-                throw new EPloyException("File path is invalid");
+                Log.Fatal("File path is invalid");
+                return false;
             }
 
             if (!File.Exists(filePath))
@@ -931,17 +983,20 @@ namespace EPloy.SystemFile
         {
             if (m_Access != FileSystemAccess.Read && m_Access != FileSystemAccess.ReadWrite)
             {
-                throw new EPloyException("File system is not readable.");
+                Log.Fatal("File system is not readable.");
+                return false;
             }
 
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Name is invalid.");
+                Log.Fatal("Name is invalid.");
+                return false;
             }
 
             if (string.IsNullOrEmpty(filePath))
             {
-                throw new EPloyException("File path is invalid");
+                Log.Fatal("File path is invalid");
+                return false;
             }
 
             FileInfo fileInfo = GetFileInfo(name);
@@ -991,22 +1046,26 @@ namespace EPloy.SystemFile
         {
             if (m_Access != FileSystemAccess.Write && m_Access != FileSystemAccess.ReadWrite)
             {
-                throw new EPloyException("File system is not writable.");
+                Log.Fatal("File system is not writable.");
+                return false;
             }
 
             if (string.IsNullOrEmpty(oldName))
             {
-                throw new EPloyException("Old name is invalid.");
+                Log.Fatal("Old name is invalid.");
+                return false;
             }
 
             if (string.IsNullOrEmpty(newName))
             {
-                throw new EPloyException("New name is invalid.");
+                Log.Fatal("New name is invalid.");
+                return false;
             }
 
             if (newName.Length > byte.MaxValue)
             {
-                throw new EPloyException(Utility.Text.Format("New name '{0}' is too long.", newName));
+                Log.Fatal(Utility.Text.Format("New name '{0}' is too long.", newName));
+                return false;
             }
 
             if (oldName == newName)
@@ -1044,12 +1103,14 @@ namespace EPloy.SystemFile
         {
             if (m_Access != FileSystemAccess.Write && m_Access != FileSystemAccess.ReadWrite)
             {
-                throw new EPloyException("File system is not writable.");
+                Log.Fatal("File system is not writable.");
+                return false;
             }
 
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Name is invalid.");
+                Log.Fatal("Name is invalid.");
+                return false;
             }
 
             int blockIndex = 0;
@@ -1312,7 +1373,8 @@ namespace EPloy.SystemFile
 
             if (stringIndex < 0)
             {
-                throw new EPloyException("Alloc string internal error.");
+                Log.Fatal("Alloc string internal error.");
+                return 0;
             }
 
             stringData = stringData.SetString(value, m_HeaderData.GetEncryptBytes());

@@ -7,7 +7,7 @@ namespace EPloy.Table
     /// 数据表数据获取接口
     /// </summary>
     /// <typeparam name="T">数据表行的类型。</typeparam>
-    public interface IDataTable<T> : IEnumerable<T> where T : IDataRow
+    public interface IDataTable<T> where T : IDataRow// :IEnumerable<T>
     {
         /// <summary>
         /// 获取数据表行。

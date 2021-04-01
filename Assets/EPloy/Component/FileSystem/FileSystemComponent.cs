@@ -62,7 +62,8 @@ namespace EPloy
         {
             if (string.IsNullOrEmpty(fullPath))
             {
-                throw new EPloyException("Full path is invalid.");
+                Log.Fatal("Full path is invalid.");
+                return false;
             }
 
             return FileSystems.ContainsKey(Utility.Path.GetRegularPath(fullPath));
@@ -77,7 +78,8 @@ namespace EPloy
         {
             if (string.IsNullOrEmpty(fullPath))
             {
-                throw new EPloyException("Full path is invalid.");
+                Log.Fatal("Full path is invalid.");
+                return null;
             }
 
             FileSystem fileSystem = null;
@@ -101,35 +103,41 @@ namespace EPloy
         {
             if (string.IsNullOrEmpty(fullPath))
             {
-                throw new EPloyException("Full path is invalid.");
+                Log.Fatal("Full path is invalid.");
+                return null;
             }
 
             if (access == FileSystemAccess.Unspecified)
             {
-                throw new EPloyException("Access is invalid.");
+                Log.Fatal("Access is invalid.");
+                return null;
             }
 
             if (access == FileSystemAccess.Read)
             {
-                throw new EPloyException("Access read is invalid.");
+                Log.Fatal("Access read is invalid.");
+                return null;
             }
 
             fullPath = Utility.Path.GetRegularPath(fullPath);
             if (FileSystems.ContainsKey(fullPath))
             {
-                throw new EPloyException(Utility.Text.Format("File system '{0}' is already exist.", fullPath));
+                Log.Fatal(Utility.Text.Format("File system '{0}' is already exist.", fullPath));
+                return null;
             }
 
             FileSystemStream fileSystemStream = CreateFileSystemStream(fullPath, access, true);
             if (fileSystemStream == null)
             {
-                throw new EPloyException(Utility.Text.Format("Create file system stream for '{0}' failure.", fullPath));
+                Log.Fatal(Utility.Text.Format("Create file system stream for '{0}' failure.", fullPath));
+                return null;
             }
 
             FileSystem fileSystem = FileSystem.Create(fullPath, access, fileSystemStream, maxFileCount, maxBlockCount);
             if (fileSystem == null)
             {
-                throw new EPloyException(Utility.Text.Format("Create file system '{0}' failure.", fullPath));
+                Log.Fatal(Utility.Text.Format("Create file system '{0}' failure.", fullPath));
+                return null;
             }
 
             FileSystems.Add(fullPath, fileSystem);
@@ -146,30 +154,35 @@ namespace EPloy
         {
             if (string.IsNullOrEmpty(fullPath))
             {
-                throw new EPloyException("Full path is invalid.");
+                Log.Fatal("Full path is invalid.");
+                return null;
             }
 
             if (access == FileSystemAccess.Unspecified)
             {
-                throw new EPloyException("Access is invalid.");
+                Log.Fatal("Access is invalid.");
+                return null;
             }
 
             fullPath = Utility.Path.GetRegularPath(fullPath);
             if (FileSystems.ContainsKey(fullPath))
             {
-                throw new EPloyException(Utility.Text.Format("File system '{0}' is already exist.", fullPath));
+                Log.Fatal(Utility.Text.Format("File system '{0}' is already exist.", fullPath));
+                return null;
             }
 
             FileSystemStream fileSystemStream = CreateFileSystemStream(fullPath, access, false);
             if (fileSystemStream == null)
             {
-                throw new EPloyException(Utility.Text.Format("Create file system stream for '{0}' failure.", fullPath));
+                Log.Fatal(Utility.Text.Format("Create file system stream for '{0}' failure.", fullPath));
+                return null;
             }
 
             FileSystem fileSystem = FileSystem.Load(fullPath, access, fileSystemStream);
             if (fileSystem == null)
             {
-                throw new EPloyException(Utility.Text.Format("Load file system '{0}' failure.", fullPath));
+                Log.Fatal(Utility.Text.Format("Load file system '{0}' failure.", fullPath));
+                return null;
             }
 
             FileSystems.Add(fullPath, fileSystem);
@@ -185,7 +198,8 @@ namespace EPloy
         {
             if (fileSystem == null)
             {
-                throw new EPloyException("File system is invalid.");
+                Log.Fatal("File system is invalid.");
+                return;
             }
 
             string fullPath = fileSystem.FullPath;
@@ -222,7 +236,8 @@ namespace EPloy
         {
             if (results == null)
             {
-                throw new EPloyException("Results is invalid.");
+                Log.Fatal("Results is invalid.");
+                return;
             }
 
             results.Clear();

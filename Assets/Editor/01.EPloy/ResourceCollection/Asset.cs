@@ -7,7 +7,7 @@ namespace EPloy.Editor.ResourceTools
     /// <summary>
     /// 资源。
     /// </summary>
-    public sealed class Asset : IComparable<Asset>
+    public sealed class Asset //: IComparable<Asset>
     {
         private Asset(string guid, Resource resource)
         {

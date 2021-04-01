@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace EPloy
 {
-     /// <summary>
+    /// <summary>
     /// 游戏框架多值字典类。 
     /// </summary>
     /// <typeparam name="TKey">指定多值字典的主键类型。</typeparam>
@@ -192,7 +192,7 @@ namespace EPloy
         {
             return GetEnumerator();
         }
-        
+
         /// <summary>
         /// 循环访问集合的枚举数。
         /// </summary>
@@ -204,7 +204,8 @@ namespace EPloy
             {
                 if (dictionary == null)
                 {
-                    throw new EPloyException("Dictionary is invalid.");
+                    Log.Fatal("Dictionary is invalid.");
+                    return;
                 }
 
                 m_Enumerator = dictionary.GetEnumerator();
@@ -257,7 +258,7 @@ namespace EPloy
                 ((IEnumerator<KeyValuePair<T, TypeLinkedList<K>>>)m_Enumerator).Reset();
             }
         }
-       
+
         #endregion
     }
 }

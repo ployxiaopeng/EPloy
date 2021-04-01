@@ -97,7 +97,7 @@ namespace EPloy.Res
         /// <param name="priority">加载资源的优先级。</param>
         /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks,object userData)
+        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks, object userData)
         {
             ResInfo resInfo = null;
             string[] dependAssetNames = null;
@@ -110,7 +110,8 @@ namespace EPloy.Res
                     return;
                 }
 
-                throw new EPloyException(errorMessage);
+                Log.Fatal(errorMessage);
+                return;
             }
 
             if (resInfo.IsLoadFromBinary)
@@ -122,10 +123,11 @@ namespace EPloy.Res
                     return;
                 }
 
-                throw new EPloyException(errorMessage);
+                Log.Fatal(errorMessage);
+                return;
             }
 
-            LoadAssetTask mainTask = LoadAssetTask.Create(assetType, resInfo, dependAssetNames, loadAssetCallbacks,userData);
+            LoadAssetTask mainTask = LoadAssetTask.Create(assetType, resInfo, dependAssetNames, loadAssetCallbacks, userData);
             foreach (string dependencyAssetName in dependAssetNames)
             {
                 if (!LoadDependencyAsset(dependencyAssetName, mainTask))
@@ -137,7 +139,8 @@ namespace EPloy.Res
                         return;
                     }
 
-                    throw new EPloyException(errorMessage);
+                    Log.Fatal(errorMessage);
+                    return;
                 }
             }
 
@@ -168,7 +171,8 @@ namespace EPloy.Res
                     return;
                 }
 
-                throw new EPloyException(errorMessage);
+                Log.Fatal(errorMessage);
+                return;
             }
 
             if (resInfo.IsLoadFromBinary)
@@ -180,7 +184,8 @@ namespace EPloy.Res
                     return;
                 }
 
-                throw new EPloyException(errorMessage);
+                Log.Fatal(errorMessage);
+                return;
             }
 
             LoadSceneTask mainTask = LoadSceneTask.Create(resInfo, dependAssetNames, loadSceneCallbacks);
@@ -195,7 +200,8 @@ namespace EPloy.Res
                         return;
                     }
 
-                    throw new EPloyException(errorMessage);
+                    Log.Fatal(errorMessage);
+                    return;
                 }
             }
 
@@ -224,7 +230,8 @@ namespace EPloy.Res
                     return;
                 }
 
-                throw new EPloyException(errorMessage);
+                Log.Fatal(errorMessage);
+                return;
             }
 
             if (!resourceInfo.Ready)
@@ -236,7 +243,8 @@ namespace EPloy.Res
                     return;
                 }
 
-                throw new EPloyException(errorMessage);
+                Log.Fatal(errorMessage);
+                return;
             }
 
             if (!resourceInfo.IsLoadFromBinary)
@@ -248,7 +256,8 @@ namespace EPloy.Res
                     return;
                 }
 
-                throw new EPloyException(errorMessage);
+                Log.Fatal(errorMessage);
+                return;
             }
 
 
@@ -366,7 +375,8 @@ namespace EPloy.Res
                     break;
 
                 default:
-                    throw new EPloyException("Not supported load type when decrypt resource.");
+                    Log.Fatal("Not supported load type when decrypt resource.");
+                    return;
             }
             Array.Clear(CachedHashBytes, 0, CachedHashBytesLength);
         }
@@ -375,7 +385,8 @@ namespace EPloy.Res
         {
             if (mainTask == null)
             {
-                throw new EPloyException("Main task is invalid.");
+                Log.Fatal("Main task is invalid.");
+                return false;
             }
 
             ResInfo resInfo = null;

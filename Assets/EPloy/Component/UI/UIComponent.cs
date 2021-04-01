@@ -151,7 +151,8 @@ namespace EPloy
             // 这个判断待定
             if (uiGroup.HasActiveUIForm(uiName))
             {
-                throw new EPloyException(Utility.Text.Format("UIName {0} is open.", uiName));
+                Log.Fatal(Utility.Text.Format("UIName {0} is open.", uiName));
+                return;
             }
             string path = AssetUtility.GetUIFormAsset(uiName.ToString());
             UIFormObject assetObject = (UIFormObject)UIPool.Spawn(path);
@@ -176,7 +177,8 @@ namespace EPloy
         {
             if (!UINames.ContainsKey(uiName))
             {
-                throw new EPloyException(Utility.Text.Format("UIName {0} is invalid.", uiName));
+                Log.Fatal(Utility.Text.Format("UIName {0} is invalid.", uiName));
+                return;
             }
             UIGroup group = UIGroups[UINames[uiName]];
             group.CloseUIForm(uiName, userData);
@@ -191,7 +193,8 @@ namespace EPloy
         {
             if (!UINames.ContainsKey(uiName))
             {
-                throw new EPloyException(Utility.Text.Format("UIName {0} is invalid.", uiName));
+                Log.Fatal(Utility.Text.Format("UIName {0} is invalid.", uiName));
+                return;
             }
             UIGroup group = UIGroups[UINames[uiName]];
             group.RefocusUIForm(uiName, userData);
@@ -203,7 +206,7 @@ namespace EPloy
         private void GetUIFormTypes()
         {
             UIFormTypes = new Dictionary<UIName, Type>();
-            Type[] Types = GameEntry.GameSystem.GetAssembly(Config.HotFixDllName).GetTypes();
+            Type[] Types = GameEntry.GameSystem.GetTypes(Config.HotFixDllName);
             foreach (Type type in Types)
             {
                 object[] objects = type.GetCustomAttributes(typeof(UIAttribute), false);
@@ -239,7 +242,7 @@ namespace EPloy
         private void LoadAssetFailureCallback(string uiFormAssetName, LoadResStatus status, string errorMessage)
         {
             string appendErrorMessage = Utility.Text.Format("Load UI form failure, asset name '{0}', status '{1}', error message '{2}'.", uiFormAssetName, status.ToString(), errorMessage);
-            throw new EPloyException(appendErrorMessage);
+            Log.Fatal(appendErrorMessage);
         }
 
         /// <summary>

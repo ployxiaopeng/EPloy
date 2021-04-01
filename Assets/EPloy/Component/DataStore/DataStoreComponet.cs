@@ -52,7 +52,7 @@ namespace EPloy
         private void GetUIFormTypes()
         {
             DataStoreTypes = new Dictionary<Type, bool>();
-            Type[] Types = GameEntry.GameSystem.GetAssembly(Config.HotFixDllName).GetTypes();
+           Type[] Types = GameEntry.GameSystem.GetTypes(Config.HotFixDllName);
             foreach (Type type in Types)
             {
                 object[] objects = type.GetCustomAttributes(typeof(DataStoreAttribute), false);

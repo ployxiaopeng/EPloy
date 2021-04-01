@@ -23,7 +23,8 @@ namespace EPloy
             {
                 if (format == null)
                 {
-                    throw new EPloyException("Format is invalid.");
+                    Log.Fatal("Format is invalid.");
+                    return null;
                 }
 
                 CheckCachedStringBuilder();
@@ -43,7 +44,8 @@ namespace EPloy
             {
                 if (format == null)
                 {
-                    throw new EPloyException("Format is invalid.");
+                    Log.Fatal("Format is invalid.");
+                    return null;
                 }
 
                 CheckCachedStringBuilder();
@@ -64,7 +66,8 @@ namespace EPloy
             {
                 if (format == null)
                 {
-                    throw new EPloyException("Format is invalid.");
+                    Log.Fatal("Format is invalid.");
+                    return null;
                 }
 
                 CheckCachedStringBuilder();
@@ -83,12 +86,14 @@ namespace EPloy
             {
                 if (format == null)
                 {
-                    throw new EPloyException("Format is invalid.");
+                    Log.Fatal("Format is invalid.");
+                    return null;
                 }
 
                 if (args == null)
                 {
-                    throw new EPloyException("Args is invalid.");
+                    Log.Fatal("Args is invalid.");
+                    return null;
                 }
 
                 CheckCachedStringBuilder();

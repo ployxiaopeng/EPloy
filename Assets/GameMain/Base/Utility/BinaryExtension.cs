@@ -25,7 +25,7 @@ namespace EPloy
             {
                 if (shift >= 35)
                 {
-                    throw new EPloyException("7 bit encoded int is invalid.");
+                    Log.Fatal("7 bit encoded int is invalid.");
                 }
 
                 b = binaryReader.ReadByte();
@@ -87,7 +87,7 @@ namespace EPloy
             {
                 if (shift >= 70)
                 {
-                    throw new EPloyException("7 bit encoded int is invalid.");
+                    Log.Fatal("7 bit encoded int is invalid.");
                 }
 
                 b = binaryReader.ReadByte();
@@ -151,7 +151,7 @@ namespace EPloy
 
             if (length > byte.MaxValue)
             {
-                throw new EPloyException("String is too long.");
+                Log.Fatal("String is too long.");
             }
 
             for (byte i = 0; i < length; i++)
@@ -182,7 +182,7 @@ namespace EPloy
             int length = Utility.Converter.GetBytes(value, s_CachedBytes);
             if (length > byte.MaxValue)
             {
-                throw new EPloyException(Utility.Text.Format("String '{0}' is too long.", value));
+                Log.Fatal(Utility.Text.Format("String '{0}' is too long.", value));
             }
 
             Utility.Encryption.GetSelfXorBytes(s_CachedBytes, encryptBytes);

@@ -115,7 +115,8 @@ namespace EPloy.TaskPool
         {
             if (agent == null)
             {
-                throw new EPloyException("Task agent is invalid.");
+                Log.Fatal("Task agent is invalid.");
+                return;
             }
 
             //agent.Initialize();

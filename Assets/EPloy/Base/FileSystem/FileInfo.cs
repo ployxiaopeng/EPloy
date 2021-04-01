@@ -20,17 +20,17 @@ namespace EPloy.SystemFile
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Name is invalid.");
+                Log.Fatal("Name is invalid.");
             }
 
             if (offset < 0L)
             {
-                throw new EPloyException("Offset is invalid.");
+                Log.Fatal("Offset is invalid.");
             }
 
             if (length < 0)
             {
-                throw new EPloyException("Length is invalid.");
+                Log.Fatal("Length is invalid.");
             }
 
             m_Name = name;

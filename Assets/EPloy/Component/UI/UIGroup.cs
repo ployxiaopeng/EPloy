@@ -170,7 +170,8 @@ namespace EPloy
             UIForm uiForm = GetUIForm(uiName);
             if (uiForm == null)
             {
-                throw new EPloyException(Utility.Text.Format("UIForm {0} is invalid.", uiName));
+                Log.Fatal(Utility.Text.Format("UIForm {0} is invalid.", uiName));
+                return;
             }
             uiForm.Close(userData);
             ActiveUIForms.Remove(uiForm);
@@ -196,7 +197,8 @@ namespace EPloy
 
             if (uiForm == null)
             {
-                throw new EPloyException(Utility.Text.Format("UIForm {0} is invalid.", uiName));
+                Log.Fatal(Utility.Text.Format("UIForm {0} is invalid.", uiName));
+                return;
             }
             GameObject uiGo = (GameObject)obj;
             uiGo.transform.SetParent(Handle.transform);
@@ -227,7 +229,8 @@ namespace EPloy
         {
             if (!UIForms.Remove(uiForm))
             {
-                throw new EPloyException(Utility.Text.Format("UI group '{0}' not exists specified UI form {1}", GroupName.ToString(), uiForm.UIName));
+                Log.Fatal(Utility.Text.Format("UI group '{0}' not exists specified UI form {1}", GroupName.ToString(), uiForm.UIName));
+                return;
             }
             ReferencePool.Release(uiForm);
         }

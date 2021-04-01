@@ -33,7 +33,7 @@
             {
                 if (string.IsNullOrEmpty(name))
                 {
-                    throw new EPloyException("Name is invalid.");
+                     Log.Fatal("Name is invalid.");
                 }
 
                 m_Name = name;

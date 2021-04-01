@@ -82,7 +82,7 @@ namespace EPloy.Table
             DataTableFailureEvt Evt = ReferencePool.Acquire<DataTableFailureEvt>();
             Evt.SetData(dataAssetName, appendErrorMessage);
             GameEntry.Event.Fire(Evt);
-            throw new EPloyException(appendErrorMessage);
+            Log.Fatal(appendErrorMessage);
         }
 
         private void LoadBinarySuccessCallback(string dataAssetName, byte[] dataBytes, float duration)
@@ -91,7 +91,7 @@ namespace EPloy.Table
             {
                 if (!DataTableBase.ParseData(dataBytes))
                 {
-                    throw new EPloyException(Utility.Text.Format("Load data failure in data provider helper, data asset name '{0}'.", dataAssetName));
+                    Log.Fatal(Utility.Text.Format("Load data failure in data provider helper, data asset name '{0}'.", dataAssetName));
                 }
 
                 DataTableSuccessEvt Evt = ReferencePool.Acquire<DataTableSuccessEvt>();

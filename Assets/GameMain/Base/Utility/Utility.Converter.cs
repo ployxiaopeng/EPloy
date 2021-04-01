@@ -43,7 +43,8 @@ namespace EPloy
             {
                 if (ScreenDpi <= 0)
                 {
-                    throw new EPloyException("You must set screen DPI first.");
+                    Log.Fatal("You must set screen DPI first.");
+                    return 0;
                 }
 
                 return InchesToCentimeters * pixels / ScreenDpi;
@@ -58,7 +59,8 @@ namespace EPloy
             {
                 if (ScreenDpi <= 0)
                 {
-                    throw new EPloyException("You must set screen DPI first.");
+                    Log.Fatal("You must set screen DPI first.");
+                    return 0;
                 }
 
                 return CentimetersToInches * centimeters * ScreenDpi;
@@ -73,7 +75,8 @@ namespace EPloy
             {
                 if (ScreenDpi <= 0)
                 {
-                    throw new EPloyException("You must set screen DPI first.");
+                    Log.Fatal("You must set screen DPI first.");
+                    return 0;
                 }
 
                 return pixels / ScreenDpi;
@@ -88,7 +91,8 @@ namespace EPloy
             {
                 if (ScreenDpi <= 0)
                 {
-                    throw new EPloyException("You must set screen DPI first.");
+                    Log.Fatal("You must set screen DPI first.");
+                    return 0;
                 }
 
                 return inches * ScreenDpi;
@@ -126,12 +130,14 @@ namespace EPloy
             {
                 if (buffer == null)
                 {
-                    throw new EPloyException("Buffer is invalid.");
+                    Log.Fatal("Buffer is invalid.");
+                    return;
                 }
 
                 if (startIndex < 0 || startIndex + 1 > buffer.Length)
                 {
-                    throw new EPloyException("Start index is invalid.");
+                    Log.Fatal("Start index is invalid.");
+                    return;
                 }
 
                 buffer[startIndex] = value ? (byte)1 : (byte)0;
@@ -244,12 +250,14 @@ namespace EPloy
             {
                 if (buffer == null)
                 {
-                    throw new EPloyException("Buffer is invalid.");
+                    Log.Fatal("Buffer is invalid.");
+                    return;
                 }
 
                 if (startIndex < 0 || startIndex + 2 > buffer.Length)
                 {
-                    throw new EPloyException("Start index is invalid.");
+                    Log.Fatal("Start index is invalid.");
+                    return;
                 }
 
                 fixed (byte* valueRef = buffer)
@@ -365,12 +373,14 @@ namespace EPloy
             {
                 if (buffer == null)
                 {
-                    throw new EPloyException("Buffer is invalid.");
+                    Log.Fatal("Buffer is invalid.");
+                    return;
                 }
 
                 if (startIndex < 0 || startIndex + 4 > buffer.Length)
                 {
-                    throw new EPloyException("Start index is invalid.");
+                    Log.Fatal("Start index is invalid.");
+                    return;
                 }
 
                 fixed (byte* valueRef = buffer)
@@ -486,12 +496,14 @@ namespace EPloy
             {
                 if (buffer == null)
                 {
-                    throw new EPloyException("Buffer is invalid.");
+                    Log.Fatal("Buffer is invalid.");
+                    return;
                 }
 
                 if (startIndex < 0 || startIndex + 8 > buffer.Length)
                 {
-                    throw new EPloyException("Start index is invalid.");
+                    Log.Fatal("Start index is invalid.");
+                    return;
                 }
 
                 fixed (byte* valueRef = buffer)
@@ -726,12 +738,14 @@ namespace EPloy
             {
                 if (value == null)
                 {
-                    throw new EPloyException("Value is invalid.");
+                    Log.Fatal("Value is invalid.");
+                    return null;
                 }
 
                 if (encoding == null)
                 {
-                    throw new EPloyException("Encoding is invalid.");
+                    Log.Fatal("Encoding is invalid.");
+                    return null;
                 }
 
                 return encoding.GetBytes(value);
@@ -761,12 +775,14 @@ namespace EPloy
             {
                 if (value == null)
                 {
-                    throw new EPloyException("Value is invalid.");
+                    Log.Fatal("Value is invalid.");
+                    return 0;
                 }
 
                 if (encoding == null)
                 {
-                    throw new EPloyException("Encoding is invalid.");
+                    Log.Fatal("Encoding is invalid.");
+                    return 0;
                 }
 
                 return encoding.GetBytes(value, 0, value.Length, buffer, startIndex);
@@ -792,12 +808,14 @@ namespace EPloy
             {
                 if (value == null)
                 {
-                    throw new EPloyException("Value is invalid.");
+                    Log.Fatal("Value is invalid.");
+                    return null;
                 }
 
                 if (encoding == null)
                 {
-                    throw new EPloyException("Encoding is invalid.");
+                    Log.Fatal("Encoding is invalid.");
+                    return null;
                 }
 
                 return encoding.GetString(value);
@@ -827,12 +845,14 @@ namespace EPloy
             {
                 if (value == null)
                 {
-                    throw new EPloyException("Value is invalid.");
+                    Log.Fatal("Value is invalid.");
+                    return null;
                 }
 
                 if (encoding == null)
                 {
-                    throw new EPloyException("Encoding is invalid.");
+                    Log.Fatal("Encoding is invalid.");
+                    return null;
                 }
 
                 return encoding.GetString(value, startIndex, length);

@@ -7,7 +7,7 @@ namespace EPloy.Res
     /// <summary>
     /// 资源名称。
     /// </summary>
-    internal struct ResName : IComparable, IComparable<ResName>, IEquatable<ResName>
+    internal struct ResName // : IComparable, IComparable<ResName>, IEquatable<ResName>
     {
         /// <summary>
         /// 获取资源名称。
@@ -47,12 +47,12 @@ namespace EPloy.Res
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new EPloyException("Resource name is invalid.");
+                Log.Fatal("Resource name is invalid.");
             }
 
             if (string.IsNullOrEmpty(extension))
             {
-                throw new EPloyException("Resource extension is invalid.");
+                Log.Fatal("Resource extension is invalid.");
             }
 
             Name = name;
@@ -120,7 +120,8 @@ namespace EPloy.Res
 
             if (!(value is ResName))
             {
-                throw new EPloyException("Type of value is invalid.");
+                Log.Fatal("Type of value is invalid.");
+                return 1;
             }
 
             return CompareTo((ResName)value);
@@ -147,7 +148,7 @@ namespace EPloy.Res
     /// <summary>
     /// 资源名称比较器。
     /// </summary>
-    internal sealed class ResNameComparer : IComparer<ResName>, IEqualityComparer<ResName>
+    internal sealed class ResNameComparer //: IComparer<ResName>, IEqualityComparer<ResName>
     {
         public int Compare(ResName x, ResName y)
         {

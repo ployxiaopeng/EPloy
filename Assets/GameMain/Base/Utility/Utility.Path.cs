@@ -49,7 +49,8 @@ namespace EPloy
             {
                 if (string.IsNullOrEmpty(directoryName))
                 {
-                    throw new EPloyException("Directory name is invalid.");
+                    Log.Fatal("Directory name is invalid.");
+                    return false;
                 }
 
                 try

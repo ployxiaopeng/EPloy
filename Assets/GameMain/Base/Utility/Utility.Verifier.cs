@@ -23,7 +23,8 @@ namespace EPloy
             {
                 if (bytes == null)
                 {
-                    throw new EPloyException("Bytes is invalid.");
+                    Log.Fatal("Bytes is invalid.");
+                    return 0;
                 }
 
                 return GetCrc32(bytes, 0, bytes.Length);
@@ -40,12 +41,14 @@ namespace EPloy
             {
                 if (bytes == null)
                 {
-                    throw new EPloyException("Bytes is invalid.");
+                    Log.Fatal("Bytes is invalid.");
+                    return 0;
                 }
 
                 if (offset < 0 || length < 0 || offset + length > bytes.Length)
                 {
-                    throw new EPloyException("Offset or length is invalid.");
+                    Log.Fatal("Offset or length is invalid.");
+                    return 0;
                 }
 
                 s_Algorithm.HashCore(bytes, offset, length);
@@ -63,7 +66,8 @@ namespace EPloy
             {
                 if (stream == null)
                 {
-                    throw new EPloyException("Stream is invalid.");
+                    Log.Fatal("Stream is invalid.");
+                    return 0;
                 }
 
                 while (true)
@@ -115,12 +119,14 @@ namespace EPloy
             {
                 if (bytes == null)
                 {
-                    throw new EPloyException("Result is invalid.");
+                    Log.Fatal("Result is invalid.");
+                    return;
                 }
 
                 if (offset < 0 || offset + 4 > bytes.Length)
                 {
-                    throw new EPloyException("Offset or length is invalid.");
+                    Log.Fatal("Offset or length is invalid.");
+                    return;
                 }
 
                 bytes[offset] = (byte)((crc32 >> 24) & 0xff);
@@ -133,18 +139,21 @@ namespace EPloy
             {
                 if (stream == null)
                 {
-                    throw new EPloyException("Stream is invalid.");
+                    Log.Fatal("Stream is invalid.");
+                    return 0;
                 }
 
                 if (code == null)
                 {
-                    throw new EPloyException("Code is invalid.");
+                    Log.Fatal("Code is invalid.");
+                    return 0;
                 }
 
                 int codeLength = code.Length;
                 if (codeLength <= 0)
                 {
-                    throw new EPloyException("Code length is invalid.");
+                    Log.Fatal("Code length is invalid.");
+                    return 0;
                 }
 
                 int bytesLength = (int)stream.Length;

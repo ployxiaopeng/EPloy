@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 namespace EPloy.Res
 {
     /// <summary>
@@ -73,7 +73,7 @@ namespace EPloy.Res
         /// <param name="LoadSceneDepenAssetCallback">加载场景时加载依赖资源回调函数。</param>
         public LoadSceneCallbacks(LoadSceneSuccessCallback loadSceneSuccessCallback, LoadSceneFailureCallback loadSceneFailureCallback, LoadSceneDepenAssetCallback loadSceneDepenAssetCallback)
         {
-            LoadSceneSuccessCallback = loadSceneSuccessCallback ?? throw new EPloyException("Load scene success callback is invalid.");
+            LoadSceneSuccessCallback = loadSceneSuccessCallback ?? throw new Exception("Load scene success callback is invalid.");
             LoadSceneFailureCallback = loadSceneFailureCallback;
             LoadSceneDepenAssetCallback = loadSceneDepenAssetCallback;
         }

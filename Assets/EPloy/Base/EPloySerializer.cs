@@ -65,7 +65,8 @@ namespace EPloy
         {
             if (callback == null)
             {
-                throw new EPloyException("Serialize callback is invalid.");
+                Log.Fatal("Serialize callback is invalid.");
+                return;
             }
 
             m_SerializeCallbacks[version] = callback;
@@ -84,7 +85,8 @@ namespace EPloy
         {
             if (callback == null)
             {
-                throw new EPloyException("Deserialize callback is invalid.");
+                Log.Fatal("Deserialize callback is invalid.");
+                return;
             }
 
             m_DeserializeCallbacks[version] = callback;
@@ -99,7 +101,8 @@ namespace EPloy
         {
             if (callback == null)
             {
-                throw new EPloyException("Try get value callback is invalid.");
+                Log.Fatal("Try get value callback is invalid.");
+                return;
             }
 
             m_TryGetValueCallbacks[version] = callback;
@@ -115,7 +118,8 @@ namespace EPloy
         {
             if (m_SerializeCallbacks.Count <= 0)
             {
-                throw new EPloyException("No serialize callback registered.");
+                Log.Fatal("No serialize callback registered.");
+                return false;
             }
 
             return Serialize(stream, data, m_LatestSerializeCallbackVersion);
@@ -138,7 +142,8 @@ namespace EPloy
             SerializeCallback callback = null;
             if (!m_SerializeCallbacks.TryGetValue(version, out callback))
             {
-                throw new EPloyException(Utility.Text.Format("Serialize callback '{0}' is not exist.", version.ToString()));
+                Log.Fatal(Utility.Text.Format("Serialize callback '{0}' is not exist.", version.ToString()));
+                return false;
             }
 
             return callback(stream, data);
@@ -157,16 +162,18 @@ namespace EPloy
             byte header2 = (byte)stream.ReadByte();
             if (header0 != header[0] || header1 != header[1] || header2 != header[2])
             {
-                throw new EPloyException(Utility.Text.Format("Header is invalid, need '{0}{1}{2}', current '{3}{4}{5}'.",
+                Log.Fatal(Utility.Text.Format("Header is invalid, need '{0}{1}{2}', current '{3}{4}{5}'.",
                     ((char)header[0]).ToString(), ((char)header[1]).ToString(), ((char)header[2]).ToString(),
                     ((char)header0).ToString(), ((char)header1).ToString(), ((char)header2).ToString()));
+                return default(T);
             }
 
             byte version = (byte)stream.ReadByte();
             DeserializeCallback callback = null;
             if (!m_DeserializeCallbacks.TryGetValue(version, out callback))
             {
-                throw new EPloyException(Utility.Text.Format("Deserialize callback '{0}' is not exist.", version.ToString()));
+                Log.Fatal(Utility.Text.Format("Deserialize callback '{0}' is not exist.", version.ToString()));
+                return default(T);
             }
 
             return callback(stream);

@@ -21,7 +21,8 @@ namespace EPloy
         {
             if (string.IsNullOrEmpty(fullPath))
             {
-                throw new EPloyException("Full path is invalid.");
+                Log.Fatal("Full path is invalid.");
+                return;
             }
 
             switch (access)
@@ -39,7 +40,8 @@ namespace EPloy
                     break;
 
                 default:
-                    throw new EPloyException("Access is invalid.");
+                    Log.Fatal("Access is invalid.");
+                    break;
             }
         }
 

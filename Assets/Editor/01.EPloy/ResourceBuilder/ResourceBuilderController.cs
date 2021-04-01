@@ -11,7 +11,7 @@ namespace EPloy.Editor.ResourceTools
 {
     public sealed partial class ResourceBuilderController
     {
-        
+
         private static readonly int AssetsStringLength = "Assets".Length;
 
         private readonly string m_ConfigurationPath;
@@ -801,7 +801,7 @@ namespace EPloy.Editor.ResourceTools
             {
                 if (!serializer.Serialize(fileStream, versionList))
                 {
-                    throw new EPloyException("Serialize updatable version list failure.");
+                    Log.Fatal("Serialize updatable version list failure.");
                 }
             }
 
@@ -851,7 +851,7 @@ namespace EPloy.Editor.ResourceTools
                 assetIndexes[i] = Array.BinarySearch(assets, m_ResourceCollection.GetAsset(assetGuids[i]));
                 if (assetIndexes[i] < 0)
                 {
-                    throw new EPloyException("Asset is invalid.");
+                    Log.Fatal("Asset is invalid.");
                 }
             }
 
@@ -1122,7 +1122,8 @@ namespace EPloy.Editor.ResourceTools
                     return BuildTarget.WebGL;
 
                 default:
-                    throw new EPloyException("Platform is invalid.");
+                    Log.Fatal("Platform is invalid.");
+                    return default(BuildTarget);
             }
         }
 

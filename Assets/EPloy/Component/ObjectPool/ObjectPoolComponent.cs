@@ -67,12 +67,14 @@ namespace EPloy
         {
             if (objectType == null)
             {
-                throw new EPloyException("Object type is invalid.");
+                Log.Fatal("Object type is invalid.");
+                return false;
             }
 
             if (!typeof(ObjectBase).IsAssignableFrom(objectType))
             {
-                throw new EPloyException(Utility.Text.Format("Object type '{0}' is invalid.", objectType.FullName));
+                Log.Fatal(Utility.Text.Format("Object type '{0}' is invalid.", objectType.FullName));
+                return false;
             }
 
             return m_ObjectPools.ContainsKey(new TypeNamePair(objectType, name));
@@ -88,12 +90,14 @@ namespace EPloy
         {
             if (objectType == null)
             {
-                throw new EPloyException("Object type is invalid.");
+                Log.Fatal("Object type is invalid.");
+                return null;
             }
 
             if (!typeof(ObjectBase).IsAssignableFrom(objectType))
             {
-                throw new EPloyException(Utility.Text.Format("Object type '{0}' is invalid.", objectType.FullName));
+                Log.Fatal(Utility.Text.Format("Object type '{0}' is invalid.", objectType.FullName));
+                return null;
             }
 
             return GetObjectPool(new TypeNamePair(objectType, name));
@@ -116,18 +120,21 @@ namespace EPloy
         {
             if (objectType == null)
             {
-                throw new EPloyException("Object type is invalid.");
+                Log.Fatal("Object type is invalid.");
+                return null;
             }
 
             if (!typeof(ObjectBase).IsAssignableFrom(objectType))
             {
-                throw new EPloyException(Utility.Text.Format("Object type '{0}' is invalid.", objectType.FullName));
+                Log.Fatal(Utility.Text.Format("Object type '{0}' is invalid.", objectType.FullName));
+                return null;
             }
 
             TypeNamePair typeNamePair = new TypeNamePair(objectType, name);
             if (HasObjectPool(objectType, name))
             {
-                throw new EPloyException(Utility.Text.Format("Already exist object pool '{0}'.", typeNamePair.ToString()));
+                Log.Fatal(Utility.Text.Format("Already exist object pool '{0}'.", typeNamePair.ToString()));
+                return null;
             }
 
             ObjectPool objectPool = ReferencePool.Acquire<ObjectPool>();
@@ -157,12 +164,14 @@ namespace EPloy
         {
             if (objectType == null)
             {
-                throw new EPloyException("Object type is invalid.");
+                Log.Fatal("Object type is invalid.");
+                return false;
             }
 
             if (!typeof(ObjectBase).IsAssignableFrom(objectType))
             {
-                throw new EPloyException(Utility.Text.Format("Object type '{0}' is invalid.", objectType.FullName));
+                Log.Fatal(Utility.Text.Format("Object type '{0}' is invalid.", objectType.FullName));
+                return false;
             }
 
             return DestroyObjectPool(new TypeNamePair(objectType, name));

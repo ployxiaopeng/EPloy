@@ -18,7 +18,7 @@ namespace EPloy
                 return GameEntry.Game.WithIdComponent.AllComponents;
             }
         }
-        private readonly Dictionary<string, Assembly> assemblies = new Dictionary<string, Assembly>();
+        private readonly Dictionary<string, Type[]> assemblies = new Dictionary<string, Type[]>();
         //private readonly UnOrderMultiMap<Type, Type> types = new UnOrderMultiMap<Type, Type>();
 
         private readonly UnOrderMultiMap<Type, ISystem> awakeSystems = new UnOrderMultiMap<Type, ISystem>();
@@ -28,7 +28,7 @@ namespace EPloy
         private List<long> updates = new List<long>();
         private readonly Queue<long> starts = new Queue<long>();
 
-        public Assembly GetAssembly(string dllType)
+        public Type[] GetTypes(string dllType)
         {
             return this.assemblies[dllType];
         }
@@ -38,17 +38,18 @@ namespace EPloy
         /// </summary>
         /// <param name="dllType"></param>
         /// <param name="assembly"></param>
-        public void Add(string dllType, Assembly assembly)
+        public void Add(string dllType, Type[] assembly)
         {
+
             this.assemblies[dllType] = assembly;
             this.awakeSystems.Clear();
             this.updateSystems.Clear();
             this.startSystems.Clear();
             this.updates.Clear();
             this.starts.Clear();
-            foreach (Assembly value in this.assemblies.Values)
+            foreach (Type[] value in this.assemblies.Values)
             {
-                foreach (Type type in value.GetTypes())
+                foreach (Type type in value)
                 {
                     if (AddSystemObj(type)) continue;
                 }
@@ -74,6 +75,7 @@ namespace EPloy
                         this.updateSystems.Add(system.Type(), system);
                         break;
                 }
+                Log.Info(type);
                 return true;
             }
             return false;
@@ -95,7 +97,7 @@ namespace EPloy
                     }
                     catch (Exception e)
                     {
-                        new EPloyException(e.ToString());
+                        Log.Fatal(e.ToString());
                     }
                 }
             }
@@ -136,7 +138,7 @@ namespace EPloy
                     }
                     catch (Exception e)
                     {
-                        new EPloyException(e.ToString());
+                        Log.Fatal(e.ToString());
                     }
                 }
             }
@@ -176,7 +178,7 @@ namespace EPloy
                     }
                     catch (Exception e)
                     {
-                        Log.Error(e.ToString());
+                        Log.Error(Utility.Text.Format("component: {0}err: {1}", component, e.ToString()));
                     }
                 }
             }

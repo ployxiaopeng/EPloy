@@ -110,7 +110,8 @@ namespace EPloy
         {
             if (reference == null)
             {
-                throw new EPloyException("Reference is invalid.");
+                Log.Fatal("Reference is invalid.");
+                return;
             }
 
             Type referenceType = reference.GetType();
@@ -188,17 +189,20 @@ namespace EPloy
 
             if (referenceType == null)
             {
-                throw new EPloyException("Reference type is invalid.");
+                Log.Fatal("Reference type is invalid.");
+                return;
             }
 
             if (!referenceType.IsClass || referenceType.IsAbstract)
             {
-                throw new EPloyException("Reference type is not a non-abstract class type.");
+                Log.Fatal("Reference type is not a non-abstract class type.");
+                return;
             }
 
             if (!typeof(IReference).IsAssignableFrom(referenceType))
             {
-                //throw new EPloyException(Utility.Text.Format("Reference type '{0}' is invalid.", referenceType.FullName));
+                Log.Fatal(Utility.Text.Format("Reference type '{0}' is invalid.", referenceType.FullName));
+                return;
             }
         }
 
@@ -206,7 +210,8 @@ namespace EPloy
         {
             if (referenceType == null)
             {
-                throw new EPloyException("ReferenceType is invalid.");
+                Log.Fatal("ReferenceType is invalid.");
+                return null;
             }
 
             ReferenceCollection referenceCollection = null;

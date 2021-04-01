@@ -93,7 +93,8 @@ namespace EPloy
             {
                 if (typeof(T) != m_ReferenceType)
                 {
-                    throw new EPloyException("Type is invalid.");
+                    Log.Fatal("Type is invalid.");
+                    return default(T);
                 }
 
                 m_UsingReferenceCount++;
@@ -133,7 +134,8 @@ namespace EPloy
                 {
                     if (m_EnableStrictCheck && m_References.Contains(reference))
                     {
-                        throw new EPloyException("The reference has been released.");
+                        Log.Fatal("The reference has been released.");
+                        return;
                     }
 
                     m_References.Enqueue(reference);
@@ -147,7 +149,8 @@ namespace EPloy
             {
                 if (typeof(T) != m_ReferenceType)
                 {
-                    throw new EPloyException("Type is invalid.");
+                    Log.Fatal("Type is invalid.");
+                    return;
                 }
 
                 lock (m_References)

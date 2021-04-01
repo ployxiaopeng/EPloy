@@ -87,7 +87,8 @@ namespace EPloy.Editor
                     break;
 
                 default:
-                    throw new EPloyException(Utility.Text.Format("Not support OpenFolder on '{0}' platform.", Application.platform.ToString()));
+                    Log.Fatal(Utility.Text.Format("Not support OpenFolder on '{0}' platform.", Application.platform.ToString()));
+                    break;
             }
         }
     }

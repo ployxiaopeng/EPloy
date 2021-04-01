@@ -1,4 +1,6 @@
-﻿namespace EPloy.Res
+﻿using System;
+
+namespace EPloy.Res
 {
 
     /// <summary>
@@ -49,7 +51,7 @@
         /// <param name="loadBytesFailureCallback">加载数据流失败回调函数。</param>
         public LoadBytesCallbacks(LoadBytesSuccessCallback loadBytesSuccessCallback, LoadBytesFailureCallback loadBytesFailureCallback)
         {
-            LoadBytesSuccessCallback = loadBytesSuccessCallback ?? throw new EPloyException("Load bytes success callback is invalid.");
+            LoadBytesSuccessCallback = loadBytesSuccessCallback ?? throw new Exception("Load bytes success callback is invalid.");
             LoadBytesFailureCallback = loadBytesFailureCallback;
         }
 

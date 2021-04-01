@@ -103,7 +103,8 @@ namespace EPloy.Res
         {
             if (string.IsNullOrEmpty(assetName))
             {
-                throw new EPloyException("Asset name is invalid.");
+                Log.Fatal("Asset name is invalid.");
+                return null;
             }
 
             if (VersionInfos == null)

@@ -12,7 +12,7 @@ namespace EPloy.Editor.ResourceTools
         {
             if (folder == null)
             {
-                throw new EPloyException("Source asset folder is invalid.");
+                 Log.Fatal("Source asset folder is invalid.");
             }
 
             Guid = guid;
