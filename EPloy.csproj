@@ -2,8 +2,6 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-    <CscToolPath>C:\Program Files\Unity2019.3.3\Editor\Data\Tools\RoslynScripts</CscToolPath>
-    <CscToolExe>unity_csc.bat</CscToolExe>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{F696D544-6D9A-E8EC-0A85-3E8BFE720CB0}</ProjectGuid>
+    <ProjectGuid>{44d596f6-9a6d-ece8-0a85-3e8bfe720cb0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>EPloy</AssemblyName>
@@ -47,131 +45,94 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="UnityEngine">
-      <HintPath>C:\Program Files\Unity2019.3.3\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>C:\Program Files\Unity2019.3.3\Editor\Data\Managed/UnityEditor.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-     <Compile Include="Assets\EPloy\Base\BaseAttribute.cs" />
-     <Compile Include="Assets\EPloy\Base\Component\Component.cs" />
-     <Compile Include="Assets\EPloy\Base\Component\IComponent.cs" />
-     <Compile Include="Assets\EPloy\Base\Component\WithIdComponent.cs" />
-     <Compile Include="Assets\EPloy\Base\EPloyAction.cs" />
-     <Compile Include="Assets\EPloy\Base\EPloySerializer.cs" />
-     <Compile Include="Assets\EPloy\Base\Entity\Entity.cs" />
-     <Compile Include="Assets\EPloy\Base\Entity\GameEntity.cs" />
-     <Compile Include="Assets\EPloy\Base\Entity\IEntity.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\FileInfo.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\FileSystem.BlockData.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\FileSystem.HeaderData.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\FileSystem.StringData.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\FileSystem.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\FileSystemAccess.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\FileSystemStream.cs" />
-     <Compile Include="Assets\EPloy\Base\FileSystem\IFileSystem.cs" />
-     <Compile Include="Assets\EPloy\Base\ObjectPool\ObjectBase.cs" />
-     <Compile Include="Assets\EPloy\Base\ObjectPool\ObjectInfo.cs" />
-     <Compile Include="Assets\EPloy\Base\ObjectPool\ObjectPoolBase.cs" />
-     <Compile Include="Assets\EPloy\Base\ReferencePool\IReference.cs" />
-     <Compile Include="Assets\EPloy\Base\ReferencePool\ReferencePool.ReferenceCollection.cs" />
-     <Compile Include="Assets\EPloy\Base\ReferencePool\ReferencePool.cs" />
-     <Compile Include="Assets\EPloy\Base\ReferencePool\ReferencePoolInfo.cs" />
-     <Compile Include="Assets\EPloy\Base\System\GameSystem.cs" />
-     <Compile Include="Assets\EPloy\Base\System\IAwakeSystem.cs" />
-     <Compile Include="Assets\EPloy\Base\System\IStartSystem.cs" />
-     <Compile Include="Assets\EPloy\Base\System\ISystem.cs" />
-     <Compile Include="Assets\EPloy\Base\System\IUpdateSystem.cs" />
-     <Compile Include="Assets\EPloy\Base\System\SystemAttribute.cs" />
-     <Compile Include="Assets\EPloy\Base\TaskPool\ITaskAgent.cs" />
-     <Compile Include="Assets\EPloy\Base\TaskPool\TaskBase.cs" />
-     <Compile Include="Assets\EPloy\Base\TaskPool\TaskInfo.cs" />
-     <Compile Include="Assets\EPloy\Base\TaskPool\TaskPool.cs" />
-     <Compile Include="Assets\EPloy\Component\DataStore\DataStoreAttribute.cs" />
-     <Compile Include="Assets\EPloy\Component\DataStore\DataStoreComponet.cs" />
-     <Compile Include="Assets\EPloy\Component\DataTable\DataTable.cs" />
-     <Compile Include="Assets\EPloy\Component\DataTable\DataTableBase.cs" />
-     <Compile Include="Assets\EPloy\Component\DataTable\DataTableComponet.cs" />
-     <Compile Include="Assets\EPloy\Component\DataTable\DataTableHelper.cs" />
-     <Compile Include="Assets\EPloy\Component\DataTable\IDataRow.cs" />
-     <Compile Include="Assets\EPloy\Component\DataTable\IDataTable.cs" />
-     <Compile Include="Assets\EPloy\Component\DataTable\IDataTableHelper.cs" />
-     <Compile Include="Assets\EPloy\Component\Event\EventArg.cs" />
-     <Compile Include="Assets\EPloy\Component\Event\EventComponent.Event.cs" />
-     <Compile Include="Assets\EPloy\Component\Event\EventComponent.cs" />
-     <Compile Include="Assets\EPloy\Component\Event\FrameEvent\DataTableFailureEvt.cs" />
-     <Compile Include="Assets\EPloy\Component\Event\FrameEvent\DataTableSuccessEvt.cs" />
-     <Compile Include="Assets\EPloy\Component\Event\FrameEvent\FrameEvent.cs" />
-     <Compile Include="Assets\EPloy\Component\FileSystem\AndroidFileSystemStream.cs" />
-     <Compile Include="Assets\EPloy\Component\FileSystem\CommonFileSystemStream.cs" />
-     <Compile Include="Assets\EPloy\Component\FileSystem\FileSystemComponent.cs" />
-     <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolComponent.cs" />
-     <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolManager.Object.cs" />
-     <Compile Include="Assets\EPloy\Component\ObjectPool\ObjectPoolManager.ObjectPool.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResComponent.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResHelper.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadAssetCallbacks.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadBinaryCallbacks.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadBytesCallbacks.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\LoadSceneCallbacks.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadCallback\UnloadSceneCallbacks.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadResAgent.Helper.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\LoadResAgent.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\ResEditorLoader.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\ResEnum.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\ResLoader.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadAssetTask.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadDependencyAssetTask.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadResTaskbase.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResLoader\Task\LoadSceneTask.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\AssetInfo.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\AssetObject.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\ReadWriteResInfo.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\ResGroup.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\ResInfo.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\ResName.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\ResObject.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\ResStore.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\Serializer\LocalVersionListSerializer.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\Serializer\PackVersionListSerializer.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResStore\Serializer\UpdatableVersionListSerializer.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Checker\ResourceChecker.CheckInfo.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Checker\ResourceChecker.LocalVersionInfo.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Checker\ResourceChecker.RemoteVersionInfo.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\Checker\ResourceChecker.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\ResUpdateEnum.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\ResUpdater.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\LocalVersionList.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\PackVersionList.Resource.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\PackVersionList.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.Asset.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.FileSystem.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.Resource.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.ResourceGroup.cs" />
-     <Compile Include="Assets\EPloy\Component\Res\ResUpdate\VersionList\UpdatableVersionList.cs" />
-     <Compile Include="Assets\EPloy\Component\Scene\SceneComponent.cs" />
-     <Compile Include="Assets\EPloy\Component\UI\UIAttribute.cs" />
-     <Compile Include="Assets\EPloy\Component\UI\UIComponent.cs" />
-     <Compile Include="Assets\EPloy\Component\UI\UIForm.cs" />
-     <Compile Include="Assets\EPloy\Component\UI\UIFormObject.cs" />
-     <Compile Include="Assets\EPloy\Component\UI\UIGroup.cs" />
-     <Compile Include="Assets\EPloy\Config\AssetUtility.cs" />
-     <Compile Include="Assets\EPloy\Config\Config.Res.cs" />
-     <Compile Include="Assets\EPloy\Config\Config.cs" />
-     <Compile Include="Assets\EPloy\Config\UIEnum.cs" />
-     <Compile Include="Assets\EPloy\Entity\GameEntry.cs" />
-     <Compile Include="Assets\EPloy\Event\EventId.cs" />
-     <Compile Include="Assets\EPloy\Event\TestEvt.cs" />
-     <Compile Include="Assets\EPloy\GameStart.cs" />
-     <Compile Include="Assets\EPloy\UIForm\StartUIDataStore.cs" />
-     <Compile Include="Assets\EPloy\UIForm\StartUIForm.cs" />
- <Reference Include="UnityEditor.UI">
- <HintPath>D:/EPloy/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UI">
- <HintPath>D:/EPloy/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+     <Compile Include="Assets\EPloy\Hotfix\Base\BaseAttribute.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\Component\Component.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\Component\IComponent.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\Component\WithIdComponent.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\EPloySerializer.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\Entity\Entity.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\Entity\GameEntity.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\Entity\IEntity.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\ObjectPool\ObjectBase.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\ObjectPool\ObjectInfo.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\ObjectPool\ObjectPoolBase.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\ReferencePool\IReference.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\ReferencePool\ReferencePool.ReferenceCollection.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\ReferencePool\ReferencePool.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\ReferencePool\ReferencePoolInfo.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\System\GameSystem.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\System\IAwakeSystem.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\System\IStartSystem.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\System\ISystem.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\System\IUpdateSystem.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\System\SystemAttribute.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\TaskPool\ITaskAgent.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\TaskPool\TaskBase.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\TaskPool\TaskInfo.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\TaskPool\TaskPool.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataStore\DataStoreAttribute.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataStore\DataStoreComponet.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\DataTable.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\DataTableBase.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\DataTableComponet.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\DataTableHelper.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\IDataRow.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\IDataTable.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\IDataTableHelper.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Event\EventArg.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Event\EventComponent.Event.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Event\EventComponent.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\DataTableFailureEvt.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\DataTableSuccessEvt.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\FrameEvent.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\ObjectPool\ObjectPoolComponent.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\ObjectPool\ObjectPoolManager.Object.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\ObjectPool\ObjectPoolManager.ObjectPool.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResComponent.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResHelper.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\LoadCallback\LoadAssetCallbacks.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\LoadCallback\LoadBinaryCallbacks.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\LoadCallback\LoadBytesCallbacks.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\LoadCallback\LoadSceneCallbacks.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\LoadCallback\UnloadSceneCallbacks.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\LoadResAgent.Helper.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\LoadResAgent.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\ResEditorLoader.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\ResEnum.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\ResLoader.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\Task\LoadAssetTask.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\Task\LoadDependencyAssetTask.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\Task\LoadResTaskbase.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\Task\LoadSceneTask.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\AssetInfo.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\AssetObject.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\ReadWriteResInfo.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\ResGroup.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\ResInfo.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\ResName.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\ResObject.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\ResStore.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\Serializer\LocalVersionListSerializer.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\Serializer\PackVersionListSerializer.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\Serializer\UpdatableVersionListSerializer.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Scene\SceneComponent.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\UI\UIAttribute.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\UI\UIComponent.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\UI\UIForm.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\UI\UIFormObject.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\UI\UIGroup.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Config\AssetUtility.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Config\Config.Res.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Config\Config.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Config\UIEnum.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Entity\GameEntry.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Event\EventId.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Event\TestEvt.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\GameStart.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\UIForm\StartUIDataStore.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\UIForm\StartUIForm.cs" />
+ <Reference Include="UnityEngine">
+ <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -349,6 +310,9 @@
  </Reference>
  <Reference Include="UnityEngine.XRModule">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor">
+ <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEditor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.VR">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
@@ -749,16 +713,24 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Libraries.csproj">
-      <Project>{0EC19280-55DE-06FE-BAA6-813FE7494E0F}</Project>
+      <Project>{8092c10e-de55-fe06-baa6-813fe7494e0f}</Project>
       <Name>Libraries</Name>
     </ProjectReference>
     <ProjectReference Include="GameMain.csproj">
-      <Project>{D1D71D1C-7D9F-AB3E-1C48-FF08A04D007C}</Project>
+      <Project>{1c1dd7d1-9f7d-3eab-1c48-ff08a04d007c}</Project>
       <Name>GameMain</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEditor.UI.csproj">
+      <Project>{ba2c5cd9-4f11-8171-b93c-96e5feda454e}</Project>
+      <Name>UnityEditor.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.UI.csproj">
+      <Project>{a6c50d23-ca9f-e45c-35a9-0bbdb45232ab}</Project>
+      <Name>UnityEngine.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

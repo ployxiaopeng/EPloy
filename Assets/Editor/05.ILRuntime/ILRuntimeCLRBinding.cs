@@ -10,17 +10,30 @@ namespace EPloy.Editor
     [System.Reflection.Obfuscation(Exclude = true)]
     public class ILRuntimeCLRBinding
     {
-        [MenuItem("EPloy/ILRuntime/ICR绑定Code")]
+        [MenuItem("EPloy/ILRuntime/构建ICR绑定")]
+        static void GenerateCLRBindingByAnalysis()
+        {
+            //用新的分析热更dll调用引用来生成绑定代码
+            ILRuntime.Runtime.Enviorment.AppDomain domain = new ILRuntime.Runtime.Enviorment.AppDomain();
+            using (System.IO.FileStream fs = new System.IO.FileStream(EPloyEditorPath.AssetHotfixDLL, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+            {
+                domain.LoadAssembly(fs);
+                //Crossbind Adapter is needed to generate the correct binding code
+                ILRuntimeHelper.InitILRuntime(domain);
+                ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(domain, EPloyEditorPath.ILRuntimeGenerated);
+
+            }
+            AssetDatabase.Refresh();
+        }
+        [MenuItem("EPloy/ILRuntime/构建Code绑定")]
         static void GenerateCLRBinding()
         {
             List<Type> types = new List<Type>();
             types.Add(typeof(int));
-            types.Add(typeof(float));
             types.Add(typeof(long));
             types.Add(typeof(object));
             types.Add(typeof(string));
             types.Add(typeof(Array));
-            types.Add(typeof(Vector2));
             types.Add(typeof(Vector3));
             types.Add(typeof(Quaternion));
             types.Add(typeof(GameObject));
@@ -34,21 +47,6 @@ namespace EPloy.Editor
 
             ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types, EPloyEditorPath.ILRuntimeGenerated);
             AssetDatabase.Refresh();
-        }
-
-        [MenuItem("EPloy/ILRuntime/构建ICR绑定")]
-        static void GenerateCLRBindingByAnalysis()
-        {
-            //用新的分析热更dll调用引用来生成绑定代码
-            ILRuntime.Runtime.Enviorment.AppDomain domain = new ILRuntime.Runtime.Enviorment.AppDomain();
-            using (System.IO.FileStream fs = new System.IO.FileStream(EPloyEditorPath.AssetHotfixDLL, System.IO.FileMode.Open, System.IO.FileAccess.Read))
-            {
-                domain.LoadAssembly(fs);
-                //Crossbind Adapter is needed to generate the correct binding code
-                ILRuntimeHelper.InitILRuntime(domain);
-                ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(domain, EPloyEditorPath.ILRuntimeGenerated);
-                AssetDatabase.Refresh();
-            }
         }
 
         [MenuItem("EPloy/ILRuntime/更新HotfixDll")]
