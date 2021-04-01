@@ -12,16 +12,10 @@ namespace EPloy.Res
     {
         internal const string BackupExtension = "bak";
         internal const string ResPath = "bak";
-
+        internal PackVersionListSerializer PackVersionListSerializer { get; private set; }
+        internal UpdatableVersionListSerializer UpdatableVersionListSerializer { get; private set; }
+        internal LocalVersionListSerializer LocalVersionListSerializer { get; private set; }
         private ResourceChecker ResChecker;
-
-        private FileSystemModule FileSystem
-        {
-            get
-            {
-                return Game.FileSystem;
-            }
-        }
 
         /// <summary>
         ///  更新资源需要的文件系统
@@ -80,12 +74,12 @@ namespace EPloy.Res
             if (!ReadWriteFileSystems.TryGetValue(fileSystemName, out fileSystem))
             {
                 string fullPath = Utility.Path.GetRegularPath(Path.Combine(ResPath, Utility.Text.Format("{0}.{1}", fileSystemName, MuduleConfig.DefaultExtension)));
-                fileSystem = FileSystem.GetFileSystem(fullPath);
+                fileSystem = Game.FileSystem.GetFileSystem(fullPath);
                 if (fileSystem == null)
                 {
                     if (File.Exists(fullPath))
                     {
-                        fileSystem = FileSystem.LoadFileSystem(fullPath, FileSystemAccess.ReadWrite);
+                        fileSystem = Game.FileSystem.LoadFileSystem(fullPath, FileSystemAccess.ReadWrite);
                     }
                     else
                     {
@@ -95,7 +89,7 @@ namespace EPloy.Res
                             Directory.CreateDirectory(directory);
                         }
 
-                        fileSystem = FileSystem.CreateFileSystem(fullPath, FileSystemAccess.ReadWrite, MuduleConfig.FileSystemMaxFileCount, MuduleConfig.FileSystemMaxBlockCount);
+                        fileSystem = Game.FileSystem.CreateFileSystem(fullPath, FileSystemAccess.ReadWrite, MuduleConfig.FileSystemMaxFileCount, MuduleConfig.FileSystemMaxBlockCount);
                     }
 
                     ReadWriteFileSystems.Add(fileSystemName, fileSystem);

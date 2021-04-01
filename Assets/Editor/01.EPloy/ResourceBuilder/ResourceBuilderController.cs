@@ -796,7 +796,7 @@ namespace EPloy.Editor.ResourceTools
 
             UpdatableVersionList versionList = new UpdatableVersionList(ApplicableGameVersion, InternalResourceVersion, assets, resources, fileSystems, resourceGroups);
             UpdatableVersionListSerializer serializer = new UpdatableVersionListSerializer();
-            string updatableVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, Config.RemoteVersionListFileName));
+            string updatableVersionListPath = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, MuduleConfig.RemoteVersionListFileName));
             using (FileStream fileStream = new FileStream(updatableVersionListPath, FileMode.Create, FileAccess.Write))
             {
                 if (!serializer.Serialize(fileStream, versionList))
@@ -812,8 +812,8 @@ namespace EPloy.Editor.ResourceTools
             int compressedLength = bytes.Length;
             File.WriteAllBytes(updatableVersionListPath, bytes);
             int compressedHashCode = Utility.Verifier.GetCrc32(bytes);
-            int dotPosition = Config.RemoteVersionListFileName.LastIndexOf('.');
-            string versionListFullNameWithCrc32 = Utility.Text.Format("{0}.{2:x8}.{1}", Config.RemoteVersionListFileName.Substring(0, dotPosition), Config.RemoteVersionListFileName.Substring(dotPosition + 1), hashCode);
+            int dotPosition = MuduleConfig.RemoteVersionListFileName.LastIndexOf('.');
+            string versionListFullNameWithCrc32 = Utility.Text.Format("{0}.{2:x8}.{1}", MuduleConfig.RemoteVersionListFileName.Substring(0, dotPosition), MuduleConfig.RemoteVersionListFileName.Substring(dotPosition + 1), hashCode);
             string updatableVersionListPathWithCrc32 = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, versionListFullNameWithCrc32));
             File.Move(updatableVersionListPath, updatableVersionListPathWithCrc32);
 
@@ -960,7 +960,8 @@ namespace EPloy.Editor.ResourceTools
 
             if (OutputFullSelected)
             {
-                string fullNameWithCrc32AndExtension = variant != null ? Utility.Text.Format("{0}.{1}.{2:x8}.{3}", name, variant, hashCode, Config.DefaultExtension) : Utility.Text.Format("{0}.{1:x8}.{2}", name, hashCode, Config.DefaultExtension);
+                string fullNameWithCrc32AndExtension = variant != null ? Utility.Text.Format("{0}.{1}.{2:x8}.{3}", name, variant, hashCode, MuduleConfig.DefaultExtension) :
+                Utility.Text.Format("{0}.{1:x8}.{2}", name, hashCode, MuduleConfig.DefaultExtension);
                 string fullPath = Utility.Path.GetRegularPath(Path.Combine(outputFullPath, fullNameWithCrc32AndExtension));
                 string fullDirectoryName = Path.GetDirectoryName(fullPath);
                 if (!Directory.Exists(fullDirectoryName))
@@ -1139,7 +1140,7 @@ namespace EPloy.Editor.ResourceTools
                 }
             }
 
-            return Config.DefaultExtension;
+            return MuduleConfig.DefaultExtension;
         }
     }
 }
