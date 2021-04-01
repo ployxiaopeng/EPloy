@@ -20,10 +20,11 @@ namespace EPloy.Res
     /// </summary>
     internal sealed partial class ResourceChecker
     {
-        private ResUpdaterModule ResUpdaterMgr;
+        private ResUpdaterModule ResUpdater;
 
         private readonly Dictionary<ResName, CheckInfo> CheckInfos;
         private string CurrentVariant;
+        private string ResPath;
         private bool UpdatableVersionListReady;
         private bool ReadWriteVersionListReady;
 
@@ -36,7 +37,7 @@ namespace EPloy.Res
         /// </summary>
         public ResourceChecker(ResUpdaterModule resUpdater)
         {
-            ResUpdaterMgr = resUpdater;
+            ResUpdater = resUpdater;
             CheckInfos = new Dictionary<ResName, CheckInfo>();
             CurrentVariant = null;
             UpdatableVersionListReady = false;
@@ -114,7 +115,7 @@ namespace EPloy.Res
                         string resourcePath = Utility.Path.GetRegularPath(Path.Combine(ResPath, resourceFullName));
                         if (ci.NeedMoveToDisk)
                         {
-                            IFileSystem fileSystem = ResUpdaterMgr.GetFileSystem(ci.ReadWriteFileSystemName, false);
+                            IFileSystem fileSystem = ResUpdater.GetFileSystem(ci.ReadWriteFileSystemName, false);
                             if (!fileSystem.SaveAsFile(resourceFullName, resourcePath))
                             {
                                 Log.Fatal(Utility.Text.Format("Save as file '{0}' to '{1}' from file system '{2}' error.", resourceFullName, fileSystem.FullPath));
@@ -126,7 +127,7 @@ namespace EPloy.Res
 
                         if (ci.NeedMoveToFileSystem)
                         {
-                            IFileSystem fileSystem = ResUpdaterMgr.GetFileSystem(ci.FileSystemName, false);
+                            IFileSystem fileSystem = ResUpdater.GetFileSystem(ci.FileSystemName, false);
                             if (!fileSystem.WriteFile(resourceFullName, resourcePath))
                             {
                                 Log.Fatal(Utility.Text.Format("Write resource '{0}' to file system '{1}' error.", resourceFullName, fileSystem.FullPath));
@@ -139,13 +140,10 @@ namespace EPloy.Res
                             }
                         }
                     }
-
-                    ResStore.ResInfos.Add(ci.ResName, new ResInfo(ci.ResName, ci.FileSystemName, ci.LoadType, ci.Length, ci.HashCode, true));
-                    ResStore.ReadWriteResInfos.Add(ci.ResName, new ReadWriteResInfo(ci.FileSystemName, ci.LoadType, ci.Length, ci.HashCode));
+                    // ResStore.ReadWriteResInfos.Add(ci.ResName, new ReadWriteResInfo(ci.FileSystemName, ci.LoadType, ci.Length, ci.HashCode));
                 }
                 else if (ci.Status == CheckStatus.Update)
                 {
-                    ResStore.ResInfos.Add(ci.ResName, new ResInfo(ci.ResName, ci.FileSystemName, ci.LoadType, ci.Length, ci.HashCode, false));
                     updateCount++;
                     updateTotalLength += ci.Length;
                     updateTotalZipLength += ci.ZipLength;
@@ -165,7 +163,7 @@ namespace EPloy.Res
                     removedCount++;
                     if (ci.ReadWriteUseFileSystem)
                     {
-                        IFileSystem fileSystem = ResUpdaterMgr.GetFileSystem(ci.ReadWriteFileSystemName, false);
+                        IFileSystem fileSystem = ResUpdater.GetFileSystem(ci.ReadWriteFileSystemName, false);
                         fileSystem.DeleteFile(ci.ResName.FullName);
                     }
                     else
@@ -222,7 +220,7 @@ namespace EPloy.Res
         private void RemoveEmptyFileSystems()
         {
             List<string> removedFileSystemNames = null;
-            foreach (KeyValuePair<string, IFileSystem> fileSystem in ResUpdaterMgr.ReadWriteFileSystems)
+            foreach (KeyValuePair<string, IFileSystem> fileSystem in ResUpdater.ReadWriteFileSystems)
             {
                 if (fileSystem.Value.FileCount <= 0)
                 {
@@ -231,7 +229,7 @@ namespace EPloy.Res
                         removedFileSystemNames = new List<string>();
                     }
 
-                    ResUpdaterMgr.FileSystem.DestroyFileSystem(fileSystem.Value, true);
+                    ResUpdater.FileSystem.DestroyFileSystem(fileSystem.Value, true);
                     removedFileSystemNames.Add(fileSystem.Key);
                 }
             }
@@ -240,7 +238,7 @@ namespace EPloy.Res
             {
                 foreach (string removedFileSystemName in removedFileSystemNames)
                 {
-                    ResUpdaterMgr.ReadWriteFileSystems.Remove(removedFileSystemName);
+                    ResUpdater.ReadWriteFileSystems.Remove(removedFileSystemName);
                 }
             }
         }

@@ -206,7 +206,7 @@ namespace EPloy
         private void GetUIFormTypes()
         {
             UIFormTypes = new Dictionary<UIName, Type>();
-            Type[] Types = GameEntry.GameSystem.GetTypes(Config.HotFixDllName);
+            Type[] Types = GameEntry.GameSystem.GetTypes(MuduleConfig.HotFixDllName);
             foreach (Type type in Types)
             {
                 object[] objects = type.GetCustomAttributes(typeof(UIAttribute), false);

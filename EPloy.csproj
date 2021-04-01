@@ -49,7 +49,6 @@
      <Compile Include="Assets\EPloy\Hotfix\Base\Component\Component.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Component\IComponent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Component\WithIdComponent.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Base\EPloySerializer.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Entity\Entity.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Entity\GameEntity.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Entity\IEntity.cs" />
@@ -112,9 +111,6 @@
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\ResName.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\ResObject.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\ResStore.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\Serializer\LocalVersionListSerializer.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\Serializer\PackVersionListSerializer.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResStore\Serializer\UpdatableVersionListSerializer.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Scene\SceneComponent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\UI\UIAttribute.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\UI\UIComponent.cs" />

@@ -98,6 +98,10 @@
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Checker\ResourceChecker.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\ResUpdateEnum.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\ResUpdaterModule.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Serializer\EPloySerializer.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Serializer\LocalVersionListSerializer.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Serializer\PackVersionListSerializer.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Serializer\UpdatableVersionListSerializer.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\VersionList\LocalVersionList.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\VersionList\PackVersionList.Resource.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\VersionList\PackVersionList.cs" />
