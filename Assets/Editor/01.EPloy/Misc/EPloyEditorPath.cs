@@ -21,7 +21,7 @@ namespace EPloy.Editor
         public const string CSharpCodePath = "Assets/EPloy/Hotfix/Component/DataTable/Table";
         public const string CSharpCodeTemplateFileName = "Assets/Res/Configs/DataTableCodeTemplate.txt";
 
-        public const string ILRuntimeGenerated = "Assets/EPloy/Game/ILRuntime/Generated";
+        public const string ILRuntimeGenerated = "Assets/EPloy/Game/Mudule/ILRuntime/Generated";
         public const string AssetHotfixDLL = "Assets/StreamingAssets/Hotfix.dll.bytes";
         public const string AssetHotfixPdb = "Assets/StreamingAssets/Hotfix.pdb.bytes";
 

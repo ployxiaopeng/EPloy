@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using EPloy.SystemFile;
+using UnityEngine;
 
 namespace EPloy.Res
 {
@@ -15,7 +16,7 @@ namespace EPloy.Res
         internal PackVersionListSerializer PackVersionListSerializer { get; private set; }
         internal UpdatableVersionListSerializer UpdatableVersionListSerializer { get; private set; }
         internal LocalVersionListSerializer LocalVersionListSerializer { get; private set; }
-        private ResourceChecker ResChecker;
+        private ResChecker ResChecker;
 
         /// <summary>
         ///  更新资源需要的文件系统
@@ -49,17 +50,19 @@ namespace EPloy.Res
         /// <summary>
         /// 检查资源。
         /// </summary>
-        /// <param name="checkResourcesCompleteCallback">使用可更新模式并检查资源完成时的回调函数。</param>
-        public void CheckResources(bool ignoreOtherVariant, CheckResCompleteCallback checkResCompleteCallback)
+        /// <param name="checkCallback">完成时结果的</param>
+        public void CheckRes(Action<bool, string> checkCallback)
         {
-            if (checkResCompleteCallback == null)
+            if (checkCallback == null)
             {
                 Log.Fatal("Check resources complete callback is invalid.");
                 return;
             }
+#if UNITY_EDITOR
+            checkCallback(true, "");
+            return;
+#endif
             ResChecker.CheckResources(CurrentVariant);
-            // GameEntry.Res.LoadBytes(Utility.Path.GetRemotePath(Path.Combine(ResPath, Config.RemoteVersionListFileName)), ResChecker.UpdatableVersionCallbacks);
-            // GameEntry.Res.LoadBytes(Utility.Path.GetRemotePath(Path.Combine(ResPath, Config.LocalVersionListFileName)), ResChecker.ReadWriteVersionCallbacks);
         }
 
         internal IFileSystem GetFileSystem(string fileSystemName, bool storageInReadOnly)

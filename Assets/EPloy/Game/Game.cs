@@ -35,13 +35,20 @@ namespace EPloy
             FileSystem = EPloyModuleMgr.CreateModule<FileSystemModule>();
             ResUpdater = EPloyModuleMgr.CreateModule<ResUpdaterModule>();
             ILRuntime = EPloyModuleMgr.CreateModule<ILRuntimeModule>();
+            ResUpdater.CheckRes(CheckResCallback);
 
-            // 暂定流程  还需要一个资源版本检查系统  通过之后加载 hotfixDLL
-            // 我现在直接测试加载dll 
 
-            ILRuntime.StartGame(isILRuntime);
         }
 
+        private void CheckResCallback(bool result, string msg)
+        {
+            if (result)
+            {
+                ILRuntime.StartGame(isILRuntime);
+                return;
+            }
+            Log.Fatal(msg);
+        }
 
         private void Update()
         {

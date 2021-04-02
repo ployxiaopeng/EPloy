@@ -1,6 +1,6 @@
 ﻿using Google.Protobuf;
 using ILRuntime.Runtime.Enviorment;
-// using ILRuntime.Runtime.Generated;
+using ILRuntime.Runtime.Generated;
 using ILRuntime.Runtime.Intepreter;
 using System;
 using System.Collections.Generic;
@@ -63,7 +63,7 @@ namespace EPloy
 
 
             //注册CLR绑定代码
-            // CLRBindings.Initialize(appDomain);
+            CLRBindings.Initialize(appDomain);
 
             //TODO:注册跨域继承适配器
             appDomain.RegisterCrossBindingAdaptor(new IMessageAdaptor());
