@@ -1,8 +1,14 @@
 ﻿
 namespace EPloy
 {
-    public static  class MuduleConfig
+    public static class MuduleConfig
     {
+
+        /// <summary>
+        /// 服务端 版本文件名称
+        /// </summary>
+        public const string CheckVersionUrl = "";
+
         /// <summary>
         /// 服务端 版本文件名称
         /// </summary>

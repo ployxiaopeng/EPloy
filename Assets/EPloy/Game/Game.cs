@@ -6,12 +6,23 @@ namespace EPloy
 {
     public class Game : MonoBehaviour
     {
-        public static Game instance = null;
+        public static Game Instance = null;
         [SerializeField]
-        private bool isILRuntime;
-        public bool EditorResource;
+        private bool IsILRuntime;
+        [SerializeField]
+        private bool EditorResource;
 
-        private static ResUpdaterModule ResUpdater;
+        public static ResUpdaterModule ResUpdater
+        {
+            get;
+            private set;
+        }
+
+        public static VersionCheckerModule VersionChecker
+        {
+            get;
+            private set;
+        }
 
         public static FileSystemModule FileSystem
         {
@@ -25,29 +36,28 @@ namespace EPloy
             private set;
         }
 
+        public static ProcedureModule Procedure
+        {
+            get;
+            private set;
+        }
+
         private void Awake()
         {
-            instance = this;
+            Instance = this;
         }
 
         private void Start()
         {
             FileSystem = EPloyModuleMgr.CreateModule<FileSystemModule>();
+            VersionChecker = EPloyModuleMgr.CreateModule<VersionCheckerModule>();
             ResUpdater = EPloyModuleMgr.CreateModule<ResUpdaterModule>();
             ILRuntime = EPloyModuleMgr.CreateModule<ILRuntimeModule>();
-            ResUpdater.CheckRes(CheckResCallback);
+            Procedure = EPloyModuleMgr.CreateModule<ProcedureModule>();
 
 
-        }
 
-        private void CheckResCallback(bool result, string msg)
-        {
-            if (result)
-            {
-                ILRuntime.StartGame(isILRuntime);
-                return;
-            }
-            Log.Fatal(msg);
+            Procedure.StartGame(IsILRuntime, EditorResource);
         }
 
         private void Update()

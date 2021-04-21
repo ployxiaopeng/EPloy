@@ -45,10 +45,10 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\EPloy\Game\Base\Config.cs" />
      <Compile Include="Assets\EPloy\Game\Base\EPloyAction.cs" />
      <Compile Include="Assets\EPloy\Game\Base\Log.cs" />
      <Compile Include="Assets\EPloy\Game\Base\Mudule\EPloyModule.cs" />
+     <Compile Include="Assets\EPloy\Game\Base\MuduleConfig.cs" />
      <Compile Include="Assets\EPloy\Game\Base\TypeLinkedList.cs" />
      <Compile Include="Assets\EPloy\Game\Base\TypeNamePair.cs" />
      <Compile Include="Assets\EPloy\Game\Base\UnOrderMultiMap.cs" />
@@ -199,6 +199,7 @@
      <Compile Include="Assets\EPloy\Game\Mudule\ILRuntime\ValueBinder\QuaternionBinder.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ILRuntime\ValueBinder\Vector2Binder.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ILRuntime\ValueBinder\Vector3Binder.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\Procedure\ProcedureModule.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Checker\ResChecker.CheckInfo.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Checker\ResChecker.LocalVersionInfo.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Checker\ResChecker.RemoteVersionInfo.cs" />
@@ -218,6 +219,8 @@
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\VersionList\UpdatableVersionList.Resource.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\VersionList\UpdatableVersionList.ResourceGroup.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\VersionList\UpdatableVersionList.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\VersionChecker\VersionCheckerModule.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\VersionChecker\VersionInfo.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

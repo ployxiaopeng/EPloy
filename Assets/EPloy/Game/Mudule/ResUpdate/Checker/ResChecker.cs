@@ -64,10 +64,10 @@ namespace EPloy.Res
             CurrentVariant = currentVariant;
             TryRecoverReadWriteVersionList();
             string versionListUri = Utility.Path.GetRemotePath(Path.Combine(VersionListPath, MuduleConfig.LocalVersionListFileName));
-            Game.instance.StartCoroutine(LocalVersionList(versionListUri));
+            Game.Instance.StartCoroutine(LocalVersionList(versionListUri));
 
             string RemoteVersionListUrl = Utility.Path.GetRemotePath(Path.Combine(VersionListPath, MuduleConfig.RemoteVersionListFileName));
-            Game.instance.StartCoroutine(RemoteVersionList(RemoteVersionListUrl));
+            Game.Instance.StartCoroutine(RemoteVersionList(RemoteVersionListUrl));
 
         }
 

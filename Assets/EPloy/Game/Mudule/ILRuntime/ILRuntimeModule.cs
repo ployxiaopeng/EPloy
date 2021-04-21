@@ -112,7 +112,7 @@ namespace EPloy
             {
 #if UNITY_EDITOR
                 Debug.Log("当前为 LRuntime Editor模式");
-                Game.instance.StartCoroutine(EditorHotfixStart());
+                Game.Instance.StartCoroutine(EditorHotfixStart());
 #else
                 Debug.LogError("移动平台只有ILRuntime 模式不开会报错");
 #endif
@@ -120,7 +120,7 @@ namespace EPloy
             }
             AppDomain = new AppDomain();
             ILRuntimeHelper.InitILRuntime(AppDomain);
-            Game.instance.StartCoroutine(LoadHotfixDll());
+            Game.Instance.StartCoroutine(LoadHotfixDll());
         }
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace EPloy
 #endif
             #endregion
 
-            Game.instance.StartCoroutine(HotfixStart());
+            Game.Instance.StartCoroutine(HotfixStart());
         }
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace EPloy
             yield return null;
             IType type = AppDomain.LoadedTypes[GameStartStr];
 
-            AppDomain.Invoke(GameStartStr, AwakeStr, null, new[] { Game.instance });
+            AppDomain.Invoke(GameStartStr, AwakeStr, null, new[] { Game.Instance });
             AppDomain.Invoke(GameStartStr, StartStr, null, null);
             hUpdate = type.GetMethod(UpdateStr, 0);
             hLateUpdate = type.GetMethod(LateUpdateStr, 0);
@@ -215,7 +215,7 @@ namespace EPloy
             Types = editorAssembly.GetTypes().ToArray();
             Type type = editorAssembly.GetType(GameStartStr);
             MethodInfo awake = type.GetMethod(AwakeStr, BindingFlags.Public | BindingFlags.Static);
-            awake.Invoke(null, new[] { Game.instance });
+            awake.Invoke(null, new[] { Game.Instance });
             yield return new WaitForEndOfFrame();
             MethodInfo start = type.GetMethod(StartStr, BindingFlags.Public | BindingFlags.Static);
             start.Invoke(null, null);
