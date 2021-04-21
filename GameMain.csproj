@@ -69,6 +69,11 @@
      <Compile Include="Assets\EPloy\Game\Base\Utility\Utility.Verifier.cs" />
      <Compile Include="Assets\EPloy\Game\Base\Utility\Utility.Zip.cs" />
      <Compile Include="Assets\EPloy\Game\Game.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\Download\DownModule.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadAgent.Request.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadAgent.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadCallBack.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadTask.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\EPloyModuleMgr.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\FileSystem\AndroidFileSystemStream.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\FileSystem\Base\FileInfo.cs" />
