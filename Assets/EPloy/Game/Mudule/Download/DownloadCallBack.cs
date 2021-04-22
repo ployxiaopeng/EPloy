@@ -7,27 +7,29 @@ namespace EPloy
 {
     public class DownloadCallBack : IDisposable
     {
+        public EPloyAction<DownloadTask> DownloadStart { get; private set; }
+        public EPloyAction<DownloadTask, int> DownloadUpdate { get; private set; }
+        public EPloyAction<DownloadTask, long> DownloadSuccess { get; private set; }
+        public EPloyAction<DownloadTask, string> DownloadFailure { get; private set; }
 
-        public Action<DownloadAgent> DownloadStart { get; private set; }
-        public Action<DownloadAgent, int> DownloadUpdate { get; private set; }
-        public Action<DownloadAgent, long> DownloadSuccess { get; private set; }
-        public Action<DownloadAgent, string> DownloadFailure { get; private set; }
-
-        public DownloadCallBack(Action<DownloadAgent, long> downloadSuccess, Action<DownloadAgent, string> downloadFailure)
+        public DownloadCallBack() : this(null, null, null, null)
         {
-            DownloadStart = null; DownloadUpdate = null;
-            DownloadSuccess = downloadSuccess; DownloadFailure = downloadFailure;
         }
 
-        public DownloadCallBack(Action<DownloadAgent, long> downloadSuccess, Action<DownloadAgent, string> downloadFailure,
-       Action<DownloadAgent, int> downloadUpdate)
+        public DownloadCallBack(EPloyAction<DownloadTask, long> downloadSuccess, EPloyAction<DownloadTask, string> downloadFailure) :
+         this(downloadSuccess, downloadFailure, null, null)
         {
-            DownloadStart = null; DownloadUpdate = downloadUpdate;
-            DownloadSuccess = downloadSuccess; DownloadFailure = downloadFailure;
+
         }
 
-        public DownloadCallBack(Action<DownloadAgent, long> downloadSuccess, Action<DownloadAgent, string> downloadFailure,
-         Action<DownloadAgent> downloadStart, Action<DownloadAgent, int> downloadUpdate)
+        public DownloadCallBack(EPloyAction<DownloadTask, long> downloadSuccess, EPloyAction<DownloadTask, string> downloadFailure,
+       EPloyAction<DownloadTask, int> downloadUpdate) : this(downloadSuccess, downloadFailure, null, downloadUpdate)
+        {
+
+        }
+
+        public DownloadCallBack(EPloyAction<DownloadTask, long> downloadSuccess, EPloyAction<DownloadTask, string> downloadFailure,
+         EPloyAction<DownloadTask> downloadStart, EPloyAction<DownloadTask, int> downloadUpdate)
         {
             DownloadStart = downloadStart; DownloadUpdate = downloadUpdate;
             DownloadSuccess = downloadSuccess; DownloadFailure = downloadFailure;

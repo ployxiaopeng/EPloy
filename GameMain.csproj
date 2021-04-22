@@ -69,7 +69,7 @@
      <Compile Include="Assets\EPloy\Game\Base\Utility\Utility.Verifier.cs" />
      <Compile Include="Assets\EPloy\Game\Base\Utility\Utility.Zip.cs" />
      <Compile Include="Assets\EPloy\Game\Game.cs" />
-     <Compile Include="Assets\EPloy\Game\Mudule\Download\DownModule.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\Download\DownLoadModule.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadAgent.Request.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadAgent.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadCallBack.cs" />

@@ -18,6 +18,12 @@ namespace EPloy
             private set;
         }
 
+        public static DownLoadModule DownLoad
+        {
+            get;
+            private set;
+        }
+
         public static VersionCheckerModule VersionChecker
         {
             get;
@@ -51,6 +57,7 @@ namespace EPloy
         {
             FileSystem = EPloyModuleMgr.CreateModule<FileSystemModule>();
             VersionChecker = EPloyModuleMgr.CreateModule<VersionCheckerModule>();
+            DownLoad = EPloyModuleMgr.CreateModule<DownLoadModule>();
             ResUpdater = EPloyModuleMgr.CreateModule<ResUpdaterModule>();
             ILRuntime = EPloyModuleMgr.CreateModule<ILRuntimeModule>();
             Procedure = EPloyModuleMgr.CreateModule<ProcedureModule>();

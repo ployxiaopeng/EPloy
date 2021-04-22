@@ -18,7 +18,7 @@ namespace EPloy
             get;
             set;
         }
-        
+
         /// <summary>
         /// 是否下载完成
         /// </summary>
@@ -76,17 +76,21 @@ namespace EPloy
             private set;
         }
 
+        public DownloadCallBack DownloadCallBack
+        {
+            get;
+            private set;
+        }
+
         /// <summary>
         /// 创建下载任务。
         /// </summary>
         /// <param name="downloadPath">下载后存放路径。</param>
         /// <param name="downloadUri">原始下载地址。</param>
-        /// <param name="priority">下载任务的优先级。</param>
         /// <param name="flushSize">将缓冲区写入磁盘的临界大小。</param>
         /// <param name="timeout">下载超时时长，以秒为单位。</param>
-        /// <param name="userData">用户自定义数据。</param>
         /// <returns>创建的下载任务。</returns>
-        public static DownloadTask Create(string downloadPath, string downloadUri, int flushSize, float timeout)
+        public static DownloadTask Create(string downloadPath, string downloadUri, int flushSize, float timeout, DownloadCallBack downloadCallBack)
         {
             DownloadTask downloadTask = new DownloadTask();
             downloadTask.Dispose();
@@ -94,6 +98,7 @@ namespace EPloy
             downloadTask.DownloadUri = downloadUri;
             downloadTask.FlushSize = flushSize;
             downloadTask.Timeout = timeout;
+            downloadTask.DownloadCallBack = downloadCallBack;
             return downloadTask;
         }
 

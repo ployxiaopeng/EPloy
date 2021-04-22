@@ -69,18 +69,20 @@ namespace EPloy
             private set;
         }
 
-        private DownloadCallBack DownloadCallBack;
-
-        /// <summary>
-        /// 初始化下载代理的新实例。
-        /// </summary>
-        /// <param name="downloadAgentHelper">下载代理辅助器。</param>
-        public DownloadAgent(DownloadCallBack downloadCallBack)
+        private DownloadCallBack DownloadCallBack
         {
-            if (downloadCallBack == null)
+            get
             {
-                Log.Fatal("downloadCallBack  is null");
+                if (Task == null)
+                {
+                    return null;
+                }
+                return Task.DownloadCallBack;
             }
+        }
+
+        public DownloadAgent()
+        {
             Task = null;
             FileStream = null;
             WaitFlushSize = 0;
@@ -89,7 +91,6 @@ namespace EPloy
             DownloadedLength = 0;
             SavedLength = 0;
             Disposed = false;
-            DownloadCallBack = downloadCallBack;
         }
 
         /// <summary>
@@ -149,7 +150,7 @@ namespace EPloy
 
                 if (DownloadCallBack.DownloadStart != null)
                 {
-                    DownloadCallBack.DownloadStart(this);
+                    DownloadCallBack.DownloadStart(this.Task);
                 }
 
                 if (StartLength > 0)
@@ -256,7 +257,7 @@ namespace EPloy
             DownloadedLength += deltaLength;
             if (DownloadCallBack.DownloadUpdate != null)
             {
-                DownloadCallBack.DownloadUpdate(this, deltaLength);
+                DownloadCallBack.DownloadUpdate(this.Task, deltaLength);
             }
         }
 
@@ -285,7 +286,7 @@ namespace EPloy
 
             if (DownloadCallBack.DownloadSuccess != null)
             {
-                DownloadCallBack.DownloadSuccess(this, length);
+                DownloadCallBack.DownloadSuccess(this.Task, length);
             }
 
             Task.TaskStatus = DownloadTaskStatus.Done;
@@ -309,7 +310,7 @@ namespace EPloy
 
             if (DownloadCallBack.DownloadFailure != null)
             {
-                DownloadCallBack.DownloadFailure(this, errorMessage);
+                DownloadCallBack.DownloadFailure(this.Task, errorMessage);
             }
 
             Task.TaskStatus = DownloadTaskStatus.Error;

@@ -69,14 +69,14 @@ namespace EPloy
         }
 
         // 资源版本列表压缩后长度
-        public int VersionListCompressedLength
+        public int VersionListZipLength
         {
             get;
             set;
         }
 
         // 资源版本列表压缩后哈希值
-        public int VersionListCompressedHashCode
+        public int VersionListZipHashCode
         {
             get;
             set;

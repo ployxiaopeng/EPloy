@@ -14,13 +14,19 @@ namespace EPloy
     /// </summary>
     public class VersionCheckerModule : EPloyModule
     {
+        private MemoryStream DecompressCachedStream;
         private UpdatableVersionListSerializer UpdatableVersionListSerializer;
         private VersionInfo VersionInfo = null;
-        private Action<bool, VersionInfo> VersionCheckerCallback;
+        private DownloadCallBack DownloadCallBack;
+
+        private EPloyAction<bool, VersionInfo> VersionCheckerCallback;
+        private EPloyAction<bool, string> VersionUpdateCallback;
 
         public override void Awake()
         {
             UpdatableVersionListSerializer = new UpdatableVersionListSerializer();
+            DownloadCallBack = new DownloadCallBack();
+            DecompressCachedStream = null;
         }
 
         public override void Update()
@@ -30,11 +36,11 @@ namespace EPloy
 
         public override void OnDestroy()
         {
-
+            DecompressCachedStream.Dispose();
         }
 
 
-        public void VersionChecker(Action<bool, VersionInfo> versionCheckerCallback)
+        public void VersionChecker(EPloyAction<bool, VersionInfo> versionCheckerCallback)
         {
             if (versionCheckerCallback == null)
             {
@@ -142,122 +148,101 @@ namespace EPloy
         }
 
 
-        public void UpdateVersionList()
+        public void UpdateVersionList(EPloyAction<bool, string> versionUpdateCallback)
         {
+            this.VersionUpdateCallback = versionUpdateCallback;
             string localVersionListFilePath = Utility.Path.GetRegularPath(Path.Combine(Application.persistentDataPath, MuduleConfig.RemoteVersionListFileName));
             int dotPosition = MuduleConfig.RemoteVersionListFileName.LastIndexOf('.');
+
             string latestVersionListFullNameWithCrc32 = Utility.Text.Format("{0}.{2:x8}.{1}", MuduleConfig.RemoteVersionListFileName.Substring(0, dotPosition),
              MuduleConfig.RemoteVersionListFileName.Substring(dotPosition + 1), VersionInfo.VersionListHashCode);
-            //  m_DownloadManager.AddDownload(localVersionListFilePath, Utility.Path.GetRemotePath(Path.Combine(VersionInfo.UpdatePrefixUri, latestVersionListFullNameWithCrc32)), this);
+
+            string downloadUri = Utility.Path.GetRemotePath(Path.Combine(VersionInfo.UpdatePrefixUri, latestVersionListFullNameWithCrc32));
+            Game.DownLoad.AddDownload(localVersionListFilePath, downloadUri, DownloadCallBack);
         }
 
-        // private void OnDownloadSuccess(object sender, DownloadSuccessEventArgs e)
-        // {
-        //     VersionListProcessor versionListProcessor = e.UserData as VersionListProcessor;
-        //     if (versionListProcessor == null || versionListProcessor != this)
-        //     {
-        //         return;
-        //     }
+        private void OnDownloadSuccess(DownloadTask download, long count)
+        {
+            using (FileStream fileStream = new FileStream(download.DownloadPath, FileMode.Open, FileAccess.ReadWrite))
+            {
+                int length = (int)fileStream.Length;
+                if (length != VersionInfo.VersionListZipLength)
+                {
+                    fileStream.Close();
+                    string errorMessage = Utility.Text.Format("Latest version list zip length error, need '{0}', downloaded '{1}'.", VersionInfo.VersionListZipLength, length);
+                    OnDownloadFailure(download, errorMessage);
 
-        //     using (FileStream fileStream = new FileStream(e.DownloadPath, FileMode.Open, FileAccess.ReadWrite))
-        //     {
-        //         int length = (int)fileStream.Length;
-        //         if (length != m_VersionListZipLength)
-        //         {
-        //             fileStream.Close();
-        //             string errorMessage = Utility.Text.Format("Latest version list zip length error, need '{0}', downloaded '{1}'.", m_VersionListZipLength.ToString(), length.ToString());
-        //             DownloadFailureEventArgs downloadFailureEventArgs = DownloadFailureEventArgs.Create(e.SerialId, e.DownloadPath, e.DownloadUri, errorMessage, e.UserData);
-        //             OnDownloadFailure(this, downloadFailureEventArgs);
-        //             ReferencePool.Release(downloadFailureEventArgs);
-        //             return;
-        //         }
+                    return;
+                }
 
-        //         fileStream.Position = 0L;
-        //         int hashCode = Utility.Verifier.GetCrc32(fileStream);
-        //         if (hashCode != m_VersionListZipHashCode)
-        //         {
-        //             fileStream.Close();
-        //             string errorMessage = Utility.Text.Format("Latest version list zip hash code error, need '{0}', downloaded '{1}'.", m_VersionListZipHashCode.ToString(), hashCode.ToString());
-        //             DownloadFailureEventArgs downloadFailureEventArgs = DownloadFailureEventArgs.Create(e.SerialId, e.DownloadPath, e.DownloadUri, errorMessage, e.UserData);
-        //             OnDownloadFailure(this, downloadFailureEventArgs);
-        //             ReferencePool.Release(downloadFailureEventArgs);
-        //             return;
-        //         }
+                fileStream.Position = 0L;
+                int hashCode = Utility.Verifier.GetCrc32(fileStream);
+                if (hashCode != VersionInfo.VersionListZipHashCode)
+                {
+                    fileStream.Close();
+                    string errorMessage = Utility.Text.Format("Latest version list zip hash code error, need '{0}', downloaded '{1}'.", VersionInfo.VersionListZipHashCode, hashCode);
+                    OnDownloadFailure(download, errorMessage);
+                    return;
+                }
 
-        //         if (m_ResourceManager.m_DecompressCachedStream == null)
-        //         {
-        //             m_ResourceManager.m_DecompressCachedStream = new MemoryStream();
-        //         }
+                if (DecompressCachedStream == null)
+                {
+                    DecompressCachedStream = new MemoryStream();
+                }
 
-        //         try
-        //         {
-        //             fileStream.Position = 0L;
-        //             m_ResourceManager.m_DecompressCachedStream.Position = 0L;
-        //             m_ResourceManager.m_DecompressCachedStream.SetLength(0L);
-        //             if (!Utility.Zip.Decompress(fileStream, m_ResourceManager.m_DecompressCachedStream))
-        //             {
-        //                 fileStream.Close();
-        //                 string errorMessage = Utility.Text.Format("Unable to decompress latest version list '{0}'.", e.DownloadPath);
-        //                 DownloadFailureEventArgs downloadFailureEventArgs = DownloadFailureEventArgs.Create(e.SerialId, e.DownloadPath, e.DownloadUri, errorMessage, e.UserData);
-        //                 OnDownloadFailure(this, downloadFailureEventArgs);
-        //                 ReferencePool.Release(downloadFailureEventArgs);
-        //                 return;
-        //             }
+                try
+                {
+                    fileStream.Position = 0L;
+                    DecompressCachedStream.Position = 0L;
+                    DecompressCachedStream.SetLength(0L);
+                    if (!Utility.Zip.Decompress(fileStream, DecompressCachedStream))
+                    {
+                        fileStream.Close();
+                        string errorMessage = Utility.Text.Format("Unable to decompress latest version list '{0}'.", download.DownloadPath);
+                        OnDownloadFailure(download, errorMessage);
+                        return;
+                    }
 
-        //             if (m_ResourceManager.m_DecompressCachedStream.Length != m_VersionListLength)
-        //             {
-        //                 fileStream.Close();
-        //                 string errorMessage = Utility.Text.Format("Latest version list length error, need '{0}', downloaded '{1}'.", m_VersionListLength.ToString(), m_ResourceManager.m_DecompressCachedStream.Length.ToString());
-        //                 DownloadFailureEventArgs downloadFailureEventArgs = DownloadFailureEventArgs.Create(e.SerialId, e.DownloadPath, e.DownloadUri, errorMessage, e.UserData);
-        //                 OnDownloadFailure(this, downloadFailureEventArgs);
-        //                 ReferencePool.Release(downloadFailureEventArgs);
-        //                 return;
-        //             }
+                    if (DecompressCachedStream.Length != VersionInfo.VersionListLength)
+                    {
+                        fileStream.Close();
+                        string errorMessage = Utility.Text.Format("Latest version list length error, need '{0}', downloaded '{1}'.", VersionInfo.VersionListLength, DecompressCachedStream.Length);
 
-        //             fileStream.Position = 0L;
-        //             fileStream.SetLength(0L);
-        //             fileStream.Write(m_ResourceManager.m_DecompressCachedStream.GetBuffer(), 0, (int)m_ResourceManager.m_DecompressCachedStream.Length);
-        //         }
-        //         catch (Exception exception)
-        //         {
-        //             fileStream.Close();
-        //             string errorMessage = Utility.Text.Format("Unable to decompress latest version list '{0}' with error message '{1}'.", e.DownloadPath, exception.ToString());
-        //             DownloadFailureEventArgs downloadFailureEventArgs = DownloadFailureEventArgs.Create(e.SerialId, e.DownloadPath, e.DownloadUri, errorMessage, e.UserData);
-        //             OnDownloadFailure(this, downloadFailureEventArgs);
-        //             ReferencePool.Release(downloadFailureEventArgs);
-        //             return;
-        //         }
-        //         finally
-        //         {
-        //             m_ResourceManager.m_DecompressCachedStream.Position = 0L;
-        //             m_ResourceManager.m_DecompressCachedStream.SetLength(0L);
-        //         }
-        //     }
+                        OnDownloadFailure(download, errorMessage);
+                        return;
+                    }
 
-        //     if (VersionListUpdateSuccess != null)
-        //     {
-        //         VersionListUpdateSuccess(e.DownloadPath, e.DownloadUri);
-        //     }
-        // }
+                    fileStream.Position = 0L;
+                    fileStream.SetLength(0L);
+                    fileStream.Write(DecompressCachedStream.GetBuffer(), 0, (int)DecompressCachedStream.Length);
+                }
+                catch (Exception exception)
+                {
+                    fileStream.Close();
+                    string errorMessage = Utility.Text.Format("Unable to decompress latest version list '{0}' with error message '{1}'.", download.DownloadPath, exception);
+                    OnDownloadFailure(download, errorMessage);
+                    return;
+                }
+                finally
+                {
+                    DecompressCachedStream.Position = 0L;
+                    DecompressCachedStream.SetLength(0L);
+                }
+            }
 
-        // private void OnDownloadFailure(object sender, DownloadFailureEventArgs e)
-        // {
-        //     VersionListProcessor versionListProcessor = e.UserData as VersionListProcessor;
-        //     if (versionListProcessor == null || versionListProcessor != this)
-        //     {
-        //         return;
-        //     }
+            this.VersionUpdateCallback(true, null);
+        }
 
-        //     if (File.Exists(e.DownloadPath))
-        //     {
-        //         File.Delete(e.DownloadPath);
-        //     }
+        private void OnDownloadFailure(DownloadTask download, string errMsg)
+        {
+            if (File.Exists(download.DownloadPath))
+            {
+                File.Delete(download.DownloadPath);
+            }
 
-        //     if (VersionListUpdateFailure != null)
-        //     {
-        //         VersionListUpdateFailure(e.DownloadUri, e.ErrorMessage);
-        //     }
-        // }
+            this.VersionUpdateCallback(false, errMsg);
+        }
+
 
         private string GetPlatformPath()
         {

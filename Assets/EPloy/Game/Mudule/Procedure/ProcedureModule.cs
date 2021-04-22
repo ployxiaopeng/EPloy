@@ -61,10 +61,12 @@ namespace EPloy
             }
             if (versionInfo.UpdateGame)
             {
-                Game.VersionChecker.UpdateVersionList();
+                // 资源列表更新
+                Game.VersionChecker.UpdateVersionList(VersionUpdateCallback);
             }
             else
             {
+                // 资源校验
                 Game.ResUpdater.CheckRes(CheckResCallback);
             }
         }
@@ -75,6 +77,16 @@ namespace EPloy
             if (result)
             {
                 Game.ILRuntime.StartGame(IsILRuntime);
+                return;
+            }
+            Log.Fatal(msg);
+        }
+
+        private void VersionUpdateCallback(bool result, string msg)
+        {
+            if (result)
+            {
+                // 准备资源更新
                 return;
             }
             Log.Fatal(msg);
