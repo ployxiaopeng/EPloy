@@ -210,6 +210,8 @@
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Checker\ResChecker.LocalVersionInfo.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Checker\ResChecker.RemoteVersionInfo.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Checker\ResChecker.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Checker\ResGroup.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Checker\ResInfo.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Checker\ResName.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\ResUpdateEnum.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\ResUpdaterModule.cs" />

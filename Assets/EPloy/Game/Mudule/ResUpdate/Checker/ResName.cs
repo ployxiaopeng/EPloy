@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace EPloy.Res
 {
     /// <summary>
-    /// 资源加载方式类型 默认加密
+    /// 资源加载方式类型 默认正常加密
     /// </summary>
     public enum LoadType : byte
     {
@@ -27,7 +27,7 @@ namespace EPloy.Res
     /// <summary>
     /// 资源名称。
     /// </summary>
-    internal struct ResName : IComparable, IComparable<ResName>, IEquatable<ResName>
+    public struct ResName : IComparable, IComparable<ResName>, IEquatable<ResName>
     {
         /// <summary>
         /// 获取资源名称。
@@ -168,7 +168,7 @@ namespace EPloy.Res
     /// <summary>
     /// 资源名称比较器。
     /// </summary>
-    internal sealed class ResNameComparer //: IComparer<ResName>, IEqualityComparer<ResName>
+    public sealed class ResNameComparer : IComparer<ResName>, IEqualityComparer<ResName>
     {
         public int Compare(ResName x, ResName y)
         {

@@ -7,11 +7,51 @@
     {
         private static readonly Resource[] EmptyResourceArray = new Resource[] { };
 
-        private readonly bool m_IsValid;
-        private readonly int m_Offset;
-        private readonly long m_Length;
-        private readonly int m_HashCode;
-        private readonly Resource[] m_Resources;
+        /// <summary>
+        /// 获取资源包版本资源列表是否有效。
+        /// </summary>
+        public bool IsValid
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取资源数据偏移。
+        /// </summary>
+        public int Offset
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取资源数据长度。
+        /// </summary>
+        public long Length
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取资源数据哈希值。
+        /// </summary>
+        public int HashCode
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取包含的资源集合。
+        /// </summary>
+        /// <returns>包含的资源集合。</returns>
+        public Resource[] Resources
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// 初始化资源包版本资源列表的新实例。
@@ -22,64 +62,11 @@
         /// <param name="resources">包含的资源集合。</param>
         public PackVersionList(int offset, long length, int hashCode, Resource[] resources)
         {
-            m_IsValid = true;
-            m_Offset = offset;
-            m_Length = length;
-            m_HashCode = hashCode;
-            m_Resources = resources ?? EmptyResourceArray;
-        }
-
-        /// <summary>
-        /// 获取资源包版本资源列表是否有效。
-        /// </summary>
-        public bool IsValid
-        {
-            get
-            {
-                return m_IsValid;
-            }
-        }
-
-        /// <summary>
-        /// 获取资源数据偏移。
-        /// </summary>
-        public int Offset
-        {
-            get
-            {
-                return m_Offset;
-            }
-        }
-
-        /// <summary>
-        /// 获取资源数据长度。
-        /// </summary>
-        public long Length
-        {
-            get
-            {
-                return m_Length;
-            }
-        }
-
-        /// <summary>
-        /// 获取资源数据哈希值。
-        /// </summary>
-        public int HashCode
-        {
-            get
-            {
-                return m_HashCode;
-            }
-        }
-
-        /// <summary>
-        /// 获取包含的资源集合。
-        /// </summary>
-        /// <returns>包含的资源集合。</returns>
-        public Resource[] GetResources()
-        {
-            return m_Resources;
+            IsValid = true;
+            Offset = offset;
+            Length = length;
+            HashCode = hashCode;
+            Resources = resources ?? EmptyResourceArray;
         }
     }
 }

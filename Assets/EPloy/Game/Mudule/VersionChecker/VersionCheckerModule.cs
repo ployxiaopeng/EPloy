@@ -14,7 +14,6 @@ namespace EPloy
     /// </summary>
     public class VersionCheckerModule : EPloyModule
     {
-        private MemoryStream DecompressCachedStream;
         private UpdatableVersionListSerializer UpdatableVersionListSerializer;
         private VersionInfo VersionInfo = null;
         private DownloadCallBack DownloadCallBack;
@@ -26,7 +25,7 @@ namespace EPloy
         {
             UpdatableVersionListSerializer = new UpdatableVersionListSerializer();
             DownloadCallBack = new DownloadCallBack();
-            DecompressCachedStream = null;
+            Game.ResUpdater.DecompressCachedStream = null;
         }
 
         public override void Update()
@@ -36,7 +35,7 @@ namespace EPloy
 
         public override void OnDestroy()
         {
-            DecompressCachedStream.Dispose();
+            Game.ResUpdater.DecompressCachedStream.Dispose();
         }
 
         public void VersionChecker(EPloyAction<bool, VersionInfo> versionCheckerCallback)
@@ -184,17 +183,17 @@ namespace EPloy
                     return;
                 }
 
-                if (DecompressCachedStream == null)
+                if (Game.ResUpdater.DecompressCachedStream == null)
                 {
-                    DecompressCachedStream = new MemoryStream();
+                    Game.ResUpdater.DecompressCachedStream = new MemoryStream();
                 }
 
                 try
                 {
                     fileStream.Position = 0L;
-                    DecompressCachedStream.Position = 0L;
-                    DecompressCachedStream.SetLength(0L);
-                    if (!Utility.Zip.Decompress(fileStream, DecompressCachedStream))
+                    Game.ResUpdater.DecompressCachedStream.Position = 0L;
+                    Game.ResUpdater.DecompressCachedStream.SetLength(0L);
+                    if (!Utility.Zip.Decompress(fileStream, Game.ResUpdater.DecompressCachedStream))
                     {
                         fileStream.Close();
                         string errorMessage = Utility.Text.Format("Unable to decompress latest version list '{0}'.", download.DownloadPath);
@@ -202,10 +201,10 @@ namespace EPloy
                         return;
                     }
 
-                    if (DecompressCachedStream.Length != VersionInfo.VersionListLength)
+                    if (Game.ResUpdater.DecompressCachedStream.Length != VersionInfo.VersionListLength)
                     {
                         fileStream.Close();
-                        string errorMessage = Utility.Text.Format("Latest version list length error, need '{0}', downloaded '{1}'.", VersionInfo.VersionListLength, DecompressCachedStream.Length);
+                        string errorMessage = Utility.Text.Format("Latest version list length error, need '{0}', downloaded '{1}'.", VersionInfo.VersionListLength, Game.ResUpdater.DecompressCachedStream.Length);
 
                         OnDownloadFailure(download, errorMessage);
                         return;
@@ -213,7 +212,7 @@ namespace EPloy
 
                     fileStream.Position = 0L;
                     fileStream.SetLength(0L);
-                    fileStream.Write(DecompressCachedStream.GetBuffer(), 0, (int)DecompressCachedStream.Length);
+                    fileStream.Write(Game.ResUpdater.DecompressCachedStream.GetBuffer(), 0, (int)Game.ResUpdater.DecompressCachedStream.Length);
                 }
                 catch (Exception exception)
                 {
@@ -224,8 +223,8 @@ namespace EPloy
                 }
                 finally
                 {
-                    DecompressCachedStream.Position = 0L;
-                    DecompressCachedStream.SetLength(0L);
+                    Game.ResUpdater.DecompressCachedStream.Position = 0L;
+                    Game.ResUpdater.DecompressCachedStream.SetLength(0L);
                 }
             }
 

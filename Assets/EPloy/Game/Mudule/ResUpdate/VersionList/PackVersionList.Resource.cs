@@ -7,15 +7,88 @@
         /// </summary>
         public struct Resource
         {
-            private readonly string m_Name;
-            private readonly string m_Variant;
-            private readonly string m_Extension;
-            private readonly byte m_LoadType;
-            private readonly long m_Offset;
-            private readonly int m_Length;
-            private readonly int m_HashCode;
-            private readonly int m_ZipLength;
-            private readonly int m_ZipHashCode;
+
+
+            /// <summary>
+            /// 获取资源名称。
+            /// </summary>
+            public string Name
+            {
+                get;
+                private set;
+            }
+
+            /// <summary>
+            /// 获取资源变体名称。
+            /// </summary>
+            public string Variant
+            {
+                get;
+                private set;
+            }
+
+            /// <summary>
+            /// 获取资源扩展名称。
+            /// </summary>
+            public string Extension
+            {
+                get;
+                private set;
+            }
+
+            /// <summary>
+            /// 获取资源加载方式。
+            /// </summary>
+            public byte LoadType
+            {
+                get;
+                private set;
+            }
+
+            /// <summary>
+            /// 获取资源偏移。
+            /// </summary>
+            public long Offset
+            {
+                get;
+                private set;
+            }
+
+            /// <summary>
+            /// 获取资源长度。
+            /// </summary>
+            public int Length
+            {
+                get;
+                private set;
+            }
+
+            /// <summary>
+            /// 获取资源哈希值。
+            /// </summary>
+            public int HashCode
+            {
+                get;
+                private set;
+            }
+
+            /// <summary>
+            /// 获取资源压缩后长度。
+            /// </summary>
+            public int ZipLength
+            {
+                get;
+                private set;
+            }
+
+            /// <summary>
+            /// 获取资源压缩后哈希值。
+            /// </summary>
+            public int ZipHashCode
+            {
+                get;
+                private set;
+            }
 
             /// <summary>
             /// 初始化资源的新实例。
@@ -33,118 +106,20 @@
             {
                 if (string.IsNullOrEmpty(name))
                 {
-                     Log.Fatal("Name is invalid.");
+                    Log.Fatal("Name is invalid.");
                 }
 
-                m_Name = name;
-                m_Variant = variant;
-                m_Extension = extension;
-                m_LoadType = loadType;
-                m_Offset = offset;
-                m_Length = length;
-                m_HashCode = hashCode;
-                m_ZipLength = zipLength;
-                m_ZipHashCode = zipHashCode;
+                Name = name;
+                Variant = variant;
+                Extension = extension;
+                LoadType = loadType;
+                Offset = offset;
+                Length = length;
+                HashCode = hashCode;
+                ZipLength = zipLength;
+                ZipHashCode = zipHashCode;
             }
 
-            /// <summary>
-            /// 获取资源名称。
-            /// </summary>
-            public string Name
-            {
-                get
-                {
-                    return m_Name;
-                }
-            }
-
-            /// <summary>
-            /// 获取资源变体名称。
-            /// </summary>
-            public string Variant
-            {
-                get
-                {
-                    return m_Variant;
-                }
-            }
-
-            /// <summary>
-            /// 获取资源扩展名称。
-            /// </summary>
-            public string Extension
-            {
-                get
-                {
-                    return m_Extension;
-                }
-            }
-
-            /// <summary>
-            /// 获取资源加载方式。
-            /// </summary>
-            public byte LoadType
-            {
-                get
-                {
-                    return m_LoadType;
-                }
-            }
-
-            /// <summary>
-            /// 获取资源偏移。
-            /// </summary>
-            public long Offset
-            {
-                get
-                {
-                    return m_Offset;
-                }
-            }
-
-            /// <summary>
-            /// 获取资源长度。
-            /// </summary>
-            public int Length
-            {
-                get
-                {
-                    return m_Length;
-                }
-            }
-
-            /// <summary>
-            /// 获取资源哈希值。
-            /// </summary>
-            public int HashCode
-            {
-                get
-                {
-                    return m_HashCode;
-                }
-            }
-
-            /// <summary>
-            /// 获取资源压缩后长度。
-            /// </summary>
-            public int ZipLength
-            {
-                get
-                {
-                    return m_ZipLength;
-                }
-            }
-
-            /// <summary>
-            /// 获取资源压缩后哈希值。
-            /// </summary>
-            public int ZipHashCode
-            {
-                get
-                {
-                    return m_ZipHashCode;
-                }
-            }
         }
     }
 }

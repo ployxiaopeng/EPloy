@@ -5,31 +5,38 @@ using System.IO;
 
 namespace EPloy.Res
 {
-
     public sealed partial class ResUpdater
     {
         private const int CachedHashBytesLength = 4;
         private const int CachedBytesLength = 0x1000;
+        private DownLoadModule Download
+        {
+            get
+            {
+                return Game.DownLoad;
+            }
+        }
+        private ResUpdaterModule ResUpdaterMdl
+        {
+            get
+            {
+                return Game.ResUpdater;
+            }
+        }
 
-        private readonly ResManager m_ResManager;
-        private readonly List<ApplyInfo> m_ApplyWaitingInfo;
-        private readonly List<UpdateInfo> m_UpdateWaitingInfo;
-        private readonly Dictionary<ResName, UpdateInfo> m_UpdateCandidateInfo;
-        private readonly SortedDictionary<string, List<int>> m_CachedFileSystemsForGenerateReadWriteVersionList;
-        private readonly byte[] m_CachedHashBytes;
-        private readonly byte[] m_CachedBytes;
-        private IDownloadManager m_DownloadManager;
-        private bool m_CheckRessComplete;
-        private string m_ApplyingResPackPath;
-        private FileStream m_ApplyingResPackStream;
-        private ResGroup m_UpdatingResGroup;
-        private int m_GenerateReadWriteVersionListLength;
-        private int m_CurrentGenerateReadWriteVersionListLength;
-        private int m_UpdateRetryCount;
-        private int m_UpdatingCount;
-        private bool m_FailureFlag;
-        private string m_ReadWriteVersionListFileName;
-        private string m_ReadWriteVersionListBackupFileName;
+        private readonly List<ApplyInfo> ApplyWaitingInfo;
+        private readonly List<UpdateInfo> UpdateWaitingInfo;
+        private readonly Dictionary<ResName, UpdateInfo> UpdateCandidateInfo;
+        private readonly SortedDictionary<string, List<int>> CachedFileSystemsForGenerateReadWriteVersionList;
+        private readonly byte[] CachedHashBytes;
+        private readonly byte[] CachedBytes;
+
+        private bool CheckRessComplete;
+        private FileStream ApplyingResPackStream;
+        private int CurrentGenerateReadWriteVersionListLength;
+        private bool FailureFlag;
+        private string ReadWriteVersionListFileName;
+        private string ReadWriteVersionListBackupFileName;
 
         public EPloyAction<ResName, string, string, int, int> ResApplySuccess;
         public EPloyAction<ResName, string, string> ResApplyFailure;
@@ -44,27 +51,25 @@ namespace EPloy.Res
         /// 初始化资源更新器的新实例。
         /// </summary>
         /// <param name="ResManager">资源管理器。</param>
-        public ResUpdater(ResManager ResManager)
+        public ResUpdater()
         {
-            m_ResManager = ResManager;
-            m_ApplyWaitingInfo = new List<ApplyInfo>();
-            m_UpdateWaitingInfo = new List<UpdateInfo>();
-            m_UpdateCandidateInfo = new Dictionary<ResName, UpdateInfo>();
-            m_CachedFileSystemsForGenerateReadWriteVersionList = new SortedDictionary<string, List<int>>(StringComparer.Ordinal);
-            m_CachedHashBytes = new byte[CachedHashBytesLength];
-            m_CachedBytes = new byte[CachedBytesLength];
-            m_DownloadManager = null;
-            m_CheckRessComplete = false;
-            m_ApplyingResPackPath = null;
-            m_ApplyingResPackStream = null;
-            m_UpdatingResGroup = null;
-            m_GenerateReadWriteVersionListLength = 0;
-            m_CurrentGenerateReadWriteVersionListLength = 0;
-            m_UpdateRetryCount = 3;
-            m_UpdatingCount = 0;
-            m_FailureFlag = false;
-            m_ReadWriteVersionListFileName = Utility.Path.GetRegularPath(Path.Combine(m_ResManager.m_ReadWritePath, LocalVersionListFileName));
-            m_ReadWriteVersionListBackupFileName = Utility.Text.Format("{0}.{1}", m_ReadWriteVersionListFileName, BackupExtension);
+            ApplyWaitingInfo = new List<ApplyInfo>();
+            UpdateWaitingInfo = new List<UpdateInfo>();
+            UpdateCandidateInfo = new Dictionary<ResName, UpdateInfo>();
+            CachedFileSystemsForGenerateReadWriteVersionList = new SortedDictionary<string, List<int>>(StringComparer.Ordinal);
+            CachedHashBytes = new byte[CachedHashBytesLength];
+            CachedBytes = new byte[CachedBytesLength];
+            CheckRessComplete = false;
+            ApplyingResPackPath = null;
+            ApplyingResPackStream = null;
+            UpdatingResGroup = null;
+            GenerateReadWriteVersionListLength = 0;
+            CurrentGenerateReadWriteVersionListLength = 0;
+            UpdateRetryCount = 3;
+            UpdatingCount = 0;
+            FailureFlag = false;
+            //   ReadWriteVersionListFileName = Utility.Path.GetRegularPath(Path.Combine(ResManager.ReadWritePath, LocalVersionListFileName));
+            //  ReadWriteVersionListBackupFileName = Utility.Text.Format("{0}.{1}", ReadWriteVersionListFileName, BackupExtension);
 
             ResApplySuccess = null;
             ResApplyFailure = null;
@@ -81,14 +86,8 @@ namespace EPloy.Res
         /// </summary>
         public int GenerateReadWriteVersionListLength
         {
-            get
-            {
-                return m_GenerateReadWriteVersionListLength;
-            }
-            set
-            {
-                m_GenerateReadWriteVersionListLength = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -96,10 +95,8 @@ namespace EPloy.Res
         /// </summary>
         public string ApplyingResPackPath
         {
-            get
-            {
-                return m_ApplyingResPackPath;
-            }
+            get;
+            private set;
         }
 
         /// <summary>
@@ -109,7 +106,7 @@ namespace EPloy.Res
         {
             get
             {
-                return m_ApplyWaitingInfo.Count;
+                return ApplyWaitingInfo.Count;
             }
         }
 
@@ -118,25 +115,17 @@ namespace EPloy.Res
         /// </summary>
         public int UpdateRetryCount
         {
-            get
-            {
-                return m_UpdateRetryCount;
-            }
-            set
-            {
-                m_UpdateRetryCount = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
         /// 获取正在更新的资源组。
         /// </summary>
-        public IResGroup UpdatingResGroup
+        public ResGroup UpdatingResGroup
         {
-            get
-            {
-                return m_UpdatingResGroup;
-            }
+            get;
+            private set;
         }
 
         /// <summary>
@@ -146,7 +135,7 @@ namespace EPloy.Res
         {
             get
             {
-                return m_UpdateWaitingInfo.Count;
+                return UpdateWaitingInfo.Count;
             }
         }
 
@@ -157,7 +146,7 @@ namespace EPloy.Res
         {
             get
             {
-                return m_UpdateCandidateInfo.Count;
+                return UpdateCandidateInfo.Count;
             }
         }
 
@@ -166,10 +155,8 @@ namespace EPloy.Res
         /// </summary>
         public int UpdatingCount
         {
-            get
-            {
-                return m_UpdatingCount;
-            }
+            get;
+            private set;
         }
 
         /// <summary>
@@ -177,52 +164,52 @@ namespace EPloy.Res
         /// </summary>
         /// <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
         /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
-        public void Update(float elapseSeconds, float realElapseSeconds)
+        public void Update()
         {
-            if (m_ApplyingResPackStream != null)
+            if (ApplyingResPackStream != null)
             {
-                while (m_ApplyWaitingInfo.Count > 0)
+                while (ApplyWaitingInfo.Count > 0)
                 {
-                    ApplyInfo applyInfo = m_ApplyWaitingInfo[0];
-                    m_ApplyWaitingInfo.RemoveAt(0);
+                    ApplyInfo applyInfo = ApplyWaitingInfo[0];
+                    ApplyWaitingInfo.RemoveAt(0);
                     if (ApplyRes(applyInfo))
                     {
                         return;
                     }
                 }
 
-                Array.Clear(m_CachedBytes, 0, CachedBytesLength);
-                string ResPackPath = m_ApplyingResPackPath;
-                m_ApplyingResPackPath = null;
-                m_ApplyingResPackStream.Dispose();
-                m_ApplyingResPackStream = null;
+                Array.Clear(CachedBytes, 0, CachedBytesLength);
+                string ResPackPath = ApplyingResPackPath;
+                ApplyingResPackPath = null;
+                ApplyingResPackStream.Dispose();
+                ApplyingResPackStream = null;
                 if (ResApplyComplete != null)
                 {
-                    ResApplyComplete(ResPackPath, !m_FailureFlag, m_UpdateCandidateInfo.Count <= 0);
+                    ResApplyComplete(ResPackPath, !FailureFlag, UpdateCandidateInfo.Count <= 0);
                 }
             }
 
-            if (m_UpdateWaitingInfo.Count > 0)
+            if (UpdateWaitingInfo.Count > 0)
             {
-                if (m_DownloadManager.FreeAgentCount > 0)
+                if (Download.FreeAgentCount > 0)
                 {
-                    UpdateInfo updateInfo = m_UpdateWaitingInfo[0];
-                    m_UpdateWaitingInfo.RemoveAt(0);
+                    UpdateInfo updateInfo = UpdateWaitingInfo[0];
+                    UpdateWaitingInfo.RemoveAt(0);
                     string ResFullNameWithCrc32 = updateInfo.ResName.Variant != null ? Utility.Text.Format("{0}.{1}.{2:x8}.{3}", updateInfo.ResName.Name, updateInfo.ResName.Variant, updateInfo.HashCode, DefaultExtension) : Utility.Text.Format("{0}.{1:x8}.{2}", updateInfo.ResName.Name, updateInfo.HashCode, DefaultExtension);
-                    m_DownloadManager.AddDownload(updateInfo.ResPath, Utility.Path.GetRemotePath(Path.Combine(m_ResManager.m_UpdatePrefixUri, ResFullNameWithCrc32)), updateInfo);
-                    m_UpdatingCount++;
+                    Download.AddDownload(updateInfo.ResPath, Utility.Path.GetRemotePath(Path.Combine(ResManager.UpdatePrefixUri, ResFullNameWithCrc32)), updateInfo);
+                    UpdatingCount++;
                 }
 
                 return;
             }
 
-            if (m_UpdatingResGroup != null && m_UpdatingCount <= 0)
+            if (UpdatingResGroup != null && UpdatingCount <= 0)
             {
-                ResGroup updatingResGroup = m_UpdatingResGroup;
-                m_UpdatingResGroup = null;
+                ResGroup updatingResGroup = UpdatingResGroup;
+                UpdatingResGroup = null;
                 if (ResUpdateComplete != null)
                 {
-                    ResUpdateComplete(updatingResGroup, !m_FailureFlag, m_UpdateCandidateInfo.Count <= 0);
+                    ResUpdateComplete(updatingResGroup, !FailureFlag, UpdateCandidateInfo.Count <= 0);
                 }
 
                 return;
@@ -232,37 +219,11 @@ namespace EPloy.Res
         /// <summary>
         /// 关闭并清理资源更新器。
         /// </summary>
-        public void Shutdown()
+        public void OnDestroy()
         {
-            if (m_DownloadManager != null)
-            {
-                m_DownloadManager.DownloadStart -= OnDownloadStart;
-                m_DownloadManager.DownloadUpdate -= OnDownloadUpdate;
-                m_DownloadManager.DownloadSuccess -= OnDownloadSuccess;
-                m_DownloadManager.DownloadFailure -= OnDownloadFailure;
-            }
-
-            m_UpdateWaitingInfo.Clear();
-            m_UpdateCandidateInfo.Clear();
-            m_CachedFileSystemsForGenerateReadWriteVersionList.Clear();
-        }
-
-        /// <summary>
-        /// 设置下载管理器。
-        /// </summary>
-        /// <param name="downloadManager">下载管理器。</param>
-        public void SetDownloadManager(IDownloadManager downloadManager)
-        {
-            if (downloadManager == null)
-            {
-                throw new GameFrameworkException("Download manager is invalid.");
-            }
-
-            m_DownloadManager = downloadManager;
-            m_DownloadManager.DownloadStart += OnDownloadStart;
-            m_DownloadManager.DownloadUpdate += OnDownloadUpdate;
-            m_DownloadManager.DownloadSuccess += OnDownloadSuccess;
-            m_DownloadManager.DownloadFailure += OnDownloadFailure;
+            UpdateWaitingInfo.Clear();
+            UpdateCandidateInfo.Clear();
+            CachedFileSystemsForGenerateReadWriteVersionList.Clear();
         }
 
         /// <summary>
@@ -278,7 +239,7 @@ namespace EPloy.Res
         /// <param name="ResPath">资源路径。</param>
         public void AddResUpdate(ResName ResName, string fileSystemName, LoadType loadType, int length, int hashCode, int zipLength, int zipHashCode, string ResPath)
         {
-            m_UpdateCandidateInfo.Add(ResName, new UpdateInfo(ResName, fileSystemName, loadType, length, hashCode, zipLength, zipHashCode, ResPath));
+            UpdateCandidateInfo.Add(ResName, new UpdateInfo(ResName, fileSystemName, loadType, length, hashCode, zipLength, zipHashCode, ResPath));
         }
 
         /// <summary>
@@ -287,7 +248,7 @@ namespace EPloy.Res
         /// <param name="needGenerateReadWriteVersionList">是否需要生成读写区版本资源列表。</param>
         public void CheckResComplete(bool needGenerateReadWriteVersionList)
         {
-            m_CheckRessComplete = true;
+            CheckRessComplete = true;
             if (needGenerateReadWriteVersionList)
             {
                 GenerateReadWriteVersionList();
@@ -300,71 +261,74 @@ namespace EPloy.Res
         /// <param name="ResPackPath">要应用的资源包路径。</param>
         public void ApplyRess(string ResPackPath)
         {
-            if (!m_CheckRessComplete)
+            if (!CheckRessComplete)
             {
-                throw new GameFrameworkException("You must check Ress complete first.");
+                Log.Fatal("You must check Ress complete first.");
+                return;
             }
 
-            if (m_ApplyingResPackStream != null)
+            if (ApplyingResPackStream != null)
             {
-                throw new GameFrameworkException(Utility.Text.Format("There is already a Res pack '{0}' being applied.", m_ApplyingResPackPath));
+                Log.Fatal(Utility.Text.Format("There is already a Res pack '{0}' being applied.", ApplyingResPackPath));
+                return;
             }
 
-            if (m_UpdatingResGroup != null)
+            if (UpdatingResGroup != null)
             {
-                throw new GameFrameworkException(Utility.Text.Format("There is already a Res group '{0}' being updated.", m_UpdatingResGroup.Name));
+                Log.Fatal(Utility.Text.Format("There is already a Res group '{0}' being updated.", UpdatingResGroup.Name));
+                return;
             }
 
             try
             {
                 long length = 0L;
-                ResPackVersionList versionList = default(ResPackVersionList);
+                PackVersionList versionList = default(PackVersionList);
                 using (FileStream fileStream = new FileStream(ResPackPath, FileMode.Open, FileAccess.Read))
                 {
                     length = fileStream.Length;
-                    versionList = m_ResManager.m_ResPackVersionListSerializer.Deserialize(fileStream);
+                    versionList = ResUpdaterMdl.PackVersionListSerializer.Deserialize(fileStream);
                 }
 
                 if (!versionList.IsValid)
                 {
-                    throw new GameFrameworkException("Deserialize Res pack version list failure.");
+                    Log.Fatal("Deserialize Res pack version list failure.");
                 }
 
                 if (versionList.Offset + versionList.Length != length)
                 {
-                    throw new GameFrameworkException("Res pack length is invalid.");
+                    Log.Fatal("Res pack length is invalid.");
                 }
 
-                m_ApplyingResPackPath = ResPackPath;
-                m_ApplyingResPackStream = new FileStream(ResPackPath, FileMode.Open, FileAccess.Read);
-                m_ApplyingResPackStream.Position = versionList.Offset;
-                m_FailureFlag = false;
+                ApplyingResPackPath = ResPackPath;
+                ApplyingResPackStream = new FileStream(ResPackPath, FileMode.Open, FileAccess.Read);
+                ApplyingResPackStream.Position = versionList.Offset;
+                FailureFlag = false;
 
-                ResPackVersionList.Res[] Ress = versionList.GetRess();
-                foreach (ResPackVersionList.Res Res in Ress)
+                PackVersionList.Resource[] Ress = versionList.Resources;
+                foreach (PackVersionList.Resource Res in Ress)
                 {
                     ResName ResName = new ResName(Res.Name, Res.Variant, Res.Extension);
                     UpdateInfo updateInfo = null;
-                    if (!m_UpdateCandidateInfo.TryGetValue(ResName, out updateInfo))
+                    if (!UpdateCandidateInfo.TryGetValue(ResName, out updateInfo))
                     {
                         continue;
                     }
 
                     if (updateInfo.LoadType == (LoadType)Res.LoadType && updateInfo.Length == Res.Length && updateInfo.HashCode == Res.HashCode)
                     {
-                        m_ApplyWaitingInfo.Add(new ApplyInfo(ResName, updateInfo.FileSystemName, (LoadType)Res.LoadType, Res.Offset, Res.Length, Res.HashCode, Res.ZipLength, Res.ZipHashCode, updateInfo.ResPath));
+                        ApplyWaitingInfo.Add(new ApplyInfo(ResName, updateInfo.FileSystemName, (LoadType)Res.LoadType, Res.Offset, Res.Length, Res.HashCode, Res.ZipLength, Res.ZipHashCode, updateInfo.ResPath));
                     }
                 }
             }
             catch (Exception exception)
             {
-                if (m_ApplyingResPackStream != null)
+                if (ApplyingResPackStream != null)
                 {
-                    m_ApplyingResPackStream.Dispose();
-                    m_ApplyingResPackStream = null;
+                    ApplyingResPackStream.Dispose();
+                    ApplyingResPackStream = null;
                 }
 
-                throw new GameFrameworkException(Utility.Text.Format("Apply Ress '{0}' with exception '{1}'.", ResPackPath, exception.ToString()), exception);
+                Log.Fatal(Utility.Text.Format("Apply Ress '{0}' with exception '{1}'.", ResPackPath, exception.ToString()));
             }
         }
 
@@ -374,34 +338,34 @@ namespace EPloy.Res
         /// <param name="ResGroup">要更新的资源组。</param>
         public void UpdateRess(ResGroup ResGroup)
         {
-            if (m_DownloadManager == null)
+            if (Download == null)
             {
-                throw new GameFrameworkException("You must set download manager first.");
+                Log.Fatal("You must set download manager first.");
             }
 
-            if (!m_CheckRessComplete)
+            if (!CheckRessComplete)
             {
-                throw new GameFrameworkException("You must check Ress complete first.");
+                Log.Fatal("You must check Ress complete first.");
             }
 
-            if (m_ApplyingResPackStream != null)
+            if (ApplyingResPackStream != null)
             {
-                throw new GameFrameworkException(Utility.Text.Format("There is already a Res pack '{0}' being applied.", m_ApplyingResPackPath));
+                Log.Fatal(Utility.Text.Format("There is already a Res pack '{0}' being applied.", ApplyingResPackPath));
             }
 
-            if (m_UpdatingResGroup != null)
+            if (UpdatingResGroup != null)
             {
-                throw new GameFrameworkException(Utility.Text.Format("There is already a Res group '{0}' being updated.", m_UpdatingResGroup.Name));
+                Log.Fatal(Utility.Text.Format("There is already a Res group '{0}' being updated.", UpdatingResGroup.Name));
             }
 
             if (string.IsNullOrEmpty(ResGroup.Name))
             {
-                foreach (KeyValuePair<ResName, UpdateInfo> updateInfo in m_UpdateCandidateInfo)
+                foreach (KeyValuePair<ResName, UpdateInfo> updateInfo in UpdateCandidateInfo)
                 {
-                    m_UpdateWaitingInfo.Add(updateInfo.Value);
+                    UpdateWaitingInfo.Add(updateInfo.Value);
                 }
 
-                m_UpdateCandidateInfo.Clear();
+                UpdateCandidateInfo.Clear();
             }
             else
             {
@@ -409,48 +373,48 @@ namespace EPloy.Res
                 foreach (ResName ResName in ResNames)
                 {
                     UpdateInfo updateInfo = null;
-                    if (!m_UpdateCandidateInfo.TryGetValue(ResName, out updateInfo))
+                    if (!UpdateCandidateInfo.TryGetValue(ResName, out updateInfo))
                     {
                         continue;
                     }
 
-                    m_UpdateWaitingInfo.Add(updateInfo);
-                    m_UpdateCandidateInfo.Remove(ResName);
+                    UpdateWaitingInfo.Add(updateInfo);
+                    UpdateCandidateInfo.Remove(ResName);
                 }
             }
 
-            m_UpdatingResGroup = ResGroup;
-            m_FailureFlag = false;
+            UpdatingResGroup = ResGroup;
+            FailureFlag = false;
         }
 
         public void UpdateRes(ResName ResName)
         {
-            if (m_DownloadManager == null)
+            if (Download == null)
             {
-                throw new GameFrameworkException("You must set download manager first.");
+                Log.Fatal("You must set download manager first.");
             }
 
-            if (!m_CheckRessComplete)
+            if (!CheckRessComplete)
             {
-                throw new GameFrameworkException("You must check Ress complete first.");
+                Log.Fatal("You must check Ress complete first.");
             }
 
-            if (m_ApplyingResPackStream != null)
+            if (ApplyingResPackStream != null)
             {
-                throw new GameFrameworkException(Utility.Text.Format("There is already a Res pack '{0}' being applied.", m_ApplyingResPackPath));
+                Log.Fatal(Utility.Text.Format("There is already a Res pack '{0}' being applied.", ApplyingResPackPath));
             }
 
             UpdateInfo updateInfo = null;
-            if (m_UpdateCandidateInfo.TryGetValue(ResName, out updateInfo))
+            if (UpdateCandidateInfo.TryGetValue(ResName, out updateInfo))
             {
-                m_UpdateWaitingInfo.Add(updateInfo);
-                m_UpdateCandidateInfo.Remove(ResName);
+                UpdateWaitingInfo.Add(updateInfo);
+                UpdateCandidateInfo.Remove(ResName);
             }
         }
 
         private bool ApplyRes(ApplyInfo applyInfo)
         {
-            long position = m_ApplyingResPackStream.Position;
+            long position = ApplyingResPackStream.Position;
             try
             {
                 bool zip = applyInfo.Length != applyInfo.ZipLength || applyInfo.HashCode != applyInfo.ZipHashCode;
@@ -463,13 +427,13 @@ namespace EPloy.Res
                     Directory.CreateDirectory(directory);
                 }
 
-                m_ApplyingResPackStream.Position += applyInfo.Offset;
+                ApplyingResPackStream.Position += applyInfo.Offset;
                 using (FileStream fileStream = new FileStream(applyInfo.ResPath, FileMode.Create, FileAccess.ReadWrite))
                 {
-                    while ((bytesRead = m_ApplyingResPackStream.Read(m_CachedBytes, 0, bytesLeft < CachedBytesLength ? bytesLeft : CachedBytesLength)) > 0)
+                    while ((bytesRead = ApplyingResPackStream.Read(CachedBytes, 0, bytesLeft < CachedBytesLength ? bytesLeft : CachedBytesLength)) > 0)
                     {
                         bytesLeft -= bytesRead;
-                        fileStream.Write(m_CachedBytes, 0, bytesRead);
+                        fileStream.Write(CachedBytes, 0, bytesRead);
                     }
 
                     if (zip)
@@ -481,26 +445,26 @@ namespace EPloy.Res
                             if (ResApplyFailure != null)
                             {
                                 string errorMessage = Utility.Text.Format("Res zip hash code error, need '{0}', applied '{1}'.", applyInfo.ZipHashCode.ToString(), hashCode.ToString());
-                                ResApplyFailure(applyInfo.ResName, m_ApplyingResPackPath, errorMessage);
+                                ResApplyFailure(applyInfo.ResName, ApplyingResPackPath, errorMessage);
                             }
 
                             return false;
                         }
 
-                        if (m_ResManager.m_DecompressCachedStream == null)
+                        if (ResUpdaterMdl.DecompressCachedStream == null)
                         {
-                            m_ResManager.m_DecompressCachedStream = new MemoryStream();
+                            ResUpdaterMdl.DecompressCachedStream = new MemoryStream();
                         }
 
                         fileStream.Position = 0L;
-                        m_ResManager.m_DecompressCachedStream.Position = 0L;
-                        m_ResManager.m_DecompressCachedStream.SetLength(0L);
-                        if (!Utility.Zip.Decompress(fileStream, m_ResManager.m_DecompressCachedStream))
+                        ResUpdaterMdl.DecompressCachedStream.Position = 0L;
+                        ResUpdaterMdl.DecompressCachedStream.SetLength(0L);
+                        if (!Utility.Zip.Decompress(fileStream, ResUpdaterMdl.DecompressCachedStream))
                         {
                             if (ResApplyFailure != null)
                             {
                                 string errorMessage = Utility.Text.Format("Unable to decompress Res '{0}'.", applyInfo.ResPath);
-                                ResApplyFailure(applyInfo.ResName, m_ApplyingResPackPath, errorMessage);
+                                ResApplyFailure(applyInfo.ResName, ApplyingResPackPath, errorMessage);
                             }
 
                             return false;
@@ -508,26 +472,18 @@ namespace EPloy.Res
 
                         fileStream.Position = 0L;
                         fileStream.SetLength(0L);
-                        fileStream.Write(m_ResManager.m_DecompressCachedStream.GetBuffer(), 0, (int)m_ResManager.m_DecompressCachedStream.Length);
+                        fileStream.Write(ResUpdaterMdl.DecompressCachedStream.GetBuffer(), 0, (int)ResUpdaterMdl.DecompressCachedStream.Length);
                     }
                     else
                     {
                         int hashCode = 0;
                         fileStream.Position = 0L;
-                        if (applyInfo.LoadType == LoadType.LoadFromMemoryAndQuickDecrypt || applyInfo.LoadType == LoadType.LoadFromMemoryAndDecrypt
-                            || applyInfo.LoadType == LoadType.LoadFromBinaryAndQuickDecrypt || applyInfo.LoadType == LoadType.LoadFromBinaryAndDecrypt)
+                        if (applyInfo.LoadType == LoadType.LoadFromMemory || applyInfo.LoadType == LoadType.LoadFromBinary)
                         {
-                            Utility.Converter.GetBytes(applyInfo.HashCode, m_CachedHashBytes);
-                            if (applyInfo.LoadType == LoadType.LoadFromMemoryAndQuickDecrypt || applyInfo.LoadType == LoadType.LoadFromBinaryAndQuickDecrypt)
-                            {
-                                hashCode = Utility.Verifier.GetCrc32(fileStream, m_CachedHashBytes, Utility.Encryption.QuickEncryptLength);
-                            }
-                            else if (applyInfo.LoadType == LoadType.LoadFromMemoryAndDecrypt || applyInfo.LoadType == LoadType.LoadFromBinaryAndDecrypt)
-                            {
-                                hashCode = Utility.Verifier.GetCrc32(fileStream, m_CachedHashBytes, applyInfo.Length);
-                            }
-
-                            Array.Clear(m_CachedHashBytes, 0, CachedHashBytesLength);
+                            // 正常解密
+                            Utility.Converter.GetBytes(applyInfo.HashCode, CachedHashBytes);
+                            hashCode = Utility.Verifier.GetCrc32(fileStream, CachedHashBytes, applyInfo.Length);
+                            Array.Clear(CachedHashBytes, 0, CachedHashBytesLength);
                         }
                         else
                         {
@@ -539,7 +495,7 @@ namespace EPloy.Res
                             if (ResApplyFailure != null)
                             {
                                 string errorMessage = Utility.Text.Format("Res hash code error, need '{0}', applied '{1}'.", applyInfo.HashCode.ToString(), hashCode.ToString());
-                                ResApplyFailure(applyInfo.ResName, m_ApplyingResPackPath, errorMessage);
+                                ResApplyFailure(applyInfo.ResName, ApplyingResPackPath, errorMessage);
                             }
 
                             return false;
@@ -549,7 +505,7 @@ namespace EPloy.Res
 
                 if (applyInfo.UseFileSystem)
                 {
-                    IFileSystem fileSystem = m_ResManager.GetFileSystem(applyInfo.FileSystemName, false);
+                    IFileSystem fileSystem = ResUpdaterMdl.GetFileSystem(applyInfo.FileSystemName, false);
                     bool retVal = fileSystem.WriteFile(applyInfo.ResName.FullName, applyInfo.ResPath);
                     if (File.Exists(applyInfo.ResPath))
                     {
@@ -559,13 +515,13 @@ namespace EPloy.Res
                     return retVal;
                 }
 
-                m_UpdateCandidateInfo.Remove(applyInfo.ResName);
-                m_ResManager.m_ResInfos[applyInfo.ResName].MarkReady();
-                m_ResManager.m_ReadWriteResInfos.Add(applyInfo.ResName, new ReadWriteResInfo(applyInfo.FileSystemName, applyInfo.LoadType, applyInfo.Length, applyInfo.HashCode));
+                UpdateCandidateInfo.Remove(applyInfo.ResName);
+                //  ResManager.ResInfos[applyInfo.ResName].MarkReady();
+                // ResManager.ReadWriteResInfos.Add(applyInfo.ResName, new ReadWriteResInfo(applyInfo.FileSystemName, applyInfo.LoadType, applyInfo.Length, applyInfo.HashCode));
 
                 if (ResApplySuccess != null)
                 {
-                    ResApplySuccess(applyInfo.ResName, applyInfo.ResPath, m_ApplyingResPackPath, applyInfo.Length, applyInfo.ZipLength);
+                    ResApplySuccess(applyInfo.ResName, applyInfo.ResPath, ApplyingResPackPath, applyInfo.Length, applyInfo.ZipLength);
                 }
 
                 string downloadingRes = Utility.Text.Format("{0}.download", applyInfo.ResPath);
@@ -574,10 +530,10 @@ namespace EPloy.Res
                     File.Delete(downloadingRes);
                 }
 
-                m_CurrentGenerateReadWriteVersionListLength += applyInfo.ZipLength;
-                if (m_ApplyWaitingInfo.Count <= 0 || m_CurrentGenerateReadWriteVersionListLength >= m_GenerateReadWriteVersionListLength)
+                CurrentGenerateReadWriteVersionListLength += applyInfo.ZipLength;
+                if (ApplyWaitingInfo.Count <= 0 || CurrentGenerateReadWriteVersionListLength >= GenerateReadWriteVersionListLength)
                 {
-                    m_CurrentGenerateReadWriteVersionListLength = 0;
+                    CurrentGenerateReadWriteVersionListLength = 0;
                     GenerateReadWriteVersionList();
                     return true;
                 }
@@ -588,47 +544,47 @@ namespace EPloy.Res
             {
                 if (ResApplyFailure != null)
                 {
-                    ResApplyFailure(applyInfo.ResName, m_ApplyingResPackPath, exception.ToString());
+                    ResApplyFailure(applyInfo.ResName, ApplyingResPackPath, exception.ToString());
                 }
 
                 return false;
             }
             finally
             {
-                m_ApplyingResPackStream.Position = position;
+                ApplyingResPackStream.Position = position;
             }
         }
 
         private void GenerateReadWriteVersionList()
         {
-            if (File.Exists(m_ReadWriteVersionListFileName))
+            if (File.Exists(ReadWriteVersionListFileName))
             {
-                if (File.Exists(m_ReadWriteVersionListBackupFileName))
+                if (File.Exists(ReadWriteVersionListBackupFileName))
                 {
-                    File.Delete(m_ReadWriteVersionListBackupFileName);
+                    File.Delete(ReadWriteVersionListBackupFileName);
                 }
 
-                File.Move(m_ReadWriteVersionListFileName, m_ReadWriteVersionListBackupFileName);
+                File.Move(ReadWriteVersionListFileName, ReadWriteVersionListBackupFileName);
             }
 
             FileStream fileStream = null;
             try
             {
-                fileStream = new FileStream(m_ReadWriteVersionListFileName, FileMode.Create, FileAccess.Write);
-                LocalVersionList.Res[] Ress = m_ResManager.m_ReadWriteResInfos.Count > 0 ? new LocalVersionList.Res[m_ResManager.m_ReadWriteResInfos.Count] : null;
+                fileStream = new FileStream(ReadWriteVersionListFileName, FileMode.Create, FileAccess.Write);
+                LocalVersionList.Res[] Ress = ResManager.ReadWriteResInfos.Count > 0 ? new LocalVersionList.Res[ResManager.ReadWriteResInfos.Count] : null;
                 if (Ress != null)
                 {
                     int index = 0;
-                    foreach (KeyValuePair<ResName, ReadWriteResInfo> i in m_ResManager.m_ReadWriteResInfos)
+                    foreach (KeyValuePair<ResName, ReadWriteResInfo> i in ResManager.ReadWriteResInfos)
                     {
                         Ress[index] = new LocalVersionList.Res(i.Key.Name, i.Key.Variant, i.Key.Extension, (byte)i.Value.LoadType, i.Value.Length, i.Value.HashCode);
                         if (i.Value.UseFileSystem)
                         {
                             List<int> ResIndexes = null;
-                            if (!m_CachedFileSystemsForGenerateReadWriteVersionList.TryGetValue(i.Value.FileSystemName, out ResIndexes))
+                            if (!CachedFileSystemsForGenerateReadWriteVersionList.TryGetValue(i.Value.FileSystemName, out ResIndexes))
                             {
                                 ResIndexes = new List<int>();
-                                m_CachedFileSystemsForGenerateReadWriteVersionList.Add(i.Value.FileSystemName, ResIndexes);
+                                CachedFileSystemsForGenerateReadWriteVersionList.Add(i.Value.FileSystemName, ResIndexes);
                             }
 
                             ResIndexes.Add(index);
@@ -638,11 +594,11 @@ namespace EPloy.Res
                     }
                 }
 
-                LocalVersionList.FileSystem[] fileSystems = m_CachedFileSystemsForGenerateReadWriteVersionList.Count > 0 ? new LocalVersionList.FileSystem[m_CachedFileSystemsForGenerateReadWriteVersionList.Count] : null;
+                LocalVersionList.FileSystem[] fileSystems = CachedFileSystemsForGenerateReadWriteVersionList.Count > 0 ? new LocalVersionList.FileSystem[CachedFileSystemsForGenerateReadWriteVersionList.Count] : null;
                 if (fileSystems != null)
                 {
                     int index = 0;
-                    foreach (KeyValuePair<string, List<int>> i in m_CachedFileSystemsForGenerateReadWriteVersionList)
+                    foreach (KeyValuePair<string, List<int>> i in CachedFileSystemsForGenerateReadWriteVersionList)
                     {
                         fileSystems[index++] = new LocalVersionList.FileSystem(i.Key, i.Value.ToArray());
                         i.Value.Clear();
@@ -650,9 +606,9 @@ namespace EPloy.Res
                 }
 
                 LocalVersionList versionList = new LocalVersionList(Ress, fileSystems);
-                if (!m_ResManager.m_ReadWriteVersionListSerializer.Serialize(fileStream, versionList))
+                if (!ResManager.ReadWriteVersionListSerializer.Serialize(fileStream, versionList))
                 {
-                    throw new GameFrameworkException("Serialize read write version list failure.");
+                    Log.Fatal("Serialize read write version list failure.");
                 }
 
                 if (fileStream != null)
@@ -661,9 +617,9 @@ namespace EPloy.Res
                     fileStream = null;
                 }
 
-                if (File.Exists(m_ReadWriteVersionListBackupFileName))
+                if (File.Exists(ReadWriteVersionListBackupFileName))
                 {
-                    File.Delete(m_ReadWriteVersionListBackupFileName);
+                    File.Delete(ReadWriteVersionListBackupFileName);
                 }
             }
             catch (Exception exception)
@@ -674,17 +630,17 @@ namespace EPloy.Res
                     fileStream = null;
                 }
 
-                if (File.Exists(m_ReadWriteVersionListFileName))
+                if (File.Exists(ReadWriteVersionListFileName))
                 {
-                    File.Delete(m_ReadWriteVersionListFileName);
+                    File.Delete(ReadWriteVersionListFileName);
                 }
 
-                if (File.Exists(m_ReadWriteVersionListBackupFileName))
+                if (File.Exists(ReadWriteVersionListBackupFileName))
                 {
-                    File.Move(m_ReadWriteVersionListBackupFileName, m_ReadWriteVersionListFileName);
+                    File.Move(ReadWriteVersionListBackupFileName, ReadWriteVersionListFileName);
                 }
 
-                throw new GameFrameworkException(Utility.Text.Format("Generate read write version list exception '{0}'.", exception.ToString()), exception);
+                Log.Fatal(Utility.Text.Format("Generate read write version list exception '{0}'.", exception.ToString()));
             }
         }
 
@@ -696,9 +652,9 @@ namespace EPloy.Res
                 return;
             }
 
-            if (m_DownloadManager == null)
+            if (Download == null)
             {
-                throw new GameFrameworkException("You must set download manager first.");
+                Log.Fatal("You must set download manager first.");
             }
 
             if (ResUpdateStart != null)
@@ -715,14 +671,14 @@ namespace EPloy.Res
                 return;
             }
 
-            if (m_DownloadManager == null)
+            if (Download == null)
             {
-                throw new GameFrameworkException("You must set download manager first.");
+                Log.Fatal("You must set download manager first.");
             }
 
             if (e.CurrentLength > updateInfo.ZipLength)
             {
-                m_DownloadManager.RemoveDownload(e.SerialId);
+                Download.RemoveDownload(e.SerialId);
                 string downloadFile = Utility.Text.Format("{0}.download", e.DownloadPath);
                 if (File.Exists(downloadFile))
                 {
@@ -779,17 +735,17 @@ namespace EPloy.Res
                         return;
                     }
 
-                    if (m_ResManager.m_DecompressCachedStream == null)
+                    if (ResManager.DecompressCachedStream == null)
                     {
-                        m_ResManager.m_DecompressCachedStream = new MemoryStream();
+                        ResManager.DecompressCachedStream = new MemoryStream();
                     }
 
                     try
                     {
                         fileStream.Position = 0L;
-                        m_ResManager.m_DecompressCachedStream.Position = 0L;
-                        m_ResManager.m_DecompressCachedStream.SetLength(0L);
-                        if (!Utility.Zip.Decompress(fileStream, m_ResManager.m_DecompressCachedStream))
+                        ResManager.DecompressCachedStream.Position = 0L;
+                        ResManager.DecompressCachedStream.SetLength(0L);
+                        if (!Utility.Zip.Decompress(fileStream, ResManager.DecompressCachedStream))
                         {
                             fileStream.Close();
                             string errorMessage = Utility.Text.Format("Unable to decompress Res '{0}'.", e.DownloadPath);
@@ -799,10 +755,10 @@ namespace EPloy.Res
                             return;
                         }
 
-                        if (m_ResManager.m_DecompressCachedStream.Length != updateInfo.Length)
+                        if (ResManager.DecompressCachedStream.Length != updateInfo.Length)
                         {
                             fileStream.Close();
-                            string errorMessage = Utility.Text.Format("Res length error, need '{0}', downloaded '{1}'.", updateInfo.Length.ToString(), m_ResManager.m_DecompressCachedStream.Length.ToString());
+                            string errorMessage = Utility.Text.Format("Res length error, need '{0}', downloaded '{1}'.", updateInfo.Length.ToString(), ResManager.DecompressCachedStream.Length.ToString());
                             DownloadFailureEventArgs downloadFailureEventArgs = DownloadFailureEventArgs.Create(e.SerialId, e.DownloadPath, e.DownloadUri, errorMessage, e.UserData);
                             OnDownloadFailure(this, downloadFailureEventArgs);
                             ReferencePool.Release(downloadFailureEventArgs);
@@ -811,7 +767,7 @@ namespace EPloy.Res
 
                         fileStream.Position = 0L;
                         fileStream.SetLength(0L);
-                        fileStream.Write(m_ResManager.m_DecompressCachedStream.GetBuffer(), 0, (int)m_ResManager.m_DecompressCachedStream.Length);
+                        fileStream.Write(ResManager.DecompressCachedStream.GetBuffer(), 0, (int)ResManager.DecompressCachedStream.Length);
                     }
                     catch (Exception exception)
                     {
@@ -824,8 +780,8 @@ namespace EPloy.Res
                     }
                     finally
                     {
-                        m_ResManager.m_DecompressCachedStream.Position = 0L;
-                        m_ResManager.m_DecompressCachedStream.SetLength(0L);
+                        ResManager.DecompressCachedStream.Position = 0L;
+                        ResManager.DecompressCachedStream.SetLength(0L);
                     }
                 }
                 else
@@ -835,17 +791,17 @@ namespace EPloy.Res
                     if (updateInfo.LoadType == LoadType.LoadFromMemoryAndQuickDecrypt || updateInfo.LoadType == LoadType.LoadFromMemoryAndDecrypt
                         || updateInfo.LoadType == LoadType.LoadFromBinaryAndQuickDecrypt || updateInfo.LoadType == LoadType.LoadFromBinaryAndDecrypt)
                     {
-                        Utility.Converter.GetBytes(updateInfo.HashCode, m_CachedHashBytes);
+                        Utility.Converter.GetBytes(updateInfo.HashCode, CachedHashBytes);
                         if (updateInfo.LoadType == LoadType.LoadFromMemoryAndQuickDecrypt || updateInfo.LoadType == LoadType.LoadFromBinaryAndQuickDecrypt)
                         {
-                            hashCode = Utility.Verifier.GetCrc32(fileStream, m_CachedHashBytes, Utility.Encryption.QuickEncryptLength);
+                            hashCode = Utility.Verifier.GetCrc32(fileStream, CachedHashBytes, Utility.Encryption.QuickEncryptLength);
                         }
                         else if (updateInfo.LoadType == LoadType.LoadFromMemoryAndDecrypt || updateInfo.LoadType == LoadType.LoadFromBinaryAndDecrypt)
                         {
-                            hashCode = Utility.Verifier.GetCrc32(fileStream, m_CachedHashBytes, length);
+                            hashCode = Utility.Verifier.GetCrc32(fileStream, CachedHashBytes, length);
                         }
 
-                        Array.Clear(m_CachedHashBytes, 0, CachedHashBytesLength);
+                        Array.Clear(CachedHashBytes, 0, CachedHashBytesLength);
                     }
                     else
                     {
@@ -866,7 +822,7 @@ namespace EPloy.Res
 
             if (updateInfo.UseFileSystem)
             {
-                IFileSystem fileSystem = m_ResManager.GetFileSystem(updateInfo.FileSystemName, false);
+                IFileSystem fileSystem = ResManager.GetFileSystem(updateInfo.FileSystemName, false);
                 bool retVal = fileSystem.WriteFile(updateInfo.ResName.FullName, updateInfo.ResPath);
                 if (File.Exists(updateInfo.ResPath))
                 {
@@ -882,13 +838,13 @@ namespace EPloy.Res
                 }
             }
 
-            m_UpdatingCount--;
-            m_ResManager.m_ResInfos[updateInfo.ResName].MarkReady();
-            m_ResManager.m_ReadWriteResInfos.Add(updateInfo.ResName, new ReadWriteResInfo(updateInfo.FileSystemName, updateInfo.LoadType, updateInfo.Length, updateInfo.HashCode));
-            m_CurrentGenerateReadWriteVersionListLength += updateInfo.ZipLength;
-            if (m_UpdatingCount <= 0 || m_CurrentGenerateReadWriteVersionListLength >= m_GenerateReadWriteVersionListLength)
+            UpdatingCount--;
+            ResManager.ResInfos[updateInfo.ResName].MarkReady();
+            ResManager.ReadWriteResInfos.Add(updateInfo.ResName, new ReadWriteResInfo(updateInfo.FileSystemName, updateInfo.LoadType, updateInfo.Length, updateInfo.HashCode));
+            CurrentGenerateReadWriteVersionListLength += updateInfo.ZipLength;
+            if (UpdatingCount <= 0 || CurrentGenerateReadWriteVersionListLength >= GenerateReadWriteVersionListLength)
             {
-                m_CurrentGenerateReadWriteVersionListLength = 0;
+                CurrentGenerateReadWriteVersionListLength = 0;
                 GenerateReadWriteVersionList();
             }
 
@@ -911,23 +867,23 @@ namespace EPloy.Res
                 File.Delete(e.DownloadPath);
             }
 
-            m_UpdatingCount--;
+            UpdatingCount--;
 
             if (ResUpdateFailure != null)
             {
-                ResUpdateFailure(updateInfo.ResName, e.DownloadUri, updateInfo.RetryCount, m_UpdateRetryCount, e.ErrorMessage);
+                ResUpdateFailure(updateInfo.ResName, e.DownloadUri, updateInfo.RetryCount, UpdateRetryCount, e.ErrorMessage);
             }
 
-            if (updateInfo.RetryCount < m_UpdateRetryCount)
+            if (updateInfo.RetryCount < UpdateRetryCount)
             {
                 updateInfo.RetryCount++;
-                m_UpdateWaitingInfo.Add(updateInfo);
+                UpdateWaitingInfo.Add(updateInfo);
             }
             else
             {
-                m_FailureFlag = true;
+                FailureFlag = true;
                 updateInfo.RetryCount = 0;
-                m_UpdateCandidateInfo.Add(updateInfo.ResName, updateInfo);
+                UpdateCandidateInfo.Add(updateInfo.ResName, updateInfo);
             }
         }
     }

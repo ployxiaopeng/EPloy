@@ -19,13 +19,12 @@ namespace EPloy
         private TypeLinkedList<DownloadTask> DownloadTasks;
         private Stack<DownloadAgent> FreeDownloadAgents;
         private TypeLinkedList<DownloadAgent> WorkingDownloadAgents;
-        private int FreeAgentCount
+        public int FreeAgentCount
         {
             get
             {
                 return FreeDownloadAgents.Count;
             }
-
         }
 
         public override void Awake()

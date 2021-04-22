@@ -18,6 +18,8 @@ namespace EPloy.Res
         internal LocalVersionListSerializer LocalVersionListSerializer { get; private set; }
         private ResChecker ResChecker;
 
+        public MemoryStream DecompressCachedStream { get; set; }
+
         /// <summary>
         ///  更新资源需要的文件系统
         /// </summary>
