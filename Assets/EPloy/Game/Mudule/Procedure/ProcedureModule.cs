@@ -73,7 +73,6 @@ namespace EPloy
 
         private void CheckResCallback(bool result, string msg)
         {
-            Game.ResUpdater.CheckRes(CheckResCallback);
             if (result)
             {
                 Game.ILRuntime.StartGame(IsILRuntime);

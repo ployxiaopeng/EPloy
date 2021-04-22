@@ -103,7 +103,7 @@ namespace EPloy
                 WaitTime += Time.deltaTime;
                 if (WaitTime >= Task.Timeout)
                 {
-                    OnDownloadAgentHelperError(false, "Timeout");
+                    OnDownloadError(false, "Timeout");
                 }
             }
             DownloadUpdate();
@@ -166,7 +166,7 @@ namespace EPloy
             }
             catch (Exception exception)
             {
-                OnDownloadAgentHelperError(false, exception.ToString());
+                OnDownloadError(false, exception.ToString());
                 return DownloadTaskStatus.Error;
             }
         }
@@ -229,10 +229,9 @@ namespace EPloy
             Disposed = true;
         }
 
-        private void OnDownloadAgentHelperUpdateBytes(int offset, int length, byte[] bytes)
+        private void OnDownloadUpdateBytes(int offset, int length, byte[] bytes)
         {
             WaitTime = 0f;
-
             try
             {
                 FileStream.Write(bytes, offset, length);
@@ -247,11 +246,11 @@ namespace EPloy
             }
             catch (Exception exception)
             {
-                OnDownloadAgentHelperError(false, exception.ToString());
+                OnDownloadError(false, exception.ToString());
             }
         }
 
-        private void OnDownloadAgentHelperUpdateLength(int deltaLength)
+        private void OnDownloadUpdateLength(int deltaLength)
         {
             WaitTime = 0f;
             DownloadedLength += deltaLength;
@@ -261,7 +260,7 @@ namespace EPloy
             }
         }
 
-        private void OnDownloadAgentHelperComplete(long length)
+        private void OnDownloadComplete(long length)
         {
             WaitTime = 0f;
             DownloadedLength = length;
@@ -292,7 +291,7 @@ namespace EPloy
             Task.TaskStatus = DownloadTaskStatus.Done;
         }
 
-        private void OnDownloadAgentHelperError(bool isDelete, string errorMessage)
+        private void OnDownloadError(bool isDelete, string errorMessage)
         {
             DownloadReset();
             if (FileStream != null)

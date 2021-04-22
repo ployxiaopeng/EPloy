@@ -26,7 +26,7 @@ namespace EPloy
         public void Download(string downloadUri)
         {
             UnityWebRequest = new UnityWebRequest(downloadUri);
-            // UnityWebRequest.downloadHandler = new DownloadHandler(this);
+            UnityWebRequest.downloadHandler = new DownloadHandler(this);
             UnityWebRequest.SendWebRequest();
 
         }
@@ -39,15 +39,9 @@ namespace EPloy
         /// <param name="userData">用户自定义数据。</param>
         public void Download(string downloadUri, long fromPosition)
         {
-            // if (DownloadAgentHelperUpdateBytesEventHandler == null || DownloadAgentHelperUpdateLengthEventHandler == null || DownloadAgentHelperCompleteEventHandler == null || DownloadAgentHelperErrorEventHandler == null)
-            // {
-            //     Log.Fatal("Download agent helper handler is invalid.");
-            //     return;
-            // }
-
             UnityWebRequest = new UnityWebRequest(downloadUri);
             UnityWebRequest.SetRequestHeader("Range", Utility.Text.Format("bytes={0}-", fromPosition.ToString()));
-            // UnityWebRequest.downloadHandler = new DownloadHandler(this);
+            UnityWebRequest.downloadHandler = new DownloadHandler(this);
             UnityWebRequest.SendWebRequest();
         }
 
@@ -60,15 +54,9 @@ namespace EPloy
         /// <param name="userData">用户自定义数据。</param>
         public void Download(string downloadUri, long fromPosition, long toPosition)
         {
-            // if (DownloadAgentHelperUpdateBytesEventHandler == null || DownloadAgentHelperUpdateLengthEventHandler == null || DownloadAgentHelperCompleteEventHandler == null || DownloadAgentHelperErrorEventHandler == null)
-            // {
-            //     Log.Fatal("Download agent helper handler is invalid.");
-            //     return;
-            // }
-
             UnityWebRequest = new UnityWebRequest(downloadUri);
             UnityWebRequest.SetRequestHeader("Range", Utility.Text.Format("bytes={0}-{1}", fromPosition.ToString(), toPosition.ToString()));
-            //  UnityWebRequest.downloadHandler = new DownloadHandler(this);
+            UnityWebRequest.downloadHandler = new DownloadHandler(this);
             UnityWebRequest.SendWebRequest();
         }
 
@@ -105,11 +93,11 @@ namespace EPloy
 
             if (isError)
             {
-                OnDownloadAgentHelperError(UnityWebRequest.responseCode == RangeNotSatisfiableErrorCode, UnityWebRequest.error);
+                OnDownloadError(UnityWebRequest.responseCode == RangeNotSatisfiableErrorCode, UnityWebRequest.error);
             }
             else
             {
-                OnDownloadAgentHelperComplete((long)UnityWebRequest.downloadedBytes);
+                OnDownloadComplete((long)UnityWebRequest.downloadedBytes);
             }
         }
     }

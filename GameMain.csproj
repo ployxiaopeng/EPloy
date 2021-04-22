@@ -70,6 +70,7 @@
      <Compile Include="Assets\EPloy\Game\Base\Utility\Utility.Zip.cs" />
      <Compile Include="Assets\EPloy\Game\Game.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Download\DownLoadModule.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadAgent.DownloadHandler.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadAgent.Request.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadAgent.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadCallBack.cs" />
@@ -216,6 +217,9 @@
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Serializer\LocalVersionListSerializer.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Serializer\PackVersionListSerializer.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Serializer\UpdatableVersionListSerializer.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Update\ResUpdater.ApplyInfo.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Update\ResUpdater.UpdateInfo.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Update\ResUpdater.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\VersionList\LocalVersionList.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\VersionList\PackVersionList.Resource.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\VersionList\PackVersionList.cs" />

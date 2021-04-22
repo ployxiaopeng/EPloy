@@ -39,7 +39,6 @@ namespace EPloy
             DecompressCachedStream.Dispose();
         }
 
-
         public void VersionChecker(EPloyAction<bool, VersionInfo> versionCheckerCallback)
         {
             if (versionCheckerCallback == null)
@@ -242,7 +241,6 @@ namespace EPloy
 
             this.VersionUpdateCallback(false, errMsg);
         }
-
 
         private string GetPlatformPath()
         {
