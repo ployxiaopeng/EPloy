@@ -8,19 +8,15 @@ namespace EPloy.ObjectPool
     /// </summary>
     public abstract class ObjectBase : IReference
     {
-        protected string m_Name;
-        protected object m_Target;
-        protected DateTime m_LastUseTime;
+        protected DateTime lastUseTime;
 
         /// <summary>
         /// 获取对象名称。
         /// </summary>
         public string Name
         {
-            get
-            {
-                return m_Name;
-            }
+            get;
+            protected set;
         }
 
         /// <summary>
@@ -28,10 +24,8 @@ namespace EPloy.ObjectPool
         /// </summary>
         public object Target
         {
-            get
-            {
-                return m_Target;
-            }
+            get;
+            protected set;
         }
 
         /// <summary>
@@ -41,11 +35,11 @@ namespace EPloy.ObjectPool
         {
             get
             {
-                return m_LastUseTime;
+                return lastUseTime;
             }
             internal set
             {
-                m_LastUseTime = value;
+                lastUseTime = value;
             }
         }
 
@@ -56,7 +50,7 @@ namespace EPloy.ObjectPool
         /// <param name="target">对象。</param>
         public void Initialize(string name, object target)
         {
-            m_Name = name; m_Target = target;
+            Name = name; Target = target;
         }
 
         /// <summary>
@@ -78,9 +72,9 @@ namespace EPloy.ObjectPool
         /// </summary>
         public virtual void Clear()
         {
-            m_Name = null;
-            m_Target = null;
-            m_LastUseTime = default(DateTime);
+            Name = null;
+            Target = null;
+            lastUseTime = default(DateTime);
         }
     }
 }

@@ -19,16 +19,16 @@ namespace EPloy
     /// <typeparam name="T">事件类型。</typeparam>
     public partial class EventComponent : Component
     {
-        private readonly UnOrderMultiMap<int, EventHandler<EventArg>> m_EventHandlers;
+        private readonly UnOrderMultiMap<int, EventHandler<EventArg>> EventHandlers;
         /// <summary>
         /// 带发送队列
         /// </summary>
-        private readonly Queue<Event> m_Events;
+        private readonly Queue<Event> Events;
 
         public EventComponent()
         {
-            m_EventHandlers = new UnOrderMultiMap<int, EventHandler<EventArg>>();
-            m_Events = new Queue<Event>();
+            EventHandlers = new UnOrderMultiMap<int, EventHandler<EventArg>>();
+            Events = new Queue<Event>();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace EPloy
         {
             get
             {
-                return m_EventHandlers.Count;
+                return EventHandlers.Count;
             }
         }
 
@@ -49,7 +49,7 @@ namespace EPloy
         {
             get
             {
-                return m_Events.Count;
+                return Events.Count;
             }
         }
 
@@ -60,12 +60,12 @@ namespace EPloy
         /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
         public void Update()
         {
-            while (m_Events.Count > 0)
+            while (Events.Count > 0)
             {
                 Event eventNode = null;
-                lock (m_Events)
+                lock (Events)
                 {
-                    eventNode = m_Events.Dequeue();
+                    eventNode = Events.Dequeue();
                     HandleEvent(eventNode.EventArgs);
                 }
 
@@ -79,7 +79,7 @@ namespace EPloy
         public void OnDestroy()
         {
             Clear();
-            m_EventHandlers.Clear();
+            EventHandlers.Clear();
         }
 
         /// <summary>
@@ -87,9 +87,9 @@ namespace EPloy
         /// </summary>
         public override void Clear()
         {
-            lock (m_Events)
+            lock (Events)
             {
-                m_Events.Clear();
+                Events.Clear();
             }
         }
 
@@ -107,7 +107,7 @@ namespace EPloy
                 return false;
             }
 
-            return m_EventHandlers.Contains(evtId, handler);
+            return EventHandlers.Contains(evtId, handler);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace EPloy
             }
             else
             {
-                m_EventHandlers.Add(evtId, handler);
+                EventHandlers.Add(evtId, handler);
             }
         }
 
@@ -145,7 +145,7 @@ namespace EPloy
                 Log.Fatal("Event handler is invalid.");
                 return;
             }
-            if (!m_EventHandlers.Remove(evtId, handler))
+            if (!EventHandlers.Remove(evtId, handler))
             {
                 Log.Fatal(Utility.Text.Format("Event '{0}' not exists specified handler.", evtId.ToString()));
                 return;
@@ -166,9 +166,9 @@ namespace EPloy
             }
 
             Event eventNode = Event.Create(eventArg);
-            lock (m_Events)
+            lock (Events)
             {
-                m_Events.Enqueue(eventNode);
+                Events.Enqueue(eventNode);
             }
         }
 
@@ -197,7 +197,7 @@ namespace EPloy
         {
             bool noHandlerException = false;
             TypeLinkedList<EventHandler<EventArg>> range = default(TypeLinkedList<EventHandler<EventArg>>);
-            if (m_EventHandlers.TryGetValue(eventArg.id, out range))
+            if (EventHandlers.TryGetValue(eventArg.id, out range))
             {
                 foreach (var evt in range)
                 {

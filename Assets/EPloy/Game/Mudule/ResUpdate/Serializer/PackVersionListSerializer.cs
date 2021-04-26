@@ -52,7 +52,7 @@ namespace EPloy.Res
                 binaryWriter.Write(versionList.Offset);
                 binaryWriter.Write(versionList.Length);
                 binaryWriter.Write(versionList.HashCode);
-                PackVersionList.Resource[] resources = versionList.GetResources();
+                PackVersionList.Resource[] resources = versionList.Resources;
                 binaryWriter.Write7BitEncodedInt32(resources.Length);
                 foreach (PackVersionList.Resource resource in resources)
                 {

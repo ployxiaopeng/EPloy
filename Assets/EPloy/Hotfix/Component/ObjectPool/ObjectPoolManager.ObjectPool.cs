@@ -12,15 +12,15 @@ namespace EPloy
         /// <typeparam name="T">对象类型。</typeparam>
         private class ObjectPool : ObjectPoolBase
         {
-            private UnOrderMultiMap<string, Object> m_Objects;
-            private Dictionary<object, Object> m_ObjectMap;
-            private List<Object> m_CanReleaseObjects;//未使用能释放的对象
-            private List<Object> m_ToReleaseObjects;//确定能释放的对象
+            private UnOrderMultiMap<string, Object> Objects;
+            private Dictionary<object, Object> ObjectMap;
+            private List<Object> CanReleaseObjects;//未使用能释放的对象
+            private List<Object> ToReleaseObjects;//确定能释放的对象
 
-            private Type m_ObjectType;
-            private int m_Capacity;
-            private float m_ExpireTime;
-            private float m_AutoReleaseTime;
+            private Type objectType;
+            private int capacity;
+            private float expireTime;
+            private float autoReleaseTime;
 
 
             /// <summary>
@@ -30,7 +30,7 @@ namespace EPloy
             {
                 get
                 {
-                    return m_ObjectType;
+                    return objectType;
                 }
             }
 
@@ -41,7 +41,7 @@ namespace EPloy
             {
                 get
                 {
-                    return m_ObjectMap.Count;
+                    return ObjectMap.Count;
                 }
             }
 
@@ -52,7 +52,7 @@ namespace EPloy
             {
                 get
                 {
-                    return m_Capacity;
+                    return capacity;
                 }
                 set
                 {
@@ -62,12 +62,12 @@ namespace EPloy
                         return;
                     }
 
-                    if (m_Capacity == value)
+                    if (capacity == value)
                     {
                         return;
                     }
 
-                    m_Capacity = value;
+                    capacity = value;
                     Release();
                 }
             }
@@ -79,18 +79,18 @@ namespace EPloy
             {
                 get
                 {
-                    return m_AutoReleaseTime;
+                    return autoReleaseTime;
                 }
 
                 set
                 {
-                    if (m_AutoReleaseTime == value)
+                    if (autoReleaseTime == value)
                     {
                         return;
                     }
 
-                    m_AutoReleaseTime = value;
-                    if (m_AutoReleaseTime == 0)
+                    autoReleaseTime = value;
+                    if (autoReleaseTime == 0)
                     {
                         Release();
                     }
@@ -104,7 +104,7 @@ namespace EPloy
             {
                 get
                 {
-                    return m_ExpireTime;
+                    return expireTime;
                 }
 
                 set
@@ -115,12 +115,12 @@ namespace EPloy
                         return;
                     }
 
-                    if (ExpireTime == value)
+                    if (expireTime == value)
                     {
                         return;
                     }
 
-                    m_ExpireTime = value;
+                    expireTime = value;
                     Release();
                 }
             }
@@ -130,15 +130,15 @@ namespace EPloy
             /// </summary>
             public override void Initialize(Type objectType, string name, float autoReleaseTime, int capacity, float expireTime)
             {
-                m_Objects = new UnOrderMultiMap<string, Object>();
-                m_ObjectMap = new Dictionary<object, Object>();
-                m_CanReleaseObjects = new List<Object>();
-                m_ToReleaseObjects = new List<Object>();
-                m_ObjectType = objectType;
-                m_Name = name;
-                m_AutoReleaseTime = autoReleaseTime;
-                Capacity = capacity;
-                ExpireTime = expireTime;
+                Objects = new UnOrderMultiMap<string, Object>();
+                ObjectMap = new Dictionary<object, Object>();
+                CanReleaseObjects = new List<Object>();
+                ToReleaseObjects = new List<Object>();
+                this.objectType = objectType;
+                Name = name;
+                this.autoReleaseTime = autoReleaseTime;
+                this.capacity = capacity;
+                this.expireTime = expireTime;
             }
 
             /// <summary>
@@ -157,10 +157,10 @@ namespace EPloy
                 Object internalObject = ReferencePool.Acquire<Object>();
                 internalObject.Initialize(obj.Name, obj);
                 internalObject.SetSpawned(spawned);
-                m_Objects.Add(obj.Name, internalObject);
-                m_ObjectMap.Add(obj.Target, internalObject);
+                Objects.Add(obj.Name, internalObject);
+                ObjectMap.Add(obj.Target, internalObject);
 
-                if (Count > m_Capacity)
+                if (Count > Capacity)
                 {
                     Release();
                 }
@@ -174,7 +174,7 @@ namespace EPloy
             public override bool CanSpawn(string name)
             {
                 TypeLinkedList<Object> objectRange = default(TypeLinkedList<Object>);
-                if (m_Objects.TryGetValue(name, out objectRange))
+                if (Objects.TryGetValue(name, out objectRange))
                 {
                     foreach (Object internalObject in objectRange)
                     {
@@ -196,7 +196,7 @@ namespace EPloy
             public override ObjectBase Spawn(string name)
             {
                 TypeLinkedList<Object> objectRange = default(TypeLinkedList<Object>);
-                if (m_Objects.TryGetValue(name, out objectRange))
+                if (Objects.TryGetValue(name, out objectRange))
                 {
                     foreach (Object internalObject in objectRange)
                     {
@@ -226,7 +226,7 @@ namespace EPloy
                 if (internalObject != null)
                 {
                     internalObject.OnUnspawn();
-                    if (Count > m_Capacity && internalObject.SpawnCount <= 0)
+                    if (Count > Capacity && internalObject.SpawnCount <= 0)
                     {
                         Release();
                     }
@@ -243,14 +243,14 @@ namespace EPloy
             public override void Release()
             {
                 DateTime expireTime = DateTime.MinValue;
-                if (m_ExpireTime < float.MaxValue)
+                if (ExpireTime < float.MaxValue)
                 {
-                    expireTime = DateTime.Now.AddSeconds(-m_ExpireTime);
+                    expireTime = DateTime.Now.AddSeconds(-ExpireTime);
                 }
 
-                m_AutoReleaseTime = 0f;
-                GetCanReleaseObjects(m_CanReleaseObjects);
-                List<Object> toReleaseObjects = ConfirmReleaseObjectFiltrate(m_CanReleaseObjects, expireTime);
+                AutoReleaseTime = 0f;
+                GetCanReleaseObjects(CanReleaseObjects);
+                List<Object> toReleaseObjects = ConfirmReleaseObjectFiltrate(CanReleaseObjects, expireTime);
                 if (toReleaseObjects == null || toReleaseObjects.Count <= 0)
                 {
                     return;
@@ -267,9 +267,9 @@ namespace EPloy
             /// </summary>
             public override void ReleaseAllUnused()
             {
-                m_AutoReleaseTime = 0f;
-                GetCanReleaseObjects(m_CanReleaseObjects);
-                foreach (Object toReleaseObject in m_CanReleaseObjects)
+                AutoReleaseTime = 0f;
+                GetCanReleaseObjects(CanReleaseObjects);
+                foreach (Object toReleaseObject in CanReleaseObjects)
                 {
                     ReleaseObject(toReleaseObject);
                 }
@@ -300,8 +300,8 @@ namespace EPloy
                     return false;
                 }
 
-                m_Objects.Remove(internalObject.Name, internalObject);
-                m_ObjectMap.Remove(internalObject.Target);
+                Objects.Remove(internalObject.Name, internalObject);
+                ObjectMap.Remove(internalObject.Target);
                 ReferencePool.Release(internalObject);
                 return true;
             }
@@ -313,7 +313,7 @@ namespace EPloy
             public override ObjectInfo[] GetAllObjectInfos()
             {
                 TypeLinkedList<ObjectInfo> results = new TypeLinkedList<ObjectInfo>();
-                foreach (KeyValuePair<string, TypeLinkedList<Object>> objectRanges in m_Objects)
+                foreach (KeyValuePair<string, TypeLinkedList<Object>> objectRanges in Objects)
                 {
                     foreach (Object internalObject in objectRanges.Value)
                     {
@@ -334,7 +334,7 @@ namespace EPloy
                 }
 
                 Object internalObject = null;
-                if (m_ObjectMap.TryGetValue(target, out internalObject))
+                if (ObjectMap.TryGetValue(target, out internalObject))
                 {
                     return internalObject;
                 }
@@ -350,7 +350,7 @@ namespace EPloy
                 }
 
                 results.Clear();
-                foreach (KeyValuePair<object, Object> objectInMap in m_ObjectMap)
+                foreach (KeyValuePair<object, Object> objectInMap in ObjectMap)
                 {
                     Object internalObject = objectInMap.Value;
                     if (internalObject.IsInUse)
@@ -363,7 +363,7 @@ namespace EPloy
 
             private List<Object> ConfirmReleaseObjectFiltrate(List<Object> canReleaseObjects, DateTime expireTime)
             {
-                m_ToReleaseObjects.Clear();
+                ToReleaseObjects.Clear();
 
                 if (expireTime > DateTime.MinValue)
                 {
@@ -371,25 +371,25 @@ namespace EPloy
                     {
                         if (canReleaseObjects[i].LastUseTime <= expireTime)
                         {
-                            m_ToReleaseObjects.Add(canReleaseObjects[i]);
+                            ToReleaseObjects.Add(canReleaseObjects[i]);
                             canReleaseObjects.RemoveAt(i);
                             continue;
                         }
                     }
                 }
-                return m_ToReleaseObjects;
+                return ToReleaseObjects;
             }
 
             public override void Clear()
             {
-                foreach (KeyValuePair<object, Object> objectInMap in m_ObjectMap)
+                foreach (KeyValuePair<object, Object> objectInMap in ObjectMap)
                 {
                     ReferencePool.Release(objectInMap.Value);
                 }
-                m_Objects.Clear();
-                m_ObjectMap.Clear();
-                m_CanReleaseObjects.Clear();
-                m_ToReleaseObjects.Clear();
+                Objects.Clear();
+                ObjectMap.Clear();
+                CanReleaseObjects.Clear();
+                ToReleaseObjects.Clear();
             }
 
         }

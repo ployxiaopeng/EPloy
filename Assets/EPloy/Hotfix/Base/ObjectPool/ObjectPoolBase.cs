@@ -8,8 +8,6 @@ namespace EPloy.ObjectPool
     /// </summary>
     public abstract class ObjectPoolBase : IReference
     {
-        protected string m_Name;
-
         /// <summary>
         /// 设置对象池基本数据
         /// </summary>
@@ -26,10 +24,8 @@ namespace EPloy.ObjectPool
         /// </summary>
         public string Name
         {
-            get
-            {
-                return m_Name;
-            }
+            get;
+            protected set;
         }
 
         /// <summary>
