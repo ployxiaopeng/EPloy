@@ -2,12 +2,12 @@
 using System;
 using UnityEngine.Networking;
 
-namespace EPloy
+namespace EPloy.Download
 {
     /// <summary>
     /// 使用 UnityWebRequest 实现的下载代理辅助器。
     /// </summary>
-    public partial class DownloadAgent : IDisposable
+    internal partial class DownloadAgent : IDisposable
     {
         /// <summary>
         /// 范围不适用错误码。

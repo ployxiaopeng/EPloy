@@ -74,7 +74,7 @@ namespace EPloy.Res
         private bool TryRecoverReadWriteVersionList()
         {
             string file = Utility.Path.GetRegularPath(Path.Combine(VersionListPath, MuduleConfig.LocalVersionListFileName));
-            string backupFile = Utility.Text.Format("{0}.{1}", file, ResUpdaterModule.BackupExtension);
+            string backupFile = Utility.Text.Format("{0}.{1}", file, ResUpdater.BackupExtension);
 
             try
             {

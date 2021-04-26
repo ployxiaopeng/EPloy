@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine.Networking;
 
-namespace EPloy
+namespace EPloy.Download
 {
-    public partial class DownloadAgent : IDisposable
+    internal partial class DownloadAgent : IDisposable
     {
         private sealed class DownloadHandler : DownloadHandlerScript
         {

@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 using LitJson;
 using EPloy.Res;
 
-namespace EPloy
+namespace EPloy.Download
 {
     /// <summary>
     /// 版本校验。
@@ -45,17 +45,21 @@ namespace EPloy
             WorkingDownloadAgents.Clear();
         }
 
-        public void AddDownload(string downloadPath, string downloadUri, DownloadCallBack downloadCallBack)
+        public void AddDownload(string downloadPath, string downloadUri, DownloadCallBack downloadCallBack, object userData = null)
         {
             if (downloadCallBack == null)
             {
                 Log.Error("downloadCallBack is null");
                 return;
             }
-            DownloadTask downloadTask = DownloadTask.Create(downloadPath, downloadUri, OneMegaBytes, Timeout, downloadCallBack);
+            DownloadTask downloadTask = DownloadTask.Create(downloadPath, downloadUri, OneMegaBytes, Timeout, downloadCallBack, userData);
             DownloadTasks.AddLast(downloadTask);
         }
 
+        public void RemoveDownload(int SerialId)
+        {
+
+        }
         private void ProcessRunningTasks()
         {
             LinkedListNode<DownloadAgent> current = WorkingDownloadAgents.First;

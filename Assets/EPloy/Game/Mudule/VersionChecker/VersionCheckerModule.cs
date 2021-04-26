@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using LitJson;
 using EPloy.Res;
+using EPloy.Download;
 
 namespace EPloy
 {
@@ -24,7 +25,7 @@ namespace EPloy
         public override void Awake()
         {
             UpdatableVersionListSerializer = new UpdatableVersionListSerializer();
-            DownloadCallBack = new DownloadCallBack();
+            DownloadCallBack = new DownloadCallBack(OnDownloadSuccess, OnDownloadFailure);
             Game.ResUpdater.DecompressCachedStream = null;
         }
 
@@ -159,16 +160,16 @@ namespace EPloy
             Game.DownLoad.AddDownload(localVersionListFilePath, downloadUri, DownloadCallBack);
         }
 
-        private void OnDownloadSuccess(DownloadTask download, long count)
+        private void OnDownloadSuccess(DownloadInfo info)
         {
-            using (FileStream fileStream = new FileStream(download.DownloadPath, FileMode.Open, FileAccess.ReadWrite))
+            using (FileStream fileStream = new FileStream(info.DownloadPath, FileMode.Open, FileAccess.ReadWrite))
             {
                 int length = (int)fileStream.Length;
                 if (length != VersionInfo.VersionListZipLength)
                 {
                     fileStream.Close();
-                    string errorMessage = Utility.Text.Format("Latest version list zip length error, need '{0}', downloaded '{1}'.", VersionInfo.VersionListZipLength, length);
-                    OnDownloadFailure(download, errorMessage);
+                    info.ErrMsg = Utility.Text.Format("Latest version list zip length error, need '{0}', downloaded '{1}'.", VersionInfo.VersionListZipLength, length);
+                    OnDownloadFailure(info);
 
                     return;
                 }
@@ -178,8 +179,8 @@ namespace EPloy
                 if (hashCode != VersionInfo.VersionListZipHashCode)
                 {
                     fileStream.Close();
-                    string errorMessage = Utility.Text.Format("Latest version list zip hash code error, need '{0}', downloaded '{1}'.", VersionInfo.VersionListZipHashCode, hashCode);
-                    OnDownloadFailure(download, errorMessage);
+                    info.ErrMsg = Utility.Text.Format("Latest version list zip hash code error, need '{0}', downloaded '{1}'.", VersionInfo.VersionListZipHashCode, hashCode);
+                    OnDownloadFailure(info);
                     return;
                 }
 
@@ -196,17 +197,16 @@ namespace EPloy
                     if (!Utility.Zip.Decompress(fileStream, Game.ResUpdater.DecompressCachedStream))
                     {
                         fileStream.Close();
-                        string errorMessage = Utility.Text.Format("Unable to decompress latest version list '{0}'.", download.DownloadPath);
-                        OnDownloadFailure(download, errorMessage);
+                        info.ErrMsg = Utility.Text.Format("Unable to decompress latest version list '{0}'.", info.DownloadPath);
+                        OnDownloadFailure(info);
                         return;
                     }
 
                     if (Game.ResUpdater.DecompressCachedStream.Length != VersionInfo.VersionListLength)
                     {
                         fileStream.Close();
-                        string errorMessage = Utility.Text.Format("Latest version list length error, need '{0}', downloaded '{1}'.", VersionInfo.VersionListLength, Game.ResUpdater.DecompressCachedStream.Length);
-
-                        OnDownloadFailure(download, errorMessage);
+                        info.ErrMsg = Utility.Text.Format("Latest version list length error, need '{0}', downloaded '{1}'.", VersionInfo.VersionListLength, Game.ResUpdater.DecompressCachedStream.Length);
+                        OnDownloadFailure(info);
                         return;
                     }
 
@@ -217,8 +217,8 @@ namespace EPloy
                 catch (Exception exception)
                 {
                     fileStream.Close();
-                    string errorMessage = Utility.Text.Format("Unable to decompress latest version list '{0}' with error message '{1}'.", download.DownloadPath, exception);
-                    OnDownloadFailure(download, errorMessage);
+                    info.ErrMsg = Utility.Text.Format("Unable to decompress latest version list '{0}' with error message '{1}'.", info.DownloadPath, exception);
+                    OnDownloadFailure(info);
                     return;
                 }
                 finally
@@ -231,14 +231,14 @@ namespace EPloy
             this.VersionUpdateCallback(true, null);
         }
 
-        private void OnDownloadFailure(DownloadTask download, string errMsg)
+        private void OnDownloadFailure(DownloadInfo info)
         {
-            if (File.Exists(download.DownloadPath))
+            if (File.Exists(info.DownloadPath))
             {
-                File.Delete(download.DownloadPath);
+                File.Delete(info.DownloadPath);
             }
 
-            this.VersionUpdateCallback(false, errMsg);
+            this.VersionUpdateCallback(false, info.ErrMsg);
         }
 
         private string GetPlatformPath()

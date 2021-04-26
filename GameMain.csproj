@@ -74,6 +74,7 @@
      <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadAgent.Request.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadAgent.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadCallBack.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadInfo.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadTask.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\EPloyModuleMgr.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\FileSystem\AndroidFileSystemStream.cs" />
@@ -219,9 +220,10 @@
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Serializer\LocalVersionListSerializer.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Serializer\PackVersionListSerializer.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Serializer\UpdatableVersionListSerializer.cs" />
-     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Update\ResUpdater.ApplyInfo.cs" />
-     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Update\ResUpdater.UpdateInfo.cs" />
-     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Update\ResUpdater.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Update\ReadWriteResInfo.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Update\UpdaterHandler.ApplyInfo.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Update\UpdaterHandler.UpdateInfo.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Update\UpdaterHandler.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\VersionList\LocalVersionList.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\VersionList\PackVersionList.Resource.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\VersionList\PackVersionList.cs" />

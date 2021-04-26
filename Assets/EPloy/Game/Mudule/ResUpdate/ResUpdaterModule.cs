@@ -11,11 +11,12 @@ namespace EPloy.Res
     /// </summary>
     public sealed class ResUpdaterModule : EPloyModule
     {
-        internal const string BackupExtension = "bak";
-        internal const string ResPath = "bak";
+        internal string BackupExtension = "bak";
+        internal string ResPath = Application.persistentDataPath;
         internal PackVersionListSerializer PackVersionListSerializer { get; private set; }
         internal UpdatableVersionListSerializer UpdatableVersionListSerializer { get; private set; }
         internal LocalVersionListSerializer LocalVersionListSerializer { get; private set; }
+        internal LocalVersionListSerializer ReadWriteVersionListSerializer { get; private set; }
         private ResChecker ResChecker;
 
         public MemoryStream DecompressCachedStream { get; set; }
@@ -24,6 +25,20 @@ namespace EPloy.Res
         ///  更新资源需要的文件系统
         /// </summary>
         internal Dictionary<string, IFileSystem> ReadWriteFileSystems { get; private set; }
+
+        /// <summary>
+        ///  更新资源URL
+        /// </summary>
+        internal string UpdatePrefixUri;
+
+        /// <summary>
+        /// 资源读写信息  看代码就资源更新的时候用了
+        /// </summary>
+        internal SortedDictionary<ResName, ReadWriteResInfo> ReadWriteResInfos;
+        /// <summary>
+        /// 资源组写信息  看代码就资源更新的时候用了
+        /// </summary>
+        internal Dictionary<string, ResGroup> ResGroups;
 
         /// <summary>
         /// 变体 暂时不知道不知道鬼
@@ -37,6 +52,9 @@ namespace EPloy.Res
         public override void Awake()
         {
             // ResChecker = new ResourceChecker(this, ResStore.Instance);
+            ReadWriteFileSystems = new Dictionary<string, IFileSystem>();
+            ReadWriteResInfos = new SortedDictionary<ResName, ReadWriteResInfo>();
+            ResGroups = new Dictionary<string, ResGroup>();
         }
 
         public override void Update()

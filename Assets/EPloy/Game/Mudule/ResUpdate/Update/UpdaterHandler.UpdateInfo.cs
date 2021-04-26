@@ -1,38 +1,12 @@
 ﻿namespace EPloy.Res
 {
-
-    public sealed partial class ResUpdater
+    public sealed partial class UpdaterHandler
     {
         /// <summary>
-        /// 应用信息。
+        /// 更新信息。
         /// </summary>
-        private sealed class ApplyInfo
+        private sealed class UpdateInfo
         {
-
-            /// <summary>
-            /// 初始化应用信息的新实例。
-            /// </summary>
-            /// <param name="resourceName">资源名称。</param>
-            /// <param name="fileSystemName">资源所在的文件系统名称。</param>
-            /// <param name="loadType">资源加载方式。</param>
-            /// <param name="offset">资源偏移。</param>
-            /// <param name="length">资源大小。</param>
-            /// <param name="hashCode">资源哈希值。</param>
-            /// <param name="zipLength">压缩后大小。</param>
-            /// <param name="zipHashCode">压缩后哈希值。</param>
-            /// <param name="resourcePath">资源路径。</param>
-            public ApplyInfo(ResName resName, string fileSystemName, LoadType loadType, long offset, int length, int hashCode, int zipLength, int zipHashCode, string resPath)
-            {
-                ResName = resName;
-                FileSystemName = fileSystemName;
-                LoadType = loadType;
-                Offset = offset;
-                Length = length;
-                HashCode = hashCode;
-                ZipLength = zipLength;
-                ZipHashCode = zipHashCode;
-                ResPath = resPath;
-            }
 
             /// <summary>
             /// 获取资源名称。
@@ -75,16 +49,6 @@
 
 
             /// <summary>
-            /// 获取资源偏移。
-            /// </summary>
-            public long Offset
-            {
-                get;
-                private set;
-            }
-
-
-            /// <summary>
             /// 获取资源大小。
             /// </summary>
             public int Length
@@ -113,7 +77,6 @@
                 private set;
             }
 
-
             /// <summary>
             /// 获取压缩后哈希值。
             /// </summary>
@@ -132,6 +95,41 @@
                 get;
                 private set;
             }
+
+
+            /// <summary>
+            /// 获取或设置已重试次数。
+            /// </summary>
+            public int RetryCount
+            {
+                get;
+                set;
+            }
+
+            /// <summary>
+            /// 初始化更新信息的新实例。
+            /// </summary>
+            /// <param name="resName">资源名称。</param>
+            /// <param name="fileSystemName">资源所在的文件系统名称。</param>
+            /// <param name="loadType">资源加载方式。</param>
+            /// <param name="length">资源大小。</param>
+            /// <param name="hashCode">资源哈希值。</param>
+            /// <param name="zipLength">压缩后大小。</param>
+            /// <param name="zipHashCode">压缩后哈希值。</param>
+            /// <param name="resPath">资源路径。</param>
+            public UpdateInfo(ResName resName, string fileSystemName, LoadType loadType, int length, int hashCode, int zipLength, int zipHashCode, string resPath)
+            {
+                ResName = resName;
+                FileSystemName = fileSystemName;
+                LoadType = loadType;
+                Length = length;
+                HashCode = hashCode;
+                ZipLength = zipLength;
+                ZipHashCode = zipHashCode;
+                ResPath = resPath;
+                RetryCount = 0;
+            }
+
         }
     }
 }

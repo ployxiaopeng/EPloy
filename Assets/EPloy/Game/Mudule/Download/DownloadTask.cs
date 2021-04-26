@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace EPloy
+namespace EPloy.Download
 {
     /// <summary>
     /// 下载任务。
@@ -9,6 +9,16 @@ namespace EPloy
     public sealed class DownloadTask : IDisposable
     {
         private static int s_Serial = 0;
+
+        /// <summary>
+        /// 是否下载完成
+        /// </summary>
+        /// <value></value>
+        public int Serial
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// 获取或设置下载任务的状态。
@@ -82,6 +92,12 @@ namespace EPloy
             private set;
         }
 
+        public object UserData
+        {
+            get;
+            private set;
+        }
+
         /// <summary>
         /// 创建下载任务。
         /// </summary>
@@ -90,15 +106,17 @@ namespace EPloy
         /// <param name="flushSize">将缓冲区写入磁盘的临界大小。</param>
         /// <param name="timeout">下载超时时长，以秒为单位。</param>
         /// <returns>创建的下载任务。</returns>
-        public static DownloadTask Create(string downloadPath, string downloadUri, int flushSize, float timeout, DownloadCallBack downloadCallBack)
+        public static DownloadTask Create(string downloadPath, string downloadUri, int flushSize, float timeout, DownloadCallBack downloadCallBack, object userData)
         {
             DownloadTask downloadTask = new DownloadTask();
             downloadTask.Dispose();
+            downloadTask.Serial += DownloadTask.s_Serial;
             downloadTask.DownloadPath = downloadPath;
             downloadTask.DownloadUri = downloadUri;
             downloadTask.FlushSize = flushSize;
             downloadTask.Timeout = timeout;
             downloadTask.DownloadCallBack = downloadCallBack;
+            downloadTask.UserData = userData;
             return downloadTask;
         }
 
@@ -112,6 +130,7 @@ namespace EPloy
             DownloadUri = null;
             FlushSize = 0;
             Timeout = 0f;
+            UserData = null;
         }
     }
 

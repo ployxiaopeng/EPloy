@@ -3,13 +3,13 @@ using System;
 using System.IO;
 using UnityEngine;
 
-namespace EPloy
+namespace EPloy.Download
 {
 
     /// <summary>
     /// 下载代理。
     /// </summary>
-    public partial class DownloadAgent : IDisposable
+    internal partial class DownloadAgent : IDisposable
     {
         private FileStream FileStream;
         private int WaitFlushSize;
@@ -150,7 +150,9 @@ namespace EPloy
 
                 if (DownloadCallBack.DownloadStart != null)
                 {
-                    DownloadCallBack.DownloadStart(this.Task);
+                    DownloadInfo info = DownloadInfo.Create(Task.Serial, Task.DownloadPath, Task.DownloadUri, CurrentLength, Task.UserData);
+                    DownloadCallBack.DownloadStart(info);
+                    info.Dispose();
                 }
 
                 if (StartLength > 0)
@@ -256,7 +258,10 @@ namespace EPloy
             DownloadedLength += deltaLength;
             if (DownloadCallBack.DownloadUpdate != null)
             {
-                DownloadCallBack.DownloadUpdate(this.Task, deltaLength);
+                DownloadInfo info = DownloadInfo.Create(Task.Serial, Task.DownloadPath, Task.DownloadUri, CurrentLength, Task.UserData);
+                // todo: 本次以下载大小待定
+                DownloadCallBack.DownloadUpdate(info);
+                info.Dispose();
             }
         }
 
@@ -285,7 +290,10 @@ namespace EPloy
 
             if (DownloadCallBack.DownloadSuccess != null)
             {
-                DownloadCallBack.DownloadSuccess(this.Task, length);
+                // todo: 本次以下载大小待定
+                DownloadInfo info = DownloadInfo.Create(Task.Serial, Task.DownloadPath, Task.DownloadUri, CurrentLength, Task.UserData);
+                DownloadCallBack.DownloadSuccess(info);
+                info.Dispose();
             }
 
             Task.TaskStatus = DownloadTaskStatus.Done;
@@ -309,7 +317,10 @@ namespace EPloy
 
             if (DownloadCallBack.DownloadFailure != null)
             {
-                DownloadCallBack.DownloadFailure(this.Task, errorMessage);
+                DownloadInfo info = DownloadInfo.Create(Task.Serial, Task.DownloadPath, Task.DownloadUri, CurrentLength, Task.UserData);
+                info.ErrMsg = errorMessage;
+                DownloadCallBack.DownloadFailure(info);
+                info.Dispose();
             }
 
             Task.TaskStatus = DownloadTaskStatus.Error;

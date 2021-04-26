@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using EPloy.Res;
+using EPloy.Download;
 
 namespace EPloy
 {
