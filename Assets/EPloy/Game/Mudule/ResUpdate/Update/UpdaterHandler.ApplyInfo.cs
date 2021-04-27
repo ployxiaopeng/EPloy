@@ -1,7 +1,7 @@
 ﻿namespace EPloy.Res
 {
 
-    public sealed partial class UpdaterHandler
+    internal sealed partial class UpdaterHandler
     {
         /// <summary>
         /// 应用信息。

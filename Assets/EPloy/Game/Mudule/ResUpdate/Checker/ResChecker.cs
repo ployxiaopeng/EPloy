@@ -3,13 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using EPloy.SystemFile;
-using UnityEngine;
 using UnityEngine.Networking;
-
 
 namespace EPloy.Res
 {
-
     /// <summary>
     /// 检查资源回调。
     /// </summary>
@@ -26,32 +23,31 @@ namespace EPloy.Res
     internal sealed partial class ResChecker
     {
         private ResUpdaterModule ResUpdater;
-
+        private ResStore ResStore;
+        private UpdatableVersionListSerializer UpdatableVersionListSerializer;
+        private LocalVersionListSerializer LocalVersionListSerializer;
         private readonly Dictionary<ResName, CheckInfo> CheckInfos;
         private string CurrentVariant;
         private string VersionListPath
         {
             get
             {
-                return Application.persistentDataPath;
+                return ResUpdater.ResPath;
             }
         }
         private bool RemoteVersionListReady;
         private bool LocalVersionListReady;
+        public ResCheckerCallBack ResCheckerCallBack;
 
-        public EPloyAction<ResName, string, LoadType, int, int, int, int> ResourceNeedUpdate;
-        public EPloyAction<int, int, int, long, long> ResourceCheckComplete;
-
-        public ResChecker(ResUpdaterModule resUpdater)
+        public ResChecker(ResUpdaterModule resUpdater, ResStore resStore)
         {
-            ResUpdater = resUpdater;
+            ResUpdater = resUpdater; ResStore = resStore;
             CheckInfos = new Dictionary<ResName, CheckInfo>();
-            CurrentVariant = null;
+            CurrentVariant = null; ResCheckerCallBack = null;
             RemoteVersionListReady = false;
             LocalVersionListReady = false;
-
-            ResourceNeedUpdate = null;
-            ResourceCheckComplete = null;
+            UpdatableVersionListSerializer = new UpdatableVersionListSerializer();
+            LocalVersionListSerializer = new LocalVersionListSerializer();
         }
 
         public void OnDestroy()
@@ -152,7 +148,7 @@ namespace EPloy.Res
             try
             {
                 memoryStream = new MemoryStream(bytes, false);
-                LocalVersionList versionList = ResUpdater.LocalVersionListSerializer.Deserialize(memoryStream);
+                LocalVersionList versionList = LocalVersionListSerializer.Deserialize(memoryStream);
                 if (!versionList.IsValid)
                 {
                     Log.Fatal("Deserialize read write version list failure.");
@@ -214,7 +210,7 @@ namespace EPloy.Res
             try
             {
                 memoryStream = new MemoryStream(bytes, false);
-                UpdatableVersionList versionList = ResUpdater.UpdatableVersionListSerializer.Deserialize(memoryStream);
+                UpdatableVersionList versionList = UpdatableVersionListSerializer.Deserialize(memoryStream);
                 if (!versionList.IsValid)
                 {
                     Log.Fatal("Deserialize updatable version list failure.");
@@ -225,11 +221,11 @@ namespace EPloy.Res
                 UpdatableVersionList.Resource[] resources = versionList.GetResources();
                 UpdatableVersionList.FileSystem[] fileSystems = versionList.GetFileSystems();
                 UpdatableVersionList.ResourceGroup[] resourceGroups = versionList.GetResourceGroups();
-                //ResStore.SetResVersion(versionList.ApplicableGameVersion, versionList.InternalResourceVersion);
-                //ResStore.VersionInfos = new Dictionary<string, AssetInfo>(assets.Length, StringComparer.Ordinal);
-                // ResStore.ResInfos = new Dictionary<ResName, ResInfo>(resources.Length, new ResNameComparer());
-                // ResStore.ReadWriteResInfos = new SortedDictionary<ResName, ReadWriteResInfo>(new ResNameComparer());
-                // ResGroup defaultResourceGroup = ResStore.GetOrAddResourceGroup(string.Empty);
+                ResStore.SetResVersion(versionList.ApplicableGameVersion, versionList.InternalResourceVersion);
+                ResStore.VersionInfos = new Dictionary<string, AssetInfo>(assets.Length, StringComparer.Ordinal);
+                ResStore.ResInfos = new Dictionary<ResName, ResInfo>(resources.Length, new ResNameComparer());
+                ResStore.ReadWriteResInfos = new SortedDictionary<ResName, ReadWriteResInfo>(new ResNameComparer());
+                ResGroup defaultResourceGroup = ResStore.GetOrAddResourceGroup(string.Empty);
 
                 foreach (UpdatableVersionList.FileSystem fileSystem in fileSystems)
                 {
@@ -265,27 +261,27 @@ namespace EPloy.Res
                             dependencyAssetNames[index++] = assets[dependencyAssetIndex].Name;
                         }
 
-                        //ResStore.VersionInfos.Add(asset.Name, new AssetInfo(asset.Name, ResName, dependencyAssetNames));
+                        ResStore.VersionInfos.Add(asset.Name, new AssetInfo(asset.Name, ResName, dependencyAssetNames));
                     }
 
                     SetVersionInfo(ResName, (LoadType)resource.LoadType, resource.Length, resource.HashCode, resource.ZipLength, resource.ZipHashCode);
-                    // defaultResourceGroup.AddResource(ResName, resource.Length, resource.ZipLength);
+                    defaultResourceGroup.AddResource(ResName, resource.Length, resource.ZipLength);
                 }
 
                 foreach (UpdatableVersionList.ResourceGroup resourceGroup in resourceGroups)
                 {
-                    // ResGroup group = ResStore.GetOrAddResourceGroup(resourceGroup.Name);
-                    //  int[] resourceIndexes = resourceGroup.GetResourceIndexes();
-                    //  foreach (int resourceIndex in resourceIndexes)
-                    //  {
-                    //      UpdatableVersionList.Resource resource = resources[resourceIndex];
-                    //      if (resource.Variant != null && resource.Variant != CurrentVariant)
-                    //       {
-                    //            continue;
-                    //        }
+                    ResGroup group = ResStore.GetOrAddResourceGroup(resourceGroup.Name);
+                    int[] resourceIndexes = resourceGroup.GetResourceIndexes();
+                    foreach (int resourceIndex in resourceIndexes)
+                    {
+                        UpdatableVersionList.Resource resource = resources[resourceIndex];
+                        if (resource.Variant != null && resource.Variant != CurrentVariant)
+                        {
+                            continue;
+                        }
 
-                    //       group.AddResource(new ResName(resource.Name, resource.Variant, resource.Extension), resource.Length, resource.ZipLength);
-                    //   }
+                        group.AddResource(new ResName(resource.Name, resource.Variant, resource.Extension), resource.Length, resource.ZipLength);
+                    }
                 }
 
                 RemoteVersionListReady = true;
@@ -389,14 +385,17 @@ namespace EPloy.Res
                             }
                         }
                     }
-                    // ResStore.ReadWriteResInfos.Add(ci.ResName, new ReadWriteResInfo(ci.FileSystemName, ci.LoadType, ci.Length, ci.HashCode));
+                    ResStore.ReadWriteResInfos.Add(ci.ResName, new ReadWriteResInfo(ci.FileSystemName, ci.LoadType, ci.Length, ci.HashCode));
                 }
                 else if (ci.Status == CheckStatus.Update)
                 {
                     updateCount++;
                     updateTotalLength += ci.Length;
                     updateTotalZipLength += ci.ZipLength;
-                    ResourceNeedUpdate(ci.ResName, ci.FileSystemName, ci.LoadType, ci.Length, ci.HashCode, ci.ZipLength, ci.ZipHashCode);
+                    if (ResCheckerCallBack.NeedUpdate != null)
+                    {
+                        ResCheckerCallBack.NeedUpdate(ci.ResName, ci.FileSystemName, ci.LoadType, ci.Length, ci.HashCode, ci.ZipLength, ci.ZipHashCode);
+                    }
                 }
                 else if (ci.Status == CheckStatus.Unavailable || ci.Status == CheckStatus.Disuse)
                 {
@@ -431,8 +430,10 @@ namespace EPloy.Res
                 RemoveEmptyFileSystems();
                 Utility.Path.RemoveEmptyDirectory(VersionListPath);
             }
-
-            ResourceCheckComplete(movedCount, removedCount, updateCount, updateTotalLength, updateTotalZipLength);
+            if (ResCheckerCallBack.CheckComplete != null)
+            {
+                ResCheckerCallBack.CheckComplete(movedCount, removedCount, updateCount, updateTotalLength, updateTotalZipLength);
+            }
         }
 
         private void RemoveEmptyFileSystems()
@@ -460,7 +461,6 @@ namespace EPloy.Res
                 }
             }
         }
-
 
     }
 }

@@ -74,7 +74,7 @@ namespace EPloy
                 }
                 catch (Exception e)
                 {
-                    Log.Info(Utility.Text.Format("module {0} destory err {1} ", e.ToString()));
+                    Log.Fatal(Utility.Text.Format("module {0} destory err {1} ", module, e.ToString()));
                 }
             }
         }

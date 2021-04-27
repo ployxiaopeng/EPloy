@@ -16,7 +16,7 @@ namespace EPloy
     public class VersionCheckerModule : EPloyModule
     {
         private UpdatableVersionListSerializer UpdatableVersionListSerializer;
-        private VersionInfo VersionInfo = null;
+        private VersionInfo VersionInfo;
         private DownloadCallBack DownloadCallBack;
 
         private EPloyAction<bool, VersionInfo> VersionCheckerCallback;
@@ -24,9 +24,10 @@ namespace EPloy
 
         public override void Awake()
         {
+            VersionInfo = null;
             UpdatableVersionListSerializer = new UpdatableVersionListSerializer();
             DownloadCallBack = new DownloadCallBack(OnDownloadSuccess, OnDownloadFailure);
-            Game.ResUpdater.DecompressCachedStream = null;
+            VersionCheckerCallback = null; VersionUpdateCallback = null;
         }
 
         public override void Update()
@@ -36,7 +37,11 @@ namespace EPloy
 
         public override void OnDestroy()
         {
-            Game.ResUpdater.DecompressCachedStream.Dispose();
+            VersionInfo = null;
+            UpdatableVersionListSerializer = null;
+            DownloadCallBack = null;
+            VersionCheckerCallback = null;
+            VersionUpdateCallback = null;
         }
 
         public void VersionChecker(EPloyAction<bool, VersionInfo> versionCheckerCallback)

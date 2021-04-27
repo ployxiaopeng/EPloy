@@ -7,17 +7,16 @@ using UnityEngine;
 namespace EPloy.Res
 {
     /// <summary>
-    /// 资源更新器
+    /// 资源更新
     /// </summary>
     public sealed class ResUpdaterModule : EPloyModule
     {
         internal string BackupExtension = "bak";
         internal string ResPath = Application.persistentDataPath;
-        internal PackVersionListSerializer PackVersionListSerializer { get; private set; }
-        internal UpdatableVersionListSerializer UpdatableVersionListSerializer { get; private set; }
-        internal LocalVersionListSerializer LocalVersionListSerializer { get; private set; }
-        internal LocalVersionListSerializer ReadWriteVersionListSerializer { get; private set; }
+
+        private ResStore ResStore;
         private ResChecker ResChecker;
+        private UpdaterHandler UpdaterHandler;
 
         public MemoryStream DecompressCachedStream { get; set; }
 
@@ -32,15 +31,6 @@ namespace EPloy.Res
         internal string UpdatePrefixUri;
 
         /// <summary>
-        /// 资源读写信息  看代码就资源更新的时候用了
-        /// </summary>
-        internal SortedDictionary<ResName, ReadWriteResInfo> ReadWriteResInfos;
-        /// <summary>
-        /// 资源组写信息  看代码就资源更新的时候用了
-        /// </summary>
-        internal Dictionary<string, ResGroup> ResGroups;
-
-        /// <summary>
         /// 变体 暂时不知道不知道鬼
         /// </summary>
         public string CurrentVariant
@@ -51,10 +41,11 @@ namespace EPloy.Res
 
         public override void Awake()
         {
-            // ResChecker = new ResourceChecker(this, ResStore.Instance);
+            ResStore = new ResStore();
+            ResChecker = new ResChecker(this, ResStore);
+            ResChecker.ResCheckerCallBack = new ResCheckerCallBack(OnCheckerResNeedUpdate, OnCheckerResCheckComplete);
+            UpdaterHandler = new UpdaterHandler(this, ResStore);
             ReadWriteFileSystems = new Dictionary<string, IFileSystem>();
-            ReadWriteResInfos = new SortedDictionary<ResName, ReadWriteResInfo>();
-            ResGroups = new Dictionary<string, ResGroup>();
         }
 
         public override void Update()
@@ -120,5 +111,35 @@ namespace EPloy.Res
             }
             return fileSystem;
         }
+
+        private void OnCheckerResNeedUpdate(ResName resourceName, string fileSystemName, LoadType loadType, int length, int hashCode, int zipLength, int zipHashCode)
+        {
+            UpdaterHandler.AddResUpdate(resourceName, fileSystemName, loadType, length, hashCode, zipLength, zipHashCode, Utility.Path.GetRegularPath(Path.Combine(ResPath, resourceName.FullName)));
+        }
+
+        private void OnCheckerResCheckComplete(int movedCount, int removedCount, int updateCount, long updateTotalLength, long updateTotalZipLength)
+        {
+            Game.VersionChecker.OnDestroy();
+            ResChecker.OnDestroy();
+            UpdaterHandler.CheckResComplete(movedCount > 0 || removedCount > 0);
+
+            if (updateCount <= 0)
+            {
+                UpdaterHandler.OnDestroy();
+
+                ResStore.ReadWriteResInfos.Clear();
+                ResStore.ReadWriteResInfos = null;
+
+                if (DecompressCachedStream != null)
+                {
+                    DecompressCachedStream.Dispose();
+                    DecompressCachedStream = null;
+                }
+            }
+
+            // m_CheckResourcesCompleteCallback(movedCount, removedCount, updateCount, updateTotalLength, updateTotalZipLength);
+            // m_CheckResourcesCompleteCallback = null;
+        }
+
     }
 }

@@ -9,7 +9,7 @@ namespace EPloy.Res
     /// <summary>
     /// 资源更新器
     /// </summary>
-    public sealed partial class UpdaterHandler
+    internal sealed partial class UpdaterHandler
     {
         private const int CachedHashBytesLength = 4;
         private const int CachedBytesLength = 0x1000;
@@ -20,14 +20,10 @@ namespace EPloy.Res
                 return Game.DownLoad;
             }
         }
-        private ResUpdaterModule ResUpdater
-        {
-            get
-            {
-                return Game.ResUpdater;
-            }
-        }
-
+        private ResUpdaterModule ResUpdater;
+        private ResStore ResStore;
+        private PackVersionListSerializer PackVersionListSerializer;
+        private LocalVersionListSerializer ReadWriteVersionListSerializer;
         private readonly List<ApplyInfo> ApplyWaitingInfo;
         private readonly List<UpdateInfo> UpdateWaitingInfo;
         private readonly Dictionary<ResName, UpdateInfo> UpdateCandidateInfo;
@@ -57,11 +53,13 @@ namespace EPloy.Res
         /// 初始化资源更新器的新实例。
         /// </summary>
         /// <param name="ResManager">资源管理器。</param>
-        public UpdaterHandler()
+        public UpdaterHandler(ResUpdaterModule resUpdater, ResStore resStore)
         {
+            ResUpdater = resUpdater; ResStore = resStore;
             ApplyWaitingInfo = new List<ApplyInfo>();
             UpdateWaitingInfo = new List<UpdateInfo>();
             UpdateCandidateInfo = new Dictionary<ResName, UpdateInfo>();
+            PackVersionListSerializer = new PackVersionListSerializer();
             CachedFileSystemsForGenerateReadWriteVersionList = new SortedDictionary<string, List<int>>(StringComparer.Ordinal);
             CachedHashBytes = new byte[CachedHashBytesLength];
             CachedBytes = new byte[CachedBytesLength];
@@ -296,7 +294,7 @@ namespace EPloy.Res
                 using (FileStream fileStream = new FileStream(ResPackPath, FileMode.Open, FileAccess.Read))
                 {
                     length = fileStream.Length;
-                    versionList = ResUpdater.PackVersionListSerializer.Deserialize(fileStream);
+                    versionList = PackVersionListSerializer.Deserialize(fileStream);
                 }
 
                 if (!versionList.IsValid)
@@ -581,11 +579,11 @@ namespace EPloy.Res
             try
             {
                 fileStream = new FileStream(ReadWriteVersionListFileName, FileMode.Create, FileAccess.Write);
-                LocalVersionList.Resource[] Ress = ResUpdater.ReadWriteResInfos.Count > 0 ? new LocalVersionList.Resource[ResUpdater.ReadWriteResInfos.Count] : null;
+                LocalVersionList.Resource[] Ress = ResStore.ReadWriteResInfos.Count > 0 ? new LocalVersionList.Resource[ResStore.ReadWriteResInfos.Count] : null;
                 if (Ress != null)
                 {
                     int index = 0;
-                    foreach (KeyValuePair<ResName, ReadWriteResInfo> i in ResUpdater.ReadWriteResInfos)
+                    foreach (KeyValuePair<ResName, ReadWriteResInfo> i in ResStore.ReadWriteResInfos)
                     {
                         Ress[index] = new LocalVersionList.Resource(i.Key.Name, i.Key.Variant, i.Key.Extension, (byte)i.Value.LoadType, i.Value.Length, i.Value.HashCode);
                         if (i.Value.UseFileSystem)
@@ -616,7 +614,7 @@ namespace EPloy.Res
                 }
 
                 LocalVersionList versionList = new LocalVersionList(Ress, fileSystems);
-                if (!ResUpdater.ReadWriteVersionListSerializer.Serialize(fileStream, versionList))
+                if (!ReadWriteVersionListSerializer.Serialize(fileStream, versionList))
                 {
                     Log.Fatal("Serialize read write version list failure.");
                 }
@@ -825,8 +823,8 @@ namespace EPloy.Res
             }
 
             UpdatingCount--;
-            // todo: ResManager.ResInfos[updateInfo.ResName].MarkReady();
-            ResUpdater.ReadWriteResInfos.Add(updateInfo.ResName, new ReadWriteResInfo(updateInfo.FileSystemName, updateInfo.LoadType, updateInfo.Length, updateInfo.HashCode));
+            ResStore.ResInfos[updateInfo.ResName].MarkReady();
+            ResStore.ReadWriteResInfos.Add(updateInfo.ResName, new ReadWriteResInfo(updateInfo.FileSystemName, updateInfo.LoadType, updateInfo.Length, updateInfo.HashCode));
             CurrentGenerateReadWriteVersionListLength += updateInfo.ZipLength;
             if (UpdatingCount <= 0 || CurrentGenerateReadWriteVersionListLength >= GenerateReadWriteVersionListLength)
             {
