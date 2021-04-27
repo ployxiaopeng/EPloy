@@ -104,7 +104,7 @@ namespace EPloy
         /// <summary>
         /// 初始化 ILRuntime
         /// </summary>
-        public void StartGame(bool isILRuntime)
+        public void StartILRuntime(bool isILRuntime)
         {
             OpenHotfixUpdate = false;
             IsILRuntime = isILRuntime;

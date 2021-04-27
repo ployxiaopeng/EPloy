@@ -1,5 +1,6 @@
 ﻿namespace EPloy.Res
 {
+    public delegate void UpdateResCompleteCallback(ResGroup resourceGroup, bool result);
 
     internal sealed partial class UpdaterHandler
     {

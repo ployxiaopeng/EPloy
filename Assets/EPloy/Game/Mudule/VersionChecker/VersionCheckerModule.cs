@@ -96,11 +96,9 @@ namespace EPloy
 
             if (VersionInfo.UpdateGame)
             {
-                // 需要强制更新游戏应用
-
                 return;
             }
-            VersionInfo.UpdateGame = CheckVersionList(VersionInfo.InternalResourceVersion) == CheckVersionListResult.NeedUpdate;
+            VersionInfo.UpdateVersion = CheckVersionList(VersionInfo.InternalResourceVersion) == CheckVersionListResult.NeedUpdate;
         }
 
         /// <summary>

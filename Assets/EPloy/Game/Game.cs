@@ -13,7 +13,7 @@ namespace EPloy
         [SerializeField]
         private bool EditorResource;
 
-        public static ResUpdaterModule ResUpdater
+        public static FileSystemModule FileSystem
         {
             get;
             private set;
@@ -25,13 +25,13 @@ namespace EPloy
             private set;
         }
 
-        public static VersionCheckerModule VersionChecker
+        public static ResUpdaterModule ResUpdater
         {
             get;
             private set;
         }
 
-        public static FileSystemModule FileSystem
+        public static VersionCheckerModule VersionChecker
         {
             get;
             private set;

@@ -29,7 +29,7 @@ namespace EPloy.Res
         /// </summary>
         internal Dictionary<string, ResGroup> ResGroups;
 
-        public ResStore()
+        internal ResStore()
         {
             VersionInfos = new Dictionary<string, AssetInfo>();
             ResInfos = new Dictionary<ResName, ResInfo>();
@@ -58,6 +58,22 @@ namespace EPloy.Res
             }
 
             return resourceGroup;
+        }
+
+        /// <summary>
+        /// 获取资源组。
+        /// </summary>
+        /// <param name="resourceGroupName">要获取的资源组名称。</param>
+        /// <returns>要获取的资源组。</returns>
+        internal ResGroup GetResGroup(string resourceGroupName)
+        {
+            ResGroup resourceGroup = null;
+            if (ResGroups.TryGetValue(resourceGroupName ?? string.Empty, out resourceGroup))
+            {
+                return resourceGroup;
+            }
+
+            return null;
         }
 
         internal AssetInfo GetAssetInfo(string assetName)

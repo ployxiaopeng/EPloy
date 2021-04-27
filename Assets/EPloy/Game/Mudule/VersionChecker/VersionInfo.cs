@@ -25,7 +25,12 @@ namespace EPloy
             get;
             set;
         }
-
+        // 是否更新游戏资源
+        public bool UpdateVersion
+        {
+            get;
+            set;
+        }
         // 最新的游戏版本号
         public string LatestGameVersion
         {

@@ -7,16 +7,7 @@ using UnityEngine.Networking;
 
 namespace EPloy.Res
 {
-    /// <summary>
-    /// 检查资源回调。
-    /// </summary>
-    /// <param name="movedCount">已移动的资源数量。</param>
-    /// <param name="removedCount">已移除的资源数量。</param>
-    /// <param name="updateCount">可更新的资源数量。</param>
-    /// <param name="updateTotalLength">可更新的资源总大小。</param>
-    /// <param name="updateTotalZipLength">可更新的压缩后总大小。</param>
-    public delegate void CheckResCompleteCallback(int movedCount, int removedCount, int updateCount, long updateTotalLength, long updateTotalZipLength);
-
+    
     /// <summary>
     /// 资源检查器。
     /// </summary>
