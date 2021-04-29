@@ -26,7 +26,7 @@ namespace EPloy
 
 
 
-            GameEntry.UI.OpenUIForm(UIName.StartUI, GroupName.Default);
+            GameEntry.UI.OpenUIForm(UIName.StartForm, GroupName.Default);
         }
 
         public static void Update()

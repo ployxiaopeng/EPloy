@@ -173,7 +173,7 @@ namespace EPloy
         /// </summary>
         /// <param name="uiForm">要关闭的界面。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void CloseUIForm(UIName uiName, object userData)
+        public void CloseUIForm(UIName uiName, object userData = null)
         {
             if (!UINames.ContainsKey(uiName))
             {

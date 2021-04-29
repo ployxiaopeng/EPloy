@@ -119,8 +119,9 @@
      <Compile Include="Assets\EPloy\Hotfix\Event\EventId.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Event\TestEvt.cs" />
      <Compile Include="Assets\EPloy\Hotfix\GameStart.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\UIForm\StartUIDataStore.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\UIForm\StartUIForm.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\UIForm\StartForm.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\UIForm\StartFormData.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\UIForm\TipsForm.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

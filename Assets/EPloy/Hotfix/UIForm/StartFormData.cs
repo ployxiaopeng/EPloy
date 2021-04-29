@@ -3,7 +3,7 @@ using EPloy;
 
 
 [DataStore]
-public class StartUIDataStore : Component
+public class StartFormData : Component
 {
     public string txt = "";
     protected override void InitComponent()

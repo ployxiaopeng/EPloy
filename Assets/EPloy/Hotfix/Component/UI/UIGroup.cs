@@ -174,6 +174,7 @@ namespace EPloy
                 return;
             }
             uiForm.Close(userData);
+            uiForm.Handle.SetActive(false);
             ActiveUIForms.Remove(uiForm);
         }
 
@@ -205,6 +206,7 @@ namespace EPloy
             uiGo.transform.localPosition = Vector3.zero;
             uiGo.transform.localScale = Vector3.one;
             uiForm.Initialize(uiGo, uiName, GroupName, isNew, userData);
+            uiGo.SetActive(true);
             ActiveUIForms.Add(uiForm);
         }
 

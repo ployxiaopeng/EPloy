@@ -6,7 +6,8 @@ namespace EPloy
     public enum UIName
     {
         Default = 0,
-        StartUI = 1,
+        StartForm = 1,
+        TipsForm = 2,
     }
 
     public enum GroupName
