@@ -71,7 +71,7 @@ namespace EPloy.Table
             }
             catch (Exception exception)
             {
-                // Log.Warning("Can not parse dictionary bytes with exception '{0}'.", exception.ToString());
+                Log.Warning(Utility.Text.Format("Can not parse dictionary bytes with exception '{0}'.", exception.ToString()));
                 return false;
             }
         }

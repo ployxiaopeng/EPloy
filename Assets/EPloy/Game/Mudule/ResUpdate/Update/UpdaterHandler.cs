@@ -58,27 +58,20 @@ namespace EPloy.Res
             UpdateWaitingInfo = new List<UpdateInfo>();
             UpdateCandidateInfo = new Dictionary<ResName, UpdateInfo>();
             PackVersionListSerializer = new PackVersionListSerializer();
+            ReadWriteVersionListSerializer = new LocalVersionListSerializer();
             CachedFileSystemsForGenerateReadWriteVersionList = new SortedDictionary<string, List<int>>(StringComparer.Ordinal);
             CachedHashBytes = new byte[CachedHashBytesLength];
             CachedBytes = new byte[CachedBytesLength];
             CheckRessComplete = false;
-            ApplyingResPackPath = null;
-            ApplyingResPackStream = null;
-            UpdatingResGroup = null;
-            GenerateReadWriteVersionListLength = 0;
-            CurrentGenerateReadWriteVersionListLength = 0;
-            UpdateRetryCount = 3;
-            UpdatingCount = 0;
-            FailureFlag = false;
+            ApplyingResPackPath = null; ApplyingResPackStream = null; UpdatingResGroup = null;
+            GenerateReadWriteVersionListLength = 0; CurrentGenerateReadWriteVersionListLength = 0;
+            UpdateRetryCount = 3; UpdatingCount = 0; FailureFlag = false;
             ReadWriteVersionListFileName = Utility.Path.GetRegularPath(Path.Combine(ResUpdater.ResPath, MuduleConfig.LocalVersionListFileName));
             ReadWriteVersionListBackupFileName = Utility.Text.Format("{0}.{1}", ReadWriteVersionListFileName, ResUpdater.BackupExtension);
 
-            ResApplyComplete = null;
-            ResUpdateStart = null;
-            ResUpdateChanged = null;
-            ResUpdateSuccess = null;
-            ResUpdateFailure = null;
-            ResUpdateComplete = null;
+            ResApplyComplete = null; ResUpdateStart = null; ResUpdateChanged = null;
+            ResUpdateSuccess = null; ResUpdateFailure = null; ResUpdateComplete = null;
+            DownloadCallBack = new DownloadCallBack(OnDownloadStart, OnDownloadUpdate, OnDownloadSuccess, OnDownloadFailure);
         }
 
         /// <summary>

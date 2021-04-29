@@ -28,7 +28,7 @@ namespace EPloy.Res
         /// <summary>
         ///  更新资源URL
         /// </summary>
-        internal string UpdatePrefixUri;
+        public string UpdatePrefixUri { get; set; }
 
         private CheckResCompleteCallback CheckResCompleteCallback;
         private UpdateResCallBack UpdateResCallBack;

@@ -87,9 +87,9 @@
      <Compile Include="Assets\EPloy\Hotfix\Component\ObjectPool\ObjectPoolComponent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\ObjectPool\ObjectPoolManager.Object.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\ObjectPool\ObjectPoolManager.ObjectPool.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Component\Res\AssetObject.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResComponent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResHelper.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\AssetObject.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\LoadCallback\LoadAssetCallbacks.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\LoadCallback\LoadBinaryCallbacks.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\LoadCallback\LoadBytesCallbacks.cs" />
@@ -100,11 +100,11 @@
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\ResEditorLoader.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\ResEnum.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\ResLoader.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\ResObject.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\Task\LoadAssetTask.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\Task\LoadDependencyAssetTask.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\Task\LoadResTaskbase.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\Task\LoadSceneTask.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResObject.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Scene\SceneComponent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\UI\UIAttribute.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\UI\UIComponent.cs" />

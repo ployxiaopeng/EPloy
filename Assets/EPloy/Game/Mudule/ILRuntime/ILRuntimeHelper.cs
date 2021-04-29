@@ -67,7 +67,8 @@ namespace EPloy
 
             //TODO:注册跨域继承适配器
             appDomain.RegisterCrossBindingAdaptor(new IMessageAdaptor());
-            appDomain.RegisterCrossBindingAdaptor(new IDisposableAdaptor());
+            appDomain.RegisterCrossBindingAdaptor(new ICoroutineAdapter());
+            // appDomain.RegisterCrossBindingAdaptor(new IDisposableAdaptor());
             appDomain.RegisterCrossBindingAdaptor(new IAsyncStateMachineAdaptor());
 
             //TODO:注册值类型绑定

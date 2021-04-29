@@ -22,34 +22,18 @@ namespace ILRuntime.Runtime.Generated
             MethodBase method;
             Type[] args;
             Type type = typeof(System.IO.Path);
-            args = new Type[]{typeof(System.String)};
-            method = type.GetMethod("GetPathRoot", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, GetPathRoot_0);
             args = new Type[]{typeof(System.String), typeof(System.String)};
             method = type.GetMethod("Combine", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Combine_1);
+            app.RegisterCLRMethodRedirection(method, Combine_0);
+            args = new Type[]{typeof(System.String)};
+            method = type.GetMethod("GetPathRoot", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetPathRoot_1);
 
 
         }
 
 
-        static StackObject* GetPathRoot_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.String @path = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            var result_of_this_method = System.IO.Path.GetPathRoot(@path);
-
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* Combine_1(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Combine_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -65,6 +49,22 @@ namespace ILRuntime.Runtime.Generated
 
 
             var result_of_this_method = System.IO.Path.Combine(@path1, @path2);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* GetPathRoot_1(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.String @path = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = System.IO.Path.GetPathRoot(@path);
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }

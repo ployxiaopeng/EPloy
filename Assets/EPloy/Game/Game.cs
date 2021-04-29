@@ -9,9 +9,9 @@ namespace EPloy
     {
         public static Game Instance = null;
         [SerializeField]
-        private bool IsILRuntime;
+        private bool IsILRuntime = false;
         [SerializeField]
-        private bool EditorResource;
+        private bool EditorResource = true;
 
         public static FileSystemModule FileSystem
         {

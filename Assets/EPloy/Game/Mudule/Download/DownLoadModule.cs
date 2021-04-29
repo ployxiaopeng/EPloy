@@ -30,6 +30,7 @@ namespace EPloy.Download
         public override void Awake()
         {
             DownloadTasks = new TypeLinkedList<DownloadTask>();
+            FreeDownloadAgents = new Stack<DownloadAgent>();
             WorkingDownloadAgents = new TypeLinkedList<DownloadAgent>();
         }
 

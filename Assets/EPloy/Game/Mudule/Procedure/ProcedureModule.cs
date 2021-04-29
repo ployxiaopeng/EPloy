@@ -12,8 +12,6 @@ namespace EPloy
     /// </summary>
     public class ProcedureModule : EPloyModule
     {
-        private bool CheckVersionComplete = false;
-        private bool NeedUpdateVersion = false;
         private VersionInfo VersionInfo = null;
 
         private long UpdateResCount = 0;
@@ -63,6 +61,8 @@ namespace EPloy
             {
                 return;
             }
+            VersionInfo = versionInfo;
+            Game.ResUpdater.UpdatePrefixUri = VersionInfo.UpdatePrefixUri;
             // 2.1  强制更新游戏
             if (versionInfo.UpdateGame)
             {
@@ -108,7 +108,7 @@ namespace EPloy
         private void UpdateRes(long updateResCount, long updateTotalZipLength)
         {
             this.UpdateResTotalCount = updateTotalZipLength;
-            UpdateResCount =updateResCount;
+            UpdateResCount = updateResCount;
             if (Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork)
             {
                 // 网络环境判断 是否更新  否则关掉游戏
