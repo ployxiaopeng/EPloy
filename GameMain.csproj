@@ -224,6 +224,7 @@
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Store\ResInfo.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Store\ResName.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Store\ResStore.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Update\UpdateResCallBack.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Update\UpdaterHandler.ApplyInfo.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Update\UpdaterHandler.UpdateInfo.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ResUpdate\Update\UpdaterHandler.cs" />

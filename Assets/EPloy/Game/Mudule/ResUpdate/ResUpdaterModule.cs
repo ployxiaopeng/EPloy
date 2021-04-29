@@ -7,16 +7,6 @@ using UnityEngine;
 namespace EPloy.Res
 {
     /// <summary>
-    /// 检查资源回调。
-    /// </summary>
-    /// <param name="movedCount">已移动的资源数量。</param>
-    /// <param name="removedCount">已移除的资源数量。</param>
-    /// <param name="updateCount">可更新的资源数量。</param>
-    /// <param name="updateTotalLength">可更新的资源总大小。</param>
-    /// <param name="updateTotalZipLength">可更新的压缩后总大小。</param>
-    public delegate void CheckResCompleteCallback(int movedCount, int removedCount, int updateCount, long updateTotalLength, long updateTotalZipLength);
-
-    /// <summary>
     /// 资源更新
     /// </summary>
     public sealed class ResUpdaterModule : EPloyModule
@@ -41,7 +31,7 @@ namespace EPloy.Res
         internal string UpdatePrefixUri;
 
         private CheckResCompleteCallback CheckResCompleteCallback;
-        private UpdateResCompleteCallback UpdateResCompleteCallback;
+        private UpdateResCallBack UpdateResCallBack;
 
         /// <summary>
         /// 变体 暂时不知道不知道鬼
@@ -91,11 +81,11 @@ namespace EPloy.Res
         /// </summary>
         /// <param name="resourceGroupName">要更新的资源组名称 默认组为   string.Empty</param>
         /// <param name="updateResCompleteCallback">更新指定资源组完成时的回调函数。</param>
-        public void UpdateRes(UpdateResCompleteCallback updateResCompleteCallback, string resGroupName = null)
+        public void UpdateRes(UpdateResCallBack updateResCallBack, string resGroupName = null)
         {
-            if (updateResCompleteCallback == null)
+            if (UpdateResCallBack == null)
             {
-                Log.Fatal("Update resources complete callback is invalid.");
+                Log.Fatal("UpdateResCallBack callback is invalid.");
             }
 
             if (resGroupName == null)
@@ -109,7 +99,7 @@ namespace EPloy.Res
                 return;
             }
 
-            UpdateResCompleteCallback = updateResCompleteCallback;
+            UpdateResCallBack = updateResCallBack;
             UpdaterHandler.UpdateRess(resGroup);
         }
 
@@ -178,28 +168,16 @@ namespace EPloy.Res
             CheckResCompleteCallback = null;
         }
 
-        private void OnResApplySuccess(ResName resName, string applyPath, string resPackPath, int length, int zipLength)
-        {
-
-        }
-
-        private void OnResApplyFailure(ResName resName, string resPackPath, string errorMessage)
-        {
-
-        }
-
         private void OnResApplyComplete(string resPackPath, bool result, bool isAllDone)
         {
             if (isAllDone)
             {
-                // m_ResourceUpdater.ResourceApplySuccess -= OnResourceApplySuccess;
-                // m_ResourceUpdater.ResourceApplyFailure -= OnResourceApplyFailure;
-                // m_ResourceUpdater.ResourceApplyComplete -= OnResourceApplyComplete;
-                // m_ResourceUpdater.ResourceUpdateStart -= OnourceUpdateStart;
-                // m_ResourceUpdater.ResourceUpdateChanged -= OnourceUpdateChanged;
-                // m_ResourceUpdater.ResourceUpdateSuccess -= OnourceUpdateSuccess;
-                // m_ResourceUpdater.ResourceUpdateFailure -= OnourceUpdateFailure;
-                // m_ResourceUpdater.ResourceUpdateComplete -= OnourceUpdateComplete;
+                UpdaterHandler.ResApplyComplete -= OnResApplyComplete;
+                UpdaterHandler.ResUpdateStart -= OnUpdateStart;
+                UpdaterHandler.ResUpdateChanged -= OnUpdateChanged;
+                UpdaterHandler.ResUpdateSuccess -= OnUpdateSuccess;
+                UpdaterHandler.ResUpdateFailure -= OnUpdateFailure;
+                UpdaterHandler.ResUpdateComplete -= OnUpdateComplete;
                 UpdaterHandler.OnDestroy();
                 UpdaterHandler = null;
 
@@ -215,43 +193,43 @@ namespace EPloy.Res
                 Utility.Path.RemoveEmptyDirectory(ResPath);
             }
 
-            // ApplyResourcesCompleteCallback applyResourcesCompleteCallback = m_ApplyResourcesCompleteCallback;
-            // m_ApplyResourcesCompleteCallback = null;
-            // applyResourcesCompleteCallback(resourcePackPath, result);
+            if (UpdateResCallBack.ResApplyComplete != null)
+            {
+                UpdateResCallBack.ResApplyComplete(resPackPath, result);
+                UpdateResCallBack.ResApplyComplete = null;
+            }
         }
 
-        private void OnUpdateStart(ResName resName, string downloadPath, string downloadUri, int currentLength, int zipLength, int retryCount)
+        private void OnUpdateStart(string resName)
         {
-
+            UpdateResCallBack.ResUpdateStart(resName);
         }
 
-        private void OnUpdateChanged(ResName resName, string downloadPath, string downloadUri, int currentLength, int zipLength)
+        private void OnUpdateChanged(string resName, int currentLength)
         {
-
+            UpdateResCallBack.ResUpdateChanged(resName, currentLength);
         }
 
-        private void OnUpdateSuccess(ResName resName, string downloadPath, string downloadUri, int length, int zipLength)
+        private void OnUpdateSuccess(string resName, int zipLength)
         {
-
+            UpdateResCallBack.ResUpdateSuccess(resName, zipLength);
         }
 
-        private void OnUpdateFailure(ResName resName, string downloadUri, int retryCount, int totalRetryCount, string errorMessage)
+        private void OnUpdateFailure(string resName, string errMsg, int retryCount, int totalRetryCount)
         {
-
+            UpdateResCallBack.ResUpdateFailure(resName, errMsg, retryCount, totalRetryCount);
         }
 
-        private void OnUpdateComplete(ResGroup resGroup, bool result, bool isAllDone)
+        private void OnUpdateComplete(bool result, bool isAllDone)
         {
             if (isAllDone)
             {
-                // m_ResourceUpdater.ResourceApplySuccess -= OnResourceApplySuccess;
-                // m_ResourceUpdater.ResourceApplyFailure -= OnResourceApplyFailure;
-                // m_ResourceUpdater.ResourceApplyComplete -= OnResourceApplyComplete;
-                // m_ResourceUpdater.ResourceUpdateStart -= OnourceUpdateStart;
-                // m_ResourceUpdater.ResourceUpdateChanged -= OnourceUpdateChanged;
-                // m_ResourceUpdater.ResourceUpdateSuccess -= OnourceUpdateSuccess;
-                // m_ResourceUpdater.ResourceUpdateFailure -= OnourceUpdateFailure;
-                // m_ResourceUpdater.ResourceUpdateComplete -= OnourceUpdateComplete;
+                UpdaterHandler.ResApplyComplete -= OnResApplyComplete;
+                UpdaterHandler.ResUpdateStart -= OnUpdateStart;
+                UpdaterHandler.ResUpdateChanged -= OnUpdateChanged;
+                UpdaterHandler.ResUpdateSuccess -= OnUpdateSuccess;
+                UpdaterHandler.ResUpdateFailure -= OnUpdateFailure;
+                UpdaterHandler.ResUpdateComplete -= OnUpdateComplete;
                 UpdaterHandler.OnDestroy();
                 UpdaterHandler = null;
 
@@ -266,10 +244,8 @@ namespace EPloy.Res
 
                 Utility.Path.RemoveEmptyDirectory(ResPath);
             }
-
-            // UpdateResourcesCompleteCallback updateResourcesCompleteCallback = m_UpdateResourcesCompleteCallback;
-            // m_UpdateResourcesCompleteCallback = null;
-            // updateResourcesCompleteCallback(resourceGroup, result);
+            UpdateResCallBack.ResUpdateComplete(result);
+            UpdateResCallBack.Dispose();
         }
     }
 }

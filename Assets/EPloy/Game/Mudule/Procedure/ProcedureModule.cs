@@ -16,11 +16,13 @@ namespace EPloy
         private bool NeedUpdateVersion = false;
         private VersionInfo VersionInfo = null;
 
+        private long UpdateResCount = 0;
+        private long UpdateResTotalCount = 0L;
+        private int UpdateResSuccessCount = 0;
+        private List<UpdateResData> UpdateResDatas = new List<UpdateResData>();
 
         public bool IsILRuntime { get; private set; }
-
         public bool EditorResource { get; private set; }
-
 
         public override void Awake()
         {
@@ -91,7 +93,7 @@ namespace EPloy
 
         private void OnCheckResComplete(int movedCount, int removedCount, int updateCount, long updateTotalLength, long updateTotalZipLength)
         {
-            Log.Info(Utility.Text.Format("Check resources complete, '{0}' resources need to update, compressed length is '{1}', uncompressed length is '{2}'.",
+            Log.Info(Utility.Text.Format("Check  complete, '{0}'  need to update, zip length is '{1}', unZip length is '{2}'.",
             updateCount, updateTotalZipLength, updateTotalLength));
 
             if (updateCount == 0)
@@ -103,8 +105,10 @@ namespace EPloy
             UpdateRes(updateCount, updateTotalZipLength);
         }
 
-        private void UpdateRes(long UpdateResCount, long UpdateReTotalZipLength)
+        private void UpdateRes(long updateResCount, long updateTotalZipLength)
         {
+            this.UpdateResTotalCount = updateTotalZipLength;
+            UpdateResCount =updateResCount;
             if (Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork)
             {
                 // 网络环境判断 是否更新  否则关掉游戏
@@ -113,12 +117,13 @@ namespace EPloy
             }
 
             // 开ui
-
             Log.Info("Start update resources...");
-            Game.ResUpdater.UpdateRes(OnUpdateResComplete);
+            UpdateResCallBack updateResCallBack = new UpdateResCallBack(OnResUpdateStart, OnResUpdateChanged, OnResUpdateSuccess
+            , OnResourceUpdateFailure, OnUpdateResComplete);
+            Game.ResUpdater.UpdateRes(updateResCallBack);
         }
 
-        private void OnUpdateResComplete(ResGroup resourceGroup, bool result)
+        private void OnUpdateResComplete(bool result)
         {
             if (result)
             {
@@ -129,6 +134,88 @@ namespace EPloy
             {
                 Log.Error("Update resources complete with errors.");
             }
+        }
+
+        private void OnResUpdateStart(string resName)
+        {
+            for (int i = 0; i < UpdateResDatas.Count; i++)
+            {
+                if (UpdateResDatas[i].Name == resName)
+                {
+                    Log.Warning(Utility.Text.Format("Update resource '{0}' is invalid.", resName));
+                    UpdateResDatas[i].Length = 0;
+                    RefreshProgress();
+                    return;
+                }
+            }
+
+            UpdateResDatas.Add(new UpdateResData(resName));
+        }
+
+        private void OnResUpdateChanged(string resName, int currentLength)
+        {
+            for (int i = 0; i < UpdateResDatas.Count; i++)
+            {
+                if (UpdateResDatas[i].Name == resName)
+                {
+                    UpdateResDatas[i].Length = currentLength;
+                    RefreshProgress();
+                    return;
+                }
+            }
+
+            Log.Warning(Utility.Text.Format("Update resource '{0}' is invalid.", resName));
+        }
+
+        private void OnResUpdateSuccess(string resName, int zipLength)
+        {
+            Log.Info(Utility.Text.Format("Update resource '{0}' success.", resName));
+            for (int i = 0; i < UpdateResDatas.Count; i++)
+            {
+                if (UpdateResDatas[i].Name == resName)
+                {
+                    UpdateResDatas[i].Length = zipLength;
+                    UpdateResSuccessCount++;
+                    RefreshProgress();
+                    return;
+                }
+            }
+
+            Log.Warning(Utility.Text.Format("Update resource '{0}' is invalid.", resName));
+        }
+
+        private void OnResourceUpdateFailure(string resName, string errMsg, int retryCount, int totalRetryCount)
+        {
+            Log.Error(Utility.Text.Format("Update resource '{0}' error message '{2}', retry count '{3}'.", resName, errMsg, retryCount));
+            if (retryCount >= totalRetryCount)
+            {
+                return;
+            }
+
+            for (int i = 0; i < UpdateResDatas.Count; i++)
+            {
+                if (UpdateResDatas[i].Name == resName)
+                {
+                    UpdateResDatas.Remove(UpdateResDatas[i]);
+                    RefreshProgress();
+                    return;
+                }
+            }
+
+            Log.Warning(Utility.Text.Format("Update resource '{0}' is invalid.", resName));
+        }
+
+        private void RefreshProgress()
+        {
+            long currentTotalUpdateLength = 0L;
+            for (int i = 0; i < UpdateResDatas.Count; i++)
+            {
+                currentTotalUpdateLength += UpdateResDatas[i].Length;
+            }
+
+            float progressTotal = (float)currentTotalUpdateLength / UpdateResTotalCount;
+            //   string descriptionText = GameEntry.Localization.GetString("UpdateResource.Tips", m_UpdateSuccessCount.ToString(), m_UpdateCount.ToString(), GetByteLengthString(currentTotalUpdateLength), GetByteLengthString(m_UpdateTotalCompressedLength), progressTotal, GetByteLengthString((int)GameEntry.Download.CurrentSpeed));
+            //  m_UpdateResourceForm.SetProgress(progressTotal, descriptionText);
         }
 
         private string GetByteLengthString(long byteLength)
@@ -166,20 +253,20 @@ namespace EPloy
             return Utility.Text.Format("{0} EB", (byteLength / 1152921504606846976f).ToString("F2"));
         }
 
-        private class UpdateLengthData
+        private class UpdateResData
         {
-            private readonly string m_Name;
+            private readonly string UpdaterHandlerName;
 
-            public UpdateLengthData(string name)
+            public UpdateResData(string name)
             {
-                m_Name = name;
+                UpdaterHandlerName = name;
             }
 
             public string Name
             {
                 get
                 {
-                    return m_Name;
+                    return UpdaterHandlerName;
                 }
             }
 

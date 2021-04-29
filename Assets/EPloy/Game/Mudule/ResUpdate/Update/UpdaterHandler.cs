@@ -40,14 +40,12 @@ namespace EPloy.Res
 
         private DownloadCallBack DownloadCallBack;
 
-        public EPloyAction<ResName, string, string, int, int> ResApplySuccess;
-        public EPloyAction<ResName, string, string> ResApplyFailure;
         public EPloyAction<string, bool, bool> ResApplyComplete;
-        public EPloyAction<ResName, DownloadInfo, int, int> ResUpdateStart;
-        public EPloyAction<ResName, DownloadInfo, int> ResUpdateChanged;
-        public EPloyAction<ResName, DownloadInfo, int, int> ResUpdateSuccess;
-        public EPloyAction<ResName, DownloadInfo, int, int> ResUpdateFailure;
-        public EPloyAction<ResGroup, bool, bool> ResUpdateComplete;
+        public EPloyAction<string> ResUpdateStart;
+        public EPloyAction<string, int> ResUpdateChanged;
+        public EPloyAction<string, int> ResUpdateSuccess;
+        public EPloyAction<string, string, int, int> ResUpdateFailure;
+        public EPloyAction<bool, bool> ResUpdateComplete;
 
         /// <summary>
         /// 初始化资源更新器的新实例。
@@ -75,8 +73,6 @@ namespace EPloy.Res
             ReadWriteVersionListFileName = Utility.Path.GetRegularPath(Path.Combine(ResUpdater.ResPath, MuduleConfig.LocalVersionListFileName));
             ReadWriteVersionListBackupFileName = Utility.Text.Format("{0}.{1}", ReadWriteVersionListFileName, ResUpdater.BackupExtension);
 
-            ResApplySuccess = null;
-            ResApplyFailure = null;
             ResApplyComplete = null;
             ResUpdateStart = null;
             ResUpdateChanged = null;
@@ -217,7 +213,7 @@ namespace EPloy.Res
                 UpdatingResGroup = null;
                 if (ResUpdateComplete != null)
                 {
-                    ResUpdateComplete(updatingResGroup, !FailureFlag, UpdateCandidateInfo.Count <= 0);
+                    ResUpdateComplete(!FailureFlag, UpdateCandidateInfo.Count <= 0);
                 }
 
                 return;
@@ -450,12 +446,7 @@ namespace EPloy.Res
                         int hashCode = Utility.Verifier.GetCrc32(fileStream);
                         if (hashCode != applyInfo.ZipHashCode)
                         {
-                            if (ResApplyFailure != null)
-                            {
-                                string errorMessage = Utility.Text.Format("Res zip hash code error, need '{0}', applied '{1}'.", applyInfo.ZipHashCode.ToString(), hashCode.ToString());
-                                ResApplyFailure(applyInfo.ResName, ApplyingResPackPath, errorMessage);
-                            }
-
+                            Log.Fatal(Utility.Text.Format("Res zip hash code error, need '{0}', applied '{1}'.", applyInfo.ZipHashCode.ToString(), hashCode.ToString()));
                             return false;
                         }
 
@@ -469,12 +460,7 @@ namespace EPloy.Res
                         ResUpdater.DecompressCachedStream.SetLength(0L);
                         if (!Utility.Zip.Decompress(fileStream, ResUpdater.DecompressCachedStream))
                         {
-                            if (ResApplyFailure != null)
-                            {
-                                string errorMessage = Utility.Text.Format("Unable to decompress Res '{0}'.", applyInfo.ResPath);
-                                ResApplyFailure(applyInfo.ResName, ApplyingResPackPath, errorMessage);
-                            }
-
+                            Log.Fatal(Utility.Text.Format("Unable to decompress Res '{0}'.", applyInfo.ResPath));
                             return false;
                         }
 
@@ -500,12 +486,7 @@ namespace EPloy.Res
 
                         if (hashCode != applyInfo.HashCode)
                         {
-                            if (ResApplyFailure != null)
-                            {
-                                string errorMessage = Utility.Text.Format("Res hash code error, need '{0}', applied '{1}'.", applyInfo.HashCode.ToString(), hashCode.ToString());
-                                ResApplyFailure(applyInfo.ResName, ApplyingResPackPath, errorMessage);
-                            }
-
+                            Log.Fatal(Utility.Text.Format("Res hash code error, need '{0}', applied '{1}'.", applyInfo.HashCode.ToString(), hashCode.ToString()));
                             return false;
                         }
                     }
@@ -524,13 +505,8 @@ namespace EPloy.Res
                 }
 
                 UpdateCandidateInfo.Remove(applyInfo.ResName);
-                // ResManager.ResInfos[applyInfo.ResName].MarkReady();
-                // ResManager.ReadWriteResInfos.Add(applyInfo.ResName, new ReadWriteResInfo(applyInfo.FileSystemName, applyInfo.LoadType, applyInfo.Length, applyInfo.HashCode));
-
-                if (ResApplySuccess != null)
-                {
-                    ResApplySuccess(applyInfo.ResName, applyInfo.ResPath, ApplyingResPackPath, applyInfo.Length, applyInfo.ZipLength);
-                }
+                ResStore.ResInfos[applyInfo.ResName].MarkReady();
+                ResStore.ReadWriteResInfos.Add(applyInfo.ResName, new ReadWriteResInfo(applyInfo.FileSystemName, applyInfo.LoadType, applyInfo.Length, applyInfo.HashCode));
 
                 string downloadingRes = Utility.Text.Format("{0}.download", applyInfo.ResPath);
                 if (File.Exists(downloadingRes))
@@ -550,11 +526,7 @@ namespace EPloy.Res
             }
             catch (Exception exception)
             {
-                if (ResApplyFailure != null)
-                {
-                    ResApplyFailure(applyInfo.ResName, ApplyingResPackPath, exception.ToString());
-                }
-
+                Log.Fatal(exception.ToString());
                 return false;
             }
             finally
@@ -667,7 +639,7 @@ namespace EPloy.Res
 
             if (ResUpdateStart != null)
             {
-                ResUpdateStart(updateInfo.ResName, info, updateInfo.ZipLength, updateInfo.RetryCount);
+                ResUpdateStart(updateInfo.ResName.FullName);
             }
         }
 
@@ -699,7 +671,7 @@ namespace EPloy.Res
 
             if (ResUpdateChanged != null)
             {
-                ResUpdateChanged(updateInfo.ResName, info, updateInfo.ZipLength);
+                ResUpdateChanged(updateInfo.ResName.FullName, info.CurrentLength);
             }
         }
 
@@ -834,7 +806,7 @@ namespace EPloy.Res
 
             if (ResUpdateSuccess != null)
             {
-                ResUpdateSuccess(updateInfo.ResName, info, updateInfo.Length, updateInfo.ZipLength);
+                ResUpdateSuccess(updateInfo.ResName.FullName, updateInfo.ZipLength);
             }
         }
 
@@ -855,7 +827,7 @@ namespace EPloy.Res
 
             if (ResUpdateFailure != null)
             {
-                ResUpdateFailure(updateInfo.ResName, info, updateInfo.RetryCount, UpdateRetryCount);
+                ResUpdateFailure(updateInfo.ResName.FullName, info.ErrMsg, updateInfo.RetryCount, UpdatingCount);
             }
 
             if (updateInfo.RetryCount < UpdateRetryCount)
