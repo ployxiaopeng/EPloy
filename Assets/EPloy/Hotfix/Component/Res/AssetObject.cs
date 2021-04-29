@@ -68,7 +68,7 @@ namespace EPloy.Res
             base.OnUnspawn();
             foreach (object dependencyAsset in DependAssets)
             {
-                ResStore.Instance.AssetPool.Unspawn(dependencyAsset);
+                ResLoader.Instance.AssetPool.Unspawn(dependencyAsset);
             }
         }
 

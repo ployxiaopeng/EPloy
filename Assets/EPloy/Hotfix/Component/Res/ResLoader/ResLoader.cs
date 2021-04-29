@@ -25,6 +25,9 @@ namespace EPloy.Res
             }
         }
 
+        public ObjectPoolBase AssetPool { get; private set; }
+        public ObjectPoolBase ResourcePool { get; private set; }
+
         internal TaskPool<LoadResTaskBase> TaskPool { get; private set; }
         public Dictionary<object, int> AssetDependCount { get; private set; }
         public Dictionary<object, int> ResourceDependCount { get; private set; }
@@ -40,6 +43,7 @@ namespace EPloy.Res
 
         private ResLoader()
         {
+            SetObjectPoolManager();
             TaskPool = new TaskPool<LoadResTaskBase>();
             AssetDependCount = new Dictionary<object, int>();
             ResourceDependCount = new Dictionary<object, int>();
@@ -70,24 +74,15 @@ namespace EPloy.Res
         }
 
         /// <summary>
-        /// 检查资源是否存在。
+        /// 设置对象池管理器。
         /// </summary>
-        /// <param name="assetName">要检查资源的名称。</param>
-        /// <returns>检查资源是否存在的结果。</returns>
-        public HasResult HasAsset(string assetName)
+        /// <param name="objectPoolManager">对象池管理器。</param>
+        private void SetObjectPoolManager()
         {
-            ResInfo resInfo = ResStore.Instance.GetResInfo(assetName);
-            if (resInfo == null)
-            {
-                return HasResult.NotExist;
-            }
-
-            if (!resInfo.Ready)
-            {
-                return HasResult.NotReady;
-            }
-            return resInfo.IsLoadFromBinary ? HasResult.BinaryOnDisk : HasResult.AssetOnDisk;
+            AssetPool = GameEntry.ObjectPool.CreateObjectPool(typeof(AssetObject), "AssetPool");
+            ResourcePool = GameEntry.ObjectPool.CreateObjectPool(typeof(AssetObject), "ResPool");
         }
+
 
         /// <summary>
         /// 异步加载资源。
@@ -220,7 +215,7 @@ namespace EPloy.Res
         /// <param name="userData">用户自定义数据。</param>
         public void LoadBinary(string binaryAssetName, LoadBinaryCallbacks loadBinaryCallbacks)
         {
-            ResInfo resourceInfo = ResStore.Instance.GetResInfo(binaryAssetName);
+            ResInfo resourceInfo = Game.ResUpdater.GetResInfo(binaryAssetName);
             if (resourceInfo == null)
             {
                 string errorMessage = Utility.Text.Format("Can not load binary '{0}' which is not exist.", binaryAssetName);
@@ -260,93 +255,9 @@ namespace EPloy.Res
                 return;
             }
 
-
             //string path = Utility.Path.GetRemotePath(Path.Combine(resourceInfo.StorageInReadOnly ? m_ResourceManager.m_ReadOnlyPath : m_ResourceManager.m_ReadWritePath, resourceInfo.ResourceName.FullName));
             //m_ResourceManager.m_ResourceHelper.LoadBytes(path, m_LoadBytesCallbacks, LoadBinaryInfo.Create(binaryAssetName, resourceInfo, loadBinaryCallbacks));
 
-        }
-
-        /// <summary>
-        /// 获取二进制资源的实际路径。
-        /// </summary>
-        /// <param name="binaryAssetName">要获取实际路径的二进制资源的名称。</param>
-        /// <returns>二进制资源的实际路径。</returns>
-        /// <remarks>此方法仅适用于二进制资源存储在磁盘（而非文件系统）中的情况。若二进制资源存储在文件系统中时，返回值将始终为空。</remarks>
-        public string GetBinaryPath(string binaryAssetName)
-        {
-            ResInfo resInfo = ResStore.Instance.GetResInfo(binaryAssetName);
-            if (resInfo == null)
-            {
-                return null;
-            }
-
-            if (!resInfo.Ready)
-            {
-                return null;
-            }
-
-            if (!resInfo.IsLoadFromBinary)
-            {
-                return null;
-            }
-
-            return Utility.Path.GetRegularPath(Path.Combine(ResPath, resInfo.ResName.FullName));
-        }
-
-        /// <summary>
-        /// 获取二进制资源的实际路径。
-        /// </summary>
-        /// <param name="binaryAssetName">要获取实际路径的二进制资源的名称。</param>
-        /// <param name="relativePath">二进制资源或存储二进制资源的文件系统，相对于只读区或者读写区的相对路径。</param>
-        /// <param name="fileName">若二进制资源存储在文件系统中，则指示二进制资源在文件系统中的名称，否则此参数返回空。</param>
-        /// <returns>是否获取二进制资源的实际路径成功。</returns>
-        public bool GetBinaryPath(string binaryAssetName, out string fileName)
-        {
-            fileName = null;
-
-            ResInfo resInfo = ResStore.Instance.GetResInfo(binaryAssetName);
-            if (resInfo == null)
-            {
-                return false;
-            }
-
-            if (!resInfo.Ready)
-            {
-                return false;
-            }
-
-            if (!resInfo.IsLoadFromBinary)
-            {
-                return false;
-            }
-            fileName = resInfo.ResName.FullName;
-            return true;
-        }
-
-        /// <summary>
-        /// 获取二进制资源的长度。
-        /// </summary>
-        /// <param name="binaryAssetName">要获取长度的二进制资源的名称。</param>
-        /// <returns>二进制资源的长度。</returns>
-        public int GetBinaryLength(string binaryAssetName)
-        {
-            ResInfo resInfo = ResStore.Instance.GetResInfo(binaryAssetName);
-            if (resInfo == null)
-            {
-                return -1;
-            }
-
-            if (!resInfo.Ready)
-            {
-                return -1;
-            }
-
-            if (!resInfo.IsLoadFromBinary)
-            {
-                return -1;
-            }
-
-            return resInfo.Length;
         }
 
         /// <summary>
@@ -429,13 +340,13 @@ namespace EPloy.Res
                 return false;
             }
 
-            AssetInfo assetInfo = ResStore.Instance.GetAssetInfo(assetName);
+            AssetInfo assetInfo = Game.ResUpdater.GetAssetInfo(assetName);
             if (assetInfo == null)
             {
                 return false;
             }
 
-            resInfo = ResStore.Instance.GetResInfo(assetInfo.ResName);
+            resInfo = Game.ResUpdater.GetResInfo(assetInfo.ResName);
             if (resInfo == null)
             {
                 return false;

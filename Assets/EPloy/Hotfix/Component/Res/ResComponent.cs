@@ -1,10 +1,8 @@
-﻿
-using EPloy.Res;
+﻿using EPloy.Res;
 using System;
+using System.IO;
 using EPloy.TaskPool;
 using UnityEngine;
-using EPloy.SystemFile;
-using System.Collections.Generic;
 
 namespace EPloy
 {
@@ -22,9 +20,10 @@ namespace EPloy
         public static string ReadWritePath = Application.persistentDataPath;
         public static string ReadPath = Application.streamingAssetsPath;
 
+        private string ResPath = ResComponent.ReadWritePath;
+
         private ResLoader ResLoader;
         private ResEditorLoader ResEditorLoader;
-        private ResStore ResStore;
         private ResHelper ResHelper;
 
         protected override void InitComponent()
@@ -38,7 +37,6 @@ namespace EPloy
             {
                 ResEditorLoader = null;
                 ResLoader = ResLoader.CreateResLoader();
-                ResStore = ResStore.CreateResStore();
             }
             ResHelper = new ResHelper(GameStart.Game);
         }
@@ -74,7 +72,17 @@ namespace EPloy
             }
             if (ResEditorLoader == null)
             {
-                return ResLoader.HasAsset(assetName);
+                ResInfo resInfo = Game.ResUpdater.GetResInfo(assetName);
+                if (resInfo == null)
+                {
+                    return HasResult.NotExist;
+                }
+
+                if (!resInfo.Ready)
+                {
+                    return HasResult.NotReady;
+                }
+                return resInfo.IsLoadFromBinary ? HasResult.BinaryOnDisk : HasResult.AssetOnDisk;
             }
             return ResEditorLoader.HasAsset(assetName);
         }
@@ -157,7 +165,23 @@ namespace EPloy
             string binaryPath = null;
             if (ResEditorLoader == null)
             {
-                binaryPath = ResLoader.GetBinaryPath(binaryAssetName);
+                ResInfo resInfo = Game.ResUpdater.GetResInfo(binaryAssetName);
+                if (resInfo == null)
+                {
+                    return null;
+                }
+
+                if (!resInfo.Ready)
+                {
+                    return null;
+                }
+
+                if (!resInfo.IsLoadFromBinary)
+                {
+                    return null;
+                }
+
+                return Utility.Path.GetRegularPath(Path.Combine(ResPath, resInfo.ResName.FullName));
             }
             else
             {
@@ -177,7 +201,25 @@ namespace EPloy
         {
             if (ResEditorLoader == null)
             {
-                return ResLoader.GetBinaryPath(binaryAssetName, out fileName);
+                fileName = null;
+
+                ResInfo resInfo = Game.ResUpdater.GetResInfo(binaryAssetName);
+                if (resInfo == null)
+                {
+                    return false;
+                }
+
+                if (!resInfo.Ready)
+                {
+                    return false;
+                }
+
+                if (!resInfo.IsLoadFromBinary)
+                {
+                    return false;
+                }
+                fileName = resInfo.ResName.FullName;
+                return true;
             }
             return ResEditorLoader.GetBinaryPath(binaryAssetName, out fileName);
         }
@@ -191,7 +233,23 @@ namespace EPloy
         {
             if (ResEditorLoader == null)
             {
-                return ResLoader.GetBinaryLength(binaryAssetName);
+                ResInfo resInfo = Game.ResUpdater.GetResInfo(binaryAssetName);
+                if (resInfo == null)
+                {
+                    return -1;
+                }
+
+                if (!resInfo.Ready)
+                {
+                    return -1;
+                }
+
+                if (!resInfo.IsLoadFromBinary)
+                {
+                    return -1;
+                }
+
+                return resInfo.Length;
             }
             return ResEditorLoader.GetBinaryLength(binaryAssetName);
         }
@@ -207,8 +265,7 @@ namespace EPloy
                 return ResLoader.GetAllLoadAssetInfos();
             }
             Log.Fatal("Task no use in Editor");
-             return null;
+            return null;
         }
-
     }
 }

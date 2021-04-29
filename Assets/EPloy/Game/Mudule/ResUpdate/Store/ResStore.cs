@@ -76,7 +76,7 @@ namespace EPloy.Res
             return null;
         }
 
-        internal AssetInfo GetAssetInfo(string assetName)
+        public AssetInfo GetAssetInfo(string assetName)
         {
             if (string.IsNullOrEmpty(assetName))
             {
@@ -97,7 +97,7 @@ namespace EPloy.Res
 
             return null;
         }
-        internal ResInfo GetResInfo(ResName resName)
+        public ResInfo GetResInfo(ResName resName)
         {
             if (ResInfos == null)
             {
@@ -112,7 +112,7 @@ namespace EPloy.Res
 
             return null;
         }
-        internal ResInfo GetResInfo(string assetName)
+        public ResInfo GetResInfo(string assetName)
         {
             if (ResInfos == null)
             {

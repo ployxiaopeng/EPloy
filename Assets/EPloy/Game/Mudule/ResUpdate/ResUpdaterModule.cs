@@ -61,6 +61,21 @@ namespace EPloy.Res
             ReadWriteFileSystems.Clear();
         }
 
+        public AssetInfo GetAssetInfo(string assetName)
+        {
+            return ResStore.GetAssetInfo(assetName);
+        }
+
+        public ResInfo GetResInfo(ResName resName)
+        {
+            return ResStore.GetResInfo(resName);
+        }
+
+        public ResInfo GetResInfo(string assetName)
+        {
+            return ResStore.GetResInfo(assetName);
+        }
+
         /// <summary>
         /// 检查资源 如需更新  检查并装备好更新列表
         /// </summary>

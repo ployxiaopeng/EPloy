@@ -70,7 +70,7 @@ namespace EPloy.Res
 
             if (!Task.IsScene)
             {
-                ObjectBase assetObject = ResStore.Instance.AssetPool.Spawn(Task.AssetName);
+                ObjectBase assetObject = ResLoader.Instance.AssetPool.Spawn(Task.AssetName);
                 if (assetObject != null)
                 {
                     OnAssetReady(assetObject);
@@ -80,7 +80,7 @@ namespace EPloy.Res
 
             foreach (string dependencyAssetName in Task.DependAssetsName)
             {
-                if (!ResStore.Instance.AssetPool.CanSpawn(dependencyAssetName))
+                if (!ResLoader.Instance.AssetPool.CanSpawn(dependencyAssetName))
                 {
                     Task.StartTime = default(DateTime);
                     return StartTaskStatus.HasToWait;
@@ -96,7 +96,7 @@ namespace EPloy.Res
 
             s_LoadingAssetNames.Add(Task.AssetName);
 
-            ObjectBase resObject = ResStore.Instance.ResourcePool.Spawn(resName);
+            ObjectBase resObject = ResLoader.Instance.ResourcePool.Spawn(resName);
             if (resObject != null)
             {
                 return StartTaskStatus.CanResume;
@@ -161,14 +161,14 @@ namespace EPloy.Res
             ObjectBase assetObject = null;
             if (Task.IsScene)
             {
-                assetObject = ResStore.Instance.AssetPool.Spawn(Task.AssetName);
+                assetObject = ResLoader.Instance.AssetPool.Spawn(Task.AssetName);
             }
 
             if (assetObject == null)
             {
                 List<object> dependencyAssets = Task.DependAssets;
                 assetObject = AssetObject.Create(Task.AssetName, asset, dependencyAssets, Task.ResObject.Target);
-                ResStore.Instance.AssetPool.Register(assetObject, true);
+                ResLoader.Instance.AssetPool.Register(assetObject, true);
                 ResLoader.Instance.AssetToResourceMap.Add(asset, Task.ResObject.Target);
                 foreach (object dependencyAsset in dependencyAssets)
                 {
@@ -191,7 +191,7 @@ namespace EPloy.Res
         private void OnReadFileComplete(object res)
         {
             ResObject resObject = ResObject.Create(Task.AssetName, res);
-            ResStore.Instance.ResourcePool.Register(resObject, true);
+            ResLoader.Instance.ResourcePool.Register(resObject, true);
             s_LoadingAssetNames.Remove(Task.AssetName);
             OnResObjectReady(resObject);
         }
@@ -215,7 +215,7 @@ namespace EPloy.Res
         private void OnParseBytesComplete(object asset)
         {
             ResObject resObject = ResObject.Create(Task.AssetName, asset);
-            ResStore.Instance.ResourcePool.Register(resObject, true);
+            ResLoader.Instance.ResourcePool.Register(resObject, true);
             s_LoadingResNames.Remove(Task.AssetName);
         }
 
