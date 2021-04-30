@@ -223,19 +223,19 @@ namespace EPloy
             }
         }
 
-        private void LoadAssetSuccessCallback(string uiFormAssetName, object uiFormAsset, float duration, object userData)
+        private void LoadAssetSuccessCallback(string formAssetName, object formAsset, float duration, object userData)
         {
             UIFormInfo uIFormInfo = userData as UIFormInfo;
             if (uIFormInfo == null)
             {
-                string appendErrorMessage = Utility.Text.Format("can not fand UIFormInfo : {}", uiFormAssetName);
+                string appendErrorMessage = Utility.Text.Format("can not fand UIFormInfo : {}", formAssetName);
                 Log.Error(appendErrorMessage);
                 return;
             }
-            object uiFormInstance = UnityEngine.Object.Instantiate((UnityEngine.Object)uiFormAsset);
-            UIFormObject assetObject = UIFormObject.Create(uiFormAssetName, uiFormAsset, uiFormInstance);
+            object formInstance = UnityEngine.Object.Instantiate((UnityEngine.Object)formAsset);
+            UIFormObject assetObject = UIFormObject.Create(formAssetName, formAsset, formInstance);
             UIPool.Register(assetObject, true);
-            uIFormInfo.UIGroup.OpenUIForm(true, uiFormInstance, uIFormInfo.UIName, UIFormTypes[uIFormInfo.UIName], uIFormInfo.UserData);
+            uIFormInfo.UIGroup.OpenUIForm(true, formInstance, uIFormInfo.UIName, UIFormTypes[uIFormInfo.UIName], uIFormInfo.UserData);
             ReferencePool.Release(uIFormInfo);
         }
 

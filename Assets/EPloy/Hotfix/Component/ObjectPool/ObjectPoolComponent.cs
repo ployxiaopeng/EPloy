@@ -137,7 +137,7 @@ namespace EPloy
                 return null;
             }
 
-            ObjectPool objectPool = ReferencePool.Acquire<ObjectPool>();
+            EPloy.ObjectPool.ObjectPool objectPool = ReferencePool.Acquire<EPloy.ObjectPool.ObjectPool>();
             objectPool.Initialize(objectType, name, ReleaseTime, Capacity, ExpireTime);
             m_ObjectPools.Add(typeNamePair, objectPool);
             return objectPool;

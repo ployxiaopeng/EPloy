@@ -7,30 +7,34 @@ namespace EPloy
     /// </summary>
     internal sealed class UIFormObject : ObjectBase
     {
-        private object UIFormAsset;
+        public object FormAsset
+        {
+            get;
+            private set;
+        }
         /// <summary>
         ///  设置数据
         /// </summary>
         /// <param name="name"></param>
         /// <param name="UI资源"></param>
         /// <param name="UI实例"></param>
-        public static UIFormObject Create(string name, object uiFormAsset, object uiFormInstance)
+        public static UIFormObject Create(string name, object formAsset, object formInstance)
         {
-            if (uiFormAsset == null)
+            if (formAsset == null)
             {
                 Log.Fatal("UI form asset is invalid.");
                 return null;
             }
             UIFormObject uIFormObject = ReferencePool.Acquire<UIFormObject>();
-            uIFormObject.Initialize(name, uiFormInstance);
-            uIFormObject.UIFormAsset = uiFormAsset;
+            uIFormObject.Initialize(name, formInstance);
+            uIFormObject.FormAsset = formAsset;
             return uIFormObject;
         }
 
         public override void Clear()
         {
             base.Clear();
-            UIFormAsset = null;
+            FormAsset = null;
         }
     }
 }

@@ -44,7 +44,7 @@ namespace EPloy.Res
             m_DependencyResources.Add(dependencyResource);
         }
 
-        protected internal override void OnUnspawn()
+        protected internal override void Unspawn()
         {
             
         }

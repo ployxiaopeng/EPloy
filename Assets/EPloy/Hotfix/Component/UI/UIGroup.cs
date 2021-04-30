@@ -175,6 +175,7 @@ namespace EPloy
             }
             uiForm.Close(userData);
             uiForm.Handle.SetActive(false);
+            UIPool.Unspawn(uiForm.Handle);
             ActiveUIForms.Remove(uiForm);
         }
 

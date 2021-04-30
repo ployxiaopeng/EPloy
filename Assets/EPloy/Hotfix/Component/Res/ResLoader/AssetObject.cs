@@ -63,9 +63,9 @@ namespace EPloy.Res
             Asset = null;
         }
 
-        protected internal override void OnUnspawn()
+        protected internal override void Unspawn()
         {
-            base.OnUnspawn();
+            base.Unspawn();
             foreach (object dependencyAsset in DependAssets)
             {
                 ResLoader.Instance.AssetPool.Unspawn(dependencyAsset);

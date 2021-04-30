@@ -11,6 +11,15 @@ namespace EPloy.ObjectPool
         protected DateTime lastUseTime;
 
         /// <summary>
+        /// 对象的获取计数。
+        /// </summary>
+        public int SpawnCount
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取对象名称。
         /// </summary>
         public string Name
@@ -44,27 +53,61 @@ namespace EPloy.ObjectPool
         }
 
         /// <summary>
+        /// 获取对象是否正在使用。
+        /// </summary>
+        public bool IsInUse
+        {
+            get
+            {
+                return SpawnCount > 0;
+            }
+        }
+
+        /// <summary>
         /// 初始化对象基类。
         /// </summary>
         /// <param name="name">对象名称。</param>
         /// <param name="target">对象。</param>
-        public void Initialize(string name, object target)
+        protected internal virtual void Initialize(string name, object target)
         {
+            SpawnCount = 0;
             Name = name; Target = target;
         }
 
         /// <summary>
-        /// 获取对象时的事件。
+        /// 设置产生数量
         /// </summary>
-        protected internal virtual void OnSpawn()
+        /// <param name="spawned"></param>
+        protected internal virtual void SetSpawned(bool spawned)
         {
+            SpawnCount = 0;
+            if (spawned)
+            {
+                Spawn();
+            }
         }
 
         /// <summary>
-        /// 回收对象时的事件。
+        /// 获取对象。
         /// </summary>
-        protected internal virtual void OnUnspawn()
+        /// <returns>对象。</returns>
+        protected internal virtual void Spawn()
         {
+            SpawnCount++;
+            LastUseTime = DateTime.Now;
+        }
+
+        /// <summary>
+        /// 回收对象。
+        /// </summary>
+        protected internal virtual void Unspawn()
+        {
+            LastUseTime = DateTime.Now;
+            SpawnCount--;
+            if (SpawnCount < 0)
+            {
+                Log.Fatal(Utility.Text.Format("Object '{0}' spawn count is less than 0.", Name));
+            }
         }
 
         /// <summary>
@@ -74,7 +117,9 @@ namespace EPloy.ObjectPool
         {
             Name = null;
             Target = null;
+            SpawnCount = 0;
             lastUseTime = default(DateTime);
         }
+
     }
 }
