@@ -22,8 +22,8 @@ namespace EPloy
     public class UIComponent : Component
     {
         private Entity UIEntity;
-        private Dictionary<GroupName, UIGroup> UIGroups;
-        private Dictionary<UIName, GroupName> UINames;
+        private Dictionary<UIGroupName, UIGroup> UIGroups;
+        private Dictionary<UIName, UIGroupName> UINames;
         private Dictionary<UIName, Type> UIFormTypes;
         private LoadAssetCallbacks LoadAssetCallbacks;
         private Transform UIParent;
@@ -32,15 +32,15 @@ namespace EPloy
         protected override void InitComponent()
         {
             UIEntity = GameEntry.Game.CreateEntity("UI");
-            UIGroups = new Dictionary<GroupName, UIGroup>();
-            UINames = new Dictionary<UIName, GroupName>();
+            UIGroups = new Dictionary<UIGroupName, UIGroup>();
+            UINames = new Dictionary<UIName, UIGroupName>();
 
             LoadAssetCallbacks = new LoadAssetCallbacks(LoadAssetSuccessCallback, LoadAssetFailureCallback);
             UIParent = GameStart.Game.transform.Find("UI/Canvas").transform;
             UIPool = GameEntry.ObjectPool.CreateObjectPool(typeof(UIFormObject), "UIPool");
-            foreach (var name in Enum.GetValues(typeof(GroupName)))
+            foreach (var name in Enum.GetValues(typeof(UIGroupName)))
             {
-                AddUIGroup((GroupName)name);
+                AddUIGroup((UIGroupName)name);
             }
             GetUIFormTypes();
         }
@@ -81,7 +81,7 @@ namespace EPloy
         /// </summary>
         /// <param name="groupName">界面组名称。</param>
         /// <returns>要获取的界面组。</returns>
-        public UIGroup GetUIGroup(GroupName groupName)
+        public UIGroup GetUIGroup(UIGroupName groupName)
         {
             UIGroup uiGroup = null;
             if (UIGroups.TryGetValue(groupName, out uiGroup))
@@ -97,7 +97,7 @@ namespace EPloy
         /// </summary>
         /// <param name="uiGroupName">界面组名称。</param>
         /// <returns>是否增加界面组成功。</returns>
-        private bool AddUIGroup(GroupName groupName)
+        private bool AddUIGroup(UIGroupName groupName)
         {
             UIGroup group = ReferencePool.Acquire<UIGroup>();
             group.Initialize(groupName, UIParent, UIPool);
@@ -136,7 +136,7 @@ namespace EPloy
         /// <param name="uiFormAssetName">界面资源名称。</param>
         /// <param name="uiGroupName">界面组名称。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void OpenUIForm(UIName uiName, GroupName groupName, object userData = null)
+        public void OpenUIForm(UIName uiName, UIGroupName groupName, object userData = null)
         {
             UIGroup uiGroup = GetUIGroup(groupName);
             if (UINames.ContainsKey(uiName))

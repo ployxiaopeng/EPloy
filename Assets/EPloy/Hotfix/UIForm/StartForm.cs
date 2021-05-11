@@ -23,7 +23,7 @@ public class StartForm : UIForm
               });
         btnTipsForm.onClick.AddListener(() =>
        {
-           GameEntry.UI.OpenUIForm(UIName.TipsForm, GroupName.Default);
+           GameEntry.UI.OpenUIForm(UIName.TipsForm, UIGroupName.Default);
        });
     }
 

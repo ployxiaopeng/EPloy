@@ -11,5 +11,6 @@ namespace EPloy
         T GetComponent<T>() where T : Component;
         void RemoveComponent<T>() where T : Component;
         void RemoveAllComponent();
+        // void AddChild(IEntity entity);
     }
 }

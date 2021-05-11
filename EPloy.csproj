@@ -81,6 +81,12 @@
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\DataTableFailureEvt.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\DataTableSuccessEvt.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\FrameEvent.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\ObjEntity\ObjEntityBase.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\ObjEntity\ObjEntityComponent.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\ObjEntity\ObjEntityGroup.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\ObjEntity\ObjEntityInfo.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\ObjEntity\ObjEntityInstance.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\ObjEntity\ShowObjEntityInfo.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\ObjectPool\ObjectBase.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\ObjectPool\ObjectInfo.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\ObjectPool\ObjectPool.cs" />
@@ -113,6 +119,7 @@
      <Compile Include="Assets\EPloy\Hotfix\Config\AssetUtility.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Config\Config.Res.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Config\Config.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Config\ObjEntityEnum.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Config\UIEnum.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Entity\GameEntry.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Event\EventId.cs" />

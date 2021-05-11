@@ -13,7 +13,7 @@ namespace EPloy
     {
         private ObjectPoolBase UIPool;
         private Transform Parent;
-        public GroupName GroupName { get; private set; }
+        public UIGroupName GroupName { get; private set; }
         public int Depth { get; private set; }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace EPloy
         /// </summary>
         /// <param name="name">界面组名称。</param>
         /// <param name="depth">界面组深度。</param>
-        public void Initialize(GroupName groupName, Transform parent, ObjectPoolBase uIPool)
+        public void Initialize(UIGroupName groupName, Transform parent, ObjectPoolBase uIPool)
         {
             Depth = (int)groupName;
             GroupName = groupName;
@@ -206,7 +206,7 @@ namespace EPloy
             uiGo.transform.SetParent(Handle.transform);
             uiGo.transform.localPosition = Vector3.zero;
             uiGo.transform.localScale = Vector3.one;
-            uiForm.Initialize(uiGo, uiName, GroupName, isNew, userData);
+            uiForm.Initialize(isNew, uiGo, uiName, GroupName,userData);
             uiGo.SetActive(true);
             ActiveUIForms.Add(uiForm);
         }

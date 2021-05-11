@@ -10,7 +10,7 @@ namespace EPloy
         TipsForm = 2,
     }
 
-    public enum GroupName
+    public enum UIGroupName
     {
         Default = 0,
     }
