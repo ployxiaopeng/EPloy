@@ -13,17 +13,11 @@ namespace EPloy
     {
         private ObjectPoolBase UIPool;
         private Transform Parent;
-        public UIGroupName GroupName { get; private set; }
-        public int Depth { get; private set; }
-
-        /// <summary>
-        /// Group 实例
-        /// </summary>
-        /// <value></value>
-        public GameObject Handle { get; private set; }
-
         private TypeLinkedList<UIForm> UIForms;
         private List<UIForm> ActiveUIForms;
+        public UIGroupName GroupName { get; private set; }
+        public int Depth { get; private set; }
+        public GameObject Handle { get; private set; }
 
         /// <summary>
         /// 获取界面组中界面数量。
@@ -206,7 +200,7 @@ namespace EPloy
             uiGo.transform.SetParent(Handle.transform);
             uiGo.transform.localPosition = Vector3.zero;
             uiGo.transform.localScale = Vector3.one;
-            uiForm.Initialize(isNew, uiGo, uiName, GroupName,userData);
+            uiForm.Initialize(isNew, uiGo, uiName, GroupName, userData);
             uiGo.SetActive(true);
             ActiveUIForms.Add(uiForm);
         }

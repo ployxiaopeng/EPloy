@@ -1,17 +1,17 @@
 ﻿using System;
 using UnityEngine;
 
-namespace EPloy.ObjEntity
+namespace EPloy.Obj
 {
     /// <summary>
-    /// obj实体基类
+    /// obj基类
     /// </summary>
-    public abstract class ObjEntityBase : IReference
+    public abstract class ObjBase : IReference
     {
         /// <summary>
         ///obj实体编号。
         /// </summary>
-        public int Id
+        public int SerialId
         {
             get;
             private set;
@@ -29,7 +29,7 @@ namespace EPloy.ObjEntity
         /// <summary>
         /// 所属的实体组。
         /// </summary>
-        public ObjEntityGroup EntityGroup
+        public ObjGroup ObjGroup
         {
             get;
             private set;
@@ -46,23 +46,23 @@ namespace EPloy.ObjEntity
         /// <summary>
         /// 实体初始化。
         /// </summary>
-        /// <param name="entityId">实体编号。</param>
+        /// <param name="serialId">实体编号。</param>
         /// <param name="entityAssetName">实体资源名称。</param>
         /// <param name="entityGroup">实体所属的实体组。</param>
         /// <param name="isNewInstance">是否是新实例。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void Initialize(bool isNew, GameObject handle, int entityId, ObjEntityGroup entityGroup, object userData)
+        public void Initialize(bool isNew, GameObject handle, int serialId, ObjGroup entityGroup, object userData)
         {
-            EntityGroup = entityGroup;
+            ObjGroup = entityGroup;
+            SerialId = serialId;
             if (isNew)
             {
-                Id = entityId;
                 Handle = handle;
                 Create();
             }
-
             Activate(userData);
         }
+        
         /// <summary>
         /// obj生成。
         /// </summary>
@@ -87,7 +87,7 @@ namespace EPloy.ObjEntity
         /// </summary>
         /// <param name="childEntity">解除的子实体。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void OnDetached(ObjEntityBase childEntity, object userData)
+        public void OnDetached(ObjBase childEntity, object userData)
         {
         }
 
@@ -96,7 +96,7 @@ namespace EPloy.ObjEntity
         /// </summary>
         /// <param name="childEntity">子实体。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void OnAttachTo(ObjEntityBase childEntity, object userData)
+        public void OnAttachTo(ObjBase childEntity, object userData)
         {
 
         }
@@ -105,7 +105,7 @@ namespace EPloy.ObjEntity
         /// <summary>
         /// 实体轮询。
         /// </summary>
-        public virtual void OnUpdate() { }
+        public virtual void Update() { }
 
         /// <summary>
         /// Obj清理回收。

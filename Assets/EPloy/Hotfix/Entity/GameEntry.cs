@@ -15,6 +15,7 @@ namespace EPloy
         public static ResComponent Res { get; set; }
 
         public static UIComponent UI { get; set; }
+        public static ObjComponent Obj { get; set; }
 
         private static GameEntity game = null;
         public static GameEntity Game

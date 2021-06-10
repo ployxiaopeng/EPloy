@@ -9,11 +9,14 @@ public class StartForm : UIForm
     private Text txtTips;
     private Button btnEvtTest;
     private Button btnTipsForm;
+    private Button btnObjTest;
     private StartFormData dataStore;
+    private int objId = 0;
     public override void Create()
     {
         txtTips = transform.Find("txtTips").GetComponent<Text>();
         btnEvtTest = transform.Find("btnEvtTest").GetComponent<Button>();
+        btnObjTest = transform.Find("btnObjTest").GetComponent<Button>();
         btnTipsForm = transform.Find("btnTipsForm").GetComponent<Button>();
 
         GameEntry.Event.Subscribe(EventId.TestEvt, EvtTest);
@@ -25,6 +28,12 @@ public class StartForm : UIForm
        {
            GameEntry.UI.OpenUIForm(UIName.TipsForm, UIGroupName.Default);
        });
+
+        btnObjTest.onClick.AddListener(() =>
+     {
+         objId++;
+         GameEntry.Obj.ShowObj(objId, "ObjTest", ObjGroupName.Default, transform);
+     });
     }
 
     public override void Open(object userData)

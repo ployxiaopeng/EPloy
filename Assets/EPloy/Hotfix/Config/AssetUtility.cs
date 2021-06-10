@@ -38,9 +38,9 @@ namespace EPloy
             return Utility.Text.Format("Assets/Res/Sounds/{0}.wav", assetName);
         }
 
-        public static string GetEntityAsset(string assetName)
+        public static string GetObjAsset(string assetName)
         {
-            return Utility.Text.Format("Assets/Res/Entities/{0}.prefab", assetName);
+            return Utility.Text.Format("Assets/Res/Obj/{0}.prefab", assetName);
         }
 
         public static string GetUIFormAsset(string assetName)

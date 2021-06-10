@@ -3,22 +3,22 @@ using EPloy.ObjectPool;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EPloy.ObjEntity
+namespace EPloy.Obj
 {
     /// <summary>
     /// 实体组。
     /// </summary>
-    public sealed class ObjEntityGroup : IReference
+    public sealed class ObjGroup : IReference
     {
         private Transform Parent;
         private ObjectPoolBase InstancePool;
-        private TypeLinkedList<ObjEntityBase> ObjEntities;
-        private LinkedListNode<ObjEntityBase> CachedNode;
+        private TypeLinkedList<ObjBase> ObjEntities;
+        private LinkedListNode<ObjBase> CachedNode;
 
         /// <summary>
         /// 名称
         /// </summary>
-        public ObjEntityGroupName GroupName
+        public ObjGroupName GroupName
         {
             get;
             private set;
@@ -36,7 +36,7 @@ namespace EPloy.ObjEntity
         /// <summary>
         /// 实体数量
         /// </summary>
-        public int EntityCount
+        public int ObjCount
         {
             get
             {
@@ -99,12 +99,12 @@ namespace EPloy.ObjEntity
         /// <param name="instancePriority">实体实例对象池的优先级。</param>
         /// <param name="entityGroupHelper">实体组辅助器。</param>
         /// <param name="objectPoolManager">对象池管理器。</param>
-        public ObjEntityGroup(ObjEntityGroupName groupName, ObjectPoolBase instancePool, Transform parent)
+        public ObjGroup(ObjGroupName groupName, ObjectPoolBase instancePool, Transform parent)
         {
             GroupName = groupName;
             Parent = parent;
             InstancePool = instancePool;
-            ObjEntities = new TypeLinkedList<ObjEntityBase>();
+            ObjEntities = new TypeLinkedList<ObjBase>();
             CachedNode = null;
             CreateGroupInstance();
         }
@@ -124,11 +124,11 @@ namespace EPloy.ObjEntity
         /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
         public void Update()
         {
-            LinkedListNode<ObjEntityBase> current = ObjEntities.First;
+            LinkedListNode<ObjBase> current = ObjEntities.First;
             while (current != null)
             {
                 CachedNode = current.Next;
-                current.Value.OnUpdate();
+                current.Value.Update();
                 current = CachedNode;
                 CachedNode = null;
             }
@@ -137,13 +137,13 @@ namespace EPloy.ObjEntity
         /// <summary>
         ///是否存在实体。
         /// </summary>
-        /// <param name="entityId">实体序列编号。</param>
+        /// <param name="serialId">实体序列编号。</param>
         /// <returns>实体组中是否存在实体。</returns>
-        public bool HasObjEntity(int entityId)
+        public bool HasObj(int serialId)
         {
-            foreach (ObjEntityBase entity in ObjEntities)
+            foreach (ObjBase entity in ObjEntities)
             {
-                if (entity.Id == entityId)
+                if (entity.SerialId == serialId)
                 {
                     return true;
                 }
@@ -155,13 +155,13 @@ namespace EPloy.ObjEntity
         /// <summary>
         /// 获取实体。
         /// </summary>
-        /// <param name="entityId">实体序列编号。</param>
+        /// <param name="serialId">实体序列编号。</param>
         /// <returns>要获取的实体。</returns>
-        public ObjEntityBase GetObjEntity(int entityId)
+        public ObjBase GetObj(int serialId)
         {
-            foreach (ObjEntityBase entity in ObjEntities)
+            foreach (ObjBase entity in ObjEntities)
             {
-                if (entity.Id == entityId)
+                if (entity.SerialId == serialId)
                 {
                     return entity;
                 }
@@ -173,32 +173,32 @@ namespace EPloy.ObjEntity
         /// 获取所有实体。
         /// </summary>
         /// <returns>实体组中的所有实体。</returns>
-        public ObjEntityBase[] GetAllObjEntities()
+        public ObjBase[] GetAllObjs()
         {
-            List<ObjEntityBase> results = new List<ObjEntityBase>();
-            foreach (ObjEntityBase entity in ObjEntities)
+            List<ObjBase> results = new List<ObjBase>();
+            foreach (ObjBase entity in ObjEntities)
             {
                 results.Add(entity);
             }
             return results.ToArray();
         }
 
-        public ObjEntityBase ShowObjEntity(bool isNew, object obj, int entityId, Type objEntityType, object userData)
+        public ObjBase ShowObj(bool isNew, object obj, int serialId, Type objEntityType, object userData)
         {
-            ObjEntityBase objEntityBase = null;
+            ObjBase objEntityBase = null;
             if (isNew)
             {
-                if (objEntityType == null || objEntityType.IsInstanceOfType(typeof(ObjEntityBase)))
+                if (objEntityType == null || objEntityType.IsInstanceOfType(typeof(ObjBase)))
                 {
                     Log.Fatal("can not fand ui C# class  uiName : " + objEntityType.ToString());
                     return objEntityBase;
                 }
-                objEntityBase = (ObjEntityBase)ReferencePool.Acquire(objEntityType);
+                objEntityBase = (ObjBase)ReferencePool.Acquire(objEntityType);
                 ObjEntities.AddLast(objEntityBase);
             }
             else
             {
-                objEntityBase = GetObjEntity(entityId);
+                objEntityBase = GetObj(serialId);
             }
 
             if (objEntityBase == null)
@@ -208,38 +208,38 @@ namespace EPloy.ObjEntity
             }
             GameObject objEntityGo = obj as GameObject;
             objEntityGo.transform.SetParent(Handle.transform);
-            objEntityBase.Initialize(isNew, objEntityGo, entityId, this, userData);
+            objEntityBase.Initialize(isNew, objEntityGo, serialId, this, userData);
             return objEntityBase;
         }
 
         /// <summary>
         /// 从实体组移除实体。
         /// </summary>
-        /// <param name="entity">要移除的实体。</param>
-        public void RemoveObjEntity(ObjEntityBase entity)
+        /// <param name="obj">要移除的实体。</param>
+        public void RemoveObjEntity(ObjBase obj)
         {
-            if (CachedNode != null && CachedNode.Value == entity)
+            if (CachedNode != null && CachedNode.Value == obj)
             {
                 CachedNode = CachedNode.Next;
             }
 
-            if (!ObjEntities.Remove(entity))
+            if (!ObjEntities.Remove(obj))
             {
-                Log.Error(Utility.Text.Format("Entity group '{0}' not exists specified entity '[{1}]{2}'.", GroupName, entity.Id.ToString(), entity.Handle.name));
+                Log.Error(Utility.Text.Format("Entity group '{0}' not exists specified entity '[{1}]{2}'.", GroupName, obj.SerialId.ToString(), obj.Handle.name));
             }
         }
 
-        public void RegisterObjEntity(ObjEntityInstance obj, bool spawned)
+        public void RegisterObj(ObjInstance obj, bool spawned)
         {
             InstancePool.Register(obj, spawned);
         }
 
-        public ObjEntityInstance SpawnObjEntityInstance(string name)
+        public ObjInstance SpawnObjInstance(string name)
         {
-            return (ObjEntityInstance)InstancePool.Spawn(name);
+            return (ObjInstance)InstancePool.Spawn(name);
         }
 
-        public void UnspawnObjEntity(ObjEntityBase entity)
+        public void UnspawnObj(ObjBase entity)
         {
             InstancePool.Unspawn(entity.Handle);
         }

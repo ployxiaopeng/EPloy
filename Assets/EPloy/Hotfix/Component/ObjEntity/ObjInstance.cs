@@ -1,22 +1,22 @@
 ﻿using EPloy.ObjectPool;
 using UnityEngine;
 
-namespace EPloy.ObjEntity
+namespace EPloy.Obj
 {
 
     /// <summary>
     /// 实体实例对象。
     /// </summary>
-    public sealed class ObjEntityInstance : ObjectBase
+    public sealed class ObjInstance : ObjectBase
     {
         private object EntityAsset;
 
-        public ObjEntityInstance()
+        public ObjInstance()
         {
             EntityAsset = null;
         }
 
-        public static ObjEntityInstance Create(string name, object entityAsset, object entityInstance)
+        public static ObjInstance Create(string name, object entityAsset, object entityInstance)
         {
             if (entityAsset == null)
             {
@@ -25,7 +25,7 @@ namespace EPloy.ObjEntity
             }
 
 
-            ObjEntityInstance entityInstanceObject = ReferencePool.Acquire<ObjEntityInstance>();
+            ObjInstance entityInstanceObject = ReferencePool.Acquire<ObjInstance>();
             entityInstanceObject.Initialize(name, entityInstance);
             entityInstanceObject.EntityAsset = entityAsset;
             return entityInstanceObject;

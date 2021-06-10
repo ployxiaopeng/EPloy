@@ -8,8 +8,8 @@ namespace EPloy
     /// <summary>
     /// 全局唯一 记录组件的实体ID  其编号默认0 其他所有的 都>1
     /// </summary>
-	public  class WithIdComponent : Component
-	{
+	public class WithIdComponent : Component
+    {
         private long RecordId;
         private readonly Dictionary<long, Component> allComponents = new Dictionary<long, Component>();
         /// <summary>
@@ -24,9 +24,9 @@ namespace EPloy
         }
 
         public WithIdComponent()
-		{
+        {
             this.RecordId = 1;
-		}
+        }
         /// <summary>
         /// 生成一个组件实体
         /// </summary>
@@ -67,9 +67,8 @@ namespace EPloy
             RecordId = 1;
         }
 
-        public override void Clear()
+        public override void OnDestroy()
         {
-            base.Clear();
             RecordId = -1;
         }
     }

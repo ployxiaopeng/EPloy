@@ -7,7 +7,7 @@ using UnityEngine;
 namespace EPloy
 {
     /// <summary>
-    ///  全局唯一游戏系统 他管理所有系统流程
+    ///  全局唯一游戏系统
     /// </summary>
     public sealed class GameSystem
     {

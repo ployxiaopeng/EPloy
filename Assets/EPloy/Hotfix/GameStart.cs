@@ -23,8 +23,7 @@ namespace EPloy
 
             GameEntry.Res = GameEntry.Game.AddComponent<ResComponent>();
             GameEntry.UI = GameEntry.Game.AddComponent<UIComponent>();
-
-
+            GameEntry.Obj = GameEntry.Game.AddComponent<ObjComponent>();
 
             GameEntry.UI.OpenUIForm(UIName.StartForm, UIGroupName.Default);
         }

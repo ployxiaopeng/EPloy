@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace EPloy
 {
-    public enum ObjEntityGroupName
+    public enum ObjGroupName
     {
         Default = 0,
     }

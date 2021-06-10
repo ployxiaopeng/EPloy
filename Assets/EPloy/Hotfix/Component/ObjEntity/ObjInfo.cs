@@ -1,12 +1,12 @@
 ﻿
 using System.Collections.Generic;
 
-namespace EPloy.ObjEntity
+namespace EPloy.Obj
 {
     /// <summary>
     /// 实体状态。
     /// </summary>
-    public enum EntityStatus : byte
+    public enum ObjStatus : byte
     {
         Unknown = 0,
         WillInit,
@@ -22,43 +22,41 @@ namespace EPloy.ObjEntity
     /// <summary>
     /// 实体信息。
     /// </summary>
-    public sealed class ObjEntityInfo : IReference
+    public sealed class ObjInfo : IReference
     {
-        public ObjEntityBase Entity
+        public ObjBase Obj
         {
             get;
             private set;
         }
 
-        public EntityStatus Status
+        public ObjStatus Status
         {
             get;
             set;
         }
 
-        public ObjEntityBase ParentEntity
+        public ObjBase ParentObj
         {
             get;
             private set;
         }
 
-        public List<ObjEntityBase> ChildEntities
+        public List<ObjBase> ChildObjs
         {
             get;
             private set;
         }
 
-
-        public ObjEntityInfo()
+        public ObjInfo()
         {
-            Entity = null;
-            Status = EntityStatus.Unknown;
-            ParentEntity = null;
-            ChildEntities = new List<ObjEntityBase>();
+            Obj = null;
+            Status = ObjStatus.Unknown;
+            ParentObj = null;
+            ChildObjs = new List<ObjBase>();
         }
 
-
-        public static ObjEntityInfo Create(ObjEntityBase entity)
+        public static ObjInfo Create(ObjBase entity)
         {
             if (entity == null)
             {
@@ -66,35 +64,34 @@ namespace EPloy.ObjEntity
                 return null;
             }
 
-            ObjEntityInfo objEntityInfo = ReferencePool.Acquire<ObjEntityInfo>();
-            objEntityInfo.Entity = entity;
-            objEntityInfo.Status = EntityStatus.WillInit;
+            ObjInfo objEntityInfo = ReferencePool.Acquire<ObjInfo>();
+            objEntityInfo.Obj = entity;
+            objEntityInfo.Status = ObjStatus.WillInit;
             return objEntityInfo;
         }
 
         public void Clear()
         {
-            Entity = null;
-            Status = EntityStatus.Unknown;
-            ParentEntity = null;
-            ChildEntities.Clear();
+            Obj = null;
+            Status = ObjStatus.Unknown;
+            ParentObj = null;
+            ChildObjs.Clear();
         }
 
-
-        public void AddChildEntity(ObjEntityBase childEntity)
+        public void AddChildEntity(ObjBase childEntity)
         {
-            if (ChildEntities.Contains(childEntity))
+            if (ChildObjs.Contains(childEntity))
             {
                 Log.Error("Can not add child entity which is already exist.");
                 return;
             }
 
-            ChildEntities.Add(childEntity);
+            ChildObjs.Add(childEntity);
         }
 
-        public void RemoveChildEntity(ObjEntityBase childEntity)
+        public void RemoveChildEntity(ObjBase childEntity)
         {
-            if (!ChildEntities.Remove(childEntity))
+            if (!ChildObjs.Remove(childEntity))
             {
                 Log.Error("Can not remove child entity which is not exist.");
                 return;

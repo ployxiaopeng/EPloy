@@ -35,7 +35,7 @@ namespace EPloy
         public virtual void Update() { }
         public virtual void OnDestroy() { }
 
-        public virtual void Clear()
+        public void Clear()
         {
             Entity = null;
             InstanceId = -1;
