@@ -21,21 +21,6 @@ namespace EPloy
         private LoadAssetCallbacks LoadAssetCallbacks;
         private Transform ObjEntityParent;
 
-        protected override void InitComponent()
-        {
-            ObjEntityTypes = new Dictionary<string, Type>();
-            ObjEntityInfos = new Dictionary<int, ObjEntityInfo>();
-            ObjEntityGroups = new Dictionary<ObjEntityGroupName, ObjEntityGroup>();
-            EntitiesBeingLoaded = new Dictionary<int, int>();
-            EntitiesToReleaseOnLoad = new HashSet<int>();
-            RecycleQueue = new Queue<ObjEntityInfo>();
-
-            foreach (var name in Enum.GetValues(typeof(ObjEntityGroupName)))
-            {
-                AddEntityGroup((ObjEntityGroupName)name);
-            }
-        }
-
         /// <summary>
         /// 获取实体数量。
         /// </summary>
@@ -58,12 +43,22 @@ namespace EPloy
             }
         }
 
-        /// <summary>
-        /// 实体管理器轮询。
-        /// </summary>
-        /// <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
-        /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
-        public void Update()
+        public override void Awake()
+        {
+            ObjEntityTypes = new Dictionary<string, Type>();
+            ObjEntityInfos = new Dictionary<int, ObjEntityInfo>();
+            ObjEntityGroups = new Dictionary<ObjEntityGroupName, ObjEntityGroup>();
+            EntitiesBeingLoaded = new Dictionary<int, int>();
+            EntitiesToReleaseOnLoad = new HashSet<int>();
+            RecycleQueue = new Queue<ObjEntityInfo>();
+
+            foreach (var name in Enum.GetValues(typeof(ObjEntityGroupName)))
+            {
+                AddEntityGroup((ObjEntityGroupName)name);
+            }
+        }
+
+        public override void Update()
         {
             while (RecycleQueue.Count > 0)
             {
@@ -88,10 +83,7 @@ namespace EPloy
             }
         }
 
-        /// <summary>
-        /// 关闭并清理实体管理器。
-        /// </summary>
-        public void OnDestroy()
+        public override void OnDestroy()
         {
             HideAllEntities();
             ObjEntityGroups.Clear();

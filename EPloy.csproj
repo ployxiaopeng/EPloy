@@ -57,11 +57,7 @@
      <Compile Include="Assets\EPloy\Hotfix\Base\ReferencePool\ReferencePool.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\ReferencePool\ReferencePoolInfo.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\System\GameSystem.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Base\System\IAwakeSystem.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Base\System\IStartSystem.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Base\System\ISystem.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Base\System\IUpdateSystem.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Base\System\SystemAttribute.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\System\SystemHelper.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\TaskPool\ITaskAgent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\TaskPool\TaskBase.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\TaskPool\TaskInfo.cs" />

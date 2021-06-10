@@ -21,7 +21,7 @@ namespace EPloy
             }
         }
 
-        protected override void InitComponent()
+        public override void Awake()
         {
             LoadedSceneAssetNames = new List<string>();
             LoadingSceneAssetNames = new List<string>();
@@ -30,10 +30,7 @@ namespace EPloy
             UnloadSceneCallbacks = new UnloadSceneCallbacks(UnloadSceneSuccessCallback, UnloadSceneFailureCallback);
         }
 
-        /// <summary>
-        /// 关闭并清理场景管理器。
-        /// </summary>
-        public void OnDestroy()
+        public override void OnDestroy()
         {
             string[] loadedSceneAssetNames = LoadedSceneAssetNames.ToArray();
             foreach (string loadedSceneAssetName in loadedSceneAssetNames)

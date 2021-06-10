@@ -7,15 +7,6 @@ using UnityEngine;
 
 namespace EPloy
 {
-    [System]
-    public class UIComponentUpdateSystem : UpdateSystem<UIComponent>
-    {
-        public override void Update(UIComponent self)
-        {
-            self.Update();
-        }
-    }
-
     /// <summary>
     /// 界面管理器。
     /// </summary>
@@ -29,7 +20,18 @@ namespace EPloy
         private Transform UIParent;
         private ObjectPoolBase UIPool;
 
-        protected override void InitComponent()
+        /// <summary>
+        /// 获取界面组数量。
+        /// </summary>
+        public int UIGroupCount
+        {
+            get
+            {
+                return UIGroups.Count;
+            }
+        }
+
+        public override void Awake()
         {
             UIEntity = GameEntry.Game.CreateEntity("UI");
             UIGroups = new Dictionary<UIGroupName, UIGroup>();
@@ -45,21 +47,7 @@ namespace EPloy
             GetUIFormTypes();
         }
 
-        /// <summary>
-        /// 获取界面组数量。
-        /// </summary>
-        public int UIGroupCount
-        {
-            get
-            {
-                return UIGroups.Count;
-            }
-        }
-
-        /// <summary>
-        /// 界面管理器轮询。
-        /// </summary>
-        public void Update()
+        public override void Update()
         {
             foreach (var key in UIGroups)
             {
@@ -67,10 +55,7 @@ namespace EPloy
             }
         }
 
-        /// <summary>
-        /// 关闭并清理界面管理器。
-        /// </summary>
-        public void OnDestroy()
+        public override void OnDestroy()
         {
             UIGroups.Clear();
             UINames.Clear();

@@ -6,15 +6,6 @@ using UnityEngine;
 
 namespace EPloy
 {
-    [System]
-    public class ObjectPoolComponentUpdateSystem : UpdateSystem<ObjectPoolComponent>
-    {
-        public override void Update(ObjectPoolComponent self)
-        {
-            self.Update();
-        }
-    }
-
     /// <summary>
     /// 对象池管理器。
     /// </summary>
@@ -23,7 +14,7 @@ namespace EPloy
         private int Capacity;
         private float ExpireTime;
         private float ReleaseTime;
-        private Dictionary<TypeNamePair, ObjectPoolBase> m_ObjectPools;
+        private Dictionary<TypeNamePair, ObjectPoolBase> ObjectPools;
 
         /// <summary>
         /// 获取对象池数量。
@@ -32,21 +23,21 @@ namespace EPloy
         {
             get
             {
-                return m_ObjectPools.Count;
+                return ObjectPools.Count;
             }
         }
 
-        protected override void InitComponent()
+        public override void Awake()
         {
             Capacity = Config.ObjectPoolCapacity;
             ExpireTime = Config.ObjectPoolExpireTime;
             ReleaseTime = Config.ObjectPoolReleaseTime;
-            m_ObjectPools = new Dictionary<TypeNamePair, ObjectPoolBase>();
+            ObjectPools = new Dictionary<TypeNamePair, ObjectPoolBase>();
         }
 
-        public void Update()
+        public override void Update()
         {
-            foreach (KeyValuePair<TypeNamePair, ObjectPoolBase> objectPool in m_ObjectPools)
+            foreach (KeyValuePair<TypeNamePair, ObjectPoolBase> objectPool in ObjectPools)
             {
                 objectPool.Value.AutoReleaseTime -= Time.deltaTime;
                 if (objectPool.Value.AutoReleaseTime > 0)
@@ -77,7 +68,7 @@ namespace EPloy
                 return false;
             }
 
-            return m_ObjectPools.ContainsKey(new TypeNamePair(objectType, name));
+            return ObjectPools.ContainsKey(new TypeNamePair(objectType, name));
         }
 
         /// <summary>
@@ -139,7 +130,7 @@ namespace EPloy
 
             EPloy.ObjectPool.ObjectPool objectPool = ReferencePool.Acquire<EPloy.ObjectPool.ObjectPool>();
             objectPool.Initialize(objectType, name, ReleaseTime, Capacity, ExpireTime);
-            m_ObjectPools.Add(typeNamePair, objectPool);
+            ObjectPools.Add(typeNamePair, objectPool);
             return objectPool;
         }
 
@@ -182,17 +173,17 @@ namespace EPloy
         /// </summary>
         public void OnDestroy()
         {
-            foreach (KeyValuePair<TypeNamePair, ObjectPoolBase> objectPool in m_ObjectPools)
+            foreach (KeyValuePair<TypeNamePair, ObjectPoolBase> objectPool in ObjectPools)
             {
                 ReferencePool.Release(objectPool.Value);
             }
-            m_ObjectPools.Clear();
+            ObjectPools.Clear();
         }
 
         private ObjectPoolBase GetObjectPool(TypeNamePair typeNamePair)
         {
             ObjectPoolBase objectPool = null;
-            if (m_ObjectPools.TryGetValue(typeNamePair, out objectPool))
+            if (ObjectPools.TryGetValue(typeNamePair, out objectPool))
             {
                 return objectPool;
             }
@@ -202,10 +193,10 @@ namespace EPloy
         private bool DestroyObjectPool(TypeNamePair typeNamePair)
         {
             ObjectPoolBase objectPool = null;
-            if (m_ObjectPools.TryGetValue(typeNamePair, out objectPool))
+            if (ObjectPools.TryGetValue(typeNamePair, out objectPool))
             {
                 ReferencePool.Release(objectPool);
-                return m_ObjectPools.Remove(typeNamePair);
+                return ObjectPools.Remove(typeNamePair);
             }
 
             return false;

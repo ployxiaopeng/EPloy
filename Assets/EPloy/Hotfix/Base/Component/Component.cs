@@ -4,7 +4,7 @@ namespace EPloy
 {
     public class Component : IComponent, IReference
     {
-        public IEntity entity { get; set; }
+        public IEntity Entity { get; set; }
         public long InstanceId { get; set; }
 
         public bool IsRelease
@@ -19,25 +19,27 @@ namespace EPloy
         /// 设置所在的实体
         /// </summary>
         /// <param name="_entity"></param>
-        public virtual void SetEntity(IEntity _entity, long instanceId)
+        public void SetEntity(IEntity _entity, long instanceId)
         {
-            if(_entity==null)
+            if (_entity == null)
             {
-               Log.Fatal("entity is Null");
+                Log.Fatal("entity is Null");
                 return;
             }
             InstanceId = instanceId;
-            entity = _entity;
-
-            InitComponent();
+            Entity = _entity;
         }
 
-        protected virtual void InitComponent() { }
+        public virtual void Awake() { }
+        public virtual void Start() { }
+        public virtual void Update() { }
+        public virtual void OnDestroy() { }
 
         public virtual void Clear()
         {
-            entity = null;
+            Entity = null;
             InstanceId = -1;
+            OnDestroy();
         }
     }
 }

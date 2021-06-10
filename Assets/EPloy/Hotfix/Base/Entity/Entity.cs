@@ -88,7 +88,7 @@ namespace EPloy
             Type type = typeof(T);
             if (!ComponentDictionary.ContainsKey(type))
             {
-                 Log.Fatal(Utility.Text.Format("Component {0} is not in Entity ", type));
+                Log.Fatal(Utility.Text.Format("Component {0} is not in Entity ", type));
                 return null;
             }
             return (T)ComponentDictionary[type];
@@ -101,7 +101,7 @@ namespace EPloy
         {
             if (EntityDictionary.ContainsKey(entity.id))
             {
-                 Log.Fatal(Utility.Text.Format("entityId {0} is in Entity ", entity.id));
+                Log.Fatal(Utility.Text.Format("entityId {0} is in Entity ", entity.id));
                 return;
             }
             EntityDictionary.Add(entity.id, entity);
@@ -115,7 +115,7 @@ namespace EPloy
         {
             if (!ComponentDictionary.ContainsKey(typeof(T)))
             {
-                 Log.Fatal(Utility.Text.Format("Component {0} is not in Entity ", typeof(T)));
+                Log.Fatal(Utility.Text.Format("Component {0} is not in Entity ", typeof(T)));
                 return;
             }
             GameEntry.Game.WithIdComponent.ReleaseComponent(ComponentDictionary[typeof(T)]);
@@ -140,7 +140,7 @@ namespace EPloy
         {
             if (EntityDictionary.ContainsKey(entity.id))
             {
-                 Log.Fatal(Utility.Text.Format("entityId {0} is not in Entity ", entity.id));
+                Log.Fatal(Utility.Text.Format("entityId {0} is not in Entity ", entity.id));
                 return;
             }
             entity.RemoveAllComponent();
@@ -156,6 +156,5 @@ namespace EPloy
             ComponentDictionary.Clear();
             EntityDictionary.Clear();
         }
-
     }
 }

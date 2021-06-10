@@ -4,32 +4,13 @@ using System.Collections.Generic;
 
 namespace EPloy
 {
-    [System]
-    public class EventComponentUpdateSystem : UpdateSystem<EventComponent>
-    {
-        public override void Update(EventComponent self)
-        {
-            self.Update();
-        }
-    }
-
     /// <summary>
     /// 事件组件
     /// </summary>
-    /// <typeparam name="T">事件类型。</typeparam>
     public partial class EventComponent : Component
     {
-        private readonly UnOrderMultiMap<int, EventHandler<EventArg>> EventHandlers;
-        /// <summary>
-        /// 带发送队列
-        /// </summary>
-        private readonly Queue<Event> Events;
-
-        public EventComponent()
-        {
-            EventHandlers = new UnOrderMultiMap<int, EventHandler<EventArg>>();
-            Events = new Queue<Event>();
-        }
+        private UnOrderMultiMap<int, EventHandler<EventArg>> EventHandlers;
+        private Queue<Event> Events;
 
         /// <summary>
         /// 获取事件处理函数的数量。
@@ -53,12 +34,13 @@ namespace EPloy
             }
         }
 
-        /// <summary>
-        /// 事件池轮询。
-        /// </summary>
-        /// <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
-        /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
-        public void Update()
+        public override void Awake()
+        {
+            EventHandlers = new UnOrderMultiMap<int, EventHandler<EventArg>>();
+            Events = new Queue<Event>();
+        }
+
+        public override void Update()
         {
             while (Events.Count > 0)
             {
@@ -73,20 +55,9 @@ namespace EPloy
             }
         }
 
-        /// <summary>
-        /// 关闭并清理事件池。
-        /// </summary>
-        public void OnDestroy()
+        public override void OnDestroy()
         {
-            Clear();
             EventHandlers.Clear();
-        }
-
-        /// <summary>
-        /// 清理事件。
-        /// </summary>
-        public override void Clear()
-        {
             lock (Events)
             {
                 Events.Clear();

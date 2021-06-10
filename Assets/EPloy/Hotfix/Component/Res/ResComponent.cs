@@ -6,15 +6,6 @@ using UnityEngine;
 
 namespace EPloy
 {
-    [System]
-    public class ResComponentUpdateSystem : UpdateSystem<ResComponent>
-    {
-        public override void Update(ResComponent self)
-        {
-            self.Update();
-        }
-    }
-
     public partial class ResComponent : Component
     {
         public static string ReadWritePath = Application.persistentDataPath;
@@ -26,9 +17,9 @@ namespace EPloy
         private ResEditorLoader ResEditorLoader;
         private ResHelper ResHelper;
 
-        protected override void InitComponent()
+        public override void Awake()
         {
-            base.InitComponent();
+            base.Awake();
             if (GameStart.isEditorRes)
             {
                 ResEditorLoader = ResEditorLoader.CreateResEditorLoader();
@@ -41,7 +32,7 @@ namespace EPloy
             ResHelper = new ResHelper(GameStart.Game);
         }
 
-        public void Update()
+        public override void Update()
         {
             if (ResEditorLoader == null)
             {
@@ -53,7 +44,7 @@ namespace EPloy
             }
         }
 
-        public void OnDestroy()
+        public override void OnDestroy()
         {
             ResLoader.OnDestroy();
         }

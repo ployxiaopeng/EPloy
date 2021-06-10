@@ -13,7 +13,8 @@ namespace EPloy
         private Entity DataStoreEntity;
         //存储所有数据类 后面bool 是否AddComponent到DataStoreEntity 
         private Dictionary<Type, bool> DataStoreTypes;
-        protected override void InitComponent()
+
+        public override void Awake()
         {
             DataStoreEntity = GameEntry.Game.CreateEntity("DataStore");
             GetUIFormTypes();
@@ -52,7 +53,7 @@ namespace EPloy
         private void GetUIFormTypes()
         {
             DataStoreTypes = new Dictionary<Type, bool>();
-           Type[] Types = GameEntry.GameSystem.GetTypes(MuduleConfig.HotFixDllName);
+            Type[] Types = GameEntry.GameSystem.GetTypes(MuduleConfig.HotFixDllName);
             foreach (Type type in Types)
             {
                 object[] objects = type.GetCustomAttributes(typeof(DataStoreAttribute), false);
