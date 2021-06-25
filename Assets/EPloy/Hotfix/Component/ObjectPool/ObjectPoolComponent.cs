@@ -49,6 +49,15 @@ namespace EPloy
             }
         }
 
+        public override void OnDestroy()
+        {
+            foreach (KeyValuePair<TypeNamePair, ObjectPoolBase> objectPool in ObjectPools)
+            {
+                ReferencePool.Release(objectPool.Value);
+            }
+            ObjectPools.Clear();
+        }
+
         /// <summary>
         /// 检查是否存在对象池。
         /// </summary>
@@ -168,17 +177,7 @@ namespace EPloy
             return DestroyObjectPool(new TypeNamePair(objectType, name));
         }
 
-        /// <summary>
-        /// 关闭并清理对象池管理器。
-        /// </summary>
-        public void OnDestroy()
-        {
-            foreach (KeyValuePair<TypeNamePair, ObjectPoolBase> objectPool in ObjectPools)
-            {
-                ReferencePool.Release(objectPool.Value);
-            }
-            ObjectPools.Clear();
-        }
+
 
         private ObjectPoolBase GetObjectPool(TypeNamePair typeNamePair)
         {

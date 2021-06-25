@@ -39,17 +39,11 @@ namespace EPloy
             }
         }
 
-        /// <summary>
-        /// 数据表管理器轮询。
-        /// </summary>
-        public void Update()
+        public override void Update()
         {
         }
 
-        /// <summary>
-        /// 关闭并清理数据表管理器。
-        /// </summary>
-        public void OnDestroy()
+        public override void OnDestroy()
         {
             foreach (KeyValuePair<TypeNamePair, DataTableBase> dataTable in DataTables)
             {

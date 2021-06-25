@@ -31,7 +31,7 @@ public class StartForm : UIForm
 
         btnObjTest.onClick.AddListener(() =>
      {
-         objId++;
+         // objId++;
          GameEntry.Obj.ShowObj(objId, "ObjTest", ObjGroupName.Default, transform);
      });
     }

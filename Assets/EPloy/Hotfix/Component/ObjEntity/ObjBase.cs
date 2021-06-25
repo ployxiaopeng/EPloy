@@ -60,9 +60,10 @@ namespace EPloy.Obj
                 Handle = handle;
                 Create();
             }
+            Handle.SetActive(true);
             Activate(userData);
         }
-        
+
         /// <summary>
         /// obj生成。
         /// </summary>

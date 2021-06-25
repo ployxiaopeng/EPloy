@@ -251,18 +251,17 @@ namespace EPloy
             {
                 Log.Error(Utility.Text.Format("Obj group '{0}' is not exist.", objGroupName));
             }
-
-            ObjInstance objInstance = objGroup.SpawnObjInstance(objName);
+            string path = AssetUtility.GetObjAsset(objName);
+            ObjInstance objInstance = objGroup.SpawnObjInstance(path);
             if (objInstance == null)
             {
                 // 这里要把 表格的id 凡在后面待定
                 ObjsStartLoad.Add(serialId, objName);
-                string path = AssetUtility.GetObjAsset(objName);
                 GameEntry.Res.LoadAsset(path, typeof(GameObject), LoadAssetCallbacks, ShowObjInfo.Create(serialId, serialId, objGroup, userData));
                 return;
             }
 
-            ObjBase objBase = objGroup.ShowObj(false, objInstance.Target, serialId, ObjTypes[objName], userData);
+            ObjBase objBase = objGroup.ShowObj(true, objInstance.Target, serialId, ObjTypes[objName], userData);
             ObjInfos.Add(serialId, ObjInfo.Create(objBase));
         }
 
@@ -361,6 +360,7 @@ namespace EPloy
             ObjBase obj = objInfo.Obj;
             objInfo.Status = ObjStatus.WillHide;
             obj.Handle.transform.SetParent(obj.ObjGroup.Handle.transform);
+            obj.Handle.SetActive(false);
             obj.Hide(userData);
             obj.ObjGroup.RemoveObjEntity(obj);
             if (!ObjInfos.Remove(obj.SerialId))

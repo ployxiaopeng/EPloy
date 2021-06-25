@@ -185,31 +185,31 @@ namespace EPloy.Obj
 
         public ObjBase ShowObj(bool isNew, object obj, int serialId, Type objEntityType, object userData)
         {
-            ObjBase objEntityBase = null;
+            ObjBase objBase = null;
             if (isNew)
             {
                 if (objEntityType == null || objEntityType.IsInstanceOfType(typeof(ObjBase)))
                 {
                     Log.Fatal("can not fand ui C# class  uiName : " + objEntityType.ToString());
-                    return objEntityBase;
+                    return objBase;
                 }
-                objEntityBase = (ObjBase)ReferencePool.Acquire(objEntityType);
-                ObjEntities.AddLast(objEntityBase);
+                objBase = (ObjBase)ReferencePool.Acquire(objEntityType);
+                ObjEntities.AddLast(objBase);
             }
             else
             {
-                objEntityBase = GetObj(serialId);
+                objBase = GetObj(serialId);
             }
 
-            if (objEntityBase == null)
+            if (objBase == null)
             {
-                Log.Fatal(Utility.Text.Format("UIForm {0} is invalid.", objEntityType.ToString()));
-                return objEntityBase;
+                Log.Fatal(Utility.Text.Format("objBase {0} is invalid.", objEntityType.ToString()));
+                return objBase;
             }
             GameObject objEntityGo = obj as GameObject;
             objEntityGo.transform.SetParent(Handle.transform);
-            objEntityBase.Initialize(isNew, objEntityGo, serialId, this, userData);
-            return objEntityBase;
+            objBase.Initialize(isNew, objEntityGo, serialId, this, userData);
+            return objBase;
         }
 
         /// <summary>
@@ -225,8 +225,9 @@ namespace EPloy.Obj
 
             if (!ObjEntities.Remove(obj))
             {
-                Log.Error(Utility.Text.Format("Entity group '{0}' not exists specified entity '[{1}]{2}'.", GroupName, obj.SerialId.ToString(), obj.Handle.name));
+                Log.Error(Utility.Text.Format("obj group '{0}' not exists specified entity '[{1}]{2}'.", GroupName, obj.SerialId.ToString(), obj.Handle.name));
             }
+            ReferencePool.Release(obj);
         }
 
         public void RegisterObj(ObjInstance obj, bool spawned)
