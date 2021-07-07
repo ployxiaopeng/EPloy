@@ -3,7 +3,7 @@
 namespace EPloy
 {
     /// <summary>
-    /// 是否UI 逻辑类
+    /// 是否obj 逻辑类
     /// </summary>
 	public class ObjAttribute : Attribute
     {
