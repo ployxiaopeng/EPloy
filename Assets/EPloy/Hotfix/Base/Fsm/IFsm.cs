@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EPloy
+namespace EPloy.Fsm
 {
     /// <summary>
     /// 有限状态机接口。

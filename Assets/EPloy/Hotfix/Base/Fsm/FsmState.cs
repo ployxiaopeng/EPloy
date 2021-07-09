@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EPloy
+namespace EPloy.Fsm
 {
     /// <summary>
     /// 有限状态机状态基类。
@@ -113,7 +113,7 @@ namespace EPloy
         /// <param name="fsm">有限状态机引用。</param>
         protected void ChangeState<TState>(IFsm fsm) where TState : FsmState
         {
-            Fsm fsmImplement = (Fsm)fsm;
+            LimitFsm fsmImplement = (LimitFsm)fsm;
             if (fsmImplement == null)
             {
                 Log.Error("FSM is invalid.");
@@ -130,7 +130,7 @@ namespace EPloy
         /// <param name="stateType">要切换到的有限状态机状态类型。</param>
         protected void ChangeState(IFsm fsm, Type stateType)
         {
-            Fsm fsmImplement = (Fsm)fsm;
+            LimitFsm fsmImplement = (LimitFsm)fsm;
             if (fsmImplement == null)
             {
                 Log.Error("FSM is invalid.");

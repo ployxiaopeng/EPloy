@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using EPloy.Fsm;
 
 namespace EPloy
 {
@@ -65,7 +66,7 @@ namespace EPloy
         /// <summary>
         /// 关闭并清理有限状态机管理器。
         /// </summary>
-        public void Shutdown()
+        public override void OnDestroy()
         {
             foreach (KeyValuePair<string, FsmBase> fsm in Fsms)
             {
@@ -86,10 +87,11 @@ namespace EPloy
         {
             if (ownerType == null)
             {
-                throw new GameFrameworkException("Owner type is invalid.");
+                Log.Error("Owner type is invalid.");
+                return false;
             }
 
-            return InternalHasFsm(Utility.Text.GetFullName(ownerType, string.Empty));
+            return InternalHasFsm(GetFullName(ownerType, string.Empty));
         }
 
         /// <summary>
@@ -102,10 +104,11 @@ namespace EPloy
         {
             if (ownerType == null)
             {
-                throw new GameFrameworkException("Owner type is invalid.");
+                Log.Error("Owner type is invalid.");
+                return false;
             }
 
-            return InternalHasFsm(Utility.Text.GetFullName(ownerType, name));
+            return InternalHasFsm(GetFullName(ownerType, name));
         }
 
         /// <summary>
@@ -117,10 +120,11 @@ namespace EPloy
         {
             if (ownerType == null)
             {
-                throw new GameFrameworkException("Owner type is invalid.");
+                Log.Error("Owner type is invalid.");
+                return null;
             }
 
-            return InternalGetFsm(Utility.Text.GetFullName(ownerType, string.Empty));
+            return InternalGetFsm(GetFullName(ownerType, string.Empty));
         }
         /// <summary>
         /// 获取有限状态机。
@@ -132,10 +136,10 @@ namespace EPloy
         {
             if (ownerType == null)
             {
-                throw new GameFrameworkException("Owner type is invalid.");
+                Log.Error("Owner type is invalid.");
+                return null;
             }
-
-            return InternalGetFsm(Utility.Text.GetFullName(ownerType, name));
+            return InternalGetFsm(GetFullName(ownerType, name));
         }
 
         /// <summary>
@@ -162,7 +166,8 @@ namespace EPloy
         {
             if (results == null)
             {
-                throw new GameFrameworkException("Results is invalid.");
+                Log.Error("Results is invalid.");
+                return;
             }
 
             results.Clear();
@@ -196,12 +201,13 @@ namespace EPloy
         {
             if (HasFsm(owner.GetType(), name))
             {
-                throw new GameFrameworkException(Utility.Text.Format("Already exist FSM '{0}'.", Utility.Text.GetFullName(owner.GetType(), name)));
+                Log.Error(Utility.Text.Format("Already exist FSM '{0}: {1}'.", owner.GetType(), name));
+                return null;
             }
 
-            Fsm fsm = new Fsm(name, owner, states);
+            LimitFsm fsm = new LimitFsm(name, owner, states);
             FsmList.Add(fsm);
-            Fsms.Add(Utility.Text.GetFullName(owner.GetType(), name), fsm);
+            Fsms.Add(GetFullName(owner.GetType(), name), fsm);
             return fsm;
         }
 
@@ -214,10 +220,11 @@ namespace EPloy
         {
             if (ownerType == null)
             {
-                throw new GameFrameworkException("Owner type is invalid.");
+                Log.Error("Owner type is invalid.");
+                return false;
             }
 
-            return InternalDestroyFsm(Utility.Text.GetFullName(ownerType, string.Empty));
+            return InternalDestroyFsm(GetFullName(ownerType, string.Empty));
         }
 
         /// <summary>
@@ -230,10 +237,11 @@ namespace EPloy
         {
             if (ownerType == null)
             {
-                throw new GameFrameworkException("Owner type is invalid.");
+                Log.Error("Owner type is invalid.");
+                return false;
             }
 
-            return InternalDestroyFsm(Utility.Text.GetFullName(ownerType, name));
+            return InternalDestroyFsm(GetFullName(ownerType, name));
         }
 
         /// <summary>
@@ -246,10 +254,10 @@ namespace EPloy
         {
             if (fsm == null)
             {
-                throw new GameFrameworkException("FSM is invalid.");
+                Log.Error("FSM is invalid.");
+                return false;
             }
-
-            return InternalDestroyFsm(Utility.Text.GetFullName(fsm.Owner.GetType(), fsm.Name));
+            return InternalDestroyFsm(GetFullName(fsm.Owner.GetType(), fsm.Name));
         }
 
         /// <summary>
@@ -261,10 +269,11 @@ namespace EPloy
         {
             if (fsm == null)
             {
-                throw new GameFrameworkException("FSM is invalid.");
+                Log.Error("FSM is invalid.");
+                return false;
             }
 
-            return InternalDestroyFsm(Utility.Text.GetFullName(fsm.OwnerType, fsm.Name));
+            return InternalDestroyFsm(GetFullName(fsm.OwnerType, fsm.Name));
         }
 
         public bool InternalHasFsm(string fullName)
@@ -292,6 +301,11 @@ namespace EPloy
             }
 
             return false;
+        }
+
+        private string GetFullName(Type type, string name)
+        {
+            return Utility.Text.Format("{0}_{1}", type.ToString(), name);
         }
 
     }

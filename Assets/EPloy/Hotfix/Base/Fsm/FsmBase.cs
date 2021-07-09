@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EPloy
+namespace EPloy.Fsm
 {
     /// <summary>
     /// 有限状态机基类。

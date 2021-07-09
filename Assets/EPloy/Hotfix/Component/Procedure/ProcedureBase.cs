@@ -1,25 +1,19 @@
-﻿//------------------------------------------------------------
-// Game Framework
-// Copyright © 2013-2020 Jiang Yin. All rights reserved.
-// Homepage: https://gameframework.cn/
-// Feedback: mailto:ellan@gameframework.cn
-//------------------------------------------------------------
+﻿
+using EPloy.Fsm;
 
-using GameFramework.Fsm;
-using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace GameFramework.Procedure
+namespace EPloy
 {
     /// <summary>
     /// 流程基类。
     /// </summary>
-    public abstract class ProcedureBase : FsmState<IProcedureManager>
+    public abstract class ProcedureBase : FsmState, IReference
     {
         /// <summary>
         /// 状态初始化时调用。
         /// </summary>
         /// <param name="procedureOwner">流程持有者。</param>
-        protected internal override void OnInit(ProcedureOwner procedureOwner)
+        protected internal override void OnInit(IFsm procedureOwner)
         {
             base.OnInit(procedureOwner);
         }
@@ -28,7 +22,7 @@ namespace GameFramework.Procedure
         /// 进入状态时调用。
         /// </summary>
         /// <param name="procedureOwner">流程持有者。</param>
-        protected internal override void OnEnter(ProcedureOwner procedureOwner)
+        protected internal override void OnEnter(IFsm procedureOwner)
         {
             base.OnEnter(procedureOwner);
         }
@@ -39,9 +33,9 @@ namespace GameFramework.Procedure
         /// <param name="procedureOwner">流程持有者。</param>
         /// <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
         /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
-        protected internal override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
+        protected internal override void OnUpdate(IFsm procedureOwner)
         {
-            base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
+            base.OnUpdate(procedureOwner);
         }
 
         /// <summary>
@@ -49,7 +43,7 @@ namespace GameFramework.Procedure
         /// </summary>
         /// <param name="procedureOwner">流程持有者。</param>
         /// <param name="isShutdown">是否是关闭状态机时触发。</param>
-        protected internal override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
+        protected internal override void OnLeave(IFsm procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
         }
@@ -58,9 +52,14 @@ namespace GameFramework.Procedure
         /// 状态销毁时调用。
         /// </summary>
         /// <param name="procedureOwner">流程持有者。</param>
-        protected internal override void OnDestroy(ProcedureOwner procedureOwner)
+        protected internal override void OnDestroy(IFsm procedureOwner)
         {
             base.OnDestroy(procedureOwner);
+        }
+
+        public void Clear()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

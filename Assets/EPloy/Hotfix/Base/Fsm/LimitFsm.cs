@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EPloy
+namespace EPloy.Fsm
 {
     /// <summary>
     /// 有限状态机事件响应函数。
@@ -14,7 +14,7 @@ namespace EPloy
     /// <summary>
     /// 有限状态机。
     /// </summary>
-    public sealed class Fsm : FsmBase, IFsm
+    public sealed class LimitFsm : FsmBase, IFsm
     {
         private readonly object m_Owner;
         private readonly Dictionary<string, FsmState> m_States;
@@ -29,7 +29,7 @@ namespace EPloy
         /// <param name="name">有限状态机名称。</param>
         /// <param name="owner">有限状态机持有者。</param>
         /// <param name="states">有限状态机状态集合。</param>
-        public Fsm(string name, object owner, params FsmState[] states)
+        public LimitFsm(string name, object owner, params FsmState[] states)
             : base(name)
         {
             if (owner == null)

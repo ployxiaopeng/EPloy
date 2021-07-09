@@ -10,12 +10,15 @@ namespace EPloy
     public static class GameEntry
     {
         public static ObjectPoolComponent ObjectPool { get; set; }
+        public static FsmComponent Fsm { get; set; }
         public static EventComponent Event { get; set; }
         public static DataStoreComponet DataStore { get; set; }
         public static ResComponent Res { get; set; }
+        public static SceneComponent Scene { get; set; }
 
         public static UIComponent UI { get; set; }
         public static ObjComponent Obj { get; set; }
+        public static ProcedureComponent Procedure { get; set; }
 
         private static GameEntity game = null;
         public static GameEntity Game

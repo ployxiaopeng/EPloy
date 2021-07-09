@@ -12,20 +12,22 @@ namespace EPloy
         {
             Game = game;
             Log.Info("HotFix Awake");
-        }
-
-        public static void Start()
-        {
             GameEntry.GameSystem.Add(MuduleConfig.HotFixDllName, Game.ILRuntime.GetHotfixTypes);
+            GameEntry.Fsm = GameEntry.Game.AddComponent<FsmComponent>();
             GameEntry.ObjectPool = GameEntry.Game.AddComponent<ObjectPoolComponent>();
             GameEntry.Event = GameEntry.Game.AddComponent<EventComponent>();
             GameEntry.DataStore = GameEntry.Game.AddComponent<DataStoreComponet>();
 
             GameEntry.Res = GameEntry.Game.AddComponent<ResComponent>();
+            GameEntry.Scene = GameEntry.Game.AddComponent<SceneComponent>();
             GameEntry.UI = GameEntry.Game.AddComponent<UIComponent>();
             GameEntry.Obj = GameEntry.Game.AddComponent<ObjComponent>();
+            GameEntry.Procedure = GameEntry.Game.AddComponent<ProcedureComponent>();
+        }
 
-            GameEntry.UI.OpenUIForm(UIName.StartForm, UIGroupName.Default);
+        public static void Start()
+        {
+            GameEntry.Procedure.StartProcedure<ProcedurePreload>();
         }
 
         public static void Update()

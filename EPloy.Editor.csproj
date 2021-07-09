@@ -2,6 +2,8 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
+    <CscToolPath>C:\Program Files\Unity2019.3.3\Editor\Data\Tools\RoslynScripts</CscToolPath>
+    <CscToolExe>unity_csc.bat</CscToolExe>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{43c6d896-26a1-98ca-5a18-e38ce1b3e953}</ProjectGuid>
+    <ProjectGuid>{96D8C643-A126-CA98-5A18-E38CE1B3E953}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>EPloy.Editor</AssemblyName>
@@ -44,6 +46,14 @@
     <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>C:\Program Files\Unity2019.3.3\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>C:\Program Files\Unity2019.3.3\Editor\Data\Managed/UnityEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableCodeGenerator.cs" />
      <Compile Include="Assets\Editor\01.EPloy\DataTableProcessor\DataTableProcessor.BoolProcessor.cs" />
@@ -122,8 +132,17 @@
      <Compile Include="Assets\Editor\06.UIParticles\UiParticlesEditor.cs" />
      <Compile Include="Assets\Editor\07.DOTweenPro\DOTweenAnimationInspector.cs" />
      <None Include="Assets\Editor\03.TexturePacker\SettingsTexturePackerImporter.txt" />
- <Reference Include="UnityEngine">
- <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>D:/EPloy/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UI">
+ <HintPath>D:/EPloy/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.TestRunner">
+ <HintPath>D:/EPloy/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TestRunner">
+ <HintPath>D:/EPloy/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -301,9 +320,6 @@
  </Reference>
  <Reference Include="UnityEngine.XRModule">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor">
- <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/Managed/UnityEditor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.VR">
  <HintPath>C:/Program Files/Unity2019.3.3/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
@@ -716,36 +732,20 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="EPloy.csproj">
-      <Project>{44d596f6-9a6d-ece8-0a85-3e8bfe720cb0}</Project>
+      <Project>{F696D544-6D9A-E8EC-0A85-3E8BFE720CB0}</Project>
       <Name>EPloy</Name>
     </ProjectReference>
     <ProjectReference Include="Libraries.csproj">
-      <Project>{8092c10e-de55-fe06-baa6-813fe7494e0f}</Project>
+      <Project>{0EC19280-55DE-06FE-BAA6-813FE7494E0F}</Project>
       <Name>Libraries</Name>
     </ProjectReference>
     <ProjectReference Include="GameMain.csproj">
-      <Project>{1c1dd7d1-9f7d-3eab-1c48-ff08a04d007c}</Project>
+      <Project>{D1D71D1C-7D9F-AB3E-1C48-FF08A04D007C}</Project>
       <Name>GameMain</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEditor.UI.csproj">
-      <Project>{ba2c5cd9-4f11-8171-b93c-96e5feda454e}</Project>
-      <Name>UnityEditor.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEngine.UI.csproj">
-      <Project>{a6c50d23-ca9f-e45c-35a9-0bbdb45232ab}</Project>
-      <Name>UnityEngine.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEditor.TestRunner.csproj">
-      <Project>{6f3e5c99-c993-dc94-a397-2ac91428fab0}</Project>
-      <Name>UnityEditor.TestRunner</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEngine.TestRunner.csproj">
-      <Project>{b8eb26d8-d9d2-e7ac-cb20-dcf6061d7240}</Project>
-      <Name>UnityEngine.TestRunner</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

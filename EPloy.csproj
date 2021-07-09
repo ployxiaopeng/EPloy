@@ -52,6 +52,10 @@
      <Compile Include="Assets\EPloy\Hotfix\Base\Entity\Entity.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Entity\GameEntity.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Entity\IEntity.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\Fsm\FsmBase.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\Fsm\FsmState.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\Fsm\IFsm.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\Fsm\LimitFsm.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\ReferencePool\IReference.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\ReferencePool\ReferencePool.ReferenceCollection.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\ReferencePool\ReferencePool.cs" />
@@ -79,10 +83,6 @@
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\DataTableFailureEvt.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\DataTableSuccessEvt.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\FrameEvent.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Component\Fsm\Base\Fsm.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Component\Fsm\Base\FsmBase.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Component\Fsm\Base\FsmState.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Component\Fsm\Base\IFsm.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Fsm\FsmComponent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\ObjEntity\ObjAttribute.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\ObjEntity\ObjBase.cs" />
@@ -97,7 +97,11 @@
      <Compile Include="Assets\EPloy\Hotfix\Component\ObjectPool\ObjectPoolBase.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\ObjectPool\ObjectPoolComponent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedureBase.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedureManager.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedureChangeScene.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedureComponent.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedureLogin.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedureMap.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedurePreload.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResComponent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResHelper.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\AssetObject.cs" />
