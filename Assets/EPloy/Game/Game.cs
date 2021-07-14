@@ -48,6 +48,11 @@ namespace EPloy
             get;
             private set;
         }
+        public static TimerModule Timer
+        {
+            get;
+            private set;
+        }
 
         private void Awake()
         {
@@ -57,14 +62,13 @@ namespace EPloy
 
         private void Start()
         {
+            Timer = EPloyModuleMgr.CreateModule<TimerModule>();
             FileSystem = EPloyModuleMgr.CreateModule<FileSystemModule>();
             VersionChecker = EPloyModuleMgr.CreateModule<VersionCheckerModule>();
             DownLoad = EPloyModuleMgr.CreateModule<DownLoadModule>();
             ResUpdater = EPloyModuleMgr.CreateModule<ResUpdaterModule>();
             ILRuntime = EPloyModuleMgr.CreateModule<ILRuntimeModule>();
             Procedure = EPloyModuleMgr.CreateModule<ProcedureModule>();
-
-
 
             Procedure.StartGame(IsILRuntime, EditorResource);
         }
