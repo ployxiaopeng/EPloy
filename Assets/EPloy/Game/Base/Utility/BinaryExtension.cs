@@ -26,6 +26,7 @@ namespace EPloy
                 if (shift >= 35)
                 {
                     Log.Fatal("7 bit encoded int is invalid.");
+                    return 0;
                 }
 
                 b = binaryReader.ReadByte();

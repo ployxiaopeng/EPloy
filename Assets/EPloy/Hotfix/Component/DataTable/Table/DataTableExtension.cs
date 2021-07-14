@@ -8,11 +8,11 @@ namespace EPloy
 {
     public static class DataTableExtension
     {
-        private const string DataRowClassPrefixName = "StarForce.DR";
+        private const string DataRowClassPrefixName = "EPloy.DR";
         internal static readonly char[] DataSplitSeparators = new char[] { '\t' };
         internal static readonly char[] DataTrimSeparators = new char[] { '\"' };
 
-        public static void LoadDataTable(this DataTableComponent self, string dataTableName, object userData)
+        public static void LoadDataTable(this DataTableComponent self, string dataTableName)
         {
             if (string.IsNullOrEmpty(dataTableName))
             {
@@ -39,7 +39,7 @@ namespace EPloy
             DataTableBase dataTable = self.CreateDataTable(dataRowType, name);
 #if UNITY_EDITOR
             string assetPath = AssetUtility.GetDataTableAsset(dataTableName);
-            self.LoadDataTable(dataTable, assetPath);
+            dataTable.ReadData(assetPath);
 #else
                  self.LoadDataTable(dataTable, name);
 #endif

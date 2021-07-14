@@ -12,7 +12,7 @@ namespace EPloy.Table
     /// 数据表。
     /// </summary>
     /// <typeparam name="T">数据表行的类型。</typeparam>
-    public sealed class DataTable<T> : DataTableBase where T : class, IDataRow, new() //, IEnumerable<T> 
+    public sealed class DataTable<T> : DataTableBase, IDataTable<T> where T : class, IDataRow, new()
     {
         private readonly Dictionary<int, T> DataSet;
 

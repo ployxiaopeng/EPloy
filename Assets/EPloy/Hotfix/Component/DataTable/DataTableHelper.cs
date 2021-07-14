@@ -11,7 +11,7 @@ namespace EPloy.Table
     /// </summary>
     public class DataTableHelper : IDataTableHelper
     {
-        private static readonly string BytesAssetExtension = ".bytes";
+        // private static readonly string BytesAssetExtension = ".bytes";
 
         //辅助器 所操作的数据类
         private DataTableBase DataTableBase;
@@ -55,10 +55,10 @@ namespace EPloy.Table
                     {
                         while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
                         {
-                            int dataRowBytesLength = binaryReader.Read7BitEncodedInt32();
+                            int dataRowBytesLength = binaryReader.ReadInt32();
                             if (!DataTableBase.AddDataRow(dataTableBytes, (int)binaryReader.BaseStream.Position, dataRowBytesLength))
                             {
-                                Log.Warning("Can not parse data row bytes.");
+                                Log.Fatal("Can not parse data row bytes.");
                                 return false;
                             }
 
@@ -74,6 +74,12 @@ namespace EPloy.Table
                 Log.Warning(Utility.Text.Format("Can not parse dictionary bytes with exception '{0}'.", exception.ToString()));
                 return false;
             }
+        }
+
+
+        private int ReadInt32(Stream stream)
+        {
+            return stream.ReadByte() | (stream.ReadByte() << 8) | (stream.ReadByte() << 16) | (stream.ReadByte() << 24);
         }
 
         private void LoadBinaryFailureCallback(string dataAssetName, LoadResStatus status, string errorMessage)
@@ -92,6 +98,7 @@ namespace EPloy.Table
                 if (!DataTableBase.ParseData(dataBytes))
                 {
                     Log.Fatal(Utility.Text.Format("Load data failure in data provider helper, data asset name '{0}'.", dataAssetName));
+                    return;
                 }
 
                 DataTableSuccessEvt Evt = ReferencePool.Acquire<DataTableSuccessEvt>();

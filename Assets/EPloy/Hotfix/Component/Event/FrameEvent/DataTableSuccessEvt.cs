@@ -41,7 +41,9 @@ namespace EPloy
         /// <param name="userData">用户自定义数据。</param>
         public void SetData(string dataAssetName, float duration)
         {
-            DataAssetName = dataAssetName;
+            string[] paths = dataAssetName.Split('/');
+            string[] names = paths[paths.Length - 1].Split('.');
+            DataAssetName = names[0];
             Duration = duration;
         }
 

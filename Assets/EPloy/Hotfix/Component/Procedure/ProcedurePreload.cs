@@ -83,13 +83,13 @@ namespace EPloy
         private void LoadDataTable(string dataTableName)
         {
             LoadedFlag.Add(Utility.Text.Format("DataTable.{0}", dataTableName), false);
-            GameEntry.DataTable.LoadDataTable(dataTableName, this);
+            GameEntry.DataTable.LoadDataTable(dataTableName);
         }
         private void OnLoadDataTableSuccess(EventArg arg)
         {
             DataTableSuccessEvt e = (DataTableSuccessEvt)arg;
-            //  LoadedFlag[Utility.Text.Format("DataTable.{0}", loadDataTableInfo.DataTableName)] = true;
-            Log.Error(e.DataAssetName + "牛逼！！！");
+            LoadedFlag[Utility.Text.Format("DataTable.{0}", e.DataAssetName)] = true;
+            Log.Error(e.DataAssetName + " _ 牛逼！！！");
         }
         private void OnLoadDataTableFailure(EventArg arg)
         {
