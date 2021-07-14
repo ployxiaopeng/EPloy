@@ -21,6 +21,7 @@ namespace EPloy
             GameEntry.Res = GameEntry.Game.AddComponent<ResComponent>();
             GameEntry.Scene = GameEntry.Game.AddComponent<SceneComponent>();
             GameEntry.UI = GameEntry.Game.AddComponent<UIComponent>();
+            GameEntry.DataTable = GameEntry.Game.AddComponent<DataTableComponent>();
             GameEntry.Obj = GameEntry.Game.AddComponent<ObjComponent>();
             GameEntry.Procedure = GameEntry.Game.AddComponent<ProcedureComponent>();
         }

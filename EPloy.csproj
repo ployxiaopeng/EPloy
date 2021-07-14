@@ -72,11 +72,14 @@
      <Compile Include="Assets\EPloy\Hotfix\Component\DataStore\DataStoreComponet.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\DataTable.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\DataTableBase.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\DataTableComponet.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\DataTableComponent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\DataTableHelper.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\IDataRow.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\IDataTable.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\IDataTableHelper.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\Table\BinaryReaderExtension.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\Table\DRMap.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\Table\DataTableExtension.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\EventArg.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\EventComponent.Event.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\EventComponent.cs" />

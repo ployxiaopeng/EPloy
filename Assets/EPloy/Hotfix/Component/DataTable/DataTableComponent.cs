@@ -9,23 +9,15 @@ namespace EPloy
     /// <summary>
     /// 数据表管理器。 TODO 分表处理
     /// </summary>
-    public partial class DataTableComponet : Component
+    public partial class DataTableComponent : Component
     {
-        private readonly Dictionary<TypeNamePair, DataTableBase> DataTables;
+        private Dictionary<TypeNamePair, DataTableBase> DataTables;
         private ResComponent Res
         {
             get
             {
                 return GameEntry.Res;
             }
-        }
-
-        /// <summary>
-        /// 初始化数据表管理器的新实例。
-        /// </summary>
-        public DataTableComponet()
-        {
-            DataTables = new Dictionary<TypeNamePair, DataTableBase>();
         }
 
         /// <summary>
@@ -37,6 +29,14 @@ namespace EPloy
             {
                 return DataTables.Count;
             }
+        }
+
+        /// <summary>
+        /// 初始化数据表管理器的新实例。
+        /// </summary>
+        public override void Awake()
+        {
+            DataTables = new Dictionary<TypeNamePair, DataTableBase>();
         }
 
         public override void Update()
@@ -165,12 +165,11 @@ namespace EPloy
         /// 加载表格数据
         /// </summary>
         /// <param name="dataTable"></param>
-        public void LoadDataTable(Type dataRowType, string assetName)
+        public void LoadDataTable(DataTableBase dataTable, string assetName)
         {
-            TypeNamePair typeNamePair = new TypeNamePair(dataRowType);
-            if (InternalHasDataTable(typeNamePair))
+            if (dataTable == null)
             {
-                Log.Fatal(Utility.Text.Format("Data row type '{0}' is invalid.", dataRowType.FullName));
+                Log.Fatal(Utility.Text.Format("dataTable ='{0}' is invalid.", assetName));
                 return;
             }
             HasResult result = Res.HasAsset(assetName);
@@ -179,8 +178,7 @@ namespace EPloy
                 Log.Fatal(Utility.Text.Format("{0}  type must be BinaryOnDisk  but is {1}.", assetName, result.ToString()));
                 return;
             }
-            DataTableBase dataTableBase = GetDataTable(dataRowType);
-            dataTableBase.ReadData(assetName);
+            dataTable.ReadData(assetName);
         }
 
         /// <summary>
@@ -219,7 +217,6 @@ namespace EPloy
 
             return false;
         }
-
 
     }
 }

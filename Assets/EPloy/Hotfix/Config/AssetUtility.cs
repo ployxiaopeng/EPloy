@@ -8,9 +8,9 @@ namespace EPloy
             return Utility.Text.Format("Assets/Res/Configs/{0}.{1}", assetName, fromBytes ? "bytes" : "txt");
         }
 
-        public static string GetDataTableAsset(string assetName, bool fromBytes)
+        public static string GetDataTableAsset(string assetName)
         {
-            return Utility.Text.Format("Assets/Res/DataTables/{0}.{1}", assetName, fromBytes ? "bytes" : "txt");
+            return Utility.Text.Format("Assets/Res/DataTables/Binary/{0}.bytes", assetName);
         }
 
         public static string GetDictionaryAsset(string assetName, bool fromBytes)

@@ -3,31 +3,29 @@
 // 生成时间：__DATA_TABLE_CREATE_TIME__
 //------------------------------------------------------------
 
-using GameFramework;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
-using ETModel;
 
 namespace __DATA_TABLE_NAME_SPACE__
 {
     /// <summary>
     /// __DATA_TABLE_COMMENT__
     /// </summary>
-    public class __DATA_TABLE_CLASS_NAME__ : DataRowBase
+    public class __DATA_TABLE_CLASS_NAME__ : IDataRow
     {
-        private int m_Id = 0;
+        private int _Id = 0;
 
         /// <summary>
         /// __DATA_TABLE_ID_COMMENT__
         /// </summary>
-        public override int Id
+        public  int Id
         {
             get
             {
-                return m_Id;
+                return _Id;
             }
         }
 

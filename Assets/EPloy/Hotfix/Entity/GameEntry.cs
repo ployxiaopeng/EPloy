@@ -16,6 +16,7 @@ namespace EPloy
         public static ResComponent Res { get; set; }
         public static SceneComponent Scene { get; set; }
 
+        public static DataTableComponent DataTable { get; set; }
         public static UIComponent UI { get; set; }
         public static ObjComponent Obj { get; set; }
         public static ProcedureComponent Procedure { get; set; }

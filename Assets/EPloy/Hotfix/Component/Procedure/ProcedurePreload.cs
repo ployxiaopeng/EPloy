@@ -12,12 +12,11 @@ namespace EPloy
         {
             // GameEntry.Config.ConfigManager.LoadConfigSuccess += OnLoadConfigSuccess;
             // GameEntry.Config.ConfigManager.LoadConfigFailure += OnLoadConfigFailure;
-            // GameEntry.DataTable.DataTableManager.LoadDataTableSuccess += OnLoadDataTableSuccess;
-            // GameEntry.DataTable.DataTableManager.LoadDataTableFailure += OnLoadDataTableFailure;
+            GameEntry.Event.Subscribe(FrameEvent.DataTableSuccessEvt, OnLoadDataTableSuccess);
+            GameEntry.Event.Subscribe(FrameEvent.DataTableFailureEvt, OnLoadDataTableFailure);
             // LoadedFlag.Clear();
-            // LoadedFlag.Add("Data", false);
-            // PreloadResources();
-            GameEntry.UI.OpenUIForm(UIName.StartForm, UIGroupName.Default);
+            LoadedFlag.Add("Data", false);
+            PreloadResources();
         }
         public override void OnUpdate()
         {
@@ -26,13 +25,13 @@ namespace EPloy
             {
                 if (!iter.Current) return;
             }
-            if (!LoadedFlag.ContainsKey("Assets"))
-            {
-                LoadedFlag.Clear();
-                LoadedFlag.Add("Assets", false);
-                PreloadUIWnd();
-                return;
-            }
+            // if (!LoadedFlag.ContainsKey("Assets"))
+            // {
+            //     LoadedFlag.Clear();
+            //     LoadedFlag.Add("Assets", false);
+            //     PreloadUIWnd();
+            //     return;
+            // }
             ChangeState<ProcedureLogin>();
         }
         public override void OnLeave(bool isShutdown)
@@ -48,10 +47,13 @@ namespace EPloy
         {
             //LoadConfig(ConfigRes.GlobalConfig);
 
-            //  foreach (var tableName in Config.DataTableNames)
-            //     LoadDataTable(tableName);
-            //预加载图集
-            // await GameEntry.Timer.WaitAsync(300);
+            foreach (var tableName in Config.DataTableNames)
+            {
+                LoadDataTable(tableName);
+            }
+
+            // 预加载图集
+            await Game.Timer.WaitAsync(1000);
             LoadedFlag["Data"] = true;
         }
 
@@ -77,25 +79,24 @@ namespace EPloy
         // }
         // #endregion
 
-        // #region 加载 DataTabl
-        // private void LoadDataTable(string dataTableName)
-        // {
-        //     LoadedFlag.Add(Utility.Text.Format("DataTable.{0}", dataTableName), false);
-        //     GameEntry.DataTable.LoadDataTable(dataTableName, LoadType.Bytes, this);
-        // }
-        // private void OnLoadDataTableSuccess(object sender, LoadDataTableSuccessEventArgs e)
-        // {
-        //     LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
-        //     if (loadDataTableInfo.UserData != this) return;
-        //     LoadedFlag[Utility.Text.Format("DataTable.{0}", loadDataTableInfo.DataTableName)] = true;
-        // }
-        // private void OnLoadDataTableFailure(object sender, LoadDataTableFailureEventArgs e)
-        // {
-        //     LoadDataTableInfo loadDataTableInfo = (LoadDataTableInfo)e.UserData;
-        //     if (loadDataTableInfo.UserData != this) return;
-        //     Log.Error("不能加载 '{0}' 错误信息 '{2}'.", e.DataTableAssetName, e.ErrorMessage);
-        // }
-        // #endregion
+        #region 加载 DataTabl
+        private void LoadDataTable(string dataTableName)
+        {
+            LoadedFlag.Add(Utility.Text.Format("DataTable.{0}", dataTableName), false);
+            GameEntry.DataTable.LoadDataTable(dataTableName, this);
+        }
+        private void OnLoadDataTableSuccess(EventArg arg)
+        {
+            DataTableSuccessEvt e = (DataTableSuccessEvt)arg;
+            //  LoadedFlag[Utility.Text.Format("DataTable.{0}", loadDataTableInfo.DataTableName)] = true;
+            Log.Error(e.DataAssetName + "牛逼！！！");
+        }
+        private void OnLoadDataTableFailure(EventArg arg)
+        {
+            DataTableFailureEvt e = (DataTableFailureEvt)arg;
+            Log.Error(Utility.Text.Format("不能加载 '{0}' 错误信息 '{2}'.", e.DataAssetName, e.ErrorMessage));
+        }
+        #endregion
 
         #region 预加载UI
         private LoadAssetCallbacks loadUIWndCallbacks = null;
@@ -116,7 +117,7 @@ namespace EPloy
         }
         private void LoadUISuccessCallback(string assetName, object asset, float duration, object userData)
         {
-            //Log.Info(Utility.Text.Format("预加载加{0} 成功", assetName));
+            Log.Info(Utility.Text.Format("预加载加{0} 成功", assetName));
             string assetKey = Utility.Text.Format("UI.{0}", (string)userData);
             if (LoadedFlag.ContainsKey(assetKey))
                 LoadedFlag[assetKey] = true;

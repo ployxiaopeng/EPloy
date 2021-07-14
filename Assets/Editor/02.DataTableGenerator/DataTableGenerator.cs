@@ -120,7 +120,7 @@ namespace EPloy.Editor.DataTableTools
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder
-                .AppendLine("        public override bool ParseDataRow(GameFrameworkSegment<string> dataRowSegment)")
+                .AppendLine("        public  bool ParseDataRow(string dataRowSegment)")
                 .AppendLine("        {")
                 .AppendLine("            //先这样 后面看看处理 GCAlloc 问题！")
                 .AppendLine("            string[] columnTexts = dataRowSegment.Source.Substring(dataRowSegment.Offset, dataRowSegment.Length).Split(DataTableExtension.DataSplitSeparators);")
@@ -143,7 +143,7 @@ namespace EPloy.Editor.DataTableTools
                 if (dataTableProcessor.IsIdColumn(i))
                 {
                     // 编号列
-                    stringBuilder.AppendLine("            m_Id = int.Parse(columnTexts[index++]);");
+                    stringBuilder.AppendLine("             _Id = int.Parse(columnTexts[index++]);");
                     continue;
                 }
 
@@ -190,10 +190,10 @@ namespace EPloy.Editor.DataTableTools
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder
-                .AppendLine("        public override bool ParseDataRow(GameFrameworkSegment<byte[]> dataRowSegment)")
+                .AppendLine("        public  bool ParseDataRow(byte[] dataRowBytes, int startIndex, int length)")
                 .AppendLine("        {")
                 .AppendLine("            //先这样 后面看看处理 GCAlloc 问题！")
-                .AppendLine("            using (MemoryStream memoryStream = new MemoryStream(dataRowSegment.Source, dataRowSegment.Offset, dataRowSegment.Length, false))")
+                .AppendLine("            using (MemoryStream memoryStream = new MemoryStream(dataRowBytes, startIndex, length, false))")
                 .AppendLine("            {")
                 .AppendLine("                using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))")
                 .AppendLine("                {");
@@ -209,7 +209,7 @@ namespace EPloy.Editor.DataTableTools
                 if (dataTableProcessor.IsIdColumn(i))
                 {
                     // 编号列
-                    stringBuilder.AppendLine("                    m_Id = binaryReader.ReadInt32();");
+                    stringBuilder.AppendLine("                    _Id = binaryReader.ReadInt32();");
                     continue;
                 }
                 //扩展的List 类型
@@ -239,9 +239,9 @@ namespace EPloy.Editor.DataTableTools
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder
-                .AppendLine("        public override bool ParseDataRow(GameFrameworkSegment<Stream> dataRowSegment)")
+                .AppendLine("        public  bool ParseDataRow(Stream dataRowSegment)")
                 .AppendLine("        {")
-                .AppendLine("            Log.Warning(\"Not implemented ParseDataRow(GameFrameworkSegment<Stream>)\");")
+                .AppendLine("            Log.Warning(\"Not implemented ParseDataRow(Stream)\");")
                 .AppendLine("            return false;")
                 .Append("        }");
 

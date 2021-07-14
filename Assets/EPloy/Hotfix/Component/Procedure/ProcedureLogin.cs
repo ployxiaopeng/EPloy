@@ -15,6 +15,8 @@ namespace EPloy
 
             // GameEntry.Extension.GetComponent<AtlasComponent>().LoadAtlas("Map10101");
             // GameEntry.Extension.GetComponent<AtlasComponent>().LoadAtlas("Map10100");
+
+            GameEntry.UI.OpenUIForm(UIName.StartForm, UIGroupName.Default);
         }
 
         /// <summary>
