@@ -24,23 +24,23 @@ namespace ILRuntime.Runtime.Generated
             Type[] args;
             Type type = typeof(System.DateTime);
             args = new Type[]{};
-            method = type.GetMethod("get_Now", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_Now_0);
-            args = new Type[]{typeof(System.Double)};
-            method = type.GetMethod("AddSeconds", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, AddSeconds_1);
-            args = new Type[]{typeof(System.DateTime), typeof(System.DateTime)};
-            method = type.GetMethod("op_GreaterThan", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, op_GreaterThan_2);
-            args = new Type[]{typeof(System.DateTime), typeof(System.DateTime)};
-            method = type.GetMethod("op_LessThanOrEqual", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, op_LessThanOrEqual_3);
-            args = new Type[]{};
             method = type.GetMethod("get_UtcNow", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_UtcNow_4);
+            app.RegisterCLRMethodRedirection(method, get_UtcNow_0);
             args = new Type[]{typeof(System.DateTime), typeof(System.DateTime)};
             method = type.GetMethod("op_Subtraction", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, op_Subtraction_5);
+            app.RegisterCLRMethodRedirection(method, op_Subtraction_1);
+            args = new Type[]{};
+            method = type.GetMethod("get_Now", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_Now_2);
+            args = new Type[]{typeof(System.Double)};
+            method = type.GetMethod("AddSeconds", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, AddSeconds_3);
+            args = new Type[]{typeof(System.DateTime), typeof(System.DateTime)};
+            method = type.GetMethod("op_GreaterThan", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, op_GreaterThan_4);
+            args = new Type[]{typeof(System.DateTime), typeof(System.DateTime)};
+            method = type.GetMethod("op_LessThanOrEqual", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, op_LessThanOrEqual_5);
 
             field = type.GetField("MinValue", flag);
             app.RegisterCLRFieldGetter(field, get_MinValue_0);
@@ -97,7 +97,38 @@ namespace ILRuntime.Runtime.Generated
             }
         }
 
-        static StackObject* get_Now_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_UtcNow_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
+
+
+            var result_of_this_method = System.DateTime.UtcNow;
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* op_Subtraction_1(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.DateTime @d2 = (System.DateTime)typeof(System.DateTime).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            System.DateTime @d1 = (System.DateTime)typeof(System.DateTime).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = d1 - d2;
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* get_Now_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
@@ -108,7 +139,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* AddSeconds_1(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* AddSeconds_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -130,7 +161,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* op_GreaterThan_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* op_GreaterThan_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -152,7 +183,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* op_LessThanOrEqual_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* op_LessThanOrEqual_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -172,37 +203,6 @@ namespace ILRuntime.Runtime.Generated
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method ? 1 : 0;
             return __ret + 1;
-        }
-
-        static StackObject* get_UtcNow_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 0);
-
-
-            var result_of_this_method = System.DateTime.UtcNow;
-
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
-        }
-
-        static StackObject* op_Subtraction_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.DateTime @d2 = (System.DateTime)typeof(System.DateTime).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.DateTime @d1 = (System.DateTime)typeof(System.DateTime).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            var result_of_this_method = d1 - d2;
-
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
 

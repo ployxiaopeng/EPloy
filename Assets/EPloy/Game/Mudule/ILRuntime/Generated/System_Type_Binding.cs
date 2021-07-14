@@ -43,12 +43,15 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.Type), typeof(System.Type)};
             method = type.GetMethod("op_Inequality", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, op_Inequality_6);
+            args = new Type[]{};
+            method = type.GetMethod("GetMembers", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetMembers_7);
             args = new Type[]{typeof(System.Type[])};
             method = type.GetMethod("MakeGenericType", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, MakeGenericType_7);
+            app.RegisterCLRMethodRedirection(method, MakeGenericType_8);
             args = new Type[]{typeof(System.Object)};
             method = type.GetMethod("IsInstanceOfType", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, IsInstanceOfType_8);
+            app.RegisterCLRMethodRedirection(method, IsInstanceOfType_9);
 
             app.RegisterCLRCreateArrayInstance(type, s => new System.Type[s]);
 
@@ -186,7 +189,22 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* MakeGenericType_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetMembers_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Type instance_of_this_method = (System.Type)typeof(System.Type).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.GetMembers();
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* MakeGenericType_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -205,7 +223,7 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* IsInstanceOfType_8(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* IsInstanceOfType_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

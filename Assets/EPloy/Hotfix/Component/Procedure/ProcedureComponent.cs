@@ -53,7 +53,7 @@ namespace EPloy
             ProcedureBase[] procedures = new ProcedureBase[4];
             procedures[0] = ReferencePool.Acquire<ProcedurePreload>();
             procedures[1] = ReferencePool.Acquire<ProcedureLogin>();
-            procedures[2] = ReferencePool.Acquire<ProcedureChangeScene>();
+            procedures[2] = ReferencePool.Acquire<ProcedureSwitchScene>();
             procedures[3] = ReferencePool.Acquire<ProcedureMap>();
             ProcedureFsm = GameEntry.Fsm.CreateFsm(this, procedures);
         }

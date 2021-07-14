@@ -14,14 +14,14 @@ using ILRuntime.CLR.Utils;
 
 namespace ILRuntime.Runtime.Generated
 {
-    unsafe class System_Collections_Generic_Dictionary_2_String_Type_Array_Binding_ValueCollection_Binding
+    unsafe class System_Collections_Generic_Dictionary_2_String_Boolean_Binding_ValueCollection_Binding
     {
         public static void Register(ILRuntime.Runtime.Enviorment.AppDomain app)
         {
             BindingFlags flag = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
             MethodBase method;
             Type[] args;
-            Type type = typeof(System.Collections.Generic.Dictionary<System.String, System.Type[]>.ValueCollection);
+            Type type = typeof(System.Collections.Generic.Dictionary<System.String, System.Boolean>.ValueCollection);
             args = new Type[]{};
             method = type.GetMethod("GetEnumerator", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, GetEnumerator_0);
@@ -37,7 +37,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.Dictionary<System.String, System.Type[]>.ValueCollection instance_of_this_method = (System.Collections.Generic.Dictionary<System.String, System.Type[]>.ValueCollection)typeof(System.Collections.Generic.Dictionary<System.String, System.Type[]>.ValueCollection).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.Dictionary<System.String, System.Boolean>.ValueCollection instance_of_this_method = (System.Collections.Generic.Dictionary<System.String, System.Boolean>.ValueCollection)typeof(System.Collections.Generic.Dictionary<System.String, System.Boolean>.ValueCollection).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.GetEnumerator();

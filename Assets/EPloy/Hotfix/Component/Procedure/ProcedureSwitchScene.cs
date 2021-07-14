@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace EPloy
 {
-    public class ProcedureChangeScene : ProcedureBase
+    public class ProcedureSwitchScene : ProcedureBase
     {
         private bool isComplete = false;
         private string NextScene = null;

@@ -97,11 +97,11 @@
      <Compile Include="Assets\EPloy\Hotfix\Component\ObjectPool\ObjectPoolBase.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\ObjectPool\ObjectPoolComponent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedureBase.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedureChangeScene.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedureComponent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedureLogin.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedureMap.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedurePreload.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedureSwitchScene.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResComponent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResHelper.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\AssetObject.cs" />

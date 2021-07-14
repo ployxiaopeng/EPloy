@@ -14,7 +14,7 @@ namespace EPloy
         private List<FsmBase> TempFsms;
 
         /// <summary>
-        /// 初始化有限状态机管理器的新实例。
+        /// 初始化有限状态机管理器
         /// </summary>
         public override void Awake()
         {
