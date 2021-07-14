@@ -70,7 +70,7 @@ namespace EPloy
         {
             foreach (KeyValuePair<string, FsmBase> fsm in Fsms)
             {
-                fsm.Value.Shutdown();
+                ReferencePool.Release(fsm.Value);
             }
 
             Fsms.Clear();
@@ -205,7 +205,8 @@ namespace EPloy
                 return null;
             }
 
-            LimitFsm fsm = new LimitFsm(name, owner, states);
+            LimitFsm fsm = ReferencePool.Acquire<LimitFsm>();
+            fsm.InitLimitFsm(name, owner, states);
             FsmList.Add(fsm);
             Fsms.Add(GetFullName(owner.GetType(), name), fsm);
             return fsm;
@@ -295,11 +296,10 @@ namespace EPloy
             FsmBase fsm = null;
             if (Fsms.TryGetValue(fullName, out fsm))
             {
-                fsm.Shutdown();
+                ReferencePool.Release(fsm);
                 FsmList.Remove(fsm);
                 return Fsms.Remove(fullName);
             }
-
             return false;
         }
 

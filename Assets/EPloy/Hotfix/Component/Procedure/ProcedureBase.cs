@@ -7,13 +7,12 @@ namespace EPloy
     /// <summary>
     /// 流程基类。
     /// </summary>
-    public abstract class ProcedureBase : FsmState, IReference
+    public abstract class ProcedureBase : FsmState
     {
         /// <summary>
         /// 状态初始化时调用。
         /// </summary>
-        /// <param name="procedureOwner">流程持有者。</param>
-        protected internal override void OnInit(IFsm procedureOwner)
+        public override void OnInit(IFsm procedureOwner)
         {
             base.OnInit(procedureOwner);
         }
@@ -21,45 +20,34 @@ namespace EPloy
         /// <summary>
         /// 进入状态时调用。
         /// </summary>
-        /// <param name="procedureOwner">流程持有者。</param>
-        protected internal override void OnEnter(IFsm procedureOwner)
+        public override void OnEnter()
         {
-            base.OnEnter(procedureOwner);
+            base.OnEnter();
         }
 
         /// <summary>
         /// 状态轮询时调用。
         /// </summary>
-        /// <param name="procedureOwner">流程持有者。</param>
-        /// <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
-        /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
-        protected internal override void OnUpdate(IFsm procedureOwner)
+        public override void OnUpdate()
         {
-            base.OnUpdate(procedureOwner);
+            base.OnUpdate();
         }
 
         /// <summary>
         /// 离开状态时调用。
         /// </summary>
-        /// <param name="procedureOwner">流程持有者。</param>
         /// <param name="isShutdown">是否是关闭状态机时触发。</param>
-        protected internal override void OnLeave(IFsm procedureOwner, bool isShutdown)
+        public override void OnLeave(bool isShutdown)
         {
-            base.OnLeave(procedureOwner, isShutdown);
+            base.OnLeave(isShutdown);
         }
 
         /// <summary>
         /// 状态销毁时调用。
         /// </summary>
-        /// <param name="procedureOwner">流程持有者。</param>
-        protected internal override void OnDestroy(IFsm procedureOwner)
+        public override void Clear()
         {
-            base.OnDestroy(procedureOwner);
-        }
-
-        public void Clear()
-        {
-            throw new System.NotImplementedException();
+            base.Clear();
         }
     }
 }

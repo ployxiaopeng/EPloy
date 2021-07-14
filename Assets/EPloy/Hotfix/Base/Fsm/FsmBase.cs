@@ -5,37 +5,17 @@ namespace EPloy.Fsm
     /// <summary>
     /// 有限状态机基类。
     /// </summary>
-    public abstract class FsmBase
+    public abstract class FsmBase : IReference
     {
-        private readonly string m_Name;
+        public string Name { get; private set; }
 
         /// <summary>
-        /// 初始化有限状态机基类的新实例。
-        /// </summary>
-        public FsmBase()
-            : this(null)
-        {
-
-        }
-
-        /// <summary>
-        /// 初始化有限状态机基类的新实例。
+        /// 设置状态机名字
         /// </summary>
         /// <param name="name">有限状态机名称。</param>
-        public FsmBase(string name)
+        protected void SetName(string name)
         {
-            m_Name = name ?? string.Empty;
-        }
-
-        /// <summary>
-        /// 获取有限状态机名称。
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return m_Name;
-            }
+            Name = name ?? string.Empty;
         }
 
         /// <summary>
@@ -89,13 +69,11 @@ namespace EPloy.Fsm
         /// <summary>
         /// 有限状态机轮询。
         /// </summary>
-        /// <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
-        /// <param name="realElapseSeconds">当前已流逝时间，以秒为单位。</param>
-        internal abstract void Update();
+        public abstract void Update();
 
         /// <summary>
         /// 关闭并清理有限状态机。
         /// </summary>
-        internal abstract void Shutdown();
+        public abstract void Clear();
     }
 }

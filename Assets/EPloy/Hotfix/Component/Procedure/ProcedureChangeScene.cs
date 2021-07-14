@@ -12,9 +12,9 @@ namespace EPloy
         //检擦资源进度情况
         private Dictionary<string, bool> LoadedFlag = new Dictionary<string, bool>();
 
-        protected internal override void OnEnter(IFsm procedureOwner)
+        public override void OnEnter()
         {
-            base.OnEnter(procedureOwner);
+            base.OnEnter();
             // GameEntry.Scene.SceneManager.LoadSceneSuccess += OnLoadSceneSuccess;
             // GameEntry.Scene.SceneManager.LoadSceneFailure += OnLoadSceneFailure;
             // GameEntry.Scene.SceneManager.LoadSceneUpdate += OnLoadSceneUpdate;
@@ -39,27 +39,26 @@ namespace EPloy
             // }
             // GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(NextScene), Constant.AssetPriority.SceneAsset, this);
         }
-        protected internal override void OnUpdate(IFsm procedureOwner)
+        public override void OnUpdate()
         {
-            base.OnUpdate(procedureOwner );
             if (!isComplete) return;
             switch (NextScene)
             {
-                case "GameLogin":
-                    ChangeState<ProcedureLogin>(procedureOwner);
+                case "Start":
+                    ChangeState<ProcedureLogin>();
                     break;
-                case "GameMap":
-                    ChangeState<ProcedureMap>(procedureOwner);
+                case "Game":
+                    ChangeState<ProcedureMap>();
                     break;
             }
         }
-        protected internal override void OnLeave(IFsm procedureOwner, bool isShutdown)
+        public override void OnLeave(bool isShutdown)
         {
             // GameEntry.Scene.SceneManager.LoadSceneSuccess -= OnLoadSceneSuccess;
             // GameEntry.Scene.SceneManager.LoadSceneFailure -= OnLoadSceneFailure;
             // GameEntry.Scene.SceneManager.LoadSceneUpdate -= OnLoadSceneUpdate;
             // GameEntry.Scene.SceneManager.LoadSceneDependencyAsset += OnLoadSceneDependencyAsset;
-            base.OnLeave(procedureOwner, isShutdown);
+            base.OnLeave(isShutdown);
         }
 
         // private void OnLoadSceneSuccess(object sender, LoadSceneSuccessEventArgs e)

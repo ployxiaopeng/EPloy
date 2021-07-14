@@ -8,9 +8,9 @@ namespace EPloy
 {
     public class ProcedureLogin : ProcedureBase
     {
-        protected internal override void OnEnter(IFsm procedureOwner)
+        public override void OnEnter()
         {
-            base.OnEnter(procedureOwner);
+            base.OnEnter();
             // GameEntry.UI.OpenUIWnd(UIWnd.LoginWnd);
 
             // GameEntry.Extension.GetComponent<AtlasComponent>().LoadAtlas("Map10101");

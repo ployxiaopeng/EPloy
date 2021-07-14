@@ -19,9 +19,9 @@ namespace EPloy
         //         return _dataMap;
         //     }
         // }
-        protected internal override void OnEnter(IFsm procedureOwner)
+        public override void OnEnter()
         {
-            base.OnEnter(procedureOwner);
+            base.OnEnter();
             loadSecnce = null;
             // MapComponet = GameEntry.Extension.GetComponent<MapComponet>();
             // MapComponet.MapData = DateMap.GetDataRow(10101);

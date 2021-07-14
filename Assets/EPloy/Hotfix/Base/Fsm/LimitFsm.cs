@@ -16,37 +16,31 @@ namespace EPloy.Fsm
     /// </summary>
     public sealed class LimitFsm : FsmBase, IFsm
     {
-        private readonly object m_Owner;
-        private readonly Dictionary<string, FsmState> m_States;
-        private readonly Dictionary<string, Variable> m_Datas;
-        private FsmState m_CurrentState;
-        private float m_CurrentStateTime;
-        private bool m_IsDestroyed;
+        private object _Owner;
+        private Dictionary<string, FsmState> States;
+        private Dictionary<string, Variable> Datas;
+        private FsmState _CurrentState;
+        private float _CurrentStateTime;
+        private bool _IsDestroyed;
 
         /// <summary>
-        /// 初始化有限状态机的新实例。
+        /// 初始化有限状态机
         /// </summary>
         /// <param name="name">有限状态机名称。</param>
         /// <param name="owner">有限状态机持有者。</param>
         /// <param name="states">有限状态机状态集合。</param>
-        public LimitFsm(string name, object owner, params FsmState[] states)
-            : base(name)
+        public void InitLimitFsm(string name, object owner, params FsmState[] states)
         {
-            if (owner == null)
+            if (owner == null || states == null || states.Length < 1)
             {
-                Log.Error("FSM owner is invalid.");
+                Log.Error("FSM owner or states is invalid.");
                 return;
             }
 
-            if (states == null || states.Length < 1)
-            {
-                Log.Error("FSM states is invalid.");
-                return;
-            }
-
-            m_Owner = owner;
-            m_States = new Dictionary<string, FsmState>();
-            m_Datas = new Dictionary<string, Variable>();
+            SetName(name);
+            _Owner = owner;
+            States = new Dictionary<string, FsmState>();
+            Datas = new Dictionary<string, Variable>();
 
             foreach (FsmState state in states)
             {
@@ -55,21 +49,19 @@ namespace EPloy.Fsm
                     Log.Error("FSM states is invalid.");
                     return;
                 }
-
                 string stateName = state.GetType().FullName;
-                if (m_States.ContainsKey(stateName))
+                if (States.ContainsKey(stateName))
                 {
                     Log.Error(Utility.Text.Format("FSM '{0}' : '{1}' state '{2}' is already exist.", OwnerType, name, stateName));
                     return;
                 }
-
-                m_States.Add(stateName, state);
+                States.Add(stateName, state);
                 state.OnInit(this);
             }
 
-            m_CurrentStateTime = 0f;
-            m_CurrentState = null;
-            m_IsDestroyed = false;
+            _CurrentStateTime = 0f;
+            _CurrentState = null;
+            _IsDestroyed = false;
         }
 
         /// <summary>
@@ -79,7 +71,7 @@ namespace EPloy.Fsm
         {
             get
             {
-                return m_Owner;
+                return _Owner;
             }
         }
 
@@ -90,7 +82,7 @@ namespace EPloy.Fsm
         {
             get
             {
-                return m_Owner.GetType();
+                return _Owner.GetType();
             }
         }
 
@@ -101,7 +93,7 @@ namespace EPloy.Fsm
         {
             get
             {
-                return m_States.Count;
+                return States.Count;
             }
         }
 
@@ -112,7 +104,7 @@ namespace EPloy.Fsm
         {
             get
             {
-                return m_CurrentState != null;
+                return _CurrentState != null;
             }
         }
 
@@ -123,7 +115,7 @@ namespace EPloy.Fsm
         {
             get
             {
-                return m_IsDestroyed;
+                return _IsDestroyed;
             }
         }
 
@@ -134,7 +126,7 @@ namespace EPloy.Fsm
         {
             get
             {
-                return m_CurrentState;
+                return _CurrentState;
             }
         }
 
@@ -145,7 +137,7 @@ namespace EPloy.Fsm
         {
             get
             {
-                return m_CurrentState != null ? m_CurrentState.GetType().FullName : null;
+                return _CurrentState != null ? _CurrentState.GetType().FullName : null;
             }
         }
 
@@ -156,7 +148,7 @@ namespace EPloy.Fsm
         {
             get
             {
-                return m_CurrentStateTime;
+                return _CurrentStateTime;
             }
         }
 
@@ -179,9 +171,9 @@ namespace EPloy.Fsm
                 return;
             }
 
-            m_CurrentStateTime = 0f;
-            m_CurrentState = state;
-            m_CurrentState.OnEnter(this);
+            _CurrentStateTime = 0f;
+            _CurrentState = state;
+            _CurrentState.OnEnter();
         }
 
         /// <summary>
@@ -215,9 +207,9 @@ namespace EPloy.Fsm
                 return;
             }
 
-            m_CurrentStateTime = 0f;
-            m_CurrentState = state;
-            m_CurrentState.OnEnter(this);
+            _CurrentStateTime = 0f;
+            _CurrentState = state;
+            _CurrentState.OnEnter();
         }
 
         /// <summary>
@@ -227,7 +219,7 @@ namespace EPloy.Fsm
         /// <returns>是否存在有限状态机状态。</returns>
         public bool HasState<TState>() where TState : FsmState
         {
-            return m_States.ContainsKey(typeof(TState).FullName);
+            return States.ContainsKey(typeof(TState).FullName);
         }
 
         /// <summary>
@@ -249,7 +241,7 @@ namespace EPloy.Fsm
                 return false;
             }
 
-            return m_States.ContainsKey(stateType.FullName);
+            return States.ContainsKey(stateType.FullName);
         }
 
         /// <summary>
@@ -260,7 +252,7 @@ namespace EPloy.Fsm
         public TState GetState<TState>() where TState : FsmState
         {
             FsmState state = null;
-            if (m_States.TryGetValue(typeof(TState).FullName, out state))
+            if (States.TryGetValue(typeof(TState).FullName, out state))
             {
                 return (TState)state;
             }
@@ -288,7 +280,7 @@ namespace EPloy.Fsm
             }
 
             FsmState state = null;
-            if (m_States.TryGetValue(stateType.FullName, out state))
+            if (States.TryGetValue(stateType.FullName, out state))
             {
                 return state;
             }
@@ -303,8 +295,8 @@ namespace EPloy.Fsm
         public FsmState[] GetAllStates()
         {
             int index = 0;
-            FsmState[] results = new FsmState[m_States.Count];
-            foreach (KeyValuePair<string, FsmState> state in m_States)
+            FsmState[] results = new FsmState[States.Count];
+            foreach (KeyValuePair<string, FsmState> state in States)
             {
                 results[index++] = state.Value;
             }
@@ -325,7 +317,7 @@ namespace EPloy.Fsm
             }
 
             results.Clear();
-            foreach (KeyValuePair<string, FsmState> state in m_States)
+            foreach (KeyValuePair<string, FsmState> state in States)
             {
                 results.Add(state.Value);
             }
@@ -338,13 +330,13 @@ namespace EPloy.Fsm
         /// <param name="eventId">事件编号。</param>
         public void FireEvent(object sender, int eventId)
         {
-            if (m_CurrentState == null)
+            if (_CurrentState == null)
             {
                 Log.Error("Current state is invalid.");
                 return;
             }
 
-            m_CurrentState.OnEvent(this, sender, eventId, null);
+            _CurrentState.OnEvent(this, sender, eventId, null);
         }
 
         /// <summary>
@@ -355,13 +347,13 @@ namespace EPloy.Fsm
         /// <param name="userData">用户自定义数据。</param>
         public void FireEvent(object sender, int eventId, object userData)
         {
-            if (m_CurrentState == null)
+            if (_CurrentState == null)
             {
                 Log.Error("Current state is invalid.");
                 return;
             }
 
-            m_CurrentState.OnEvent(this, sender, eventId, userData);
+            _CurrentState.OnEvent(this, sender, eventId, userData);
         }
 
         /// <summary>
@@ -377,7 +369,7 @@ namespace EPloy.Fsm
                 return false;
             }
 
-            return m_Datas.ContainsKey(name);
+            return Datas.ContainsKey(name);
         }
 
         /// <summary>
@@ -405,7 +397,7 @@ namespace EPloy.Fsm
             }
 
             Variable data = null;
-            if (m_Datas.TryGetValue(name, out data))
+            if (Datas.TryGetValue(name, out data))
             {
                 return data;
             }
@@ -427,7 +419,7 @@ namespace EPloy.Fsm
                 return;
             }
 
-            m_Datas[name] = data;
+            Datas[name] = data;
         }
 
         /// <summary>
@@ -443,7 +435,7 @@ namespace EPloy.Fsm
                 return;
             }
 
-            m_Datas[name] = data;
+            Datas[name] = data;
         }
 
         /// <summary>
@@ -458,54 +450,27 @@ namespace EPloy.Fsm
                 Log.Error("Data name is invalid.");
                 return false;
             }
-
-            return m_Datas.Remove(name);
+            return Datas.Remove(name);
         }
 
         /// <summary>
         /// 有限状态机轮询。
         /// </summary>
-        /// <param name="elapseSeconds">逻辑流逝时间，以秒为单位。</param>
-        /// <param name="realElapseSeconds">真实流逝时间，以秒为单位。</param>
-        internal override void Update()
+        public override void Update()
         {
-            if (m_CurrentState == null)
+            if (_CurrentState == null)
             {
                 return;
             }
-
-            m_CurrentStateTime += Time.deltaTime;
-            m_CurrentState.OnUpdate(this);
-        }
-
-        /// <summary>
-        /// 关闭并清理有限状态机。
-        /// </summary>
-        internal override void Shutdown()
-        {
-            if (m_CurrentState != null)
-            {
-                m_CurrentState.OnLeave(this, true);
-                m_CurrentState = null;
-                m_CurrentStateTime = 0f;
-            }
-
-            foreach (KeyValuePair<string, FsmState> state in m_States)
-            {
-                state.Value.OnDestroy(this);
-            }
-
-            m_States.Clear();
-            m_Datas.Clear();
-
-            m_IsDestroyed = true;
+            _CurrentStateTime += Time.deltaTime;
+            _CurrentState.OnUpdate();
         }
 
         /// <summary>
         /// 切换当前有限状态机状态。
         /// </summary>
         /// <typeparam name="TState">要切换到的有限状态机状态类型。</typeparam>
-        internal void ChangeState<TState>() where TState : FsmState
+        public void ChangeState<TState>() where TState : FsmState
         {
             ChangeState(typeof(TState));
         }
@@ -514,9 +479,9 @@ namespace EPloy.Fsm
         /// 切换当前有限状态机状态。
         /// </summary>
         /// <param name="stateType">要切换到的有限状态机状态类型。</param>
-        internal void ChangeState(Type stateType)
+        public void ChangeState(Type stateType)
         {
-            if (m_CurrentState == null)
+            if (_CurrentState == null)
             {
                 Log.Error("Current state is invalid.");
                 return;
@@ -529,11 +494,33 @@ namespace EPloy.Fsm
                 return;
             }
 
-            m_CurrentState.OnLeave(this, false);
-            m_CurrentStateTime = 0f;
-            m_CurrentState = state;
-            m_CurrentState.OnEnter(this);
+            _CurrentState.OnLeave(false);
+            _CurrentStateTime = 0f;
+            _CurrentState = state;
+            _CurrentState.OnEnter();
         }
 
+        /// <summary>
+        /// 关闭并清理有限状态机。
+        /// </summary>
+        public override void Clear()
+        {
+            if (_CurrentState != null)
+            {
+                _CurrentState.OnLeave(true);
+                _CurrentState = null;
+                _CurrentStateTime = 0f;
+            }
+
+            foreach (KeyValuePair<string, FsmState> state in States)
+            {
+                ReferencePool.Release(state.Value);
+            }
+
+            States.Clear();
+            Datas.Clear();
+
+            _IsDestroyed = true;
+        }
     }
 }

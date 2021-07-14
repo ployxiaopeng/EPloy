@@ -8,9 +8,8 @@ namespace EPloy
     public class ProcedurePreload : ProcedureBase
     {
         private Dictionary<string, bool> LoadedFlag = new Dictionary<string, bool>();
-        protected internal override void OnEnter(IFsm procedureOwner)
+        public override void OnEnter()
         {
-            base.OnEnter(procedureOwner);
             // GameEntry.Config.ConfigManager.LoadConfigSuccess += OnLoadConfigSuccess;
             // GameEntry.Config.ConfigManager.LoadConfigFailure += OnLoadConfigFailure;
             // GameEntry.DataTable.DataTableManager.LoadDataTableSuccess += OnLoadDataTableSuccess;
@@ -20,9 +19,8 @@ namespace EPloy
             // PreloadResources();
             GameEntry.UI.OpenUIForm(UIName.StartForm, UIGroupName.Default);
         }
-        protected internal override void OnUpdate(IFsm procedureOwner)
+        public override void OnUpdate()
         {
-            base.OnUpdate(procedureOwner);
             IEnumerator<bool> iter = LoadedFlag.Values.GetEnumerator();
             while (iter.MoveNext())
             {
@@ -35,15 +33,15 @@ namespace EPloy
                 PreloadUIWnd();
                 return;
             }
-            ChangeState<ProcedureLogin>(procedureOwner);
+            ChangeState<ProcedureLogin>();
         }
-        protected internal override void OnLeave(IFsm procedureOwner, bool isShutdown)
+        public override void OnLeave(bool isShutdown)
         {
             // GameEntry.Config.ConfigManager.LoadConfigSuccess -= OnLoadConfigSuccess;
             // GameEntry.Config.ConfigManager.LoadConfigFailure -= OnLoadConfigFailure;
             // GameEntry.DataTable.DataTableManager.LoadDataTableSuccess -= OnLoadDataTableSuccess;
             // GameEntry.DataTable.DataTableManager.LoadDataTableFailure -= OnLoadDataTableFailure;
-            base.OnLeave(procedureOwner, isShutdown);
+            base.OnLeave(isShutdown);
         }
 
         private async void PreloadResources()
