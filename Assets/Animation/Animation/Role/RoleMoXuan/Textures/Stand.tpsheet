@@ -1,0 +1,31 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# https://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:36bd04da09fb3aeb134336b8dd6d2121:d4d96cfdac8a2d29e23e1cacee51ac31:e1268b2aa9c26f985bfeecbd8d15b0d2$
+#
+:format=40300
+:texture=Stand.png
+:size=256x512
+:pivotpoints=enabled
+:borders=disabled
+
+Stand0001;0;466;95;46; 0.5;0.5; 0;0;0;0
+Stand0002;95;465;99;47; 0.5;0.5; 0;0;0;0
+Stand0003;0;417;99;48; 0.5;0.5; 0;0;0;0
+Stand0004;99;417;98;48; 0.5;0.5; 0;0;0;0
+Stand0005;0;369;98;48; 0.5;0.5; 0;0;0;0
+Stand0006;98;367;95;50; 0.5;0.5; 0;0;0;0
+Stand0007;0;317;94;50; 0.5;0.5; 0;0;0;0
+Stand0008;94;316;93;51; 0.5;0.5; 0;0;0;0
+Stand0009;0;266;92;50; 0.5;0.5; 0;0;0;0
+Stand0010;92;266;91;50; 0.5;0.5; 0;0;0;0
+Stand0011;0;216;90;50; 0.5;0.5; 0;0;0;0
+Stand0012;90;216;90;50; 0.5;0.5; 0;0;0;0
+Stand0013;0;167;90;49; 0.5;0.5; 0;0;0;0
+Stand0014;90;167;90;49; 0.5;0.5; 0;0;0;0
+Stand0015;0;120;92;47; 0.5;0.5; 0;0;0;0
+Stand0016;92;120;92;47; 0.5;0.5; 0;0;0;0
+Stand0017;0;73;94;47; 0.5;0.5; 0;0;0;0

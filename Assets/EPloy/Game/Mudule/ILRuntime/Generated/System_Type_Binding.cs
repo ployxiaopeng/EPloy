@@ -49,9 +49,12 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.Type[])};
             method = type.GetMethod("MakeGenericType", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, MakeGenericType_8);
+            args = new Type[]{typeof(System.String)};
+            method = type.GetMethod("GetType", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetType_9);
             args = new Type[]{typeof(System.Object)};
             method = type.GetMethod("IsInstanceOfType", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, IsInstanceOfType_9);
+            app.RegisterCLRMethodRedirection(method, IsInstanceOfType_10);
 
             app.RegisterCLRCreateArrayInstance(type, s => new System.Type[s]);
 
@@ -223,7 +226,23 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
-        static StackObject* IsInstanceOfType_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetType_9(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.String @typeName = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = System.Type.GetType(@typeName);
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* IsInstanceOfType_10(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;

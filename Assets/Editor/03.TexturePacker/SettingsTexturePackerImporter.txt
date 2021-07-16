@@ -1,6 +1,10 @@
 version: 2
 importPivots: 1
 tpsheetFileNames:
+- Assets/Animation/Animation/Role/RoleMoXuan/Textures/Cut.tpsheet
+- Assets/Animation/Animation/Role/RoleMoXuan/Textures/Search.tpsheet
+- Assets/Animation/Animation/Role/RoleMoXuan/Textures/Stand.tpsheet
+- Assets/Animation/Animation/Role/RoleMoXuan/Textures/Walk.tpsheet
 - Assets/Animation/Role/RoleMoXuan/Textures/Cut.tpsheet
 - Assets/Animation/Role/RoleMoXuan/Textures/Search.tpsheet
 - Assets/Animation/Role/RoleMoXuan/Textures/Stand.tpsheet
@@ -244,6 +248,10 @@ tpsheetFileNames:
 - Assets/Res/Textures/UIAtlas/Atlas02/Atlas02.tpsheet
 - Assets/Res/Textures/UIAtlas/Atlas03/Atlas03.tpsheet
 textureFileNames:
+- Assets/Animation/Animation/Role/RoleMoXuan/Textures/Cut.png
+- Assets/Animation/Animation/Role/RoleMoXuan/Textures/Search.png
+- Assets/Animation/Animation/Role/RoleMoXuan/Textures/Stand.png
+- Assets/Animation/Animation/Role/RoleMoXuan/Textures/Walk.png
 - Assets/Animation/Role/RoleMoXuan/Textures/Cut.png
 - Assets/Animation/Role/RoleMoXuan/Textures/Search.png
 - Assets/Animation/Role/RoleMoXuan/Textures/Stand.png
@@ -487,6 +495,10 @@ textureFileNames:
 - Assets/Res/Textures/UIAtlas/Atlas02/Atlas02.png
 - Assets/Res/Textures/UIAtlas/Atlas03/Atlas03.png
 normalmapFileNames:
+- 
+- 
+- 
+- 
 - 
 - 
 - 

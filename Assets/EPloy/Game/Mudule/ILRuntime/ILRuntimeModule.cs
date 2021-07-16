@@ -18,7 +18,7 @@ namespace EPloy
     /// </summary>
     public class ILRuntimeModule : EPloyModule
     {
-        private const string HotfixName = "EPloy";
+        private const string HotfixName = "EPloy.Hotfix";
         private const string GameStartStr = "EPloy.GameStart";
         private const string AwakeStr = "Awake";
         private const string StartStr = "Start";

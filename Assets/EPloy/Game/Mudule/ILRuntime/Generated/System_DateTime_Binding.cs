@@ -48,6 +48,9 @@ namespace ILRuntime.Runtime.Generated
 
             app.RegisterCLRCreateDefaultInstance(type, () => new System.DateTime());
 
+            args = new Type[]{typeof(System.Int64)};
+            method = type.GetConstructor(flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, Ctor_0);
 
         }
 
@@ -217,6 +220,27 @@ namespace ILRuntime.Runtime.Generated
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
+
+        static StackObject* Ctor_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Int64 @ticks = *(long*)&ptr_of_this_method->Value;
+
+
+            var result_of_this_method = new System.DateTime(@ticks);
+
+            if(!isNewObj)
+            {
+                __ret--;
+                WriteBackInstance(__domain, __ret, __mStack, ref result_of_this_method);
+                return __ret;
+            }
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
 
 
     }

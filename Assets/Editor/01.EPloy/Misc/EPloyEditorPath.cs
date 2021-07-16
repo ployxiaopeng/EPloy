@@ -25,7 +25,7 @@ namespace EPloy.Editor
         public const string AssetHotfixDLL = "Assets/StreamingAssets/Hotfix.dll.bytes";
         public const string AssetHotfixPdb = "Assets/StreamingAssets/Hotfix.pdb.bytes";
 
-        public static string EditorHotfixDLL = System.Environment.CurrentDirectory + "/Library/ScriptAssemblies/EPloy.dll";
-        public static string EditorHotfixPdb = System.Environment.CurrentDirectory + "/Library/ScriptAssemblies/EPloy.pdb";
+        public static string EditorHotfixDLL = System.Environment.CurrentDirectory + "/Library/ScriptAssemblies/EPloy.Hotfix.dll";
+        public static string EditorHotfixPdb = System.Environment.CurrentDirectory + "/Library/ScriptAssemblies/EPloy.Hotfix.pdb";
     }
 }
