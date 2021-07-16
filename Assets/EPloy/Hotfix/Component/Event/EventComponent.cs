@@ -183,7 +183,7 @@ namespace EPloy
 
             if (noHandlerException)
             {
-                Log.Fatal(Utility.Text.Format("Event '{0}' not allow no handler.", eventArg.GetType()));
+                Log.Warning(Utility.Text.Format("Event '{0}' not allow no handler.", eventArg.GetType()));
             }
         }
     }

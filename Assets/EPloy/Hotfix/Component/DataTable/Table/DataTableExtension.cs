@@ -16,14 +16,14 @@ namespace EPloy
         {
             if (string.IsNullOrEmpty(dataTableName))
             {
-                Log.Warning("Data table name is invalid.");
+                Log.Fatal("Data table name is invalid.");
                 return;
             }
 
             string[] splitedNames = dataTableName.Split('_');
             if (splitedNames.Length > 2)
             {
-                Log.Warning("Data table name is invalid.");
+                Log.Fatal("Data table name is invalid.");
                 return;
             }
 
@@ -31,11 +31,11 @@ namespace EPloy
             Type dataRowType = Type.GetType(dataRowClassName);
             if (dataRowType == null)
             {
-                Log.Warning(Utility.Text.Format("Can not get data row type with class name '{0}'.", dataRowClassName));
+                Log.Fatal(Utility.Text.Format("Can not get data row type with class name '{0}'.", dataRowClassName));
                 return;
             }
 
-            string name = splitedNames.Length > 1 ? splitedNames[1] : null;
+            string name = splitedNames.Length > 1 ? splitedNames[1] : "";
             DataTableBase dataTable = self.CreateDataTable(dataRowType, name);
 #if UNITY_EDITOR
             string assetPath = AssetUtility.GetDataTableAsset(dataTableName);

@@ -141,7 +141,11 @@ namespace EPloy
                 Log.Fatal("Data row type is invalid.");
                 return null;
             }
-
+            if (name == null)
+            {
+                Log.Fatal(Utility.Text.Format("Table name is null , dataRowType:  {0}", dataRowType.ToString()));
+                return null;
+            }
             if (!typeof(IDataRow).IsAssignableFrom(dataRowType))
             {
                 Log.Fatal(Utility.Text.Format("Data row type '{0}' is invalid.", dataRowType.FullName));

@@ -20,7 +20,6 @@ namespace EPloy
         /// <param name="dataRowBytes">要解析的数据表行二进制流。</param>
         /// <param name="startIndex">数据表行二进制流的起始位置。</param>
         /// <param name="length">数据表行二进制流的长度。</param>
-        /// <param name="userData">用户自定义数据。</param>
         /// <returns>是否解析数据表行成功。</returns>
         bool ParseDataRow(byte[] dataRowBytes, int startIndex, int length);
     }

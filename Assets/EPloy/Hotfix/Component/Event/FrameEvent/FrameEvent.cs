@@ -16,5 +16,9 @@ namespace EPloy
         /// 读取表失败事件。
         /// </summary>
         public static int DataTableFailureEvt = 101;
+        /// <summary>
+        /// 读图集成功事件。
+        /// </summary>
+        public static int AtlasSuccessEvt = 102;
     }
 }

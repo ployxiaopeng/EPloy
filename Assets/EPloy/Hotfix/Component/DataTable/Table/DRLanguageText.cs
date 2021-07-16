@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2021-07-15 16:29:36.009
+// 生成时间：2021-07-15 16:29:35.603
 //------------------------------------------------------------
 
 using System;
@@ -12,14 +12,14 @@ using UnityEngine;
 namespace EPloy
 {
     /// <summary>
-    /// 地图。
+    /// 语言表。
     /// </summary>
-    public class DRMap : IDataRow
+    public class DRLanguageText : IDataRow
     {
         private int _Id = 0;
 
         /// <summary>
-        /// 获取地图Id。
+        /// 获取文本Id(int)。
         /// </summary>
         public  int Id
         {
@@ -30,54 +30,27 @@ namespace EPloy
         }
 
         /// <summary>
-        /// 获取地图名字。
+        /// 获取简体中文(string)。
         /// </summary>
-        public int NameId
+        public string ChineseSimplified
         {
             get;
             set;
         }
 
         /// <summary>
-        /// 获取区域Id。
+        /// 获取繁体中文(string)。
         /// </summary>
-        public int MapRegionId
+        public string ChineseTraditional
         {
             get;
             set;
         }
 
         /// <summary>
-        /// 获取地图行列。
+        /// 获取英文(string)。
         /// </summary>
-        public Vector2 RowAndColumn
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 获取角色出生坐标。
-        /// </summary>
-        public Vector2 RoleBornPos
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 获取角色旋转。
-        /// </summary>
-        public Vector3 RolelRotate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 获取回城点。
-        /// </summary>
-        public Vector2 BackHome
+        public string English
         {
             get;
             set;
@@ -91,12 +64,9 @@ namespace EPloy
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     _Id = binaryReader.ReadInt32();
-                    NameId = binaryReader.ReadInt32();
-                    MapRegionId = binaryReader.ReadInt32();
-                    RowAndColumn = binaryReader.ReadVector2();
-                    RoleBornPos = binaryReader.ReadVector2();
-                    RolelRotate = binaryReader.ReadVector3();
-                    BackHome = binaryReader.ReadVector2();
+                    ChineseSimplified = binaryReader.ReadString();
+                    ChineseTraditional = binaryReader.ReadString();
+                    English = binaryReader.ReadString();
                 }
             }
 

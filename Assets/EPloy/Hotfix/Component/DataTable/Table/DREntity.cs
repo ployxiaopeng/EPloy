@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2021-07-15 16:29:36.009
+// 生成时间：2021-07-15 16:29:32.577
 //------------------------------------------------------------
 
 using System;
@@ -12,14 +12,14 @@ using UnityEngine;
 namespace EPloy
 {
     /// <summary>
-    /// 地图。
+    /// 实体表。
     /// </summary>
-    public class DRMap : IDataRow
+    public class DREntity : IDataRow
     {
         private int _Id = 0;
 
         /// <summary>
-        /// 获取地图Id。
+        /// 获取实体编号。
         /// </summary>
         public  int Id
         {
@@ -30,54 +30,36 @@ namespace EPloy
         }
 
         /// <summary>
-        /// 获取地图名字。
+        /// 获取类别。
         /// </summary>
-        public int NameId
+        public string AssetType
         {
             get;
             set;
         }
 
         /// <summary>
-        /// 获取区域Id。
+        /// 获取资源名称。
         /// </summary>
-        public int MapRegionId
+        public string AssetName
         {
             get;
             set;
         }
 
         /// <summary>
-        /// 获取地图行列。
+        /// 获取多少秒自动销毁。
         /// </summary>
-        public Vector2 RowAndColumn
+        public float DestroyTime
         {
             get;
             set;
         }
 
         /// <summary>
-        /// 获取角色出生坐标。
+        /// 获取初始缩放。
         /// </summary>
-        public Vector2 RoleBornPos
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 获取角色旋转。
-        /// </summary>
-        public Vector3 RolelRotate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 获取回城点。
-        /// </summary>
-        public Vector2 BackHome
+        public Vector3 ScaleSize
         {
             get;
             set;
@@ -91,12 +73,10 @@ namespace EPloy
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     _Id = binaryReader.ReadInt32();
-                    NameId = binaryReader.ReadInt32();
-                    MapRegionId = binaryReader.ReadInt32();
-                    RowAndColumn = binaryReader.ReadVector2();
-                    RoleBornPos = binaryReader.ReadVector2();
-                    RolelRotate = binaryReader.ReadVector3();
-                    BackHome = binaryReader.ReadVector2();
+                    AssetType = binaryReader.ReadString();
+                    AssetName = binaryReader.ReadString();
+                    DestroyTime = binaryReader.ReadSingle();
+                    ScaleSize = binaryReader.ReadVector3();
                 }
             }
 
