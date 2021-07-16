@@ -60,7 +60,7 @@ namespace EPloy
             id = _id;
             Name = name;
             parentEntity = _parentEntity;
-            Log.Info(Utility.Text.Format("创建一个实体 id: {0} name: {1}", id, Name));
+           // Log.Info(Utility.Text.Format("创建一个实体 id: {0} name: {1}", id, Name));
         }
 
         /// <summary>

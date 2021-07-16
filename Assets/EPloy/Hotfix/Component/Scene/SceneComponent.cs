@@ -262,6 +262,9 @@ namespace EPloy
         {
             LoadingSceneAssetNames.Remove(sceneAssetName);
             LoadedSceneAssetNames.Add(sceneAssetName);
+            LoadSceneEvt loadSceneEvt = ReferencePool.Acquire<LoadSceneEvt>();
+            loadSceneEvt.SetSuccessData(sceneAssetName);
+            GameEntry.Event.Fire(loadSceneEvt);
         }
 
         private void LoadSceneFailureCallback(string sceneAssetName, LoadResStatus status, string errorMessage)
@@ -269,11 +272,16 @@ namespace EPloy
             LoadingSceneAssetNames.Remove(sceneAssetName);
             string appendErrorMessage = Utility.Text.Format("Load scene failure, scene asset name '{0}', status '{1}', error message '{2}'.", sceneAssetName, status.ToString(), errorMessage);
             Log.Fatal(appendErrorMessage);
+            LoadSceneEvt loadSceneEvt = ReferencePool.Acquire<LoadSceneEvt>();
+            loadSceneEvt.SetFailureData(sceneAssetName,appendErrorMessage);
+            GameEntry.Event.Fire(loadSceneEvt);
         }
 
         private void LoadSceneDependencyAssetCallback(string sceneAssetName, string dependencyAssetName, int loadedCount, int totalCount)
         {
-
+            LoadSceneEvt loadSceneEvt = ReferencePool.Acquire<LoadSceneEvt>();
+            loadSceneEvt.SetDependPercentData(sceneAssetName, loadedCount*100/totalCount);
+            GameEntry.Event.Fire(loadSceneEvt);
         }
 
         private void UnloadSceneSuccessCallback(string sceneAssetName)

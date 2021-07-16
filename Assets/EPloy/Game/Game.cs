@@ -56,7 +56,6 @@ namespace EPloy
 
         private void Awake()
         {
-            DontDestroyOnLoad(this.gameObject);
             Instance = this;
         }
 

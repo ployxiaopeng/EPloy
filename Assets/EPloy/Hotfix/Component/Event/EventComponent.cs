@@ -170,9 +170,16 @@ namespace EPloy
             TypeLinkedList<EventHandler<EventArg>> range = default(TypeLinkedList<EventHandler<EventArg>>);
             if (EventHandlers.TryGetValue(eventArg.id, out range))
             {
-                foreach (var evt in range)
+                try
                 {
-                    evt(eventArg);
+                    foreach (var evt in range)
+                    {
+                        evt(eventArg);
+                    }
+                }
+                catch (System.Exception)
+                {
+                    Log.Error(Utility.Text.Format("暂不支持同一帧 处理又取消订阅事件 id：{0}", eventArg.id));
                 }
             }
             else

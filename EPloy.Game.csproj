@@ -63,6 +63,7 @@
     <Compile Include="Assets\EPloy\Game\Base\MuduleConfig.cs" />
     <Compile Include="Assets\EPloy\Game\Base\TypeLinkedList.cs" />
     <Compile Include="Assets\EPloy\Game\Base\TypeNamePair.cs" />
+    <Compile Include="Assets\EPloy\Game\Base\UIEventListener.cs" />
     <Compile Include="Assets\EPloy\Game\Base\UnOrderMultiMap.cs" />
     <Compile Include="Assets\EPloy\Game\Base\Utility\BinaryExtension.cs" />
     <Compile Include="Assets\EPloy\Game\Base\Utility\Bind\BindFloat.cs" />

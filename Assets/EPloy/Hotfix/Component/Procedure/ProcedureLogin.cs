@@ -8,22 +8,43 @@ namespace EPloy
 {
     public class ProcedureLogin : ProcedureBase
     {
+        private bool isCanSwitchScene = false;
         public override void OnEnter()
         {
             base.OnEnter();
-            GameEntry.UI.OpenUIForm(UIName.StartForm, UIGroupName.Default);
+            isCanSwitchScene = false;
+            GameEntry.UI.OpenUIForm(UIName.LoginForm, UIGroupName.Default);
+            GameEntry.Event.Subscribe(EventId.SwitchSceneEvt, OnSwitchScene);
+            GameEntry.UI.CloseUIForm(UIName.LoadingForm);
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            if (isCanSwitchScene)
+            {
+                ChangeState<ProcedureSwitchScene>();
+            }
+        }
+
+        public override void OnLeave(bool isShutdown)
+        {
+            GameEntry.Event.Unsubscribe(EventId.SwitchSceneEvt, OnSwitchScene);
+            GameEntry.UI.CloseUIForm(UIName.LoginForm);
+            base.OnLeave(isShutdown);
         }
 
         /// <summary>
-        /// 流程转化
+        /// 场景切换事件
         /// </summary>
-        /// <param name="sceneName"></param>
-        public void ChangeProcdure(string sceneName)
+        /// <param name="arg"></param>
+        protected virtual void OnSwitchScene(EventArg arg)
         {
-            // GameEntry.UI.OpenUIWnd(UIWnd.LoadingWnd, 2);
-            // Owner.SetData<VarString>("Secne", sceneName);
-            // ChangeState<ProcedureChangeScene>(Owner);
-            // GameEntry.UI.CloseUIWnd(UIWnd.LoginWnd);
+            SwitchSceneEvt switchSceneEvt = (SwitchSceneEvt)arg;
+            base.ProcedureOwner.SetData<VarString>("Secne", switchSceneEvt.SwitchSceneName);
+            isCanSwitchScene = true;
         }
+
+
     }
 }

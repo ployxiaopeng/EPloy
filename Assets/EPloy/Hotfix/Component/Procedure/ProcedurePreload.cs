@@ -28,10 +28,9 @@ namespace EPloy
         }
         public override void OnLeave(bool isShutdown)
         {
-            // GameEntry.Config.ConfigManager.LoadConfigSuccess -= OnLoadConfigSuccess;
-            // GameEntry.Config.ConfigManager.LoadConfigFailure -= OnLoadConfigFailure;
-            // GameEntry.DataTable.DataTableManager.LoadDataTableSuccess -= OnLoadDataTableSuccess;
-            // GameEntry.DataTable.DataTableManager.LoadDataTableFailure -= OnLoadDataTableFailure;
+            GameEntry.Event.Unsubscribe(FrameEvent.AtlasSuccessEvt, OnLoadAtlasSuccess);
+            GameEntry.Event.Unsubscribe(FrameEvent.DataTableSuccessEvt, OnLoadDataTableSuccess);
+            GameEntry.Event.Unsubscribe(FrameEvent.DataTableFailureEvt, OnLoadDataTableFailure);
             base.OnLeave(isShutdown);
         }
 
@@ -62,7 +61,7 @@ namespace EPloy
         {
             DataTableSuccessEvt e = (DataTableSuccessEvt)arg;
             LoadedFlag[Utility.Text.Format("DataTable.{0}", e.DataAssetName)] = true;
-            Log.Info(Utility.Text.Format("预加载加表格：{0} 成功", e.DataAssetName));
+           // Log.Info(Utility.Text.Format("预加载加表格：{0} 成功", e.DataAssetName));
         }
         private void OnLoadDataTableFailure(EventArg arg)
         {
@@ -81,7 +80,7 @@ namespace EPloy
         {
             AtlasSuccessEvt atlasSuccessEvt = (AtlasSuccessEvt)arg;
             LoadedFlag[atlasSuccessEvt.AtlasName] = true;
-            Log.Info(Utility.Text.Format("预加载加图集：{0} 成功", atlasSuccessEvt.AtlasName));
+          //  Log.Info(Utility.Text.Format("预加载加图集：{0} 成功", atlasSuccessEvt.AtlasName));
         }
         #endregion
 

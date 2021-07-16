@@ -1,0 +1,119 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# https://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:5c326f21f38035139bf227f612e4dd70:53b3f0edddca1b5a78c21a487c8c6b68:bda41acb1c60ed053949b05532cbfe31$
+#
+:format=40300
+:texture=Atlas00.png
+:size=2048x2048
+:pivotpoints=enabled
+:borders=disabled
+
+battle_bg_red1;1083;1894;68;50; 0.5;0.5; 0;0;0;0
+battle_bg_red2;1533;2014;68;33; 0.5;0.5; 0;0;0;0
+battle_bg_shuxing;1681;2008;39;39; 0.5;0.5; 0;0;0;0
+battle_bg_weichuzhan;1203;2019;30;28; 0.5;0.5; 0;0;0;0
+battle_bg_weikaifang;1301;498;359;268; 0.5;0.5; 0;0;0;0
+battle_bg_xl1;496;2029;60;18; 0.5;0.5; 0;0;0;0
+battle_bg_xl2;434;2035;60;12; 0.5;0.5; 0;0;0;0
+battle_btn_off;1555;1235;146;144; 0.5;0.5; 0;0;0;0
+battle_btn_on;1703;1235;146;144; 0.5;0.5; 0;0;0;0
+battle_btn_taopao1;1779;1722;266;88; 0.5;0.5; 0;0;0;0
+battle_btn_taopao2;1799;1812;154;78; 0.5;0.5; 0;0;0;0
+battle_crit;1;1632;149;88; 0.5;0.5; 0;0;0;0
+battle_death;1422;1383;126;126; 0.5;0.5; 0;0;0;0
+battle_kuang_gain;1297;1251;126;128; 0.5;0.5; 0;0;0;0
+battle_kuang_hit;909;1251;126;128; 0.5;0.5; 0;0;0;0
+battle_kuang_skill;660;1390;119;119; 0.5;0.5; 0;0;0;0
+battle_kuang_touxiang;779;1251;128;128; 0.5;0.5; 0;0;0;0
+battle_partner;127;1251;130;128; 0.5;0.5; 0;0;0;0
+battle_partnerno;1550;1383;126;126; 0.5;0.5; 0;0;0;0
+battle_progress_gray2;620;2027;50;20; 0.5;0.5; 0;0;0;0
+battle_progress_red2;694;2024;160;23; 0.5;0.5; 0;0;0;0
+battle_progress_xl1;558;2028;60;19; 0.5;0.5; 0;0;0;0
+battle_progress_xl2;372;2037;60;10; 0.5;0.5; 0;0;0;0
+battle_progress_xl_1;1896;1998;80;49; 0.5;0.5; 0;0;0;0
+battle_progress_yellow2;856;2024;50;23; 0.5;0.5; 0;0;0;0
+common_bg_biaoti1;1;1086;320;147; 0.5;0.5; 0;0;0;0
+common_bg_biaoti2;447;1835;64;55; 0.5;0.5; 0;0;0;0
+common_bg_biaoti3;1312;1728;465;82; 0.5;0.5; 0;0;0;0
+common_bg_dikuang_1;519;1251;128;128; 0.5;0.5; 0;0;0;0
+common_bg_dikuang_2;1807;1381;128;128; 0.5;0.5; 0;0;0;0
+common_bg_name;405;154;104;342; 0.5;0.5; 0;0;0;0
+common_bg_name2;643;1834;329;56; 0.5;0.5; 0;0;0;0
+common_bg_shuxing;1681;2008;39;39; 0.5;0.5; 0;0;0;0
+common_bg_tishi;1;1527;1080;96; 0.5;0.5; 0;0;0;0
+common_bg_toumin;1678;1382;127;127; 0.5;0.5; 0;0;0;0
+common_bg_wenli;841;9;482;487; 0.5;0.5; 0;0;0;0
+common_btn1;594;1625;229;95; 0.5;0.5; 0;0;0;0
+common_btn2;825;1625;229;95; 0.5;0.5; 0;0;0;0
+common_btn_close;1739;1518;105;105; 0.5;0.5; 0;0;0;0
+common_btn_hui;373;1629;219;91; 0.5;0.5; 0;0;0;0
+common_btn_left;888;1388;119;121; 0.5;0.5; 0;0;0;0
+common_btn_liang;152;1629;219;91; 0.5;0.5; 0;0;0;0
+common_choice;1083;499;216;267; 0.5;0.5; 0;0;0;0
+common_head_bg;511;124;328;372; 0.5;0.5; 0;0;0;0
+common_huodewupin;1;1396;400;113; 0.5;0.5; 0;0;0;0
+common_icon_+;1725;1818;72;72; 0.5;0.5; 0;0;0;0
+common_icon_baoji;1432;2016;31;31; 0.5;0.5; 0;0;0;0
+common_icon_bei;1603;2010;37;37; 0.5;0.5; 0;0;0;0
+common_icon_bright_stars;1083;1946;50;50; 0.5;0.5; 0;0;0;0
+common_icon_dark_stars;1799;2001;47;46; 0.5;0.5; 0;0;0;0
+common_icon_fangxing;672;2027;20;20; 0.5;0.5; 0;0;0;0
+common_icon_fangyu;1167;2019;34;28; 0.5;0.5; 0;0;0;0
+common_icon_fuzhong;1465;2015;32;32; 0.5;0.5; 0;0;0;0
+common_icon_gongji;1499;2015;32;32; 0.5;0.5; 0;0;0;0
+common_icon_sanbi;1273;2018;31;29; 0.5;0.5; 0;0;0;0
+common_icon_shengmin;1396;2017;34;30; 0.5;0.5; 0;0;0;0
+common_icon_silaing;1306;2017;30;30; 0.5;0.5; 0;0;0;0
+common_icon_sudu;1235;2019;36;28; 0.5;0.5; 0;0;0;0
+common_icon_tishi;1138;2020;27;27; 0.5;0.5; 0;0;0;0
+common_icon_wenhao;1848;2001;46;46; 0.5;0.5; 0;0;0;0
+common_icon_zhu;1642;2010;37;37; 0.5;0.5; 0;0;0;0
+common_jiantou1;1722;2003;75;44; 0.5;0.5; 0;0;0;0
+common_locking;892;768;271;259; 0.5;0.5; 0;0;0;0
+common_partner_head_no;1487;1029;183;204; 0.5;0.5; 0;0;0;0
+common_typeface;1009;1384;411;125; 0.5;0.5; 0;0;0;0
+common_wenli;908;2021;228;26; 0.5;0.5; 0;0;0;0
+connom_icon_suo;1846;1511;75;112; 0.5;0.5; 0;0;0;0
+expedition_head_gou;507;1394;151;115; 0.5;0.5; 0;0;0;0
+expedition_icon_nws;1083;1521;102;102; 0.5;0.5; 0;0;0;0
+expedition_icon_zhan1;1083;1033;200;200; 0.5;0.5; 0;0;0;0
+expedition_icon_zhan2;1285;1033;200;200; 0.5;0.5; 0;0;0;0
+expedition_jiahao;1526;1825;65;65; 0.5;0.5; 0;0;0;0
+expedition_jian;1593;1825;65;65; 0.5;0.5; 0;0;0;0
+expedition_jingdu;974;1832;30;58; 0.5;0.5; 0;0;0;0
+expedition_jingdu1;1;2038;369;9; 0.5;0.5; 0;0;0;0
+expedition_map_icon;1425;1241;128;138; 0.5;0.5; 0;0;0;0
+expedition_map_sinan;647;776;243;251; 0.5;0.5; 0;0;0;0
+expedition_map_xing;1660;1824;63;66; 0.5;0.5; 0;0;0;0
+expedition_map_zidi;1032;1034;49;199; 0.5;0.5; 0;0;0;0
+expedition_naijiudu;666;1053;180;180; 0.5;0.5; 0;0;0;0
+expedition_naijiudu2;848;1051;182;182; 0.5;0.5; 0;0;0;0
+expedition_shuliang;1006;1830;140;60; 0.5;0.5; 0;0;0;0
+fishing_btn_start;1148;1828;376;62; 0.5;0.5; 0;0;0;0
+fishing_btn_zezhao_b;1187;1519;550;104; 0.5;0.5; 0;0;0;0
+fishing_harpoon;1;178;402;318; 0.5;0.5; 0;0;0;0
+fishing_icon_buyu;1;1251;124;128; 0.5;0.5; 0;0;0;0
+partner_bg_dikang1;259;1251;128;128; 0.5;0.5; 0;0;0;0
+partner_bg_dikuang_3;649;1251;128;128; 0.5;0.5; 0;0;0;0
+partner_bg_forward;1037;1251;128;128; 0.5;0.5; 0;0;0;0
+partner_bg_guangxiao-1;1;805;644;222; 0.5;0.5; 0;0;0;0
+partner_bg_guangxiao;1;503;1080;263; 0.5;0.5; 0;0;0;0
+partner_bg_kuang;1;1947;1080;49; 0.5;0.5; 0;0;0;0
+partner_bg_kuang1;1;1894;1080;50; 0.5;0.5; 0;0;0;0
+partner_bg_kuang2;1;1732;227;78; 0.5;0.5; 0;0;0;0
+partner_bg_kuang3;1338;2017;56;30; 0.5;0.5; 0;0;0;0
+partner_bg_tanchu;389;1251;128;128; 0.5;0.5; 0;0;0;0
+partner_bg_title1;1153;1892;779;52; 0.5;0.5; 0;0;0;0
+partner_bg_title2;513;1835;128;55; 0.5;0.5; 0;0;0;0
+partner_bg_zongzanli;230;1732;1080;78; 0.5;0.5; 0;0;0;0
+partner_btn_bright;477;1072;187;161; 0.5;0.5; 0;0;0;0
+partner_btn_dark;323;1072;152;161; 0.5;0.5; 0;0;0;0
+partner_icon;781;1389;105;120; 0.5;0.5; 0;0;0;0
+warehouse_bg2;1167;1251;128;128; 0.5;0.5; 0;0;0;0
+warehouse_bg_name;1;1838;444;52; 0.5;0.5; 0;0;0;0
+warehouse_icon;403;1394;102;115; 0.5;0.5; 0;0;0;0

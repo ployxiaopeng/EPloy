@@ -10,5 +10,6 @@ namespace EPloy
     public static class EventId
     {
         public static int TestEvt = 1000;
+        public static int SwitchSceneEvt = 1001;
     }
 }

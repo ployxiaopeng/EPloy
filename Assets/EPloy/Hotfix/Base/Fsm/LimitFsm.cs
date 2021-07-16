@@ -493,7 +493,6 @@ namespace EPloy.Fsm
                 Log.Error(Utility.Text.Format("FSM '{0}': '{0}' can not change state to '{1}' which is not exist.", OwnerType, Name, stateType.FullName));
                 return;
             }
-
             _CurrentState.OnLeave(false);
             _CurrentStateTime = 0f;
             _CurrentState = state;

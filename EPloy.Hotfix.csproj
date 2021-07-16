@@ -81,6 +81,7 @@
     <Compile Include="Assets\EPloy\Hotfix\Base\TaskPool\TaskInfo.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Base\TaskPool\TaskPool.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Base\Variable\GenericVariable.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\Base\Variable\VarString.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Base\Variable\Variable.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Component\Atlas\AtlasComponent.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Component\DataStore\DataStoreAttribute.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\DataTableFailureEvt.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\DataTableSuccessEvt.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\FrameEvent.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\LoadSceneEvt.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Component\Fsm\FsmComponent.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Component\ObjEntity\ObjAttribute.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Component\ObjEntity\ObjBase.cs" />
@@ -158,9 +160,12 @@
     <Compile Include="Assets\EPloy\Hotfix\Config\UIEnum.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Entity\GameEntry.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Event\EventId.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\Event\SwitchSceneEvt.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Event\TestEvt.cs" />
     <Compile Include="Assets\EPloy\Hotfix\GameStart.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Obj\UIEffectObj.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\UIForm\LoadingForm.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\UIForm\Login\LoginForm.cs" />
     <Compile Include="Assets\EPloy\Hotfix\UIForm\StartForm.cs" />
     <Compile Include="Assets\EPloy\Hotfix\UIForm\StartFormData.cs" />
     <Compile Include="Assets\EPloy\Hotfix\UIForm\TipsForm.cs" />

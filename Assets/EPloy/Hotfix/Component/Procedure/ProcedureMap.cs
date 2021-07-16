@@ -1,4 +1,5 @@
 ﻿using EPloy.Fsm;
+using EPloy.Table;
 using UnityEngine;
 
 namespace EPloy
@@ -6,23 +7,25 @@ namespace EPloy
     public class ProcedureMap : ProcedureBase
     {
         private string loadSecnce = null;
-        // private MapComponet MapComponet;
-        // private static IDataTable<DRMap> _dataMap = null;
-        // private static IDataTable<DRMap> DateMap
-        // {
-        //     get
-        //     {
-        //         if (_dataMap == null)
-        //         {
-        //             _dataMap = GameEntry.DataTable.GetDataTable<DRMap>();
-        //         }
-        //         return _dataMap;
-        //     }
-        // }
+       // private MapComponet MapComponet;
+        private static IDataTable<DRMap> _dataMap = null;
+        private static IDataTable<DRMap> DateMap
+        {
+            get
+            {
+                if (_dataMap == null)
+                {
+                    _dataMap = GameEntry.DataTable.GetDataTable<DRMap>();
+                }
+                return _dataMap;
+            }
+        }
         public override void OnEnter()
         {
             base.OnEnter();
             loadSecnce = null;
+            Log.Info("Map  success");
+           // GameEntry.UI.CloseUIForm(UIName.LoadingForm);
             // MapComponet = GameEntry.Extension.GetComponent<MapComponet>();
             // MapComponet.MapData = DateMap.GetDataRow(10101);
             // MapComponet.OnEnterMap(GameObject.Find("Map").transform);

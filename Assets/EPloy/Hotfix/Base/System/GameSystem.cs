@@ -106,7 +106,7 @@ namespace EPloy
                 }
                 catch (Exception e)
                 {
-                    Log.Error(Utility.Text.Format("component: {0}err: {1}", component, e.ToString()));
+                    Log.Error(Utility.Text.Format("component: {0}  err: {1}", component, e.ToString()));
                 }
             }
         }

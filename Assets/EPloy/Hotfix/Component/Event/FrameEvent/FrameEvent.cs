@@ -20,5 +20,10 @@ namespace EPloy
         /// 读图集成功事件。
         /// </summary>
         public static int AtlasSuccessEvt = 102;
+
+        /// <summary>
+        /// 切换场景事件
+        /// </summary>
+        public static int LoadSceneEvt = 103;
     }
 }

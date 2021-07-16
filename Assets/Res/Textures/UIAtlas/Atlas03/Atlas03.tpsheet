@@ -1,0 +1,39 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# https://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:6bd2e05fa5ec3c0f78005d4fac9e5158:2bcd6f2d225e2ade02a6719a39ad1137:b9368d3147e91f0d318fbe0a51e121ac$
+#
+:format=40300
+:texture=Atlas03.png
+:size=2048x2048
+:pivotpoints=enabled
+:borders=disabled
+
+head_expedition_001;1;1699;317;348; 0.5;0.5; 0;0;0;0
+head_expedition_002;320;1701;317;346; 0.5;0.5; 0;0;0;0
+head_expedition_003;639;1707;319;340; 0.5;0.5; 0;0;0;0
+head_expedition_005;960;1682;366;365; 0.5;0.5; 0;0;0;0
+head_expedition_huo;1328;1675;328;372; 0.5;0.5; 0;0;0;0
+head_expedition_jin;1658;1675;328;372; 0.5;0.5; 0;0;0;0
+head_expedition_kong;1;1301;328;372; 0.5;0.5; 0;0;0;0
+head_expedition_mu;331;1301;328;372; 0.5;0.5; 0;0;0;0
+head_expedition_shui;661;1301;328;372; 0.5;0.5; 0;0;0;0
+head_expedition_tu;991;1301;328;372; 0.5;0.5; 0;0;0;0
+head_Monster001;1321;1462;187;211; 0.5;0.5; 0;0;0;0
+head_Monster002;1510;1462;187;211; 0.5;0.5; 0;0;0;0
+head_Monster007;1699;1462;187;211; 0.5;0.5; 0;0;0;0
+head_Monster008;1;1088;187;211; 0.5;0.5; 0;0;0;0
+head_Npc001;190;1088;187;211; 0.5;0.5; 0;0;0;0
+head_Npc002;379;1088;187;211; 0.5;0.5; 0;0;0;0
+head_Npc003;568;1088;187;211; 0.5;0.5; 0;0;0;0
+head_Npc004;757;1088;187;211; 0.5;0.5; 0;0;0;0
+head_Npc005;946;1088;187;211; 0.5;0.5; 0;0;0;0
+head_partner001;1135;1088;187;211; 0.5;0.5; 0;0;0;0
+head_partner002;1324;1088;187;211; 0.5;0.5; 0;0;0;0
+head_partner003;1513;1088;187;211; 0.5;0.5; 0;0;0;0
+head_partner004;1702;1088;187;211; 0.5;0.5; 0;0;0;0
+head_partner005;1;875;187;211; 0.5;0.5; 0;0;0;0
+head_partner007;190;875;187;211; 0.5;0.5; 0;0;0;0

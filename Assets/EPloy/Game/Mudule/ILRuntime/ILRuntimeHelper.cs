@@ -16,15 +16,18 @@ namespace EPloy
         public static void InitILRuntime(AppDomain appDomain)
         {
             //TODO:注册重定向方法
-
-
+            //Unity适配
+            appDomain.DelegateManager.RegisterDelegateConvertor<UIEventListener.UIListenerDelegate>((act) =>
+            {
+                return new UIEventListener.UIListenerDelegate((go) =>
+                {
+                    ((Action<UnityEngine.GameObject>)act)(go);
+                });
+            });
             appDomain.DelegateManager.RegisterMethodDelegate<UnityEngine.GameObject>();
-
-            //GF用
+            // EPloy 用
             appDomain.DelegateManager.RegisterMethodDelegate<float>();
             appDomain.DelegateManager.RegisterMethodDelegate<object, ILTypeInstance>();
-
-            //ET用
             appDomain.DelegateManager.RegisterMethodDelegate<List<object>>();
             appDomain.DelegateManager.RegisterMethodDelegate<byte[], int, int>();
             appDomain.DelegateManager.RegisterMethodDelegate<object>();

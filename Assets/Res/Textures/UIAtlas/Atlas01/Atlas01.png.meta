@@ -1,0 +1,2189 @@
+fileFormatVersion: 2
+guid: 97da1fd65a5209147803af319f26cdcd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: battle_bg_red1
+  - first:
+      213: 21300002
+    second: battle_bg_red2
+  - first:
+      213: 21300004
+    second: battle_bg_shuxing
+  - first:
+      213: 21300006
+    second: battle_bg_weichuzhan
+  - first:
+      213: 21300008
+    second: battle_bg_weikaifang
+  - first:
+      213: 21300010
+    second: battle_bg_xl1
+  - first:
+      213: 21300012
+    second: battle_bg_xl2
+  - first:
+      213: 21300014
+    second: battle_btn_off
+  - first:
+      213: 21300016
+    second: battle_btn_on
+  - first:
+      213: 21300018
+    second: battle_btn_taopao1
+  - first:
+      213: 21300020
+    second: battle_btn_taopao2
+  - first:
+      213: 21300022
+    second: battle_crit
+  - first:
+      213: 21300024
+    second: battle_death
+  - first:
+      213: 21300026
+    second: battle_fail
+  - first:
+      213: 21300028
+    second: battle_kuang_gain
+  - first:
+      213: 21300030
+    second: battle_kuang_hit
+  - first:
+      213: 21300032
+    second: battle_kuang_skill
+  - first:
+      213: 21300034
+    second: battle_kuang_touxiang
+  - first:
+      213: 21300036
+    second: battle_partner
+  - first:
+      213: 21300038
+    second: battle_partnerno
+  - first:
+      213: 21300040
+    second: battle_progress_gray2
+  - first:
+      213: 21300042
+    second: battle_progress_red2
+  - first:
+      213: 21300044
+    second: battle_progress_xl1
+  - first:
+      213: 21300046
+    second: battle_progress_xl2
+  - first:
+      213: 21300048
+    second: battle_progress_xl_1
+  - first:
+      213: 21300050
+    second: battle_progress_yellow2
+  - first:
+      213: 21300052
+    second: battle_win
+  - first:
+      213: 21300054
+    second: common_bg_biaoti1
+  - first:
+      213: 21300056
+    second: common_bg_biaoti2
+  - first:
+      213: 21300058
+    second: common_bg_biaoti3
+  - first:
+      213: 21300060
+    second: common_bg_dikuang_1
+  - first:
+      213: 21300062
+    second: common_bg_dikuang_2
+  - first:
+      213: 21300064
+    second: common_bg_name
+  - first:
+      213: 21300066
+    second: common_bg_name2
+  - first:
+      213: 21300068
+    second: common_bg_shuxing
+  - first:
+      213: 21300070
+    second: common_bg_tishi
+  - first:
+      213: 21300072
+    second: common_bg_toumin
+  - first:
+      213: 21300074
+    second: common_bg_wenli
+  - first:
+      213: 21300076
+    second: common_btn1
+  - first:
+      213: 21300078
+    second: common_btn2
+  - first:
+      213: 21300080
+    second: common_btn_close
+  - first:
+      213: 21300082
+    second: common_btn_hui
+  - first:
+      213: 21300084
+    second: common_btn_left
+  - first:
+      213: 21300086
+    second: common_btn_liang
+  - first:
+      213: 21300088
+    second: common_choice
+  - first:
+      213: 21300090
+    second: common_head_bg
+  - first:
+      213: 21300092
+    second: common_huodewupin
+  - first:
+      213: 21300094
+    second: common_icon_+
+  - first:
+      213: 21300096
+    second: common_icon_baoji
+  - first:
+      213: 21300098
+    second: common_icon_bei
+  - first:
+      213: 21300100
+    second: common_icon_bright_stars
+  - first:
+      213: 21300102
+    second: common_icon_dark_stars
+  - first:
+      213: 21300104
+    second: common_icon_fangxing
+  - first:
+      213: 21300106
+    second: common_icon_fangyu
+  - first:
+      213: 21300108
+    second: common_icon_fuzhong
+  - first:
+      213: 21300110
+    second: common_icon_gongji
+  - first:
+      213: 21300112
+    second: common_icon_sanbi
+  - first:
+      213: 21300114
+    second: common_icon_shengmin
+  - first:
+      213: 21300116
+    second: common_icon_silaing
+  - first:
+      213: 21300118
+    second: common_icon_sudu
+  - first:
+      213: 21300120
+    second: common_icon_tishi
+  - first:
+      213: 21300122
+    second: common_icon_wenhao
+  - first:
+      213: 21300124
+    second: common_icon_zhu
+  - first:
+      213: 21300126
+    second: common_jiantou1
+  - first:
+      213: 21300128
+    second: common_locking
+  - first:
+      213: 21300130
+    second: common_partner_head_no
+  - first:
+      213: 21300132
+    second: common_typeface
+  - first:
+      213: 21300134
+    second: common_wenli
+  - first:
+      213: 21300136
+    second: connom_icon_suo
+  - first:
+      213: 21300138
+    second: expedition_head_gou
+  - first:
+      213: 21300140
+    second: expedition_icon_nws
+  - first:
+      213: 21300142
+    second: expedition_icon_zhan1
+  - first:
+      213: 21300144
+    second: expedition_icon_zhan2
+  - first:
+      213: 21300146
+    second: expedition_jiahao
+  - first:
+      213: 21300148
+    second: expedition_jian
+  - first:
+      213: 21300150
+    second: expedition_jingdu
+  - first:
+      213: 21300152
+    second: expedition_jingdu1
+  - first:
+      213: 21300154
+    second: expedition_map_icon
+  - first:
+      213: 21300156
+    second: expedition_map_sinan
+  - first:
+      213: 21300158
+    second: expedition_map_xing
+  - first:
+      213: 21300160
+    second: expedition_map_zidi
+  - first:
+      213: 21300162
+    second: expedition_naijiudu
+  - first:
+      213: 21300164
+    second: expedition_naijiudu2
+  - first:
+      213: 21300166
+    second: expedition_shuliang
+  - first:
+      213: 21300168
+    second: fishing_btn_start
+  - first:
+      213: 21300170
+    second: fishing_btn_zezhao_b
+  - first:
+      213: 21300172
+    second: fishing_harpoon
+  - first:
+      213: 21300174
+    second: fishing_icon_buyu
+  - first:
+      213: 21300176
+    second: partner_bg_dikang1
+  - first:
+      213: 21300178
+    second: partner_bg_dikuang_3
+  - first:
+      213: 21300180
+    second: partner_bg_forward
+  - first:
+      213: 21300182
+    second: partner_bg_guangxiao-1
+  - first:
+      213: 21300184
+    second: partner_bg_guangxiao
+  - first:
+      213: 21300186
+    second: partner_bg_kuang
+  - first:
+      213: 21300188
+    second: partner_bg_kuang1
+  - first:
+      213: 21300190
+    second: partner_bg_kuang2
+  - first:
+      213: 21300192
+    second: partner_bg_kuang3
+  - first:
+      213: 21300194
+    second: partner_bg_tanchu
+  - first:
+      213: 21300196
+    second: partner_bg_title1
+  - first:
+      213: 21300198
+    second: partner_bg_title2
+  - first:
+      213: 21300200
+    second: partner_bg_zongzanli
+  - first:
+      213: 21300202
+    second: partner_btn_bright
+  - first:
+      213: 21300204
+    second: partner_btn_dark
+  - first:
+      213: 21300206
+    second: partner_icon
+  - first:
+      213: 21300208
+    second: warehouse_bg2
+  - first:
+      213: 21300210
+    second: warehouse_bg_name
+  - first:
+      213: 21300212
+    second: warehouse_icon
+  - first:
+      213: 21300214
+    second: home_bg_below
+  - first:
+      213: 21300216
+    second: home_bg_money
+  - first:
+      213: 21300218
+    second: home_bg_user_name
+  - first:
+      213: 21300220
+    second: home_btn_battle_a
+  - first:
+      213: 21300222
+    second: home_btn_battle_b
+  - first:
+      213: 21300224
+    second: home_btn_collection_a
+  - first:
+      213: 21300226
+    second: home_btn_collection_b
+  - first:
+      213: 21300228
+    second: home_btn_copy_a
+  - first:
+      213: 21300230
+    second: home_btn_copy_b
+  - first:
+      213: 21300232
+    second: home_btn_hunting_a
+  - first:
+      213: 21300234
+    second: home_btn_hunting_b
+  - first:
+      213: 21300236
+    second: home_btn_make_a
+  - first:
+      213: 21300238
+    second: home_btn_make_b
+  - first:
+      213: 21300240
+    second: home_btn_market_a
+  - first:
+      213: 21300242
+    second: home_btn_market_b
+  - first:
+      213: 21300244
+    second: home_btn_partner_a
+  - first:
+      213: 21300246
+    second: home_btn_partner_b
+  - first:
+      213: 21300248
+    second: home_btn_shop_a
+  - first:
+      213: 21300250
+    second: home_btn_shop_b
+  - first:
+      213: 21300252
+    second: home_btn_warehouse_a
+  - first:
+      213: 21300254
+    second: home_btn_warehouse_b
+  - first:
+      213: 21300256
+    second: home_caiji
+  - first:
+      213: 21300258
+    second: home_changku
+  - first:
+      213: 21300260
+    second: home_chuzhan
+  - first:
+      213: 21300262
+    second: home_diaoyu
+  - first:
+      213: 21300264
+    second: home_huoban
+  - first:
+      213: 21300266
+    second: home_icon_money
+  - first:
+      213: 21300268
+    second: home_icon_yuanbao
+  - first:
+      213: 21300270
+    second: home_shan
+  - first:
+      213: 21300272
+    second: home_shangchen
+  - first:
+      213: 21300274
+    second: home_shichang
+  - first:
+      213: 21300276
+    second: home_zhizhao
+  - first:
+      213: 21300278
+    second: loading_jiazai
+  - first:
+      213: 21300280
+    second: loading_jingdutiao_a
+  - first:
+      213: 21300282
+    second: loading_jingdutiao_b
+  - first:
+      213: 21300284
+    second: loading_logo_fengrui
+  - first:
+      213: 21300286
+    second: loading_wenzi
+  - first:
+      213: 21300288
+    second: mainciry_bg_1
+  - first:
+      213: 21300290
+    second: mainciry_bg_2
+  - first:
+      213: 21300292
+    second: maincity_bg_2
+  - first:
+      213: 21300294
+    second: maincity_btn_1
+  - first:
+      213: 21300296
+    second: maincity_btn_3
+  - first:
+      213: 21300298
+    second: maincity_btn_bg1
+  - first:
+      213: 21300300
+    second: maincity_btn_bg2
+  - first:
+      213: 21300302
+    second: maincity_btn_jindu
+  - first:
+      213: 21300304
+    second: maincity_btn_jindu2
+  - first:
+      213: 21300306
+    second: maincity_btn_shang
+  - first:
+      213: 21300308
+    second: maincity_btn_shuliang
+  - first:
+      213: 21300310
+    second: maincity_btn_xia
+  - first:
+      213: 21300312
+    second: maincity_btn_you
+  - first:
+      213: 21300314
+    second: maincity_btn_zuo
+  - first:
+      213: 21300316
+    second: maincity_hongsheng
+  - first:
+      213: 21300318
+    second: maincity_icon-bg
+  - first:
+      213: 21300320
+    second: maincity_icon
+  - first:
+      213: 21300322
+    second: maincity_icon_7
+  - first:
+      213: 21300324
+    second: maincity_icon_beibao
+  - first:
+      213: 21300326
+    second: maincity_icon_ditu
+  - first:
+      213: 21300328
+    second: ranking_bg1
+  - first:
+      213: 21300330
+    second: ranking_bg2
+  - first:
+      213: 21300332
+    second: ranking_bg3
+  - first:
+      213: 21300334
+    second: ranking_bg4
+  - first:
+      213: 21300336
+    second: ranking_bg5
+  - first:
+      213: 21300338
+    second: ranking_bg_biaoti
+  - first:
+      213: 21300340
+    second: synthesis_bg_guo
+  - first:
+      213: 21300342
+    second: synthesis_bg_guo1
+  - first:
+      213: 21300344
+    second: synthesis_bg_guo2
+  - first:
+      213: 21300346
+    second: synthesis_bg_guogai
+  - first:
+      213: 21300348
+    second: synthesis_bg_table
+  - first:
+      213: 21300350
+    second: synthesis_btn1
+  - first:
+      213: 21300352
+    second: synthesis_btn2
+  - first:
+      213: 21300354
+    second: synthesis_btn3
+  - first:
+      213: 21300356
+    second: synthesis_hamer
+  - first:
+      213: 21300358
+    second: synthesis_icon
+  - first:
+      213: 21300360
+    second: synthesis_panzi
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: home_bg_below
+      rect:
+        serializedVersion: 2
+        x: 1481
+        y: 748
+        width: 100
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f65316435dddc74e8c40ce9fae507de
+      internalID: 21300214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_bg_money
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 698
+        width: 444
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56579602e86310d448d435b5c855921c
+      internalID: 21300216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_bg_user_name
+      rect:
+        serializedVersion: 2
+        x: 1570
+        y: 1585
+        width: 118
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc158033e2e316f47b6bff728da01e56
+      internalID: 21300218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_battle_a
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 384
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5142793c760a84468c8b309ab9be0aa
+      internalID: 21300220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_battle_b
+      rect:
+        serializedVersion: 2
+        x: 886
+        y: 385
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32d193e4f1a74094f92b74053f8a6d6f
+      internalID: 21300222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_collection_a
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 385
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 777989c695475df44b054f108c329025
+      internalID: 21300224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_collection_b
+      rect:
+        serializedVersion: 2
+        x: 1314
+        y: 385
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b0038f0dafdfb143911940931da01a0
+      internalID: 21300226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_copy_a
+      rect:
+        serializedVersion: 2
+        x: 1350
+        y: 511
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 862be09f052529a478f9469ed1c9eb36
+      internalID: 21300228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_copy_b
+      rect:
+        serializedVersion: 2
+        x: 1528
+        y: 435
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b8176007cb0f324e8bb696ab3e1d29b
+      internalID: 21300230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_hunting_a
+      rect:
+        serializedVersion: 2
+        x: 1742
+        y: 1047
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98aae2c0e4fe4f14eb634d10dbc239bb
+      internalID: 21300232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_hunting_b
+      rect:
+        serializedVersion: 2
+        x: 1481
+        y: 972
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2bb7e2a4beaa8b4c9c424b02a273d1f
+      internalID: 21300234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_make_a
+      rect:
+        serializedVersion: 2
+        x: 1742
+        y: 971
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6474d256c058620439b66d0a90d26901
+      internalID: 21300236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_make_b
+      rect:
+        serializedVersion: 2
+        x: 1481
+        y: 896
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9879c9b6b73a7834bb8d76741819871c
+      internalID: 21300238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_market_a
+      rect:
+        serializedVersion: 2
+        x: 1481
+        y: 820
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ec034bae6a87834c8d0b296e221ff83
+      internalID: 21300240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_market_b
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 672
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a19475b26ca71d84fafdd16ba0f962f7
+      internalID: 21300242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_partner_a
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 596
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fb43b2662f619c489957361606da092
+      internalID: 21300244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_partner_b
+      rect:
+        serializedVersion: 2
+        x: 1564
+        y: 520
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ab2bb872d381a54f81d47f1346c5ccb
+      internalID: 21300246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_shop_a
+      rect:
+        serializedVersion: 2
+        x: 1778
+        y: 895
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 048ea45c1ad546c4ea0aef12036a27e6
+      internalID: 21300248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_shop_b
+      rect:
+        serializedVersion: 2
+        x: 1778
+        y: 819
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27517e308510a0e4b9a621976265db58
+      internalID: 21300250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_warehouse_a
+      rect:
+        serializedVersion: 2
+        x: 1778
+        y: 743
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31e05400878a0fa48b445ecebb1dd8b4
+      internalID: 21300252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_btn_warehouse_b
+      rect:
+        serializedVersion: 2
+        x: 1778
+        y: 667
+        width: 212
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b0658ec346798545a7bd530e8bd2eeb
+      internalID: 21300254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_caiji
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 42
+        width: 447
+        height: 319
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96cd50ed5ba96bf4aba96ae7c134a3b9
+      internalID: 21300256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_changku
+      rect:
+        serializedVersion: 2
+        x: 964
+        y: 1171
+        width: 604
+        height: 442
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b97f92622b76fd46acd4ec976a7ca9d
+      internalID: 21300258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_chuzhan
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 460
+        width: 366
+        height: 236
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fb84e42718c8264f8b93930517229e3
+      internalID: 21300260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_diaoyu
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 123
+        width: 430
+        height: 238
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 546de12f261a52d4a841ec694db94b88
+      internalID: 21300262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_huoban
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 363
+        width: 454
+        height: 426
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8fd1ab6cbe2d9b4a9497b1d2b58bc62
+      internalID: 21300264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_icon_money
+      rect:
+        serializedVersion: 2
+        x: 921
+        y: 1649
+        width: 44
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60ad0977770c0b340b29b9287a88018c
+      internalID: 21300266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_icon_yuanbao
+      rect:
+        serializedVersion: 2
+        x: 1859
+        y: 1408
+        width: 176
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dd3ed41dd6405e4a8fab2f870a54099
+      internalID: 21300268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_shan
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 161
+        width: 112
+        height: 221
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 395c7c5cfe039084ebcdfbbf971da0fa
+      internalID: 21300270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_shangchen
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 748
+        width: 523
+        height: 421
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 901c31ed3072a524d800151d849a1458
+      internalID: 21300272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_shichang
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 791
+        width: 506
+        height: 371
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a97ebd2f557df274c809586b4c9f689f
+      internalID: 21300274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: home_zhizhao
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 778
+        width: 395
+        height: 388
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 715bc487890e686439b3ec1b79684257
+      internalID: 21300276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: loading_jiazai
+      rect:
+        serializedVersion: 2
+        x: 1570
+        y: 1414
+        width: 136
+        height: 141
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 617e9ddbfcb8c6445b67437e16efe038
+      internalID: 21300278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: loading_jingdutiao_a
+      rect:
+        serializedVersion: 2
+        x: 998
+        y: 1913
+        width: 865
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46bb5d018d6097442b8a3e979276aef5
+      internalID: 21300280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: loading_jingdutiao_b
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1164
+        width: 549
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00db2e35cd24c9e48b26f746344c7cc9
+      internalID: 21300282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: loading_logo_fengrui
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 1507
+        width: 252
+        height: 286
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a970a6a329a12a49a0511456e002141
+      internalID: 21300284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: loading_wenzi
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1795
+        width: 995
+        height: 168
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 710bb40486289ec4eab6763df22321b9
+      internalID: 21300286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mainciry_bg_1
+      rect:
+        serializedVersion: 2
+        x: 921
+        y: 1747
+        width: 69
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79262e5cc33fac940ad96a6a3eb15517
+      internalID: 21300288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mainciry_bg_2
+      rect:
+        serializedVersion: 2
+        x: 1865
+        y: 1761
+        width: 182
+        height: 178
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 46, y: 44, z: 45, w: 45}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5c6874b0abff9c4d9ac426235e4403e
+      internalID: 21300290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_bg_2
+      rect:
+        serializedVersion: 2
+        x: 1859
+        y: 1586
+        width: 182
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b984224e5f9280045ab7f1ba8f662b3b
+      internalID: 21300292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_btn_1
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 1048
+        width: 191
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c93ea7af2561f8046adbc1e9a384705f
+      internalID: 21300294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_btn_3
+      rect:
+        serializedVersion: 2
+        x: 1859
+        y: 1632
+        width: 183
+        height: 127
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3f766384e4a71747a3923608b9b0d8a
+      internalID: 21300296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_btn_bg1
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 378
+        width: 98
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b68e4da1e327ad9418cfb074944ea8cc
+      internalID: 21300298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_btn_bg2
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 9
+        width: 111
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc1101fea14844e4ea476e453766bf79
+      internalID: 21300300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_btn_jindu
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 21
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd5b7e8b1a9e7d040bc8b04e12c025e6
+      internalID: 21300302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_btn_jindu2
+      rect:
+        serializedVersion: 2
+        x: 1239
+        y: 587
+        width: 159
+        height: 159
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2ef059f54957954e8825f52db75c97a
+      internalID: 21300304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_btn_shang
+      rect:
+        serializedVersion: 2
+        x: 1695
+        y: 1735
+        width: 162
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e169a8bcea2aa0647bdf86f2b4d3aaf1
+      internalID: 21300306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_btn_shuliang
+      rect:
+        serializedVersion: 2
+        x: 921
+        y: 1686
+        width: 59
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68b389dab29b6634cadd56de793ba5c5
+      internalID: 21300308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_btn_xia
+      rect:
+        serializedVersion: 2
+        x: 1695
+        y: 1557
+        width: 162
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8546f9d6d42acac4fb8844455db41c18
+      internalID: 21300310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_btn_you
+      rect:
+        serializedVersion: 2
+        x: 1014
+        y: 5
+        width: 162
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c74988307c5b6e459016bccb8e13c5d
+      internalID: 21300312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_btn_zuo
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 5
+        width: 162
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1c9291eee018304b86314f861e3c979
+      internalID: 21300314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_hongsheng
+      rect:
+        serializedVersion: 2
+        x: 2033
+        y: 2009
+        width: 10
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7249a1b59b0705e4ba8a72972f2499ea
+      internalID: 21300316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_icon-bg
+      rect:
+        serializedVersion: 2
+        x: 1708
+        y: 1415
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10d4f1f74e2ac3e458dacaa8bcb4a023
+      internalID: 21300318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_icon
+      rect:
+        serializedVersion: 2
+        x: 873
+        y: 25
+        width: 139
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 499ceddbe7587b447b8811a2fc6b3086
+      internalID: 21300320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_icon_7
+      rect:
+        serializedVersion: 2
+        x: 998
+        y: 1944
+        width: 24
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d355061acc25a44fbdefacb445129ed
+      internalID: 21300322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_icon_beibao
+      rect:
+        serializedVersion: 2
+        x: 1239
+        y: 461
+        width: 109
+        height: 124
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1117b9d909ac94f469c7fc44ab66415d
+      internalID: 21300324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maincity_icon_ditu
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 367
+        width: 113
+        height: 91
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 962e73bd216c2fa4ab9a882632c78b7e
+      internalID: 21300326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ranking_bg1
+      rect:
+        serializedVersion: 2
+        x: 1400
+        y: 618
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 32, y: 32, z: 32, w: 32}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 179c3ec69ec20c542b6f0fe9fb15ff3c
+      internalID: 21300328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ranking_bg2
+      rect:
+        serializedVersion: 2
+        x: 996
+        y: 183
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 50, y: 50, z: 50, w: 50}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd14a562f07b7a04c9df45ae350d3a28
+      internalID: 21300330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ranking_bg3
+      rect:
+        serializedVersion: 2
+        x: 1026
+        y: 1941
+        width: 1005
+        height: 106
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27ea3aeeeb2ce1347b6d4dd290ba4da2
+      internalID: 21300332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ranking_bg4
+      rect:
+        serializedVersion: 2
+        x: 1342
+        y: 29
+        width: 162
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 41, y: 40, z: 40, w: 40}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e659df8287d8ebd4ca1d5d4108580262
+      internalID: 21300334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ranking_bg5
+      rect:
+        serializedVersion: 2
+        x: 1419
+        y: 255
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 32, y: 32, z: 32, w: 32}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4759412e9f426943ab10ce255d0633a
+      internalID: 21300336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ranking_bg_biaoti
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1965
+        width: 1023
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b65ab318de81a8c42a56a18b21dc18fb
+      internalID: 21300338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: synthesis_bg_guo
+      rect:
+        serializedVersion: 2
+        x: 825
+        y: 461
+        width: 412
+        height: 235
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9496a85a9f66e542a35f4dcb3431055
+      internalID: 21300340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: synthesis_bg_guo1
+      rect:
+        serializedVersion: 2
+        x: 998
+        y: 1615
+        width: 695
+        height: 296
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10f1a12a43ec0e344865440327b9b560
+      internalID: 21300342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: synthesis_bg_guo2
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 5
+        width: 96
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c7b8c6d6f2a82440b18ccf92ff81fc3
+      internalID: 21300344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: synthesis_bg_guogai
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1470
+        width: 664
+        height: 323
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bc56d1b89f3cbb49a3ee275dcb1b373
+      internalID: 21300346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: synthesis_bg_table
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1184
+        width: 609
+        height: 284
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6208c7592061e5b42a4b578e29d32044
+      internalID: 21300348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: synthesis_btn1
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 1313
+        width: 225
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bf6d4c94ce0eac44a3ecae8d3163d46
+      internalID: 21300350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: synthesis_btn2
+      rect:
+        serializedVersion: 2
+        x: 1198
+        y: 191
+        width: 219
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f15c853d643070478a16e551411bbca
+      internalID: 21300352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: synthesis_btn3
+      rect:
+        serializedVersion: 2
+        x: 921
+        y: 1491
+        width: 41
+        height: 156
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 776d11b119f3b0a45b128fd45985191c
+      internalID: 21300354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: synthesis_hamer
+      rect:
+        serializedVersion: 2
+        x: 1570
+        y: 1123
+        width: 468
+        height: 283
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84832dbc39fe25d4aaa15cb977d24dc5
+      internalID: 21300356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: synthesis_icon
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 2
+        width: 108
+        height: 119
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d3829c06f188af4d84fc87dc944dab8
+      internalID: 21300358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: synthesis_panzi
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 1168
+        width: 342
+        height: 143
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de03ce77870261047b81e3da38c6ce6e
+      internalID: 21300360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
