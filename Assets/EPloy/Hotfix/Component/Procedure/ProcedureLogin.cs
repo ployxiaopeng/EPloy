@@ -11,11 +11,6 @@ namespace EPloy
         public override void OnEnter()
         {
             base.OnEnter();
-            // GameEntry.UI.OpenUIWnd(UIWnd.LoginWnd);
-
-            // GameEntry.Extension.GetComponent<AtlasComponent>().LoadAtlas("Map10101");
-            // GameEntry.Extension.GetComponent<AtlasComponent>().LoadAtlas("Map10100");
-
             GameEntry.UI.OpenUIForm(UIName.StartForm, UIGroupName.Default);
         }
 
@@ -30,6 +25,5 @@ namespace EPloy
             // ChangeState<ProcedureChangeScene>(Owner);
             // GameEntry.UI.CloseUIWnd(UIWnd.LoginWnd);
         }
-
     }
 }

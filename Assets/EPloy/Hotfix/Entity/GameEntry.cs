@@ -20,6 +20,7 @@ namespace EPloy
         public static UIComponent UI { get; set; }
         public static ObjComponent Obj { get; set; }
         public static ProcedureComponent Procedure { get; set; }
+        public static AtlasComponent Atlas { get; set; }
 
         private static GameEntity game = null;
         public static GameEntity Game

@@ -6,9 +6,10 @@ using EPloy.Table;
 public class StartFormData : Component
 {
     public string txt = "";
+    public DRMap DRMap;
     public override void Awake()
     {
         IDataTable<DRMap> mapTable = GameEntry.DataTable.GetDataTable<DRMap>();
-        Log.Error(mapTable.GetDataRow(10100).RoleBornPos);
+        DRMap = mapTable.GetDataRow(10100);
     }
 }

@@ -43,7 +43,7 @@ public class StartForm : UIForm
 
     public void EvtTest(EventArg eventArg)
     {
-        txtTips.text = "事件测试成功";
+        txtTips.SetText(dataStore.DRMap.NameId);
     }
 
 

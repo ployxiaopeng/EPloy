@@ -10,11 +10,10 @@ namespace EPloy
         private Dictionary<string, bool> LoadedFlag = new Dictionary<string, bool>();
         public override void OnEnter()
         {
-            // GameEntry.Config.ConfigManager.LoadConfigSuccess += OnLoadConfigSuccess;
-            // GameEntry.Config.ConfigManager.LoadConfigFailure += OnLoadConfigFailure;
+            GameEntry.Event.Subscribe(FrameEvent.AtlasSuccessEvt, OnLoadAtlasSuccess);
             GameEntry.Event.Subscribe(FrameEvent.DataTableSuccessEvt, OnLoadDataTableSuccess);
             GameEntry.Event.Subscribe(FrameEvent.DataTableFailureEvt, OnLoadDataTableFailure);
-            // LoadedFlag.Clear();
+            LoadedFlag.Clear();
             LoadedFlag.Add("Data", false);
             PreloadResources();
         }
@@ -25,13 +24,6 @@ namespace EPloy
             {
                 if (!iter.Current) return;
             }
-            // if (!LoadedFlag.ContainsKey("Assets"))
-            // {
-            //     LoadedFlag.Clear();
-            //     LoadedFlag.Add("Assets", false);
-            //     PreloadUIWnd();
-            //     return;
-            // }
             ChangeState<ProcedureLogin>();
         }
         public override void OnLeave(bool isShutdown)
@@ -45,42 +37,23 @@ namespace EPloy
 
         private async void PreloadResources()
         {
-            //LoadConfig(ConfigRes.GlobalConfig);
-
-            foreach (var tableName in Config.DataTableNames)
+            foreach (var tableName in Config.PrelaodDataTableNames)
             {
-                LoadDataTable(tableName);
+                PreLoadDataTable(tableName);
             }
 
-            // 预加载图集
+            foreach (var atlasName in Config.PrelaodAtlasNames)
+            {
+                PreloadAtlas(atlasName);
+            }
+
+            // PreloadUIWnd();
             await Game.Timer.WaitAsync(1000);
             LoadedFlag["Data"] = true;
         }
 
-        // #region 加载 Config
-        // private void LoadConfig(string configName)
-        // {
-        //     LoadedFlag.Add(Utility.Text.Format("Config.{0}", configName), false);
-        //     // GameEntry.Config.LoadConfig(configName, LoadType.Text, this);
-        // }
-        // private void OnLoadConfigSuccess(object sender, LoadConfigSuccessEventArgs e)
-        // {
-        //     LoadConfigInfo loadConfig = (LoadConfigInfo)e.UserData;
-        //     if (loadConfig.UserData != this) return;
-
-        //     LoadedFlag[Utility.Text.Format("Config.{0}", loadConfig.ConfigName)] = true;
-
-        // }
-        // private void OnLoadConfigFailure(object sender, LoadConfigFailureEventArgs e)
-        // {
-        //     LoadConfigInfo loadConfig = (LoadConfigInfo)e.UserData;
-        //     if (loadConfig.UserData != this) return;
-        //     Log.Error("不能加载 '{0}' from '{1}' 错误信息 '{2}'.", loadConfig.ConfigName, e.ConfigAssetName, e.ErrorMessage);
-        // }
-        // #endregion
-
-        #region 加载 DataTabl
-        private void LoadDataTable(string dataTableName)
+        #region 加载 DataTable
+        private void PreLoadDataTable(string dataTableName)
         {
             LoadedFlag.Add(Utility.Text.Format("DataTable.{0}", dataTableName), false);
             GameEntry.DataTable.LoadDataTable(dataTableName);
@@ -89,7 +62,7 @@ namespace EPloy
         {
             DataTableSuccessEvt e = (DataTableSuccessEvt)arg;
             LoadedFlag[Utility.Text.Format("DataTable.{0}", e.DataAssetName)] = true;
-            Log.Error(e.DataAssetName + " _ 牛逼！！！");
+            Log.Info(Utility.Text.Format("预加载加表格：{0} 成功", e.DataAssetName));
         }
         private void OnLoadDataTableFailure(EventArg arg)
         {
@@ -98,10 +71,25 @@ namespace EPloy
         }
         #endregion
 
+        #region 预加载图集
+        private void PreloadAtlas(string atlasName)
+        {
+            LoadedFlag[atlasName] = false;
+            GameEntry.Atlas.LoadAtlas(atlasName);
+        }
+        private void OnLoadAtlasSuccess(EventArg arg)
+        {
+            AtlasSuccessEvt atlasSuccessEvt = (AtlasSuccessEvt)arg;
+            LoadedFlag[atlasSuccessEvt.AtlasName] = true;
+            Log.Info(Utility.Text.Format("预加载加图集：{0} 成功", atlasSuccessEvt.AtlasName));
+        }
+        #endregion
+
         #region 预加载UI
         private LoadAssetCallbacks loadUIWndCallbacks = null;
         private void PreloadUIWnd()
         {
+            LoadedFlag.Add("Assets", false);
             // if (loadUIWndCallbacks == null)
             //     loadUIWndCallbacks = new LoadAssetCallbacks(LoadUISuccessCallback, LoadUIFailureCallback);
 
