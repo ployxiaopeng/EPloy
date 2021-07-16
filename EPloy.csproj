@@ -52,6 +52,9 @@
      <Compile Include="Assets\EPloy\Hotfix\Base\Entity\Entity.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Entity\GameEntity.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Entity\IEntity.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\Extension\SpriteExtension.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\Extension\SystemExtension.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\Extension\TextExtension.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Fsm\FsmBase.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Fsm\FsmState.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Fsm\IFsm.cs" />
@@ -68,6 +71,7 @@
      <Compile Include="Assets\EPloy\Hotfix\Base\TaskPool\TaskPool.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Variable\GenericVariable.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Variable\Variable.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Atlas\AtlasComponent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\DataStore\DataStoreAttribute.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\DataStore\DataStoreComponet.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\DataTable.cs" />
@@ -78,11 +82,17 @@
      <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\IDataTable.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\IDataTableHelper.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\Table\BinaryReaderExtension.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\Table\DREntity.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\Table\DRLanguageText.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\Table\DRMap.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\Table\DRMapCell.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\Table\DRResSprite.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\Table\DRText.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\DataTable\Table\DataTableExtension.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\EventArg.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\EventComponent.Event.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\EventComponent.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\AtlasSuccessEvt.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\DataTableFailureEvt.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\DataTableSuccessEvt.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\FrameEvent\FrameEvent.cs" />
@@ -105,6 +115,7 @@
      <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedureMap.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedurePreload.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Procedure\ProcedureSwitchScene.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResComponent.Task.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResComponent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResHelper.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Res\ResLoader\AssetObject.cs" />

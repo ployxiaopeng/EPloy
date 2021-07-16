@@ -46,8 +46,8 @@ namespace EPloy
         /// </summary>
         public static readonly Dictionary<string, string> AtlasNames = new Dictionary<string, string>
         {
-            { "Map10100","Assets/Res/Textures/Map/10100.prefab"},
-            { "Map10101","Assets/Res/Textures/Map/10101.prefab"},
+            { "Map10100","Assets/Res/Map/10100.prefab"},
+            { "Map10101","Assets/Res/Map/10101.prefab"},
         };
 
     }
