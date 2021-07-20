@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace EPloy
 {
@@ -34,6 +35,8 @@ namespace EPloy
             }
         }
 
+        private List<UIFormLogic> ChildLogics;
+
         /// <summary>
         /// 初始化界面。
         /// </summary>
@@ -49,6 +52,7 @@ namespace EPloy
                 Handle = handle;
                 UIName = uiName;
                 Handle.name = UIName.ToString();
+                ChildLogics = new List<UIFormLogic>();
                 Create();
             }
             GroupName = groupName;
@@ -98,7 +102,23 @@ namespace EPloy
         /// <summary>
         /// 界面清理回收。
         /// </summary>
-        public virtual void Clear() { }
+        public virtual void Clear() {
+            foreach (var logic in ChildLogics)
+            {
+                ReferencePool.Release(logic);
+            }
+            ChildLogics.Clear();
+        }
 
+        protected T CreateChildLogic<T>() where T : UIFormLogic,new()
+        {
+            return CreateChildLogic<T>(Handle.transform);
+        }
+        protected T CreateChildLogic<T>(Transform childTransform) where T : UIFormLogic, new()
+        {
+            UIFormLogic logic = ReferencePool.Acquire<T>();
+            logic.CreateLogic(this, childTransform);
+            return (T)logic;
+        }
     }
 }

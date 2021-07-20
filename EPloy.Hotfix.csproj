@@ -157,10 +157,12 @@
     <Compile Include="Assets\EPloy\Hotfix\Component\UI\Base\UIAttribute.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Component\UI\Base\UIComponent.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Component\UI\Base\UIForm.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\Component\UI\Base\UIFormLogic.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Component\UI\Base\UIFormObject.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Component\UI\Base\UIGroup.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Component\UI\LoadingForm.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Component\UI\LoginForm.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\Component\UI\LoginStartLogic.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Component\UI\StartForm.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Component\UI\TipsForm.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Config\AssetUtility.cs" />

@@ -90,20 +90,6 @@ namespace EPloy
             return true;
         }
 
-        /// <summary>
-        /// 获取界面。
-        /// </summary>
-        /// <param name="uiFormAssetName">界面资源名称。</param>
-        /// <param name="results">要获取的界面。</param>
-        public UIForm GetUIForm(UIName uiName)
-        {
-            if (!UINames.ContainsKey(uiName))
-            {
-                return null;
-            }
-            UIGroup group = UIGroups[UINames[uiName]];
-            return group.GetUIForm(uiName);
-        }
 
         /// <summary>
         /// 是否存在界面。
@@ -183,6 +169,21 @@ namespace EPloy
             }
             UIGroup group = UIGroups[UINames[uiName]];
             group.RefocusUIForm(uiName, userData);
+        }
+
+        /// <summary>
+        /// 获取界面。
+        /// </summary>
+        /// <param name="uiFormAssetName">界面资源名称。</param>
+        /// <param name="results">要获取的界面。</param>
+        private UIForm GetUIForm(UIName uiName)
+        {
+            if (!UINames.ContainsKey(uiName))
+            {
+                return null;
+            }
+            UIGroup group = UIGroups[UINames[uiName]];
+            return group.GetUIForm(uiName);
         }
 
         /// <summary>

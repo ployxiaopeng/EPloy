@@ -9,33 +9,23 @@ namespace EPloy
     {
         #region UI组件
         public Transform Login { get; private set; }
-        private GameObject btnStart;
         private Text VersionText;
         #endregion
 
-       
+        private LoginStartLogic LoginStartLogic;
+
         //查找UI组件的代码
         public override void Create()
         {
             Login = transform.Find("Longin");
-            btnStart = Login.Find("btnStart").gameObject;
             VersionText = Login.Find("Version/Text").GetComponent<Text>();
-
-            UIEventListener.Get(btnStart).onClick = BtnStartClick;
+            LoginStartLogic = CreateChildLogic<LoginStartLogic>(Login);
         }
 
-        public void BtnStartClick(GameObject go)
-        {
-            GameEntry.UI.OpenUIForm(UIName.LoadingForm, UIGroupName.Level1);
-            SwitchSceneEvt switchSceneEvt = ReferencePool.Acquire<SwitchSceneEvt>();
-            switchSceneEvt.SetData("Game");
-            GameEntry.Event.Fire(switchSceneEvt);
-        }
 
 
         public override void Open(object userData)
         {
-            btnStart.SetActive(true);
             GameEntry.UI.CloseUIForm(UIName.LoadingForm);
         }
 
