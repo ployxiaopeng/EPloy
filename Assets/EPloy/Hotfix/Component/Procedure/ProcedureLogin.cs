@@ -15,7 +15,6 @@ namespace EPloy
             isCanSwitchScene = false;
             GameEntry.UI.OpenUIForm(UIName.LoginForm, UIGroupName.Default);
             GameEntry.Event.Subscribe(EventId.SwitchSceneEvt, OnSwitchScene);
-            GameEntry.UI.CloseUIForm(UIName.LoadingForm);
         }
 
         public override void OnUpdate()

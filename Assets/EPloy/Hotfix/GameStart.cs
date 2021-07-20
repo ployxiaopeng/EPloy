@@ -30,7 +30,6 @@ namespace EPloy
 
         public static void Start()
         {
-            GameEntry.UI.OpenUIForm(UIName.LoadingForm, UIGroupName.Level1);
             GameEntry.Procedure.StartProcedure<ProcedurePreload>();
         }
 

@@ -10,6 +10,7 @@ namespace EPloy
         private Dictionary<string, bool> LoadedFlag = new Dictionary<string, bool>();
         public override void OnEnter()
         {
+            GameEntry.UI.OpenUIForm(UIName.LoadingForm, UIGroupName.Level1);
             GameEntry.Event.Subscribe(FrameEvent.AtlasSuccessEvt, OnLoadAtlasSuccess);
             GameEntry.Event.Subscribe(FrameEvent.DataTableSuccessEvt, OnLoadDataTableSuccess);
             GameEntry.Event.Subscribe(FrameEvent.DataTableFailureEvt, OnLoadDataTableFailure);

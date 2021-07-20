@@ -8,6 +8,7 @@ namespace EPloy
         int id { get; set; }
         void Awake(int _id);
         T AddComponent<T>() where T : Component;
+        bool HasComponent<T>() where T : Component;
         T GetComponent<T>() where T : Component;
         void RemoveComponent<T>() where T : Component;
         void RemoveAllComponent();

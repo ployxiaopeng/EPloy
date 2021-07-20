@@ -81,6 +81,15 @@ namespace EPloy
         }
 
         /// <summary>
+        /// 是否存在组件
+        /// </summary>
+        public bool HasComponent<T>() where T : Component
+        {
+            Type type = typeof(T);
+            return ComponentDictionary.ContainsKey(type);
+        }
+
+        /// <summary>
         /// 获取组件
         /// </summary>
         public T GetComponent<T>() where T : Component
