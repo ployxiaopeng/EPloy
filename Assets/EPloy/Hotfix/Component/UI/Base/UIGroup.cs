@@ -46,26 +46,7 @@ namespace EPloy
             CreateGroupInstance();
         }
 
-        private void CreateGroupInstance()
-        {
-            Handle = new GameObject(GroupName.ToString());
-            Handle.transform.SetParent(Parent);
-            Canvas canvas = Handle.AddComponent<Canvas>();
-            Handle.AddComponent<GraphicRaycaster>();
-
-            RectTransform transform = Handle.GetComponent<RectTransform>();
-            transform.localScale = Vector3.one;
-            transform.localPosition = Vector3.zero;
-            transform.anchorMin = Vector2.zero;
-            transform.anchorMax = Vector2.one;
-            transform.offsetMax = Vector2.zero;
-            transform.offsetMin = Vector2.zero;
-
-            canvas.sortingOrder = Depth;
-            canvas.overrideSorting = true;
-
-            Handle.layer = 5;
-        }
+      
 
         /// <summary>
         /// 界面轮询
@@ -203,8 +184,7 @@ namespace EPloy
             }
             GameObject uiGo = (GameObject)obj;
             uiGo.transform.SetParent(Handle.transform);
-            uiGo.transform.localPosition = Vector3.zero;
-            uiGo.transform.localScale = Vector3.one;
+            SetRectTransform(uiGo.transform as RectTransform);
             uiForm.Initialize(isNew, uiGo, uiName, GroupName, userData);
             uiGo.SetActive(true);
             ActiveUIForms.Add(uiForm);
@@ -236,6 +216,34 @@ namespace EPloy
             }
             ReferencePool.Release(uiForm);
         }
+        
+        
+        private void CreateGroupInstance()
+        {
+            Handle = new GameObject(GroupName.ToString());
+            Handle.transform.SetParent(Parent);
+            Canvas canvas = Handle.AddComponent<Canvas>();
+            Handle.AddComponent<GraphicRaycaster>();
+
+            RectTransform transform = Handle.GetComponent<RectTransform>();
+            
+            SetRectTransform(Handle.transform as RectTransform);
+            canvas.sortingOrder = Depth;
+            canvas.overrideSorting = true;
+
+            Handle.layer = 5;
+        }
+
+        private void SetRectTransform(RectTransform rect)
+        {
+            rect.localScale = Vector3.one;
+            rect.localPosition = Vector3.zero;
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.offsetMax = Vector2.zero;
+            rect.offsetMin = Vector2.zero;
+        }
+        
 
         /// <summary>
         /// 界面清理回收。
