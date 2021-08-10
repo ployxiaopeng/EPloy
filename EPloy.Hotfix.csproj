@@ -154,6 +154,7 @@
      <Compile Include="Assets\EPloy\Hotfix\Component\UI\Base\UIFormLogic.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\UI\Base\UIFormObject.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\UI\Base\UIGroup.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\UI\Base\UIListItemBase.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\UI\LoadingForm.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\UI\LoginForm.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\UI\LoginStartLogic.cs" />

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Object = UnityEngine.Object;
 
 namespace EPloy
 {
@@ -8,86 +9,82 @@ namespace EPloy
     {
         private static UIEventListener listener = null;
         public delegate void UIListenerDelegate(GameObject go);
-        public delegate void UIEventListenerDelegate(GameObject go, object obj);
+        public delegate void UIArgListenerDelegate(GameObject go, PointerEventData eventData);
         public UIListenerDelegate onClick;
-        public UIEventListenerDelegate onEventClick;
 
         public UIListenerDelegate onClickDown;
-        public UIEventListenerDelegate onEventClickDown;
+        public UIArgListenerDelegate onArgClickDown;
 
         public UIListenerDelegate onClickUp;
-        public UIEventListenerDelegate onEventClickUp;
-
+        public UIArgListenerDelegate onArgClickUp;
+        
         public UIListenerDelegate onDrag;
-        public UIEventListenerDelegate onEventDrag;
-
+        public UIArgListenerDelegate onArgDrag;
+        
         public UIListenerDelegate onPointerEnter;
-        public UIEventListenerDelegate onEventPointerEnter;
+        public UIArgListenerDelegate onArgPointerEnter;
 
         public UIListenerDelegate onPointerExit;
-        public UIEventListenerDelegate onEventPointerExit;
+        public UIArgListenerDelegate onArgPointerExit;
 
         public UIListenerDelegate onBeginDrag;
-        public UIEventListenerDelegate onEventBeginDrag;
+        public UIArgListenerDelegate onArgBeginDrag;
 
         public UIListenerDelegate onEndDrag;
-        public UIEventListenerDelegate onEventEndDrag;
-
-        private object EventObj = null;
+        public UIArgListenerDelegate onArgEndDrag;
+        
 
         public override void OnPointerClick(PointerEventData eventData)
         {
             base.OnPointerClick(eventData);
-            if (onClick != null) onClick(gameObject);
-            if (onEventClick != null) onEventClick(gameObject, EventObj);
-
+            onClick?.Invoke(gameObject);
         }
         public override void OnPointerDown(PointerEventData eventData)
         {
             base.OnPointerDown(eventData);
-            if (onClickDown != null) onClickDown(gameObject);
-            if (onEventClickDown != null) onEventClickDown(gameObject, EventObj);
+            onClickDown?.Invoke(gameObject);
+            onArgClickDown?.Invoke(gameObject,eventData);
 
         }
         public override void OnPointerUp(PointerEventData eventData)
         {
             base.OnPointerUp(eventData);
-            if (onClickUp != null) onClickUp(gameObject);
-            if (onEventClickUp != null) onEventClickUp(gameObject, EventObj);
+            onClickUp?.Invoke(gameObject);
+            onArgClickUp?.Invoke(gameObject,eventData);
 
         }
         public override void OnDrag(PointerEventData eventData)
         {
             base.OnDrag(eventData);
-            if (onDrag != null) onDrag(gameObject);
-            if (onEventDrag != null) onEventDrag(gameObject, EventObj);
+            onDrag?.Invoke(gameObject);
+            onArgDrag?.Invoke(gameObject,eventData);
 
         }
         public override void OnPointerEnter(PointerEventData eventData)
         {
             base.OnPointerEnter(eventData);
-            if (onPointerEnter != null) onPointerEnter(gameObject);
-            if (onEventPointerEnter != null) onEventPointerEnter(gameObject, EventObj);
+            onPointerEnter?.Invoke(gameObject);
+            onArgPointerEnter?.Invoke(gameObject,eventData);
         }
         public override void OnPointerExit(PointerEventData eventData)
         {
             base.OnPointerExit(eventData);
-            if (onPointerExit != null) onPointerExit(gameObject);
-            if (onEventPointerExit != null) onEventPointerExit(gameObject, EventObj);
+            onPointerExit?.Invoke(gameObject);
+            onArgPointerExit?.Invoke(gameObject,eventData);
         }
 
         public override void OnBeginDrag(PointerEventData eventData)
         {
             base.OnBeginDrag(eventData);
-            if (onBeginDrag != null) onBeginDrag(gameObject);
-            if (onEventBeginDrag != null) onEventBeginDrag(gameObject, EventObj);
+            onBeginDrag?.Invoke(gameObject);
+            onArgBeginDrag?.Invoke(gameObject,eventData);
         }
 
         public override void OnEndDrag(PointerEventData eventData)
         {
             base.OnEndDrag(eventData);
-            if (onEndDrag != null) onEndDrag(gameObject);
-            if (onEventEndDrag != null) onEventEndDrag(gameObject, EventObj);
+            onEndDrag?.Invoke(gameObject);
+            onArgEndDrag?.Invoke(gameObject,eventData);
         }
 
         public static UIEventListener Get(GameObject Go)
@@ -102,18 +99,7 @@ namespace EPloy
         {
             listener = Go.GetComponent<UIEventListener>();
             if (listener == null) return;
-            listener.onClick = null;
-            listener.onEventClick = null;
-        }
-
-
-        public static UIEventListener Get(GameObject Go, object obj)
-        {
-            listener = Go.GetComponent<UIEventListener>();
-            if (listener == null)
-                listener = Go.gameObject.AddComponent<UIEventListener>();
-            listener.EventObj = obj;
-            return listener;
+            Destroy(listener);
         }
     }
 }

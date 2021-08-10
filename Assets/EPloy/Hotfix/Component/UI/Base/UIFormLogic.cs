@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace EPloy
 {
     /// <summary>
@@ -8,13 +9,23 @@ namespace EPloy
     /// </summary>
     public abstract class UIFormLogic : IReference
     {
-        protected UIForm UIForm;
-        private Transform LogicTransform;
+        private Transform logicTransform;
+
         protected Transform transform
+        {
+            get { return logicTransform; }
+        }
+
+        public bool isActive
         {
             get
             {
-                return LogicTransform;
+                if (logicTransform)
+                {
+
+                }
+
+                return transform.gameObject.activeInHierarchy;
             }
         }
 
@@ -23,22 +34,30 @@ namespace EPloy
         /// </summary>
         /// <param name="uIForm"></param>
         /// <param name="transform"></param>
-        public void CreateLogic(UIForm uIForm,Transform transform )
+        public void CreateLogic(UIForm uIForm, Transform transform)
         {
-            LogicTransform = transform;
-            UIForm = uIForm;
+            logicTransform = transform;
             Create();
         }
-   
-        protected virtual  void Create()
+
+        public virtual void ShowView()
+        {
+            logicTransform.gameObject.SetActive(true);
+        }
+
+        public virtual void CloseView()
+        {
+            logicTransform.gameObject.SetActive(false);
+        }
+
+        protected virtual void Create()
         {
 
         }
-        public void Clear()
-        {
-            UIForm = null;
-            LogicTransform = null;
-        }
 
+        public virtual void Clear()
+        {
+            logicTransform = null;
+        }
     }
 }
