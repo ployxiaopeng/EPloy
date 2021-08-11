@@ -15,7 +15,7 @@ namespace EPloy
             {
                 if (_dataText == null)
                 {
-                    _dataText = GameEntry.DataTable.GetDataTable<DRText>();
+                    _dataText = HotFixMudule.DataTable.GetDataTable<DRText>();
                 }
                 return _dataText;
             }
@@ -27,7 +27,7 @@ namespace EPloy
             {
                 if (_dataLanguage == null)
                 {
-                    _dataLanguage = GameEntry.DataTable.GetDataTable<DRLanguageText>();
+                    _dataLanguage = HotFixMudule.DataTable.GetDataTable<DRLanguageText>();
                 }
                 return _dataLanguage;
             }

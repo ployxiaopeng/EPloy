@@ -13,7 +13,7 @@ namespace EPloy
             {
                 if (_dataResSprite == null)
                 {
-                    _dataResSprite = GameEntry.DataTable.GetDataTable<DRResSprite>();
+                    _dataResSprite = HotFixMudule.DataTable.GetDataTable<DRResSprite>();
                 }
                 return _dataResSprite;
             }
@@ -27,7 +27,7 @@ namespace EPloy
         /// <param name="groupName"></param>
         public static void SetSprite(this Image image, int resSpriteId)
         {
-            GameEntry.Atlas.SetSprite(resSpriteId, image);
+            HotFixMudule.Atlas.SetSprite(resSpriteId, image);
         }
         /// <summary>
         /// 设置图片通过Id
@@ -36,7 +36,7 @@ namespace EPloy
         /// <param name="resSpriteId"></param>
         public static void SetSprite(this SpriteRenderer SpriteRenderer, int resSpriteId)
         {
-            GameEntry.Atlas.SetSprite(resSpriteId, SpriteRenderer);
+            HotFixMudule.Atlas.SetSprite(resSpriteId, SpriteRenderer);
         }
     }
 }
