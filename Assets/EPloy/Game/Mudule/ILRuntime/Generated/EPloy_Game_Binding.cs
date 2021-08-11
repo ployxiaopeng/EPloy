@@ -21,7 +21,7 @@ namespace ILRuntime.Runtime.Generated
             BindingFlags flag = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
             MethodBase method;
             Type[] args;
-            Type type = typeof(EPloy.Game);
+            Type type = typeof(EPloy.GameStart);
             args = new Type[]{};
             method = type.GetMethod("get_Timer", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, get_Timer_0);
@@ -42,7 +42,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
 
 
-            var result_of_this_method = EPloy.Game.Timer;
+            var result_of_this_method = EPloy.GameModule.Timer;
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
@@ -53,7 +53,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
 
 
-            var result_of_this_method = EPloy.Game.ResUpdater;
+            var result_of_this_method = EPloy.GameModule.ResUpdater;
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
@@ -64,7 +64,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
 
 
-            var result_of_this_method = EPloy.Game.ILRuntime;
+            var result_of_this_method = EPloy.GameModule.ILRuntime;
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }

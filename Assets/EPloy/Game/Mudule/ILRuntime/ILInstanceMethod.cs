@@ -26,26 +26,26 @@ namespace EPloy
         public ILInstanceMethod(object hotfixInstance, string typeName, string methodName, int paramCount)
         {
             m_HotfixInstance = hotfixInstance;
-            m_Method = Game.ILRuntime.AppDomain.LoadedTypes[typeName].GetMethod(methodName, paramCount);
+            m_Method = GameModule.ILRuntime.AppDomain.LoadedTypes[typeName].GetMethod(methodName, paramCount);
             m_Params = new object[paramCount];
         }
 
         public void Invoke()
         {
-            Game.ILRuntime.AppDomain.Invoke(m_Method, m_HotfixInstance, m_Params);
+            GameModule.ILRuntime.AppDomain.Invoke(m_Method, m_HotfixInstance, m_Params);
         }
 
         public void Invoke(object a)
         {
             m_Params[0] = a;
-            Game.ILRuntime.AppDomain.Invoke(m_Method, m_HotfixInstance, m_Params);
+            GameModule.ILRuntime.AppDomain.Invoke(m_Method, m_HotfixInstance, m_Params);
         }
 
         public void Invoke(object a, object b)
         {
             m_Params[0] = a;
             m_Params[1] = b;
-            Game.ILRuntime.AppDomain.Invoke(m_Method, m_HotfixInstance, m_Params);
+            GameModule.ILRuntime.AppDomain.Invoke(m_Method, m_HotfixInstance, m_Params);
         }
 
         public void Invoke(object a, object b, object c)
@@ -53,7 +53,7 @@ namespace EPloy
             m_Params[0] = a;
             m_Params[1] = b;
             m_Params[2] = c;
-            Game.ILRuntime.AppDomain.Invoke(m_Method, m_HotfixInstance, m_Params);
+            GameModule.ILRuntime.AppDomain.Invoke(m_Method, m_HotfixInstance, m_Params);
         }
     }
 }

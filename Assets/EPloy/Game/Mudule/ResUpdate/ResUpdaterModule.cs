@@ -9,7 +9,7 @@ namespace EPloy.Res
     /// <summary>
     /// 资源更新
     /// </summary>
-    public sealed class ResUpdaterModule : EPloyModule
+    public sealed class ResUpdaterModule : IGameModule
     {
         internal string BackupExtension = "bak";
         internal string ResPath = Application.persistentDataPath;
@@ -36,13 +36,9 @@ namespace EPloy.Res
         /// <summary>
         /// 变体 暂时不知道不知道鬼
         /// </summary>
-        public string CurrentVariant
-        {
-            get;
-            set;
-        }
+        public string CurrentVariant { get; set; }
 
-        public override void Awake()
+        public void Awake()
         {
             ResStore = new ResStore();
             ResChecker = new ResChecker(this, ResStore);
@@ -51,12 +47,12 @@ namespace EPloy.Res
             ReadWriteFileSystems = new Dictionary<string, IFileSystem>();
         }
 
-        public override void Update()
+        public void Update()
         {
 
         }
 
-        public override void OnDestroy()
+        public void OnDestroy()
         {
             ReadWriteFileSystems.Clear();
         }
@@ -88,6 +84,7 @@ namespace EPloy.Res
                 Log.Fatal("Check resources complete callback is invalid.");
                 return;
             }
+
             ResChecker.CheckResources(CurrentVariant);
         }
 
@@ -107,6 +104,7 @@ namespace EPloy.Res
             {
                 resGroupName = string.Empty;
             }
+
             ResGroup resGroup = ResStore.GetResGroup(resGroupName);
             if (resGroup == null)
             {
@@ -129,13 +127,14 @@ namespace EPloy.Res
             IFileSystem fileSystem = null;
             if (!ReadWriteFileSystems.TryGetValue(fileSystemName, out fileSystem))
             {
-                string fullPath = Utility.Path.GetRegularPath(Path.Combine(ResPath, Utility.Text.Format("{0}.{1}", fileSystemName, MuduleConfig.DefaultExtension)));
-                fileSystem = Game.FileSystem.GetFileSystem(fullPath);
+                string fullPath = Utility.Path.GetRegularPath(Path.Combine(ResPath,
+                    Utility.Text.Format("{0}.{1}", fileSystemName, MuduleConfig.DefaultExtension)));
+                fileSystem = GameModule.FileSystem.GetFileSystem(fullPath);
                 if (fileSystem == null)
                 {
                     if (File.Exists(fullPath))
                     {
-                        fileSystem = Game.FileSystem.LoadFileSystem(fullPath, FileSystemAccess.ReadWrite);
+                        fileSystem = GameModule.FileSystem.LoadFileSystem(fullPath, FileSystemAccess.ReadWrite);
                     }
                     else
                     {
@@ -145,23 +144,28 @@ namespace EPloy.Res
                             Directory.CreateDirectory(directory);
                         }
 
-                        fileSystem = Game.FileSystem.CreateFileSystem(fullPath, FileSystemAccess.ReadWrite, MuduleConfig.FileSystemMaxFileCount, MuduleConfig.FileSystemMaxBlockCount);
+                        fileSystem = GameModule.FileSystem.CreateFileSystem(fullPath, FileSystemAccess.ReadWrite,
+                            MuduleConfig.FileSystemMaxFileCount, MuduleConfig.FileSystemMaxBlockCount);
                     }
 
                     ReadWriteFileSystems.Add(fileSystemName, fileSystem);
                 }
             }
+
             return fileSystem;
         }
 
-        private void OnResNeedUpdate(ResName resourceName, string fileSystemName, LoadType loadType, int length, int hashCode, int zipLength, int zipHashCode)
+        private void OnResNeedUpdate(ResName resourceName, string fileSystemName, LoadType loadType, int length,
+            int hashCode, int zipLength, int zipHashCode)
         {
-            UpdaterHandler.AddResUpdate(resourceName, fileSystemName, loadType, length, hashCode, zipLength, zipHashCode, Utility.Path.GetRegularPath(Path.Combine(ResPath, resourceName.FullName)));
+            UpdaterHandler.AddResUpdate(resourceName, fileSystemName, loadType, length, hashCode, zipLength,
+                zipHashCode, Utility.Path.GetRegularPath(Path.Combine(ResPath, resourceName.FullName)));
         }
 
-        private void OnResCheckComplete(int movedCount, int removedCount, int updateCount, long updateTotalLength, long updateTotalZipLength)
+        private void OnResCheckComplete(int movedCount, int removedCount, int updateCount, long updateTotalLength,
+            long updateTotalZipLength)
         {
-            Game.VersionChecker.OnDestroy();
+            GameModule.VersionChecker.OnDestroy();
             ResChecker.OnDestroy();
             UpdaterHandler.CheckResComplete(movedCount > 0 || removedCount > 0);
 
@@ -259,6 +263,7 @@ namespace EPloy.Res
 
                 Utility.Path.RemoveEmptyDirectory(ResPath);
             }
+
             UpdateResCallBack.ResUpdateComplete(result);
             UpdateResCallBack.Dispose();
         }

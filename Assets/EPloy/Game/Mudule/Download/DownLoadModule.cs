@@ -12,48 +12,49 @@ namespace EPloy.Download
     /// <summary>
     /// 版本校验。
     /// </summary>
-    public class DownLoadModule : EPloyModule
+    public class DownLoadModule : IGameModule
     {
         private const float Timeout = 30f;
         private const int OneMegaBytes = 1024 * 1024;
         private TypeLinkedList<DownloadTask> DownloadTasks;
         private Stack<DownloadAgent> FreeDownloadAgents;
         private TypeLinkedList<DownloadAgent> WorkingDownloadAgents;
+
         public int FreeAgentCount
         {
-            get
-            {
-                return FreeDownloadAgents.Count;
-            }
+            get { return FreeDownloadAgents.Count; }
         }
 
-        public override void Awake()
+        public void Awake()
         {
             DownloadTasks = new TypeLinkedList<DownloadTask>();
             FreeDownloadAgents = new Stack<DownloadAgent>();
             WorkingDownloadAgents = new TypeLinkedList<DownloadAgent>();
         }
 
-        public override void Update()
+        public void Update()
         {
             ProcessRunningTasks();
             ProcessWaitingTasks();
         }
 
-        public override void OnDestroy()
+        public void OnDestroy()
         {
             DownloadTasks.Clear();
             WorkingDownloadAgents.Clear();
         }
 
-        public void AddDownload(string downloadPath, string downloadUri, DownloadCallBack downloadCallBack, object userData = null)
+        public void AddDownload(string downloadPath, string downloadUri, DownloadCallBack downloadCallBack,
+            object userData = null)
         {
             if (downloadCallBack == null)
             {
                 Log.Error("downloadCallBack is null");
                 return;
             }
-            DownloadTask downloadTask = DownloadTask.Create(downloadPath, downloadUri, OneMegaBytes, Timeout, downloadCallBack, userData);
+
+            DownloadTask downloadTask = DownloadTask.Create(downloadPath, downloadUri, OneMegaBytes, Timeout,
+                downloadCallBack, userData);
             DownloadTasks.AddLast(downloadTask);
         }
 
@@ -61,6 +62,7 @@ namespace EPloy.Download
         {
 
         }
+
         private void ProcessRunningTasks()
         {
             LinkedListNode<DownloadAgent> current = WorkingDownloadAgents.First;
@@ -101,6 +103,7 @@ namespace EPloy.Download
                     DownloadTasks.Remove(current);
                     task.Dispose();
                 }
+
                 current = next;
             }
         }

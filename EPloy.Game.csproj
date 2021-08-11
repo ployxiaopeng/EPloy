@@ -53,7 +53,8 @@
      <Compile Include="Assets\EPloy\Game\Base\Altas.cs" />
      <Compile Include="Assets\EPloy\Game\Base\EPloyAction.cs" />
      <Compile Include="Assets\EPloy\Game\Base\Log.cs" />
-     <Compile Include="Assets\EPloy\Game\Base\Mudule\EPloyModule.cs" />
+     <Compile Include="Assets\EPloy\Game\Base\Mudule\GameModuleMgr.cs" />
+     <Compile Include="Assets\EPloy\Game\Base\Mudule\IGameModule.cs" />
      <Compile Include="Assets\EPloy\Game\Base\MuduleConfig.cs" />
      <Compile Include="Assets\EPloy\Game\Base\TypeLinkedList.cs" />
      <Compile Include="Assets\EPloy\Game\Base\TypeNamePair.cs" />
@@ -75,7 +76,7 @@
      <Compile Include="Assets\EPloy\Game\Base\Utility\Utility.Verifier.Crc32.cs" />
      <Compile Include="Assets\EPloy\Game\Base\Utility\Utility.Verifier.cs" />
      <Compile Include="Assets\EPloy\Game\Base\Utility\Utility.Zip.cs" />
-     <Compile Include="Assets\EPloy\Game\Game.cs" />
+     <Compile Include="Assets\EPloy\Game\GameStart.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Async\AsyncETTaskMethodBuilder.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Async\AsyncETVoidMethodBuilder.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Async\AsyncMethodBuilderAttribute.cs" />
@@ -93,7 +94,6 @@
      <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadCallBack.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadInfo.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Download\DownloadTask.cs" />
-     <Compile Include="Assets\EPloy\Game\Mudule\EPloyModuleMgr.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\FileSystem\AndroidFileSystemStream.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\FileSystem\Base\FileInfo.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\FileSystem\Base\FileSystem.BlockData.cs" />
@@ -105,6 +105,7 @@
      <Compile Include="Assets\EPloy\Game\Mudule\FileSystem\Base\IFileSystem.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\FileSystem\CommonFileSystemStream.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\FileSystem\FileSystemModule.cs" />
+     <Compile Include="Assets\EPloy\Game\Mudule\GameModule.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ILRuntime\Adaptor\IAsyncStateMachineAdaptor.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ILRuntime\Adaptor\ICoroutineAdapter.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\ILRuntime\Adaptor\IDisposableAdaptor.cs" />

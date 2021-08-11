@@ -16,7 +16,7 @@ namespace EPloy
 
         public override void Awake()
         {
-            DataStoreEntity = GameEntry.Game.CreateEntity("DataStore");
+            DataStoreEntity = GameEntry.GameEntity.CreateEntity("DataStore");
             GetUIFormTypes();
         }
 

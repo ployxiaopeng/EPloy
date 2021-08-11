@@ -17,7 +17,7 @@ namespace EPloy.Res
         {
             get
             {
-                return Game.DownLoad;
+                return GameModule.DownLoad;
             }
         }
         private ResUpdaterModule ResUpdater;

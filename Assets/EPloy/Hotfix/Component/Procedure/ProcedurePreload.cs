@@ -48,7 +48,7 @@ namespace EPloy
             }
 
             // PreloadUIWnd();
-            await Game.Timer.WaitAsync(1000);
+            await GameModule.Timer.WaitAsync(1000);
             LoadedFlag["Data"] = true;
         }
 

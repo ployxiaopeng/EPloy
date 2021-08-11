@@ -12,7 +12,7 @@ namespace EPloy
 
         public override void Awake()
         {
-            mapEntity = GameEntry.Game.CreateEntity("Map");
+            mapEntity = GameEntry.GameEntity.CreateEntity("Map");
         }
 
         private int MapReqionId;

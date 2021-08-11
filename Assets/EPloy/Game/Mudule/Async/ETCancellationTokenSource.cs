@@ -2,21 +2,21 @@ using System.Threading;
 
 namespace EPloy
 {
-    public class ETCancellationTokenSource : EPloyModule
+    public class ETCancellationTokenSource : IGameModule
     {
         public CancellationTokenSource CancellationTokenSource;
 
-        public override void Awake()
+        public  void Awake()
         {
             CancellationTokenSource = new CancellationTokenSource();
         }
 
-        public override void Update()
+        public  void Update()
         {
             //
         }
 
-        public override void OnDestroy()
+        public  void OnDestroy()
         {
             this.CancellationTokenSource?.Dispose();
             this.CancellationTokenSource = null;
@@ -30,7 +30,7 @@ namespace EPloy
 
         public async ETVoid CancelAfter(long afterTimeCancel)
         {
-            await Game.Timer.WaitAsync(afterTimeCancel);
+            await GameModule.Timer.WaitAsync(afterTimeCancel);
             this.CancellationTokenSource.Cancel();
             OnDestroy();
         }

@@ -20,7 +20,7 @@ namespace EPloy
         public override void Awake()
         {
             base.Awake();
-            if (GameStart.isEditorRes)
+            if (HotFixStart.isEditorRes)
             {
                 ResEditorLoader = ResEditorLoader.CreateResEditorLoader();
             }
@@ -29,7 +29,8 @@ namespace EPloy
                 ResEditorLoader = null;
                 ResLoader = ResLoader.CreateResLoader();
             }
-            ResHelper = new ResHelper(GameStart.Game);
+
+            ResHelper = new ResHelper(GameStart.Instance);
         }
 
         public override void Update()
@@ -61,9 +62,10 @@ namespace EPloy
                 Log.Fatal("Asset name is invalid.");
                 return HasResult.NotExist;
             }
+
             if (ResEditorLoader == null)
             {
-                ResInfo resInfo = Game.ResUpdater.GetResInfo(assetName);
+                ResInfo resInfo = GameModule.ResUpdater.GetResInfo(assetName);
                 if (resInfo == null)
                 {
                     return HasResult.NotExist;
@@ -73,8 +75,10 @@ namespace EPloy
                 {
                     return HasResult.NotReady;
                 }
+
                 return resInfo.IsLoadFromBinary ? HasResult.BinaryOnDisk : HasResult.AssetOnDisk;
             }
+
             return ResEditorLoader.HasAsset(assetName);
         }
 
@@ -85,7 +89,8 @@ namespace EPloy
         /// <param name="assetType">要加载资源的类型。</param>
         /// <param name="loadAssetCallbacks">加载资源回调函数集。</param>
         /// <param name="userData">用户自定义数据。</param>
-        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks, object userData = null)
+        public void LoadAsset(string assetName, Type assetType, LoadAssetCallbacks loadAssetCallbacks,
+            object userData = null)
         {
             if (ResEditorLoader == null)
             {
@@ -156,7 +161,7 @@ namespace EPloy
             string binaryPath = null;
             if (ResEditorLoader == null)
             {
-                ResInfo resInfo = Game.ResUpdater.GetResInfo(binaryAssetName);
+                ResInfo resInfo = GameModule.ResUpdater.GetResInfo(binaryAssetName);
                 if (resInfo == null)
                 {
                     return null;
@@ -178,6 +183,7 @@ namespace EPloy
             {
                 ResEditorLoader.GetBinaryPath(binaryAssetName, out binaryPath);
             }
+
             return binaryPath;
         }
 
@@ -194,7 +200,7 @@ namespace EPloy
             {
                 fileName = null;
 
-                ResInfo resInfo = Game.ResUpdater.GetResInfo(binaryAssetName);
+                ResInfo resInfo = GameModule.ResUpdater.GetResInfo(binaryAssetName);
                 if (resInfo == null)
                 {
                     return false;
@@ -209,9 +215,11 @@ namespace EPloy
                 {
                     return false;
                 }
+
                 fileName = resInfo.ResName.FullName;
                 return true;
             }
+
             return ResEditorLoader.GetBinaryPath(binaryAssetName, out fileName);
         }
 
@@ -224,7 +232,7 @@ namespace EPloy
         {
             if (ResEditorLoader == null)
             {
-                ResInfo resInfo = Game.ResUpdater.GetResInfo(binaryAssetName);
+                ResInfo resInfo = GameModule.ResUpdater.GetResInfo(binaryAssetName);
                 if (resInfo == null)
                 {
                     return -1;
@@ -242,6 +250,7 @@ namespace EPloy
 
                 return resInfo.Length;
             }
+
             return ResEditorLoader.GetBinaryLength(binaryAssetName);
         }
 
@@ -255,9 +264,9 @@ namespace EPloy
             {
                 return ResLoader.GetAllLoadAssetInfos();
             }
+
             Log.Fatal("Task no use in Editor");
             return null;
         }
-    
     }
 }

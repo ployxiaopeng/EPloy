@@ -3,7 +3,6 @@ using ILRuntime.CLR.TypeSystem;
 using System;
 using System.IO;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
@@ -16,10 +15,10 @@ namespace EPloy
     /// <summary>
     /// ILRuntime
     /// </summary>
-    public class ILRuntimeModule : EPloyModule
+    public class ILRuntimeModule : IGameModule
     {
         private const string HotfixName = "EPloy.Hotfix";
-        private const string GameStartStr = "EPloy.GameStart";
+        private const string GameStartStr = "EPloy.HotFixStart";
         private const string AwakeStr = "Awake";
         private const string StartStr = "Start";
         private const string UpdateStr = "Update";
@@ -50,18 +49,14 @@ namespace EPloy
         /// <summary>
         /// ILRuntime入口对象
         /// </summary>
-        public AppDomain AppDomain
-        {
-            get;
-            private set;
-        }
+        public AppDomain AppDomain { get; private set; }
 
-        public override void Awake()
+        public void Awake()
         {
 
         }
 
-        public override void Update()
+        public void Update()
         {
             if (!OpenHotfixUpdate) return;
             if (IsILRuntime)
@@ -87,7 +82,7 @@ namespace EPloy
 #endif
         }
 
-        public override void OnDestroy()
+        public void OnDestroy()
         {
             if (IsILRuntime)
             {
@@ -112,15 +107,16 @@ namespace EPloy
             {
 #if UNITY_EDITOR
                 Debug.Log("当前为 LRuntime Editor模式");
-                Game.Instance.StartCoroutine(EditorHotfixStart());
+                GameStart.Instance.StartCoroutine(EditorHotfixStart());
 #else
                 Debug.LogError("移动平台只有ILRuntime 模式不开会报错");
 #endif
                 return;
             }
+
             AppDomain = new AppDomain();
             ILRuntimeHelper.InitILRuntime(AppDomain);
-            Game.Instance.StartCoroutine(LoadHotfixDll());
+            GameStart.Instance.StartCoroutine(LoadHotfixDll());
         }
 
         /// <summary>
@@ -148,10 +144,12 @@ namespace EPloy
             if (!IsILRuntime)
             {
                 Debug.LogError("ERR: is not Editor module in mobile platform");
-                yield break; ;
+                yield break;
+                ;
             }
 
             # region 加载  Hotfix.dll
+
             bool isError = false;
             UnityWebRequest hotfixDllRequest = UnityWebRequest.Get(GetHotfixAsset("Hotfix.dll"));
             yield return hotfixDllRequest.SendWebRequest();
@@ -159,14 +157,18 @@ namespace EPloy
             if (isError)
             {
                 Debug.LogError("load hotfixDll err : " + hotfixDllRequest.error);
-                yield break; ;
+                yield break;
+                ;
             }
+
             byte[] hotfixDll = hotfixDllRequest.downloadHandler.data;
             hotfixDllRequest.Dispose();
             Debug.Log("hotfix dll加载完毕");
+
             #endregion
 
             #region 加载  Hotfix.pdb
+
 #if UNITY_EDITOR
             UnityWebRequest pdbRequest = UnityWebRequest.Get(GetHotfixAsset("Hotfix.pdb"));
             yield return pdbRequest.SendWebRequest();
@@ -174,8 +176,10 @@ namespace EPloy
             if (isError)
             {
                 Debug.LogError("load hotfix pdb err : " + pdbRequest.error);
-                yield break; ;
+                yield break;
+                ;
             }
+
             byte[] hotfixPbd = pdbRequest.downloadHandler.data;
             pdbRequest.Dispose();
             Debug.Log("hotfix pdb加载完毕");
@@ -188,9 +192,10 @@ namespace EPloy
 #else
             AppDomain.LoadAssembly(new MemoryStream(hotfixDll));
 #endif
+
             #endregion
 
-            Game.Instance.StartCoroutine(HotfixStart());
+            GameStart.Instance.StartCoroutine(HotfixStart());
         }
 
         /// <summary>
@@ -201,7 +206,7 @@ namespace EPloy
             yield return null;
             IType type = AppDomain.LoadedTypes[GameStartStr];
 
-            AppDomain.Invoke(GameStartStr, AwakeStr, null, new[] { Game.Instance });
+            AppDomain.Invoke(GameStartStr, AwakeStr, null, new[] {GameStart.Instance});
             AppDomain.Invoke(GameStartStr, StartStr, null, null);
             hUpdate = type.GetMethod(UpdateStr, 0);
             hLateUpdate = type.GetMethod(LateUpdateStr, 0);
@@ -215,7 +220,7 @@ namespace EPloy
             Types = editorAssembly.GetTypes().ToArray();
             Type type = editorAssembly.GetType(GameStartStr);
             MethodInfo awake = type.GetMethod(AwakeStr, BindingFlags.Public | BindingFlags.Static);
-            awake.Invoke(null, new[] { Game.Instance });
+            awake.Invoke(null, new[] {GameStart.Instance});
             yield return new WaitForEndOfFrame();
             MethodInfo start = type.GetMethod(StartStr, BindingFlags.Public | BindingFlags.Static);
             start.Invoke(null, null);

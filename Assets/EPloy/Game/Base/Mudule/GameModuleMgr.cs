@@ -6,40 +6,41 @@ using UnityEngine;
 namespace EPloy
 {
     /// <summary>
-    /// 非热更模块管理
+    /// 非热更游戏模块管理
     /// </summary>
-    public static class EPloyModuleMgr
+    public static class GameModuleMgr
     {
-        private static Dictionary<Type, EPloyModule> EPloyModules = new Dictionary<Type, EPloyModule>();
+        private static Dictionary<Type, IGameModule> EPloyModules = new Dictionary<Type, IGameModule>();
 
-        public static bool HasModule<T>() where T : EPloyModule
+        public static bool HasModule<T>() where T : IGameModule
         {
             return (EPloyModules.ContainsKey(typeof(T)));
         }
 
-        public static T CreateModule<T>() where T : EPloyModule
+        public static T CreateModule<T>() where T : IGameModule
         {
-            EPloyModule mudule = (EPloyModule)Activator.CreateInstance<T>();
+            IGameModule mudule = (IGameModule)Activator.CreateInstance<T>();
             mudule.Awake();
             EPloyModules.Add(typeof(T), mudule);
             return (T)mudule;
         }
 
-        public static T GetModule<T>() where T : EPloyModule
+        public static T GetModule<T>() where T : IGameModule
         {
             if (EPloyModules.ContainsKey(typeof(T)))
             {
-                return (T)EPloyModules[typeof(T)];
+                return (T) EPloyModules[typeof(T)];
             }
+
             Log.Fatal(Utility.Text.Format("can not find module : ", typeof(T).ToString()));
-            return null;
+            return default(T);
         }
 
-        public static bool RemoveModule<T>() where T : EPloyModule
+        public static bool RemoveModule<T>() where T : IGameModule
         {
             if (EPloyModules.ContainsKey(typeof(T)))
             {
-                EPloyModule mudule = EPloyModules[typeof(T)];
+                IGameModule mudule = EPloyModules[typeof(T)];
                 EPloyModules.Remove(typeof(T));
                 mudule.OnDestroy();
                 mudule = null;

@@ -10,13 +10,15 @@ namespace EPloy
         public ETTaskCompletionSource tcs;
     }
 
-    public class TimerModule : EPloyModule
+    public class TimerModule : IGameModule
     {
         private Dictionary<long, Timer> timers;
+
         /// <summary>
         /// key: time, value: timer id
         /// </summary>
         private MultiMap<long, long> timeId;
+
         private Queue<long> timeOutTime;
         private Queue<long> timeOutTimerIds;
 
@@ -24,7 +26,7 @@ namespace EPloy
         private long minTime;
         private int recordId;
 
-        public override void Awake()
+        public void Awake()
         {
             recordId = 0;
             timers = new Dictionary<long, Timer>();
@@ -33,7 +35,7 @@ namespace EPloy
             timeOutTimerIds = new Queue<long>();
         }
 
-        public override void Update()
+        public void Update()
         {
             if (this.timeId.Count == 0)
             {
@@ -55,6 +57,7 @@ namespace EPloy
                     minTime = k;
                     break;
                 }
+
                 this.timeOutTime.Enqueue(k);
             }
 
@@ -65,6 +68,7 @@ namespace EPloy
                 {
                     this.timeOutTimerIds.Enqueue(timerId);
                 }
+
                 this.timeId.Remove(time);
             }
 
@@ -76,12 +80,13 @@ namespace EPloy
                 {
                     continue;
                 }
+
                 this.timers.Remove(timerId);
                 timer.tcs.SetResult();
             }
         }
 
-        public override void OnDestroy()
+        public void OnDestroy()
         {
             timers.Clear();
             timeId.Clear();
@@ -97,13 +102,14 @@ namespace EPloy
         public ETTask WaitTillAsync(long tillTime, CancellationToken cancellationToken)
         {
             ETTaskCompletionSource tcs = new ETTaskCompletionSource();
-            Timer timer = new Timer { Id = GenerateId(), Time = tillTime, tcs = tcs };
+            Timer timer = new Timer {Id = GenerateId(), Time = tillTime, tcs = tcs};
             this.timers[timer.Id] = timer;
             this.timeId.Add(timer.Time, timer.Id);
             if (timer.Time < this.minTime)
             {
                 this.minTime = timer.Time;
             }
+
             cancellationToken.Register(() => { this.Remove(timer.Id); });
             return tcs.Task;
         }
@@ -111,26 +117,28 @@ namespace EPloy
         public ETTask WaitTillAsync(long tillTime)
         {
             ETTaskCompletionSource tcs = new ETTaskCompletionSource();
-            Timer timer = new Timer { Id = GenerateId(), Time = tillTime, tcs = tcs };
+            Timer timer = new Timer {Id = GenerateId(), Time = tillTime, tcs = tcs};
             this.timers[timer.Id] = timer;
             this.timeId.Add(timer.Time, timer.Id);
             if (timer.Time < this.minTime)
             {
                 this.minTime = timer.Time;
             }
+
             return tcs.Task;
         }
 
         public ETTask WaitAsync(long time, CancellationToken cancellationToken)
         {
             ETTaskCompletionSource tcs = new ETTaskCompletionSource();
-            Timer timer = new Timer { Id = GenerateId(), Time = TimeHelper.Now() + time, tcs = tcs };
+            Timer timer = new Timer {Id = GenerateId(), Time = TimeHelper.Now() + time, tcs = tcs};
             this.timers[timer.Id] = timer;
             this.timeId.Add(timer.Time, timer.Id);
             if (timer.Time < this.minTime)
             {
                 this.minTime = timer.Time;
             }
+
             cancellationToken.Register(() => { this.Remove(timer.Id); });
             return tcs.Task;
         }
@@ -138,13 +146,14 @@ namespace EPloy
         public ETTask WaitAsync(long time)
         {
             ETTaskCompletionSource tcs = new ETTaskCompletionSource();
-            Timer timer = new Timer { Id = GenerateId(), Time = TimeHelper.Now() + time, tcs = tcs };
+            Timer timer = new Timer {Id = GenerateId(), Time = TimeHelper.Now() + time, tcs = tcs};
             this.timers[timer.Id] = timer;
             this.timeId.Add(timer.Time, timer.Id);
             if (timer.Time < this.minTime)
             {
                 this.minTime = timer.Time;
             }
+
             return tcs.Task;
         }
 
@@ -157,6 +166,7 @@ namespace EPloy
                     recordId += 1;
                     continue;
                 }
+
                 return recordId;
             }
         }

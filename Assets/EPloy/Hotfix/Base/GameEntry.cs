@@ -23,19 +23,19 @@ namespace EPloy
         public static AtlasComponent Atlas { get; set; }
         public static MapComponet Map { get; set; }
 
-        private static GameEntity game = null;
+        private static GameEntity gameEntity = null;
 
-        public static GameEntity Game
+        public static GameEntity GameEntity
         {
             get
             {
-                if (game == null)
+                if (gameEntity == null)
                 {
-                    game = ReferencePool.Acquire<GameEntity>();
-                    game.Awake(0, "Game");
+                    gameEntity = ReferencePool.Acquire<GameEntity>();
+                    gameEntity.Awake(0, "Game");
                 }
 
-                return game;
+                return gameEntity;
             }
         }
 

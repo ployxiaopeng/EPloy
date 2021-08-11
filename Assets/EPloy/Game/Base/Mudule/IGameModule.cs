@@ -2,23 +2,23 @@
 namespace EPloy
 {
     /// <summary>
-    /// Module抽象类。
+    /// 非热更游戏Module抽象类。
     /// </summary>
-    public abstract class EPloyModule
+    public interface IGameModule
     {
         /// <summary>
         /// Module 唤醒
         /// </summary>
-        public abstract void Awake();
+        void Awake();
 
         /// <summary>
         /// Module 唤醒轮询。
         /// </summary>
-        public abstract void Update();
+        void Update();
 
         /// <summary>
-        /// 关闭Module 
+        /// 关闭销毁Module 
         /// </summary>
-        public abstract void OnDestroy();
+        void OnDestroy();
     }
 }

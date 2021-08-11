@@ -170,7 +170,7 @@
      <Compile Include="Assets\EPloy\Hotfix\Config\MapEnum.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Config\ObjEnum.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Config\UIEnum.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\GameStart.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\HotFixStart.cs" />
      <Compile Include="Assets\EPloy\Hotfix\System\GameSystem.cs" />
      <Compile Include="Assets\EPloy\Hotfix\System\SystemHelper.cs" />
  <Reference Include="UnityEditor.UI">

@@ -33,12 +33,12 @@ namespace EPloy
 
         public override void Awake()
         {
-            UIEntity = GameEntry.Game.CreateEntity("UI");
+            UIEntity = GameEntry.GameEntity.CreateEntity("UI");
             UIGroups = new Dictionary<UIGroupName, UIGroup>();
             UINames = new Dictionary<UIName, UIGroupName>();
 
             LoadAssetCallbacks = new LoadAssetCallbacks(LoadAssetSuccessCallback, LoadAssetFailureCallback);
-            UIParent = GameStart.Game.transform.Find("UI/Canvas").transform;
+            UIParent = GameStart.Instance.transform.Find("UI/Canvas").transform;
             UIPool = GameEntry.ObjectPool.CreateObjectPool(typeof(UIFormObject), "UIPool");
             foreach (var name in Enum.GetValues(typeof(UIGroupName)))
             {

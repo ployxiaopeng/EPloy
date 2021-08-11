@@ -45,8 +45,8 @@ namespace EPloy
 
         public override void Awake()
         {
-            ObjEntity = GameEntry.Game.CreateEntity("Obj");
-            ObjParent = GameStart.Game.transform.Find("Obj").transform;
+            ObjEntity = GameEntry.GameEntity.CreateEntity("Obj");
+            ObjParent = GameStart.Instance.transform.Find("Obj").transform;
             ObjInfos = new Dictionary<int, ObjInfo>();
             ObjGroups = new Dictionary<ObjGroupName, ObjGroup>();
             ObjsStartLoad = new Dictionary<int, string>();

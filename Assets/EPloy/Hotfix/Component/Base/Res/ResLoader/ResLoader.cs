@@ -215,7 +215,7 @@ namespace EPloy.Res
         /// <param name="userData">用户自定义数据。</param>
         public void LoadBinary(string binaryAssetName, LoadBinaryCallbacks loadBinaryCallbacks)
         {
-            ResInfo resourceInfo = Game.ResUpdater.GetResInfo(binaryAssetName);
+            ResInfo resourceInfo = GameModule.ResUpdater.GetResInfo(binaryAssetName);
             if (resourceInfo == null)
             {
                 string errorMessage = Utility.Text.Format("Can not load binary '{0}' which is not exist.", binaryAssetName);
@@ -340,13 +340,13 @@ namespace EPloy.Res
                 return false;
             }
 
-            AssetInfo assetInfo = Game.ResUpdater.GetAssetInfo(assetName);
+            AssetInfo assetInfo = GameModule.ResUpdater.GetAssetInfo(assetName);
             if (assetInfo == null)
             {
                 return false;
             }
 
-            resInfo = Game.ResUpdater.GetResInfo(assetInfo.ResName);
+            resInfo = GameModule.ResUpdater.GetResInfo(assetInfo.ResName);
             if (resInfo == null)
             {
                 return false;

@@ -15,7 +15,7 @@ namespace EPloy
         {
             get
             {
-                return GameEntry.Game.WithIdComponent.AllComponents;
+                return GameEntry.GameEntity.WithIdComponent.AllComponents;
             }
         }
         private readonly Dictionary<string, Type[]> assemblies = new Dictionary<string, Type[]>();

@@ -51,10 +51,10 @@ namespace EPloy.Res
             CurrentVariant = currentVariant;
             TryRecoverReadWriteVersionList();
             string versionListUri = Utility.Path.GetRemotePath(Path.Combine(VersionListPath, MuduleConfig.LocalVersionListFileName));
-            Game.Instance.StartCoroutine(LocalVersionList(versionListUri));
+            GameStart.Instance.StartCoroutine(LocalVersionList(versionListUri));
 
             string RemoteVersionListUrl = Utility.Path.GetRemotePath(Path.Combine(VersionListPath, MuduleConfig.RemoteVersionListFileName));
-            Game.Instance.StartCoroutine(RemoteVersionList(RemoteVersionListUrl));
+            GameStart.Instance.StartCoroutine(RemoteVersionList(RemoteVersionListUrl));
 
         }
 
@@ -439,7 +439,7 @@ namespace EPloy.Res
                         removedFileSystemNames = new List<string>();
                     }
 
-                    Game.FileSystem.DestroyFileSystem(fileSystem.Value, true);
+                    GameModule.FileSystem.DestroyFileSystem(fileSystem.Value, true);
                     removedFileSystemNames.Add(fileSystem.Key);
                 }
             }

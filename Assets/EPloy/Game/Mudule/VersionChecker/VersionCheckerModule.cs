@@ -13,7 +13,7 @@ namespace EPloy
     /// <summary>
     /// 版本校验。
     /// </summary>
-    public class VersionCheckerModule : EPloyModule
+    public class VersionCheckerModule : IGameModule
     {
         private UpdatableVersionListSerializer UpdatableVersionListSerializer;
         private VersionInfo VersionInfo;
@@ -22,20 +22,21 @@ namespace EPloy
         private EPloyAction<bool, VersionInfo> VersionCheckerCallback;
         private EPloyAction<bool, string> VersionUpdateCallback;
 
-        public override void Awake()
+        public void Awake()
         {
             VersionInfo = null;
             UpdatableVersionListSerializer = new UpdatableVersionListSerializer();
             DownloadCallBack = new DownloadCallBack(OnDownloadSuccess, OnDownloadFailure);
-            VersionCheckerCallback = null; VersionUpdateCallback = null;
+            VersionCheckerCallback = null;
+            VersionUpdateCallback = null;
         }
 
-        public override void Update()
+        public void Update()
         {
 
         }
 
-        public override void OnDestroy()
+        public void OnDestroy()
         {
             VersionInfo = null;
             UpdatableVersionListSerializer = null;
@@ -51,10 +52,12 @@ namespace EPloy
                 Log.Fatal("versionCheckerCallback is null");
                 return;
             }
+
             VersionCheckerCallback = versionCheckerCallback;
 
             // 向服务器请求版本信息
-            Game.Instance.StartCoroutine(CheckVersionRequest(Utility.Text.Format(MuduleConfig.CheckVersionUrl, GetPlatformPath())));
+            GameStart.Instance.StartCoroutine(
+                CheckVersionRequest(Utility.Text.Format(MuduleConfig.CheckVersionUrl, GetPlatformPath())));
         }
 
         private IEnumerator CheckVersionRequest(string fileUri)
@@ -90,15 +93,18 @@ namespace EPloy
                 Log.Error("Parse VersionInfo failure.");
                 return;
             }
+
             string str = Utility.Text.Format("Latest game version is '{0} ({1})', local game version is '{2} ({3})'.",
-            VersionInfo.LatestGameVersion, VersionInfo.InternalGameVersion, Application.version, 0);
+                VersionInfo.LatestGameVersion, VersionInfo.InternalGameVersion, Application.version, 0);
             Log.Info(str);
 
             if (VersionInfo.UpdateGame)
             {
                 return;
             }
-            VersionInfo.UpdateVersion = CheckVersionList(VersionInfo.InternalResourceVersion) == CheckVersionListResult.NeedUpdate;
+
+            VersionInfo.UpdateVersion = CheckVersionList(VersionInfo.InternalResourceVersion) ==
+                                        CheckVersionListResult.NeedUpdate;
         }
 
         /// <summary>
@@ -109,7 +115,8 @@ namespace EPloy
         public CheckVersionListResult CheckVersionList(int latestInternalResourceVersion)
         {
 
-            string versionListFileName = Utility.Path.GetRegularPath(Path.Combine(Application.persistentDataPath, MuduleConfig.RemoteVersionListFileName));
+            string versionListFileName = Utility.Path.GetRegularPath(Path.Combine(Application.persistentDataPath,
+                MuduleConfig.RemoteVersionListFileName));
             if (!File.Exists(versionListFileName))
             {
                 return CheckVersionListResult.NeedUpdate;
@@ -121,12 +128,13 @@ namespace EPloy
             {
                 fileStream = new FileStream(versionListFileName, FileMode.Open, FileAccess.Read);
                 object internalResourceVersionObject = null;
-                if (!UpdatableVersionListSerializer.TryGetValue(fileStream, "InternalResourceVersion", out internalResourceVersionObject))
+                if (!UpdatableVersionListSerializer.TryGetValue(fileStream, "InternalResourceVersion",
+                    out internalResourceVersionObject))
                 {
                     return CheckVersionListResult.NeedUpdate;
                 }
 
-                internalResourceVersion = (int)internalResourceVersionObject;
+                internalResourceVersion = (int) internalResourceVersionObject;
             }
             catch
             {
@@ -153,25 +161,31 @@ namespace EPloy
         public void UpdateVersionList(EPloyAction<bool, string> versionUpdateCallback)
         {
             this.VersionUpdateCallback = versionUpdateCallback;
-            string localVersionListFilePath = Utility.Path.GetRegularPath(Path.Combine(Application.persistentDataPath, MuduleConfig.RemoteVersionListFileName));
+            string localVersionListFilePath = Utility.Path.GetRegularPath(Path.Combine(Application.persistentDataPath,
+                MuduleConfig.RemoteVersionListFileName));
             int dotPosition = MuduleConfig.RemoteVersionListFileName.LastIndexOf('.');
 
-            string latestVersionListFullNameWithCrc32 = Utility.Text.Format("{0}.{2:x8}.{1}", MuduleConfig.RemoteVersionListFileName.Substring(0, dotPosition),
-             MuduleConfig.RemoteVersionListFileName.Substring(dotPosition + 1), VersionInfo.VersionListHashCode);
+            string latestVersionListFullNameWithCrc32 = Utility.Text.Format("{0}.{2:x8}.{1}",
+                MuduleConfig.RemoteVersionListFileName.Substring(0, dotPosition),
+                MuduleConfig.RemoteVersionListFileName.Substring(dotPosition + 1), VersionInfo.VersionListHashCode);
 
-            string downloadUri = Utility.Path.GetRemotePath(Path.Combine(VersionInfo.UpdatePrefixUri, latestVersionListFullNameWithCrc32));
-            Game.DownLoad.AddDownload(localVersionListFilePath, downloadUri, DownloadCallBack);
+            string downloadUri =
+                Utility.Path.GetRemotePath(
+                    Path.Combine(VersionInfo.UpdatePrefixUri, latestVersionListFullNameWithCrc32));
+            GameModule.DownLoad.AddDownload(localVersionListFilePath, downloadUri, DownloadCallBack);
         }
 
         private void OnDownloadSuccess(DownloadInfo info)
         {
             using (FileStream fileStream = new FileStream(info.DownloadPath, FileMode.Open, FileAccess.ReadWrite))
             {
-                int length = (int)fileStream.Length;
+                int length = (int) fileStream.Length;
                 if (length != VersionInfo.VersionListZipLength)
                 {
                     fileStream.Close();
-                    info.ErrMsg = Utility.Text.Format("Latest version list zip length error, need '{0}', downloaded '{1}'.", VersionInfo.VersionListZipLength, length);
+                    info.ErrMsg =
+                        Utility.Text.Format("Latest version list zip length error, need '{0}', downloaded '{1}'.",
+                            VersionInfo.VersionListZipLength, length);
                     OnDownloadFailure(info);
 
                     return;
@@ -182,52 +196,60 @@ namespace EPloy
                 if (hashCode != VersionInfo.VersionListZipHashCode)
                 {
                     fileStream.Close();
-                    info.ErrMsg = Utility.Text.Format("Latest version list zip hash code error, need '{0}', downloaded '{1}'.", VersionInfo.VersionListZipHashCode, hashCode);
+                    info.ErrMsg =
+                        Utility.Text.Format("Latest version list zip hash code error, need '{0}', downloaded '{1}'.",
+                            VersionInfo.VersionListZipHashCode, hashCode);
                     OnDownloadFailure(info);
                     return;
                 }
 
-                if (Game.ResUpdater.DecompressCachedStream == null)
+                if (GameModule.ResUpdater.DecompressCachedStream == null)
                 {
-                    Game.ResUpdater.DecompressCachedStream = new MemoryStream();
+                    GameModule.ResUpdater.DecompressCachedStream = new MemoryStream();
                 }
 
                 try
                 {
                     fileStream.Position = 0L;
-                    Game.ResUpdater.DecompressCachedStream.Position = 0L;
-                    Game.ResUpdater.DecompressCachedStream.SetLength(0L);
-                    if (!Utility.Zip.Decompress(fileStream, Game.ResUpdater.DecompressCachedStream))
+                    GameModule.ResUpdater.DecompressCachedStream.Position = 0L;
+                    GameModule.ResUpdater.DecompressCachedStream.SetLength(0L);
+                    if (!Utility.Zip.Decompress(fileStream, GameModule.ResUpdater.DecompressCachedStream))
                     {
                         fileStream.Close();
-                        info.ErrMsg = Utility.Text.Format("Unable to decompress latest version list '{0}'.", info.DownloadPath);
+                        info.ErrMsg = Utility.Text.Format("Unable to decompress latest version list '{0}'.",
+                            info.DownloadPath);
                         OnDownloadFailure(info);
                         return;
                     }
 
-                    if (Game.ResUpdater.DecompressCachedStream.Length != VersionInfo.VersionListLength)
+                    if (GameModule.ResUpdater.DecompressCachedStream.Length != VersionInfo.VersionListLength)
                     {
                         fileStream.Close();
-                        info.ErrMsg = Utility.Text.Format("Latest version list length error, need '{0}', downloaded '{1}'.", VersionInfo.VersionListLength, Game.ResUpdater.DecompressCachedStream.Length);
+                        info.ErrMsg = Utility.Text.Format(
+                            "Latest version list length error, need '{0}', downloaded '{1}'.",
+                            VersionInfo.VersionListLength, GameModule.ResUpdater.DecompressCachedStream.Length);
                         OnDownloadFailure(info);
                         return;
                     }
 
                     fileStream.Position = 0L;
                     fileStream.SetLength(0L);
-                    fileStream.Write(Game.ResUpdater.DecompressCachedStream.GetBuffer(), 0, (int)Game.ResUpdater.DecompressCachedStream.Length);
+                    fileStream.Write(GameModule.ResUpdater.DecompressCachedStream.GetBuffer(),
+                        0, (int) GameModule.ResUpdater.DecompressCachedStream.Length);
                 }
                 catch (Exception exception)
                 {
                     fileStream.Close();
-                    info.ErrMsg = Utility.Text.Format("Unable to decompress latest version list '{0}' with error message '{1}'.", info.DownloadPath, exception);
+                    info.ErrMsg =
+                        Utility.Text.Format("Unable to decompress latest version list '{0}' with error message '{1}'.",
+                            info.DownloadPath, exception);
                     OnDownloadFailure(info);
                     return;
                 }
                 finally
                 {
-                    Game.ResUpdater.DecompressCachedStream.Position = 0L;
-                    Game.ResUpdater.DecompressCachedStream.SetLength(0L);
+                    GameModule.ResUpdater.DecompressCachedStream.Position = 0L;
+                    GameModule.ResUpdater.DecompressCachedStream.SetLength(0L);
                 }
             }
 
@@ -263,7 +285,8 @@ namespace EPloy
                     return "Android";
 
                 default:
-                    throw new System.NotSupportedException(Utility.Text.Format("Platform '{0}' is not supported.", Application.platform.ToString()));
+                    throw new NotSupportedException(Utility.Text.Format("Platform '{0}' is not supported.",
+                        Application.platform.ToString()));
             }
         }
     }

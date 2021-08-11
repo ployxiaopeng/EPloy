@@ -9,7 +9,7 @@ namespace EPloy
     /// <summary>
     /// 文件系统组件。
     /// </summary>
-    public class FileSystemModule : EPloyModule
+    public class FileSystemModule : IGameModule
     {
         private const string AndroidFileSystemPrefixString = "jar:";
 
@@ -20,18 +20,15 @@ namespace EPloy
         /// </summary>
         public int Count
         {
-            get
-            {
-                return FileSystems.Count;
-            }
+            get { return FileSystems.Count; }
         }
 
-        public override void Awake()
+        public void Awake()
         {
             FileSystems = new Dictionary<string, FileSystem>(StringComparer.Ordinal);
         }
 
-        public override void Update()
+        public void Update()
         {
 
         }
@@ -39,7 +36,7 @@ namespace EPloy
         /// <summary>
         /// 关闭并清理文件系统管理器。
         /// </summary>
-        public override void OnDestroy()
+        public void OnDestroy()
         {
             while (FileSystems.Count > 0)
             {
@@ -97,7 +94,8 @@ namespace EPloy
         /// <param name="maxFileCount">要创建的文件系统的最大文件数量。</param>
         /// <param name="maxBlockCount">要创建的文件系统的最大块数据数量。</param>
         /// <returns>创建的文件系统。</returns>
-        public IFileSystem CreateFileSystem(string fullPath, FileSystemAccess access, int maxFileCount, int maxBlockCount)
+        public IFileSystem CreateFileSystem(string fullPath, FileSystemAccess access, int maxFileCount,
+            int maxBlockCount)
         {
             if (string.IsNullOrEmpty(fullPath))
             {
@@ -201,7 +199,7 @@ namespace EPloy
             }
 
             string fullPath = fileSystem.FullPath;
-            ((FileSystem)fileSystem).Shutdown();
+            ((FileSystem) fileSystem).Shutdown();
             FileSystems.Remove(fullPath);
 
             if (deletePhysicalFile && File.Exists(fullPath))

@@ -74,7 +74,7 @@ namespace EPloy
                 Log.Fatal(Utility.Text.Format("Component {0} is in Entity ", type));
                 return null;
             }
-            Component component = GameEntry.Game.WithIdComponent.CreateComponent(this, type);
+            Component component = GameEntry.GameEntity.WithIdComponent.CreateComponent(this, type);
             ComponentDictionary.Add(type, component);
             GameEntry.GameSystem.Awake(component);
             return (T)component;
@@ -127,7 +127,7 @@ namespace EPloy
                 Log.Fatal(Utility.Text.Format("Component {0} is not in Entity ", typeof(T)));
                 return;
             }
-            GameEntry.Game.WithIdComponent.ReleaseComponent(ComponentDictionary[typeof(T)]);
+            GameEntry.GameEntity.WithIdComponent.ReleaseComponent(ComponentDictionary[typeof(T)]);
             ComponentDictionary.Remove(typeof(T));
         }
 
@@ -138,7 +138,7 @@ namespace EPloy
         {
             foreach (var component in ComponentDictionary)
             {
-                GameEntry.Game.WithIdComponent.ReleaseComponent(component.Value);
+                GameEntry.GameEntity.WithIdComponent.ReleaseComponent(component.Value);
             }
         }
 

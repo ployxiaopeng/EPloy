@@ -10,7 +10,7 @@ namespace EPloy
     /// <summary>
     /// 流程模块。
     /// </summary>
-    public class ProcedureModule : EPloyModule
+    public class ProcedureModule : IGameModule
     {
         private VersionInfo VersionInfo = null;
 
@@ -22,17 +22,17 @@ namespace EPloy
         public bool IsILRuntime { get; private set; }
         public bool EditorResource { get; private set; }
 
-        public override void Awake()
+        public  void Awake()
         {
 
         }
 
-        public override void Update()
+        public  void Update()
         {
 
         }
 
-        public override void OnDestroy()
+        public  void OnDestroy()
         {
 
         }
@@ -47,12 +47,12 @@ namespace EPloy
             }
             else
             {
-                Game.ResUpdater.CheckRes(OnCheckResComplete);
+                GameModule.ResUpdater.CheckRes(OnCheckResComplete);
             }
             return;
 #endif
             // 1. 校验版本
-            Game.VersionChecker.VersionChecker(VersionCheckerCallback);
+            GameModule.VersionChecker.VersionChecker(VersionCheckerCallback);
         }
 
         private void VersionCheckerCallback(bool result, VersionInfo versionInfo)
@@ -62,7 +62,7 @@ namespace EPloy
                 return;
             }
             VersionInfo = versionInfo;
-            Game.ResUpdater.UpdatePrefixUri = VersionInfo.UpdatePrefixUri;
+            GameModule.ResUpdater.UpdatePrefixUri = VersionInfo.UpdatePrefixUri;
             // 2.1  强制更新游戏
             if (versionInfo.UpdateGame)
             {
@@ -72,11 +72,11 @@ namespace EPloy
             // 2.2 更新游戏资源列表  或者 跳过到底3步
             if (versionInfo.UpdateVersion)
             {
-                Game.VersionChecker.UpdateVersionList(VersionUpdateCallback);
+                GameModule.VersionChecker.UpdateVersionList(VersionUpdateCallback);
             }
             else
             {
-                Game.ResUpdater.CheckRes(OnCheckResComplete);
+                GameModule.ResUpdater.CheckRes(OnCheckResComplete);
             }
         }
 
@@ -85,7 +85,7 @@ namespace EPloy
             if (result)
             {
                 // 3. 校验资源 准备更新列表
-                Game.ResUpdater.CheckRes(OnCheckResComplete);
+                GameModule.ResUpdater.CheckRes(OnCheckResComplete);
                 return;
             }
             Log.Fatal(msg);
@@ -98,7 +98,7 @@ namespace EPloy
 
             if (updateCount == 0)
             {
-                Game.ILRuntime.StartILRuntime(IsILRuntime);
+                GameModule.ILRuntime.StartILRuntime(IsILRuntime);
                 return;
             }
             // 4. 更新资源
@@ -120,14 +120,14 @@ namespace EPloy
             Log.Info("Start update resources...");
             UpdateResCallBack updateResCallBack = new UpdateResCallBack(OnResUpdateStart, OnResUpdateChanged, OnResUpdateSuccess
             , OnResourceUpdateFailure, OnUpdateResComplete);
-            Game.ResUpdater.UpdateRes(updateResCallBack);
+            GameModule.ResUpdater.UpdateRes(updateResCallBack);
         }
 
         private void OnUpdateResComplete(bool result)
         {
             if (result)
             {
-                Game.ILRuntime.StartILRuntime(IsILRuntime);
+                GameModule.ILRuntime.StartILRuntime(IsILRuntime);
                 Log.Info("Update resources complete with no errors.");
             }
             else
