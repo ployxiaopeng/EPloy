@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be8f1e1c6eefa2a4f83311e899a2c2be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsILRuntime: 0
+  IsILRuntime: 1
   EditorResource: 1
 --- !u!4 &773724918
 Transform:

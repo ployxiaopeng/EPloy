@@ -61,6 +61,7 @@ namespace EPloy
                                 CreateGrid(x, y, reqionId);
                             }
                         }
+
                         break;
                     }
                     //全部更换
@@ -127,14 +128,14 @@ namespace EPloy
         //格子设置
         private void CreateGrid(int x, int y, int reqionId)
         {
-            GameObject grid = UnityEngine.Object.Instantiate(_gridGo, _mapReqion);
+            GameObject grid = Object.Instantiate(_gridGo, _mapReqion);
             MapGrid mapGrid = new MapGrid(grid.transform);
             SetGridPos(x, y, mapGrid, reqionId);
         }
         private void SetGridPos(int x, int y, MapGrid grid, int reqionId)
         {
             grid.transform.name = string.Format("Grid_{0},{1}", x, y);
-            Vector3 localPosition = new Vector3(x, y);
+            Vector2 localPosition = new Vector2(x, y);
             grid.transform.localPosition = localPosition;
             grid.Init(GetMapCell(localPosition));
             SaveGridData(x, y, grid);

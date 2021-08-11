@@ -7,8 +7,10 @@ namespace EPloy
     public class ProcedureMap : ProcedureBase
     {
         private string loadSecnce = null;
-       // private MapComponet MapComponet;
+
+        // private MapComponet MapComponet;
         private static IDataTable<DRMap> _dataMap = null;
+
         private static IDataTable<DRMap> DateMap
         {
             get
@@ -17,6 +19,7 @@ namespace EPloy
                 {
                     _dataMap = HotFixMudule.DataTable.GetDataTable<DRMap>();
                 }
+
                 return _dataMap;
             }
         }
@@ -26,7 +29,7 @@ namespace EPloy
             base.OnEnter();
             loadSecnce = null;
             Log.Info("Map  success");
-            HotFixMudule.UI.CloseUIForm(UIName.LoadingForm);
+            //HotFixMudule.UI.CloseUIForm(UIName.LoadingForm);
             HotFixMudule.Map.MapData = DateMap.GetDataRow(10101);
             HotFixMudule.Map.OnEnterMap(GameObject.Find("Map").transform);
             // GameEntry.UI.OpenUIWnd(UIWnd.MapWnd);
