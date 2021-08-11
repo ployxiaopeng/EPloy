@@ -25,7 +25,7 @@ namespace EPloy
             GameEntry.Obj = GameEntry.Game.AddComponent<ObjComponent>();
             GameEntry.Procedure = GameEntry.Game.AddComponent<ProcedureComponent>();
             GameEntry.Atlas = GameEntry.Game.AddComponent<AtlasComponent>();
-
+            GameEntry.Map = GameEntry.Game.AddComponent<MapComponet>();
         }
 
         public static void Start()

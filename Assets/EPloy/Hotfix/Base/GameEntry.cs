@@ -21,8 +21,10 @@ namespace EPloy
         public static ObjComponent Obj { get; set; }
         public static ProcedureComponent Procedure { get; set; }
         public static AtlasComponent Atlas { get; set; }
+        public static MapComponet Map { get; set; }
 
         private static GameEntity game = null;
+
         public static GameEntity Game
         {
             get
@@ -32,11 +34,13 @@ namespace EPloy
                     game = ReferencePool.Acquire<GameEntity>();
                     game.Awake(0, "Game");
                 }
+
                 return game;
             }
         }
 
         private static GameSystem gameSystem = null;
+
         public static GameSystem GameSystem
         {
             get
@@ -45,6 +49,7 @@ namespace EPloy
                 {
                     gameSystem = new GameSystem();
                 }
+
                 return gameSystem;
             }
         }

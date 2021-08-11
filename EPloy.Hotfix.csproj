@@ -134,6 +134,12 @@
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\EventId.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\SwitchSceneEvt.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\Event\TestEvt.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Map\MapCamera.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Map\MapComponet.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Map\MapCreate.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Map\MapData.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Map\MapEvt.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Component\Map\MapGrid.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\ObjEntity\Base\ObjAttribute.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\ObjEntity\Base\ObjBase.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Component\ObjEntity\Base\ObjComponent.cs" />
@@ -163,6 +169,7 @@
      <Compile Include="Assets\EPloy\Hotfix\Config\AssetUtility.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Config\Config.Res.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Config\Config.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Config\MapEnum.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Config\ObjEnum.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Config\UIEnum.cs" />
      <Compile Include="Assets\EPloy\Hotfix\GameStart.cs" />

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -172,6 +172,11 @@ PrefabInstance:
         type: 3}
       propertyPath: orthographic size
       value: 4.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5121621684279483299, guid: 4f3d3ef0e9785624985216dedd68a833,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 5121621684279483359, guid: 4f3d3ef0e9785624985216dedd68a833,
         type: 3}

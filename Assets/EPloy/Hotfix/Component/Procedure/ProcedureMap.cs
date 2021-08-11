@@ -20,15 +20,15 @@ namespace EPloy
                 return _dataMap;
             }
         }
+
         public override void OnEnter()
         {
             base.OnEnter();
             loadSecnce = null;
             Log.Info("Map  success");
-           // GameEntry.UI.CloseUIForm(UIName.LoadingForm);
-            // MapComponet = GameEntry.Extension.GetComponent<MapComponet>();
-            // MapComponet.MapData = DateMap.GetDataRow(10101);
-            // MapComponet.OnEnterMap(GameObject.Find("Map").transform);
+            GameEntry.UI.CloseUIForm(UIName.LoadingForm);
+            GameEntry.Map.MapData = DateMap.GetDataRow(10101);
+            GameEntry.Map.OnEnterMap(GameObject.Find("Map").transform);
             // GameEntry.UI.OpenUIWnd(UIWnd.MapWnd);
             // GameEntry.UI.CloseUIWnd(UIWnd.LoadingWnd);
         }
