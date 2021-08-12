@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using EPloy.Res;
-using EPloy.Table;
+using UnityEngine;
 
 namespace EPloy
 {
@@ -10,70 +9,86 @@ namespace EPloy
     /// </summary>
     public class DataStoreMudule : IHotfixModule
     {
-        private Entity DataStoreEntity;
-        //存储所有数据类 后面bool 是否AddComponent到DataStoreEntity 
-        private Dictionary<Type, bool> DataStoreTypes;
+        private Dictionary<Type, DataStoreBase> dataStores;
 
         public void Awake()
         {
-            DataStoreEntity = HotFixMudule.GameEntity.CreateEntity("DataStore");
-            GetUIFormTypes();
+            dataStores = new Dictionary<Type, DataStoreBase>();
         }
 
         public void Update()
         {
-          
+            // 待定
         }
 
         public void OnDestroy()
         {
-            DataStoreTypes.Clear();
-            DataStoreEntity.RemoveAllComponent();
+            foreach (var key in dataStores)
+            {
+                ReferencePool.Release(key.Value);
+            }
+
+            dataStores.Clear();
         }
 
         /// <summary>
-        /// 获取数据存储Componet
+        /// 获取数据存储DataStore
         /// </summary>
         /// <typeparam name=类型></typeparam>
         /// <returns></returns>
-        public T GetDataStore<T>() where T : Component
+        public T GetDataStore<T>() where T : DataStoreBase
         {
             Type type = typeof(T);
-            if (!DataStoreTypes.ContainsKey(type))
+            if (!dataStores.ContainsKey(type))
             {
-                Log.Error(Utility.Text.Format("{0} class not DataStore", type.ToString()));
-                return null;
-            }
-            bool isInit = DataStoreTypes[type];
-            T dataStore;
-            if (!isInit)
-            {
-                dataStore = DataStoreEntity.AddComponent<T>();
-                DataStoreTypes[type] = true;
+                DataStoreBase dataStore = (DataStoreBase) ReferencePool.Acquire(type);
+                dataStore.Create();
+                dataStores.Add(type, dataStore);
+                return (T) dataStore;
             }
             else
             {
-                dataStore = DataStoreEntity.GetComponent<T>();
+                return (T) dataStores[type];
             }
-            return dataStore;
         }
 
         /// <summary>
-        /// 获取所有 DataStoreType
+        /// 重置DataStore
         /// </summary>
-        private void GetUIFormTypes()
+        /// <typeparam name=类型></typeparam>
+        /// <returns></returns>
+        public bool ResetDataStore<T>() where T : DataStoreBase
         {
-            DataStoreTypes = new Dictionary<Type, bool>();
-            Type[] Types = HotFixMudule.GameSystem.GetTypes(MuduleConfig.HotFixDllName);
-            foreach (Type type in Types)
+            Type type = typeof(T);
+            if (!dataStores.ContainsKey(type))
             {
-                object[] objects = type.GetCustomAttributes(typeof(DataStoreAttribute), false);
-                if (objects.Length != 0)
-                {
-                    DataStoreTypes.Add(type, false);
-                }
+                Log.Error(Utility.Text.Format("{0} class not DataStore", type.ToString()));
+                return false;
             }
+
+            DataStoreBase dataStore = dataStores[type];
+            dataStore.Reset();
+            return true;
         }
 
+        /// <summary>
+        /// 移除DataStore
+        /// </summary>
+        /// <typeparam name=类型></typeparam>
+        /// <returns></returns>
+        public bool RemoveDataStore<T>() where T : DataStoreBase
+        {
+            Type type = typeof(T);
+            if (!dataStores.ContainsKey(type))
+            {
+                Log.Error(Utility.Text.Format("{0} class not DataStore", type.ToString()));
+                return false;
+            }
+
+            DataStoreBase dataStore = dataStores[type];
+            dataStores.Remove(type);
+            ReferencePool.Release(dataStore);
+            return true;
+        }
     }
 }

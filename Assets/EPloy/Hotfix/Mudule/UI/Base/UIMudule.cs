@@ -12,7 +12,6 @@ namespace EPloy
     /// </summary>
     public class UIMudule : IHotfixModule
     {
-        private Entity UIEntity;
         private Dictionary<UIGroupName, UIGroup> UIGroups;
         private Dictionary<UIName, UIGroupName> UINames;
         private Dictionary<UIName, Type> UIFormTypes;
@@ -33,7 +32,6 @@ namespace EPloy
 
         public void Awake()
         {
-            UIEntity = HotFixMudule.GameEntity.CreateEntity("UI");
             UIGroups = new Dictionary<UIGroupName, UIGroup>();
             UINames = new Dictionary<UIName, UIGroupName>();
 

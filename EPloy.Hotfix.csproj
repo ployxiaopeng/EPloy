@@ -56,6 +56,7 @@
      <Compile Include="Assets\EPloy\Hotfix\Base\ECS\Component\WithIdComponent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\ECS\Entity\Entity.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\ECS\Entity\IEntity.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Base\ECS\System\ISystem.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Extension\SpriteExtension.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Extension\SystemExtension.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Extension\TextExtension.cs" />
@@ -84,8 +85,14 @@
      <Compile Include="Assets\EPloy\Hotfix\Config\MapEnum.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Config\ObjEnum.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Config\UIEnum.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\ECS\Component\MapComponent .cs" />
+     <Compile Include="Assets\EPloy\Hotfix\ECS\Component\MapGirdComponent.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\ECS\Entity\MapEntity.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\ECS\Entity\MapGridEntity.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\GameEntity.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\System\GameSystem.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\ECS\System\MapGirdSystem.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\ECS\System\MapSystem.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\System\SystemHelper.cs" />
      <Compile Include="Assets\EPloy\Hotfix\HotFixStart.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\Base\Atlas\AtlasMudule.cs" />
@@ -130,7 +137,7 @@
      <Compile Include="Assets\EPloy\Hotfix\Mudule\Base\Res\ResLoader\Task\LoadSceneTask.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\Base\Res\ResMudule.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\Base\Scene\SceneMudule.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Mudule\DataStore\Base\DataStoreAttribute.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Mudule\DataStore\Base\DataStoreBase.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\DataStore\Base\DataStoreMudule.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\DataStore\StartFormData.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\Event\Base\EventArg.cs" />

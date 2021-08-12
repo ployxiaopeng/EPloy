@@ -8,11 +8,11 @@ namespace EPloy
     /// </summary>
     public partial class MapMudule : Component
     {
-        private Entity mapEntity;
+       
 
         public override void Awake()
         {
-            mapEntity = HotFixMudule.GameEntity.CreateEntity("Map");
+            
         }
 
         private int MapReqionId;

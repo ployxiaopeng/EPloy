@@ -12,7 +12,6 @@ namespace EPloy
     /// </summary>
     public sealed partial class ObjMudule : IHotfixModule
     {
-        private Entity ObjEntity;
         private Dictionary<string, Type> ObjTypes;
         private Dictionary<int, ObjInfo> ObjInfos;
         private Dictionary<ObjGroupName, ObjGroup> ObjGroups;
@@ -45,7 +44,6 @@ namespace EPloy
 
         public void Awake()
         {
-            ObjEntity = HotFixMudule.GameEntity.CreateEntity("Obj");
             ObjParent = GameStart.Instance.transform.Find("Obj").transform;
             ObjInfos = new Dictionary<int, ObjInfo>();
             ObjGroups = new Dictionary<ObjGroupName, ObjGroup>();

@@ -7,17 +7,15 @@ using UnityEngine;
 namespace EPloy
 {
     /// <summary>
-    ///  全局唯一游戏系统
+    ///  游戏系统
     /// </summary>
     public sealed class GameSystem
     {
         private Dictionary<long, Component> allComponents
         {
-            get
-            {
-                return HotFixMudule.GameEntity.WithIdComponent.AllComponents;
-            }
+            get { return HotFixMudule.GameEntity.WithIdComponent.AllComponents; }
         }
+
         private readonly Dictionary<string, Type[]> assemblies = new Dictionary<string, Type[]>();
         private readonly Queue<EPloyAction> starts = new Queue<EPloyAction>();
         private readonly List<long> updates = new List<long>();
@@ -56,7 +54,7 @@ namespace EPloy
 
             if (lifeCycleCheck.isStart)
             {
-                this.starts.Enqueue(component.Start);
+                // this.starts.Enqueue(component.Start);
             }
 
             if (lifeCycleCheck.isUpdate)
@@ -100,9 +98,10 @@ namespace EPloy
                     updates.RemoveAt(i);
                     continue;
                 }
+
                 try
                 {
-                    component.Update();
+                   // component.Update();
                 }
                 catch (Exception e)
                 {
@@ -128,17 +127,20 @@ namespace EPloy
                     lifeCycleCheck.isAwake = true;
                     continue;
                 }
+
                 if (!lifeCycleCheck.isStart && m.Name == LifeCycle.Start.ToString())
                 {
                     lifeCycleCheck.isStart = true;
                     continue;
                 }
+
                 if (!lifeCycleCheck.isUpdate && m.Name == LifeCycle.Update.ToString())
                 {
                     lifeCycleCheck.isUpdate = true;
                     break;
                 }
             }
+
             return lifeCycleCheck;
         }
     }

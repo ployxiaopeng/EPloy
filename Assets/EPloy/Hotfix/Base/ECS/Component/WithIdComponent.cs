@@ -27,6 +27,7 @@ namespace EPloy
         {
             this.RecordId = 1;
         }
+        
         /// <summary>
         /// 生成一个组件实体
         /// </summary>
@@ -48,6 +49,7 @@ namespace EPloy
             allComponents.Remove(component.InstanceId);
             ReferencePool.Release(component);
         }
+        
         /// <summary>
         /// 获取一个不存在的组件实体Id
         /// </summary>

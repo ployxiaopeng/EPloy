@@ -1,15 +1,17 @@
-
 using EPloy;
 using EPloy.Table;
 
-[DataStore]
-public class StartFormData : Component
+namespace EPloy
 {
-    public string txt = "";
-    public DRMap DRMap;
-    public override void Awake()
+    public class StartFormData : DataStoreBase
     {
-        IDataTable<DRMap> mapTable = HotFixMudule.DataTable.GetDataTable<DRMap>();
-        DRMap = mapTable.GetDataRow(10100);
+        public string txt = "";
+        public DRMap DRMap;
+
+        public override void Create()
+        {
+            IDataTable<DRMap> mapTable = HotFixMudule.DataTable.GetDataTable<DRMap>();
+            DRMap = mapTable.GetDataRow(10100);
+        }
     }
 }

@@ -29,13 +29,13 @@ namespace EPloy
         /// 生成一个实体
         /// </summary>
         /// <returns></returns>
-        public Entity CreateEntity(string name = null)
+        public T CreateEntity<T>(string name = null) where T : Entity
         {
-            Entity entity = ReferencePool.Acquire<Entity>();
+            Entity entity = (Entity) ReferencePool.Acquire(typeof(T));
             int id = GetNextEntityId();
             entity.Awake(id, name);
             EntityDictionary.Add(id, entity);
-            return entity;
+            return (T) entity;
         }
 
         /// <summary>
