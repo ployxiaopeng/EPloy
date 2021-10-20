@@ -172,13 +172,14 @@
      <Compile Include="Assets\EPloy\Hotfix\Mudule\Procedure\ProcedureMudule.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\Procedure\ProcedurePreload.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\Procedure\ProcedureSwitchScene.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Mudule\UI\Base\ListBase.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\UI\Base\UIAttribute.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\UI\Base\UIForm.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\UI\Base\UIFormLogic.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\UI\Base\UIFormObject.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\UI\Base\UIGroup.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Mudule\UI\Base\UIListItemBase.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\UI\Base\UIMudule.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Mudule\UI\Base\VirtualListBase.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\UI\LoadingForm.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\UI\LoginForm.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\UI\LoginStartLogic.cs" />

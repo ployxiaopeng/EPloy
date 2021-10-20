@@ -24,12 +24,6 @@ namespace EPloy
         {
             return this.assemblies[dllType];
         }
-
-        /// <summary>
-        /// 添加DLL 数据
-        /// </summary>
-        /// <param name="dllType"></param>
-        /// <param name="assembly"></param>
         public void Add(string dllType, Type[] assembly)
         {
             this.assemblies[dllType] = assembly;
@@ -39,50 +33,29 @@ namespace EPloy
 
         public void Awake(Component component)
         {
-            LifeCycleCheck lifeCycleCheck = CheckLifeCycle(component);
-            if (lifeCycleCheck.isAwake)
+            try
             {
-                try
-                {
-                    component.Awake();
-                }
-                catch (Exception e)
-                {
-                    Log.Fatal(e.ToString());
-                }
+                component.Awake();
+            }
+            catch (Exception e)
+            {
+                Log.Fatal(e.ToString());
             }
 
-            if (lifeCycleCheck.isStart)
-            {
-                // this.starts.Enqueue(component.Start);
-            }
 
-            if (lifeCycleCheck.isUpdate)
-            {
-                this.updates.Add(component.InstanceId);
-            }
+            // if (lifeCycleCheck.isStart)
+            // {
+            //     // this.starts.Enqueue(component.Start);
+            // }
+            //
+            // if (lifeCycleCheck.isUpdate)
+            // {
+            //     this.updates.Add(component.InstanceId);
+            // }
         }
-
-        private void Start()
-        {
-            while (this.starts.Count > 0)
-            {
-                EPloyAction start = this.starts.Dequeue();
-                try
-                {
-                    start();
-                }
-                catch (Exception e)
-                {
-                    Log.Fatal(e.ToString());
-                }
-            }
-        }
-
+        
         public void Update()
         {
-            this.Start();
-
             for (int i = 0; i < updates.Count; i++)
             {
                 long instanceId = this.updates[i];
@@ -109,39 +82,6 @@ namespace EPloy
                 }
             }
         }
-
-        /// <summary>
-        /// 判断组件中生命周期
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="methodName"></param>
-        /// <returns></returns>
-        private LifeCycleCheck CheckLifeCycle(Component component)
-        {
-            LifeCycleCheck lifeCycleCheck = ReferencePool.Acquire<LifeCycleCheck>();
-            Type type = component.GetType();
-            foreach (MemberInfo m in type.GetMembers())
-            {
-                if (!lifeCycleCheck.isAwake && m.Name == LifeCycle.Awake.ToString())
-                {
-                    lifeCycleCheck.isAwake = true;
-                    continue;
-                }
-
-                if (!lifeCycleCheck.isStart && m.Name == LifeCycle.Start.ToString())
-                {
-                    lifeCycleCheck.isStart = true;
-                    continue;
-                }
-
-                if (!lifeCycleCheck.isUpdate && m.Name == LifeCycle.Update.ToString())
-                {
-                    lifeCycleCheck.isUpdate = true;
-                    break;
-                }
-            }
-
-            return lifeCycleCheck;
-        }
+        
     }
 }

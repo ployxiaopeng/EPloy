@@ -17,7 +17,6 @@ namespace EPloy
         public Dictionary<Vector2,MapGridEntity> mapGridEntitys = new Dictionary<Vector2,MapGridEntity>();
         public GameObject gridGo;
         
-        #region 基本数据
         private DRMapCell[] _dataMapCell = null;
         private DRMapCell[] DateMapCell
         {
@@ -30,7 +29,6 @@ namespace EPloy
                 return _dataMapCell;
             }
         }
-        #endregion
         
         private DRMap mapData;
         public DRMap MapData

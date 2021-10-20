@@ -72,28 +72,6 @@ namespace EPloy
         }
 
         
-        // //根据X,Y获取格子
-        // public MapGridEntity GetGridByPos(float x, float y, int reqionId)
-        // {
-        //     MapGrid MapGrid = null;
-        //     // if (MapCpt.mapReqionId == reqionId) MapGrid = GetGridData((int)x, (int)y);
-        //     // if (MapGrid == null)
-        //     // {
-        //     //     Log.Error(reqionId + ":" + x + "," + y);
-        //     //     Log.Error("格子没找到 有问题或者不在视野内");
-        //     // }
-        //     // return MapGrid;
-        // }
-        // public MapGridEntity GetGridByPos(float x, float y)
-        // {
-        //     MapGrid MapGrid = GetGridData((int)x, (int)y);
-        //     if (MapGrid == null)
-        //     {
-        //         Log.Error("视野内未发现：" + x + "," + y);
-        //     }
-        //     return MapGrid;
-        // }
-
         public void Update()
         {
 

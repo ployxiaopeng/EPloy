@@ -125,10 +125,27 @@ namespace EPloy
                     break;
             }
         }
- 
-      
         
-        
+        public MapGridEntity GetGridEntityByPos(Vector2 pos)
+        {
+            MapGridEntity MapGrid = GetGridData(pos);
+            if (MapGrid == null)
+            {
+                Log.Error("视野内未发现：" + pos.x + "," + pos.y);
+            }
+            return MapGrid;
+        }
+
+        private MapGridEntity GetGridData(Vector2 pos, MapGridEntity defaultValue = null)
+        {
+            if (MapCpt.mapGridEntitys.ContainsKey(pos))
+            {
+                return MapCpt.mapGridEntitys[pos];
+            }
+
+            return defaultValue;
+        }
+
         public void Update()
         {
            

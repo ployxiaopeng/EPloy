@@ -76,6 +76,7 @@
      <Compile Include="Assets\EPloy\Game\Base\Utility\Utility.Verifier.Crc32.cs" />
      <Compile Include="Assets\EPloy\Game\Base\Utility\Utility.Verifier.cs" />
      <Compile Include="Assets\EPloy\Game\Base\Utility\Utility.Zip.cs" />
+     <Compile Include="Assets\EPloy\Game\Base\VirtualList.cs" />
      <Compile Include="Assets\EPloy\Game\GameStart.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Async\AsyncETTaskMethodBuilder.cs" />
      <Compile Include="Assets\EPloy\Game\Mudule\Async\AsyncETVoidMethodBuilder.cs" />
