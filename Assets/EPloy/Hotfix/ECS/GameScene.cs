@@ -20,10 +20,12 @@ namespace EPloy
         private readonly Dictionary<Int64, Entity> entitys = new Dictionary<Int64, Entity>();
 
         /// <summary>
-        /// Component，Component.Id
+        /// 所有Component，Component.Id
         /// </summary>
-        private readonly Dictionary<Int64, Component> allCpts = new Dictionary<Int64, Component>();
-
+        private readonly Dictionary<Int64, Component> entityCpts = new Dictionary<Int64, Component>();
+        /// <summary>
+        /// 所有单例Component，Component Type
+        /// </summary>
         private readonly Dictionary<Type, Component> singleCpts = new Dictionary<Type, Component>();
         
 
@@ -54,7 +56,7 @@ namespace EPloy
         {
             systems.Clear();
             entitys.Clear();
-            allCpts.Clear();
+            entityCpts.Clear();
             recordId = -1;
             singleCpts.Clear();
         }
@@ -64,13 +66,12 @@ namespace EPloy
         /// 创建系统
         /// </summary>
         /// <returns></returns>
-        public T CreateSystem<T>() where T : ISystem, new()
+        public void CreateSystem<T>() where T : ISystem, new()
         {
             ISystem system = new T();
             system.Start();
             system.IsPause = false;
             systems.Add(system);
-            return (T) system;
         }
 
         /// <summary>
@@ -100,7 +101,7 @@ namespace EPloy
                 return (T) singleCpts[type];
             }
 
-            Component component = AddCpt<T>(null);
+            Component component = ReferencePool.Acquire<T>();
             singleCpts.Add(type, component);
             return (T) component;
         }
@@ -113,7 +114,7 @@ namespace EPloy
         {
             Component component = ReferencePool.Acquire<T>();
             component.Awake(entity, recordId++);
-            allCpts.Add(recordId, component);
+            entityCpts.Add(recordId, component);
             entity.AddComponent(component);
             return (T) component;
         }
@@ -134,7 +135,7 @@ namespace EPloy
             recordId++;
             Component component = ReferencePool.Acquire<T>();
             component.Awake(entity, recordId);
-            allCpts.Add(recordId, component);
+            entityCpts.Add(recordId, component);
             entity.AddComponent(component);
             return (T) component;
         }
@@ -145,27 +146,22 @@ namespace EPloy
         /// <returns></returns>
         public Component GetCpt(long id)
         {
-            if (allCpts.ContainsKey(id))
+            if (entityCpts.ContainsKey(id))
             {
-                return allCpts[id];
+                return entityCpts[id];
             }
 
             return null;
         }
 
         /// <summary>
-        /// 销毁实体上一个组件
+        /// 销毁实体组件
         /// </summary>
         public void ReleaseCpt<T>(Entity entity) where T : Component
         {
             Component component = entity.GetComponent<T>();
             if (component.IsRelease) return;
-            allCpts.Remove(component.Id);
-            if (singleCpts.ContainsValue(component))
-            {
-                singleCpts.Remove(component.GetType());
-            }
-
+            entityCpts.Remove(component.Id);
             entity.RemoveComponent<T>();
             ReferencePool.Release(component);
         }
@@ -218,7 +214,7 @@ namespace EPloy
             Component[] components = entity.GetAllComponent();
             foreach (var component in components)
             {
-                allCpts.Remove(component.Id);
+                entityCpts.Remove(component.Id);
             }
 
             entity.RemoveAllComponent();

@@ -22,8 +22,7 @@ namespace EPloy
         public static ObjMudule Obj { get; private set; }
         public static ProcedureMudule Procedure { get; private set; }
         public static AtlasMudule Atlas { get; private set; }
-        public static MapMudule Map { get; private set; }
-        
+
         public static void HotFixMudleInit()
         {
             ObjectPool = HotfixModuleMgr.CreateModule<ObjectPoolMudule>();
@@ -38,7 +37,6 @@ namespace EPloy
             Obj = HotfixModuleMgr.CreateModule<ObjMudule>();
             Procedure = HotfixModuleMgr.CreateModule<ProcedureMudule>();
             Atlas = HotfixModuleMgr.CreateModule<AtlasMudule>();
-            Map = HotfixModuleMgr.CreateModule<MapMudule>();
         }
 
         //Ecs模块
@@ -47,6 +45,12 @@ namespace EPloy
         public static void ECSActivate()
         {
             GameScene = HotfixModuleMgr.CreateModule<GameScene>();
+        }
+
+        public static void ECSDisable()
+        {
+            HotfixModuleMgr.RemoveModule<GameScene>();
+            GameScene = null;
         }
     }
 }

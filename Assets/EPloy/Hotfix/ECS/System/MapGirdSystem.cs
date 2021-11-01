@@ -7,6 +7,7 @@ namespace EPloy
 {
     public class MapGirdSystem : ISystem
     {
+        private MapCpt mapCpt ;
         public int Priority
         {
             get => 100;
@@ -16,49 +17,59 @@ namespace EPloy
 
         public void Start()
         {
+            mapCpt = HotFixMudule.GameScene.GetSingleCpt<MapCpt>();
+        }
+
+
+        public void Update()
+        {
+            MapEntityCpt mapEntityCpt = mapCpt.map.GetComponent<MapEntityCpt>();
+            foreach (var grid in mapEntityCpt.grids)
+            {
+                MapGirdCpt mapGirdCpt = grid.Value.GetComponent<MapGirdCpt>();
+                if (!mapGirdCpt.isUpdate) continue;
+                if (mapGirdCpt.transform==null) CreateGird(mapGirdCpt, grid.Key);
+                GirdUpdate(mapGirdCpt, grid.Key);
+            }
+        }
+
+        public void OnDestroy()
+        {
 
         }
 
-        public void CreateGirdEntity(Vector2 position, int reqionId)
+
+        private void CreateGird(MapGirdCpt mapGirdCpt, Vector2 position)
         {
-            string gridName = string.Format("grid_{0},{1}", (int) position.x, (int) position.y);
-            MapComponent mapCpt = HotFixMudule.GameScene.GetSingleCpt<MapComponent>();
+            string gridName = string.Format("grid_{0},{1}", mapGirdCpt.posX, mapGirdCpt.posY);
             GameObject grid = Object.Instantiate(mapCpt.gridGo, mapCpt.mapReqion);
             grid.name = gridName;
-            MapGridEntity gridEntity = HotFixMudule.GameScene.CreateEntity<MapGridEntity>();
-            HotFixMudule.GameScene.AddCpt<MapGirdComponent>(gridEntity);
-            grid.transform.localPosition = position;
-            SetMapGird(gridEntity, mapCpt.GetMapCell(position));
-
-            if (mapCpt.mapGridEntitys.ContainsKey(position))
-                mapCpt.mapGridEntitys[position] = gridEntity;
-            else
-                mapCpt.mapGridEntitys.Add(position, gridEntity);
+            mapGirdCpt.Init(grid.transform);
         }
 
-        private void SetMapGird(MapGridEntity entity, DRMapCell mapCell)
+        private void GirdUpdate(MapGirdCpt mapGirdCpt, Vector2 position)
         {
-            MapGirdComponent mapGirdCpt = entity.GetComponent<MapGirdComponent>();
+            mapGirdCpt.transform.localPosition = position;
             Reset(mapGirdCpt);
-            if (mapCell == null)
+            if (mapGirdCpt.mapCell == null)
             {
                 Log.Info(Utility.Text.Format("没有找到 格子数据 坐标 {0}", mapGirdCpt.transform.localPosition));
                 return;
             }
 
-            mapGirdCpt.mapCell = mapCell;
             SetMainSprite(mapGirdCpt);
             SetbgSprite(mapGirdCpt);
+            mapGirdCpt.isUpdate = false;
         }
 
-        private void Reset(MapGirdComponent mapGirdCpt)
+        private void Reset(MapGirdCpt mapGirdCpt)
         {
             if (mapGirdCpt.bgSprite.sprite != null) mapGirdCpt.bgSprite.sprite = null;
             if (mapGirdCpt.frontSprite.sprite != null) mapGirdCpt.frontSprite.sprite = null;
         }
 
         //主图片
-        private void SetMainSprite(MapGirdComponent mapGirdCpt)
+        private void SetMainSprite(MapGirdCpt mapGirdCpt)
         {
             if (mapGirdCpt.mapCell.ResMain == -1)
             {
@@ -71,22 +82,11 @@ namespace EPloy
         }
 
         //背景图片
-        private void SetbgSprite(MapGirdComponent mapGirdCpt)
+        private void SetbgSprite(MapGirdCpt mapGirdCpt)
         {
             if (mapGirdCpt.mapCell.ResBg == -1) return;
             mapGirdCpt.bgSprite.SetSprite(mapGirdCpt.mapCell.ResBg);
             mapGirdCpt.bgSprite.transform.localEulerAngles = mapGirdCpt.mapCell.ResBgRotate;
-        }
-
-
-        public void Update()
-        {
-
-        }
-
-        public void OnDestroy()
-        {
-
         }
     }
 }

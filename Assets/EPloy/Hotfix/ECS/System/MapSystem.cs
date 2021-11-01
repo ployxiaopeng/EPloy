@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using EPloy.Table;
 using UnityEngine;
 
@@ -6,8 +7,7 @@ namespace EPloy
 {
     public class MapSystem : ISystem
     {
-        private Entity mapEntity;
-        private MapComponent MapCpt;
+        private MapCpt mapCpt;
         private IDataTable<DRMap> _dataMap = null;
 
         private IDataTable<DRMap> DataMap
@@ -23,6 +23,8 @@ namespace EPloy
             }
         }
 
+        private bool enterMap = false;
+
         public int Priority
         {
             get => 100;
@@ -32,70 +34,94 @@ namespace EPloy
 
         public void Start()
         {
-            mapEntity = HotFixMudule.GameScene.CreateEntity("Map");
-            MapCpt = HotFixMudule.GameScene.GetSingleCpt<MapComponent>();
+            mapCpt = HotFixMudule.GameScene.GetSingleCpt<MapCpt>();
+            mapCpt.map = HotFixMudule.GameScene.CreateEntity("Map");
+            mapCpt.MapData = DataMap.GetDataRow(10101);
+            HotFixMudule.GameScene.AddCpt<MapEntityCpt>(mapCpt.map);
         }
-
 
         public void Update()
         {
+            if (!enterMap)
+            {
+                OnEnterMap();
+                CreateRole();
+                enterMap = true;
+            }
 
+            UpdateMap();
         }
 
         public void OnDestroy()
         {
 
         }
-        
-        private void OnEnterMap(Transform map, int mapId)
+
+        private void OnEnterMap()
         {
-            MapCpt = HotFixMudule.GameScene.AddCpt<MapComponent>(mapEntity);
-            MapCpt.map = map;
-            MapCpt.viewSizeX = 19;
-            MapCpt.viewSizeY = 11;
-            MapCpt.MapData = DataMap.GetDataRow(mapId);
-            MapCpt.gridGo = map.Find("Mian/Grid").gameObject;
-            MapCpt.mapReqion = map.Find("Mian/GridRoot");
-            CreateMap(MapCpt.mapRegionId, MapCpt.MapData.RoleBornPos);
+            mapCpt.mapParent = GameObject.Find("Map").transform;
+            mapCpt.viewSizeX = 19;
+            mapCpt.viewSizeY = 11;
+            mapCpt.gridGo = mapCpt.mapParent.Find("Mian/Grid").gameObject;
+            mapCpt.mapReqion = mapCpt.mapParent.Find("Mian/GridRoot");
         }
 
-        private void CreateMap(int reqionId, Vector2 palyerpos, MoveDir dir = MoveDir.Stop)
+        private void CreateRole()
         {
+            MapEntityCpt mapEntityCpt = mapCpt.map.GetComponent<MapEntityCpt>();
+            mapEntityCpt.role = HotFixMudule.GameScene.CreateEntity("Role");
+            MapRoleCpt mapRoleCpt = HotFixMudule.GameScene.AddCpt<MapRoleCpt>(mapEntityCpt.role);
+
+            mapRoleCpt.reqionId = mapCpt.mapRegionId;
+            mapRoleCpt.roleDir = MoveDir.Stop;
+            mapRoleCpt.rolePos = mapCpt.MapData.RoleBornPos;
+            mapRoleCpt.UpdateMap = true;
+        }
+
+        private void UpdateMap()
+        {
+            MapEntityCpt mapEntityCpt = mapCpt.map.GetComponent<MapEntityCpt>();
+            MapRoleCpt mapRoleCpt = mapEntityCpt.role.GetComponent<MapRoleCpt>();
+            if (!mapRoleCpt.UpdateMap) return;
+
             //计算当前视野内左下角格子的坐标
-            int originX = (int) palyerpos.x - MapCpt.viewSizeX / 2;
-            int originY = (int) palyerpos.y - MapCpt.viewSizeY / 2;
+            int originX = (int) mapRoleCpt.rolePos.x - mapCpt.viewSizeX / 2;
+            int originY = (int) mapRoleCpt.rolePos.y - mapCpt.viewSizeY / 2;
 
             int MaxX, MaxY;
-            switch (dir)
+            switch (mapRoleCpt.roleDir)
             {
                 case MoveDir.Stop:
-                    MapCpt.mapReqion.name = string.Format("map{0}", reqionId);
-                    MaxX = originX + MapCpt.viewSizeX;
-                    MaxY = originY + MapCpt.viewSizeY;
+                    mapCpt.mapReqion.name = string.Format("map{0}", mapRoleCpt.reqionId);
+                    MaxX = originX + mapCpt.viewSizeX;
+                    MaxY = originY + mapCpt.viewSizeY;
                     //生成
-                    if (MapCpt.mapGridEntitys.Count == 0)
+                    if (mapEntityCpt.grids.Count == 0)
                     {
                         for (int x = originX; x < MaxX; x++)
                         {
                             for (int y = originY; y < MaxY; y++)
                             {
-                                //CreateEntity(x, y, reqionId);
+                                CreateGridEntity(mapEntityCpt, new Vector2(x, y));
                             }
                         }
 
+                        HotFixMudule.GameScene.CreateSystem<MapGirdSystem>();
                         break;
                     }
 
                     //全部更换
-                    // List<MapGrid> GridList = GetAllGridData();
-                    MapCpt.mapGridEntitys.Clear();
+                    Entity[] grids = mapEntityCpt.grids.Values.ToArray();
+                    mapEntityCpt.grids.Clear();
                     int index = 0;
                     for (int x = originX; x < MaxX; x++)
                     {
                         for (int y = originY; y < MaxY; y++)
                         {
-                            // MapGrid grid = GridList[index];
-                            // SetGridPos(x, y, grid, reqionId);
+                            Vector2 vector2 = new Vector2(x, y);
+                            Entity grid = grids[index];
+                            grid.GetComponent<MapGirdCpt>().UpdateMapCell(mapCpt.GetMapCell(vector2));
+                            mapEntityCpt.grids.Add(vector2, grids[index]);
                             index++;
                         }
                     }
@@ -103,79 +129,64 @@ namespace EPloy
                     break;
                 //最下面到 最上面
                 case MoveDir.Up:
-
-                    MaxX = originX + MapCpt.viewSizeX;
+                    MaxX = originX + mapCpt.viewSizeX;
                     MaxY = originY - 1;
                     for (int x = originX; x < MaxX; x++)
                     {
-                        // MapGrid grid = GetGridData(x, MaxY);
-                        // if (grid == null) Debug.LogError(x);
-                        // RemoveGridData(x, MaxY);
-                        // SetGridPos(x, MaxY + MapCpt.viewSizeY, grid, reqionId);
+                        UpdateGridEntity(mapEntityCpt, new Vector2(x, MaxY), new Vector2(x, MaxY + mapCpt.viewSizeY));
                     }
 
                     break;
                 //最上面到 最下面
                 case MoveDir.Down:
-                    MaxX = originX + MapCpt.viewSizeX;
-                    MaxY = originY + MapCpt.viewSizeY;
+                    MaxX = originX + mapCpt.viewSizeX;
+                    MaxY = originY + mapCpt.viewSizeY;
                     for (int x = originX; x < MaxX; x++)
                     {
-                        // MapGrid grid = GetGridData(x, MaxY);
-                        // if (grid == null) Debug.LogError(x);
-                        // RemoveGridData(x, MaxY);
-                        // SetGridPos(x, originY, grid, reqionId);
+                        UpdateGridEntity(mapEntityCpt, new Vector2(x, MaxY), new Vector2(x, originY));
                     }
 
                     break;
                 //最右面到 最左面
                 case MoveDir.Left:
-                    MaxX = originX + MapCpt.viewSizeX;
-                    MaxY = originY + MapCpt.viewSizeY;
+                    MaxX = originX + mapCpt.viewSizeX;
+                    MaxY = originY + mapCpt.viewSizeY;
                     for (int y = originY; y < MaxY; y++)
                     {
-                        // MapGrid grid = GetGridData(MaxX, y);
-                        // if (grid == null) Debug.LogError(y);
-                        // RemoveGridData(MaxX, y);
-                        // SetGridPos(originX, y, grid, reqionId);
+                        UpdateGridEntity(mapEntityCpt, new Vector2(MaxX, y), new Vector2(originX, y));
                     }
 
                     break;
                 //最左面到 最右面
                 case MoveDir.Right:
                     MaxX = originX - 1;
-                    MaxY = originY + MapCpt.viewSizeY;
+                    MaxY = originY + mapCpt.viewSizeY;
                     for (int y = originY; y < MaxY; y++)
                     {
-                        // MapGrid grid = GetGridData(MaxX, y);
-                        // if (grid == null) Debug.LogError(y);
-                        // RemoveGridData(MaxX, y);
-                        // SetGridPos(MaxX + MapCpt.viewSizeX, y, grid, reqionId);
+                        UpdateGridEntity(mapEntityCpt, new Vector2(MaxX, y), new Vector2(MaxX + mapCpt.viewSizeX, y));
                     }
 
                     break;
             }
+
+            mapRoleCpt.UpdateMap = false;
         }
 
-        private MapGridEntity GetGridEntityByPos(Vector2 pos)
+        private void CreateGridEntity(MapEntityCpt mapEntityCpt, Vector2 vector2)
         {
-            MapGridEntity MapGrid = GetGridData(pos);
-            if (MapGrid == null)
-            {
-                Log.Error("视野内未发现：" + pos.x + "," + pos.y);
-            }
-
-            return MapGrid;
+            Entity entity = HotFixMudule.GameScene.CreateEntity("grid_" + vector2);
+            MapGirdCpt mapGirdCpt = HotFixMudule.GameScene.AddCpt<MapGirdCpt>(entity);
+            mapGirdCpt.UpdateMapCell(mapCpt.GetMapCell(vector2));
+            mapEntityCpt.grids.Add(vector2, entity);
         }
 
-        private MapGridEntity GetGridData(Vector2 pos, MapGridEntity defaultValue = null)
+        private void UpdateGridEntity(MapEntityCpt mapEntityCpt, Vector2 old, Vector2 cur)
         {
-            if (MapCpt.mapGridEntitys.ContainsKey(pos))
-            {
-                return MapCpt.mapGridEntitys[pos];
-            }
-
-            return defaultValue;
+            Entity grid = mapEntityCpt.grids[old];
+            if (grid == null) Log.Error(old);
+            mapEntityCpt.grids.Remove(old);
+            mapEntityCpt.grids.Add(cur, grid);
+            grid.GetComponent<MapGirdCpt>().UpdateMapCell(mapCpt.GetMapCell(cur));
         }
     }
 }
