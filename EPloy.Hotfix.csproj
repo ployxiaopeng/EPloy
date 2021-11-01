@@ -53,7 +53,6 @@
      <Compile Include="Assets\EPloy\Hotfix\Base\BaseAttribute.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\ECS\Component\Component.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\ECS\Component\IComponent.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Base\ECS\Component\WithIdComponent.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\ECS\Entity\Entity.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\ECS\Entity\IEntity.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\ECS\System\ISystem.cs" />
@@ -87,13 +86,12 @@
      <Compile Include="Assets\EPloy\Hotfix\Config\UIEnum.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\Component\MapComponent .cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\Component\MapGirdComponent.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\ECS\Entity\MapEntity.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\Entity\MapGridEntity.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\ECS\GameEntity.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\ECS\System\GameSystem.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\ECS\GameScene.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\System\MapGirdSystem.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\System\MapSystem.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\System\SystemHelper.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\ECS\Utility\Test.cs" />
      <Compile Include="Assets\EPloy\Hotfix\HotFixStart.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\Base\Atlas\AtlasMudule.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\Base\DataTable\DataTable.cs" />
@@ -185,6 +183,7 @@
      <Compile Include="Assets\EPloy\Hotfix\Mudule\UI\LoginStartLogic.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\UI\StartForm.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\UI\TipsForm.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\Mudule\Utility\HotFixDllUtil.cs" />
  <Reference Include="UnityEditor.UI">
  <HintPath>D:/EPloy/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>

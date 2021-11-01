@@ -328,7 +328,7 @@ namespace EPloy
         private void GetObjTypes()
         {
             ObjTypes = new Dictionary<string, Type>();
-            Type[] Types = HotFixMudule.GameSystem.GetTypes(MuduleConfig.HotFixDllName);
+            Type[] Types = HotFixDllUtil.GetHotfixTypes();
             foreach (Type type in Types)
             {
                 object[] objects = type.GetCustomAttributes(typeof(ObjAttribute), false);

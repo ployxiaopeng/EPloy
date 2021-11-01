@@ -10,10 +10,7 @@ namespace EPloy
     {
        
 
-        public override void Awake()
-        {
-            
-        }
+
 
         private int MapReqionId;
 
@@ -26,6 +23,11 @@ namespace EPloy
             _mapReqion = map.Find("Mian/GridRoot");
             CreateMap(MapReqionId, MapData.RoleBornPos);
 
+        }
+
+        public void Awake()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

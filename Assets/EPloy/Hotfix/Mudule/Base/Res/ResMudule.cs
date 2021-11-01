@@ -19,7 +19,6 @@ namespace EPloy
 
         public void Awake()
         {
-            base.Awake();
             if (HotFixStart.isEditorRes)
             {
                 ResEditorLoader = ResEditorLoader.CreateResEditorLoader();

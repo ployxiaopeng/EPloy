@@ -2,82 +2,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace EPloy
 {
     public class Entity : IEntity, IReference
     {
-        public string Name;
+        protected GameScene GameScene;
 
-        public int id { get; set; }
+        public string Name { get; private set; }
+
+        public long Id { get; set; }
 
         /// <summary>
         /// 实体是否释放
         /// </summary>
         public bool IsRelease
         {
-            get
-            {
-                return id == -1;
-            }
+            get { return Id == -1; }
         }
-
-        private Entity parentEntity;
 
         /// <summary>
         /// 实体组件
         /// </summary>
-        protected Dictionary<Type, Component> ComponentDictionary = new Dictionary<Type, Component>();
-        /// <summary>
-        /// 实体还有实体
-        /// </summary>
-        protected Dictionary<int, Entity> EntityDictionary = new Dictionary<int, Entity>();
-        /// <summary>
-        /// 父级实体 并且唯一
-        /// </summary>
-        public Entity ParentEntity
-        {
-            get
-            {
-                return parentEntity;
-            }
-        }
+        protected readonly  Dictionary<Type, Component> ComponentDictionary = new Dictionary<Type, Component>();
 
         /// <summary>
         /// 实体初始化
         /// </summary>
-        /// <param name="_id"></param>
-        public virtual void Awake(int _id)
+        public void Awake(long id, string name)
         {
-            Awake(_id, null, null);
-        }
-        public virtual void Awake(int _id, string name)
-        {
-            Awake(_id, null, name);
-        }
-        public virtual void Awake(int _id, Entity _parentEntity, string name)
-        {
-            id = _id;
+            Id = id;
             Name = name;
-            parentEntity = _parentEntity;
-           // Log.Info(Utility.Text.Format("创建一个实体 id: {0} name: {1}", id, Name));
         }
 
         /// <summary>
         /// 添加组件
         /// </summary>
-        public T AddComponent<T>() where T : Component
+        public void AddComponent(Component component)
         {
-            Type type = typeof(T);
+            Type type = component.GetType();
             if (ComponentDictionary.ContainsKey(type))
             {
                 Log.Fatal(Utility.Text.Format("Component {0} is in Entity ", type));
-                return null;
             }
-            Component component = HotFixMudule.GameEntity.WithIdComponent.CreateComponent(this, type);
+
             ComponentDictionary.Add(type, component);
-            HotFixMudule.GameSystem.Awake(component);
-            return (T)component;
         }
 
         /// <summary>
@@ -100,21 +70,16 @@ namespace EPloy
                 Log.Fatal(Utility.Text.Format("Component {0} is not in Entity ", type));
                 return null;
             }
-            return (T)ComponentDictionary[type];
+
+            return (T) ComponentDictionary[type];
         }
 
         /// <summary>
-        /// 添加子实体
+        /// 获取所有组件
         /// </summary>
-        public void AddChild(Entity entity)
+        public Component[] GetAllComponent()
         {
-            if (EntityDictionary.ContainsKey(entity.id))
-            {
-                Log.Fatal(Utility.Text.Format("entityId {0} is in Entity ", entity.id));
-                return;
-            }
-            EntityDictionary.Add(entity.id, entity);
-            entity.Awake(entity.id, this, entity.Name);
+            return ComponentDictionary.Values.ToArray();
         }
 
         /// <summary>
@@ -127,7 +92,6 @@ namespace EPloy
                 Log.Fatal(Utility.Text.Format("Component {0} is not in Entity ", typeof(T)));
                 return;
             }
-            HotFixMudule.GameEntity.WithIdComponent.ReleaseComponent(ComponentDictionary[typeof(T)]);
             ComponentDictionary.Remove(typeof(T));
         }
 
@@ -136,24 +100,7 @@ namespace EPloy
         /// </summary>
         public void RemoveAllComponent()
         {
-            foreach (var component in ComponentDictionary)
-            {
-                HotFixMudule.GameEntity.WithIdComponent.ReleaseComponent(component.Value);
-            }
-        }
-
-        /// <summary>
-        /// 移除子实体
-        /// </summary>
-        public void RemoveChild(Entity entity)
-        {
-            if (EntityDictionary.ContainsKey(entity.id))
-            {
-                Log.Fatal(Utility.Text.Format("entityId {0} is not in Entity ", entity.id));
-                return;
-            }
-            entity.RemoveAllComponent();
-            EntityDictionary.Remove(entity.id);
+            ComponentDictionary.Clear();
         }
 
         /// <summary>
@@ -161,9 +108,8 @@ namespace EPloy
         /// </summary>
         public void Clear()
         {
-            id = -1;
+            Id = -1;
             ComponentDictionary.Clear();
-            EntityDictionary.Clear();
         }
     }
 }

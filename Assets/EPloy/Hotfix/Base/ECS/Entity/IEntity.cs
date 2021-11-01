@@ -5,13 +5,13 @@ namespace EPloy
 {
     public interface IEntity
     {
-        int id { get; set; }
-        void Awake(int _id);
-        T AddComponent<T>() where T : Component;
+        long Id { get; set; }
+        void Awake(long id, string name);
+        void AddComponent(Component component);
         bool HasComponent<T>() where T : Component;
         T GetComponent<T>() where T : Component;
+        Component[] GetAllComponent();
         void RemoveComponent<T>() where T : Component;
         void RemoveAllComponent();
-        // void AddChild(IEntity entity);
     }
 }

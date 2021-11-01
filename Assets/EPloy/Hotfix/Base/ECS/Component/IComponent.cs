@@ -5,7 +5,7 @@ namespace EPloy
     public interface IComponent
     {
         IEntity Entity { get; set; }
-        long InstanceId { get; set; }
-        void SetEntity(IEntity _entity, long instanceId);
+        long Id { get; set; }
+        void Awake(IEntity entity, long id);
     }
 }

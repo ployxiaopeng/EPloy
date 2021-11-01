@@ -6,9 +6,10 @@ namespace EPloy
 {
     public class MapSystem : ISystem
     {
-        private MapEntity mapEntity;
+        private Entity mapEntity;
         private MapComponent MapCpt;
-        private  IDataTable<DRMap> _dataMap = null;
+        private IDataTable<DRMap> _dataMap = null;
+
         private IDataTable<DRMap> DataMap
         {
             get
@@ -21,15 +22,34 @@ namespace EPloy
                 return _dataMap;
             }
         }
-        
-        public void Start()
+
+        public int Priority
         {
-            mapEntity = HotFixMudule.GameEntity.CreateEntity<MapEntity>("Map");
+            get => 100;
         }
 
-        public void OnEnterMap(Transform map, int mapId)
+        public bool IsPause { get; set; }
+
+        public void Start()
         {
-            MapCpt = mapEntity.AddComponent<MapComponent>();
+            mapEntity = HotFixMudule.GameScene.CreateEntity("Map");
+            MapCpt = HotFixMudule.GameScene.GetSingleCpt<MapComponent>();
+        }
+
+
+        public void Update()
+        {
+
+        }
+
+        public void OnDestroy()
+        {
+
+        }
+        
+        private void OnEnterMap(Transform map, int mapId)
+        {
+            MapCpt = HotFixMudule.GameScene.AddCpt<MapComponent>(mapEntity);
             MapCpt.map = map;
             MapCpt.viewSizeX = 19;
             MapCpt.viewSizeY = 11;
@@ -39,18 +59,19 @@ namespace EPloy
             CreateMap(MapCpt.mapRegionId, MapCpt.MapData.RoleBornPos);
         }
 
-        public void CreateMap(int reqionId, Vector2 palyerpos, MoveDir dir = MoveDir.Stop)
+        private void CreateMap(int reqionId, Vector2 palyerpos, MoveDir dir = MoveDir.Stop)
         {
             //计算当前视野内左下角格子的坐标
-            int originX = (int)palyerpos.x - MapCpt.viewSizeX / 2;
-            int originY = (int)palyerpos.y - MapCpt.viewSizeY / 2;
+            int originX = (int) palyerpos.x - MapCpt.viewSizeX / 2;
+            int originY = (int) palyerpos.y - MapCpt.viewSizeY / 2;
 
             int MaxX, MaxY;
             switch (dir)
             {
                 case MoveDir.Stop:
                     MapCpt.mapReqion.name = string.Format("map{0}", reqionId);
-                    MaxX = originX + MapCpt.viewSizeX; MaxY = originY + MapCpt.viewSizeY;
+                    MaxX = originX + MapCpt.viewSizeX;
+                    MaxY = originY + MapCpt.viewSizeY;
                     //生成
                     if (MapCpt.mapGridEntitys.Count == 0)
                     {
@@ -64,6 +85,7 @@ namespace EPloy
 
                         break;
                     }
+
                     //全部更换
                     // List<MapGrid> GridList = GetAllGridData();
                     MapCpt.mapGridEntitys.Clear();
@@ -77,11 +99,13 @@ namespace EPloy
                             index++;
                         }
                     }
+
                     break;
                 //最下面到 最上面
                 case MoveDir.Up:
 
-                    MaxX = originX + MapCpt.viewSizeX; MaxY = originY - 1;
+                    MaxX = originX + MapCpt.viewSizeX;
+                    MaxY = originY - 1;
                     for (int x = originX; x < MaxX; x++)
                     {
                         // MapGrid grid = GetGridData(x, MaxY);
@@ -89,10 +113,12 @@ namespace EPloy
                         // RemoveGridData(x, MaxY);
                         // SetGridPos(x, MaxY + MapCpt.viewSizeY, grid, reqionId);
                     }
+
                     break;
                 //最上面到 最下面
                 case MoveDir.Down:
-                    MaxX = originX + MapCpt.viewSizeX; MaxY = originY + MapCpt.viewSizeY;
+                    MaxX = originX + MapCpt.viewSizeX;
+                    MaxY = originY + MapCpt.viewSizeY;
                     for (int x = originX; x < MaxX; x++)
                     {
                         // MapGrid grid = GetGridData(x, MaxY);
@@ -100,10 +126,12 @@ namespace EPloy
                         // RemoveGridData(x, MaxY);
                         // SetGridPos(x, originY, grid, reqionId);
                     }
+
                     break;
                 //最右面到 最左面
                 case MoveDir.Left:
-                    MaxX = originX + MapCpt.viewSizeX; MaxY = originY + MapCpt.viewSizeY;
+                    MaxX = originX + MapCpt.viewSizeX;
+                    MaxY = originY + MapCpt.viewSizeY;
                     for (int y = originY; y < MaxY; y++)
                     {
                         // MapGrid grid = GetGridData(MaxX, y);
@@ -111,10 +139,12 @@ namespace EPloy
                         // RemoveGridData(MaxX, y);
                         // SetGridPos(originX, y, grid, reqionId);
                     }
+
                     break;
                 //最左面到 最右面
                 case MoveDir.Right:
-                    MaxX = originX - 1; MaxY = originY + MapCpt.viewSizeY;
+                    MaxX = originX - 1;
+                    MaxY = originY + MapCpt.viewSizeY;
                     for (int y = originY; y < MaxY; y++)
                     {
                         // MapGrid grid = GetGridData(MaxX, y);
@@ -122,17 +152,19 @@ namespace EPloy
                         // RemoveGridData(MaxX, y);
                         // SetGridPos(MaxX + MapCpt.viewSizeX, y, grid, reqionId);
                     }
+
                     break;
             }
         }
-        
-        public MapGridEntity GetGridEntityByPos(Vector2 pos)
+
+        private MapGridEntity GetGridEntityByPos(Vector2 pos)
         {
             MapGridEntity MapGrid = GetGridData(pos);
             if (MapGrid == null)
             {
                 Log.Error("视野内未发现：" + pos.x + "," + pos.y);
             }
+
             return MapGrid;
         }
 
@@ -144,16 +176,6 @@ namespace EPloy
             }
 
             return defaultValue;
-        }
-
-        public void Update()
-        {
-           
-        }
-
-        public void OnDestroy()
-        {
-            
         }
     }
 }

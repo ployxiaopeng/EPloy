@@ -7,19 +7,26 @@ namespace EPloy
 {
     public class MapGirdSystem : ISystem
     {
+        public int Priority
+        {
+            get => 100;
+        }
+
+        public bool IsPause { get; set; }
+
         public void Start()
         {
 
         }
 
-        public void CreateGirdEntity(MapEntity mapEntity, Vector2 position, int reqionId)
+        public void CreateGirdEntity(Vector2 position, int reqionId)
         {
             string gridName = string.Format("grid_{0},{1}", (int) position.x, (int) position.y);
-            MapComponent mapCpt = mapEntity.GetComponent<MapComponent>();
+            MapComponent mapCpt = HotFixMudule.GameScene.GetSingleCpt<MapComponent>();
             GameObject grid = Object.Instantiate(mapCpt.gridGo, mapCpt.mapReqion);
             grid.name = gridName;
-            MapGridEntity gridEntity = HotFixMudule.GameEntity.CreateEntity<MapGridEntity>();
-            gridEntity.AddComponent<MapGirdComponent>();
+            MapGridEntity gridEntity = HotFixMudule.GameScene.CreateEntity<MapGridEntity>();
+            HotFixMudule.GameScene.AddCpt<MapGirdComponent>(gridEntity);
             grid.transform.localPosition = position;
             SetMapGird(gridEntity, mapCpt.GetMapCell(position));
 
@@ -29,7 +36,7 @@ namespace EPloy
                 mapCpt.mapGridEntitys.Add(position, gridEntity);
         }
 
-        private void SetMapGird(MapGridEntity entity,  DRMapCell mapCell)
+        private void SetMapGird(MapGridEntity entity, DRMapCell mapCell)
         {
             MapGirdComponent mapGirdCpt = entity.GetComponent<MapGirdComponent>();
             Reset(mapGirdCpt);
@@ -71,7 +78,7 @@ namespace EPloy
             mapGirdCpt.bgSprite.transform.localEulerAngles = mapGirdCpt.mapCell.ResBgRotate;
         }
 
-        
+
         public void Update()
         {
 

@@ -22,7 +22,6 @@ namespace EPloy
 
         public static void Update()
         {
-            HotFixMudule.GameSystem.Update();
             HotfixModuleMgr.ModuleUpdate();
         }
 

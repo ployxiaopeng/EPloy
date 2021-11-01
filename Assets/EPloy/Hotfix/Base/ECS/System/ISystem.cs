@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ISystem
+namespace EPloy
 {
-    void Start();
+    public interface ISystem
+    {
+        int Priority { get; } //待定
 
-    void Update();
+        bool IsPause { get; set; }
 
-    void OnDestroy();
+        void Start();
+
+        void Update();
+
+        void OnDestroy();
+    }
 }
