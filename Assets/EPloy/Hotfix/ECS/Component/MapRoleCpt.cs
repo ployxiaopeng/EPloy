@@ -9,10 +9,15 @@ namespace EPloy
     /// </summary>
     public class MapRoleCpt : Component
     {
-        public Vector2 rolePos;
+        public Vector2 rolePos
+        {
+            get { return role.transform.position; }
+        }
+
         public MoveDir roleDir = MoveDir.Stop;
-        public int reqionId;
         public bool UpdateMap;
+
+        public GameObject role;
     }
 }
 

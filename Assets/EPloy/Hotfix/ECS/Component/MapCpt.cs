@@ -12,13 +12,9 @@ namespace EPloy
         public Entity map;
         
         public Transform mapParent;
-
-        public int viewSizeX;
-        public int viewSizeY;
+        public GameObject gridPrefab;
         public Transform mapReqion;
-        public int mapRegionId;
-        public GameObject gridGo;
-
+        
         private DRMapCell[] dataMapCell;
         private DRMap mapData;
 
@@ -29,7 +25,6 @@ namespace EPloy
             {
                 mapData = value;
                 dataMapCell = HotFixMudule.DataTable.GetDataTable<DRMapCell>().GetAllDataRows();
-                mapRegionId = mapData.MapRegionId;
                 SetMapAllCell();
             }
         }
@@ -52,11 +47,8 @@ namespace EPloy
 
             foreach (var cell in dataMapCell)
             {
-                if (cell.RegionId == mapRegionId)
-                {
-                    MapAllCell.Add(cell.CellIndex, cell);
-                    MapCellPass.Add(cell.CellIndex, cell.Pass);
-                }
+                MapAllCell.Add(cell.CellIndex, cell);
+                MapCellPass.Add(cell.CellIndex, cell.Pass);
             }
         }
 

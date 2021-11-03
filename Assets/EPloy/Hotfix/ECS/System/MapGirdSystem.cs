@@ -7,7 +7,6 @@ namespace EPloy
 {
     public class MapGirdSystem : ISystem
     {
-        private MapCpt mapCpt ;
         public int Priority
         {
             get => 100;
@@ -15,12 +14,13 @@ namespace EPloy
 
         public bool IsPause { get; set; }
 
+        private MapCpt mapCpt;
+
         public void Start()
         {
             mapCpt = HotFixMudule.GameScene.GetSingleCpt<MapCpt>();
         }
-
-
+        
         public void Update()
         {
             MapEntityCpt mapEntityCpt = mapCpt.map.GetComponent<MapEntityCpt>();
@@ -42,7 +42,7 @@ namespace EPloy
         private void CreateGird(MapGirdCpt mapGirdCpt, Vector2 position)
         {
             string gridName = string.Format("grid_{0},{1}", mapGirdCpt.posX, mapGirdCpt.posY);
-            GameObject grid = Object.Instantiate(mapCpt.gridGo, mapCpt.mapReqion);
+            GameObject grid = Object.Instantiate(mapCpt.gridPrefab, mapCpt.mapReqion);
             grid.name = gridName;
             mapGirdCpt.Init(grid.transform);
         }

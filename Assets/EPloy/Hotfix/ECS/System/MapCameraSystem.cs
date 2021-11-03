@@ -1,4 +1,6 @@
-﻿namespace EPloy
+﻿using UnityEngine;
+
+namespace EPloy
 {
     public class MapCameraSystem : ISystem
     {
@@ -23,10 +25,19 @@
             if (mapEntityCpt.role.HasComponent<MapCameraCpt>())
             {
                 MapCameraCpt mapCameraCpt = mapEntityCpt.role.GetComponent<MapCameraCpt>();
-                mapCameraCpt.camera.transform.position = mapCameraCpt.followPos + mapCameraCpt.offset;
+                if (mapCameraCpt.isInit)
+                {
+                    Vector3 pos = Vector3.Lerp(mapCameraCpt.transform.position,
+                        mapCameraCpt.target, Time.deltaTime * 20f);
+                    mapCameraCpt.transform.position = pos;
+                }
+                else
+                {
+                    mapCameraCpt.transform.position = mapCameraCpt.target;
+                    mapCameraCpt.isInit = true;
+                }
             }
         }
-
 
         public void OnDestroy()
         {
