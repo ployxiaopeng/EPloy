@@ -7,24 +7,6 @@ namespace EPloy
 {
     public class MapSystem : ISystem
     {
-        private MapCpt mapCpt;
-        private IDataTable<DRMap> _dataMap = null;
-
-        private IDataTable<DRMap> DataMap
-        {
-            get
-            {
-                if (_dataMap == null)
-                {
-                    _dataMap = HotFixMudule.DataTable.GetDataTable<DRMap>();
-                }
-
-                return _dataMap;
-            }
-        }
-
-        private bool enterMap = false;
-
         public int Priority
         {
             get => 100;
@@ -32,11 +14,17 @@ namespace EPloy
 
         public bool IsPause { get; set; }
 
+        private MapCpt mapCpt;
+        private IDataTable<DRMap> dataMap;
+        private bool enterMap;
+
         public void Start()
         {
+            enterMap = false;
+            dataMap = HotFixMudule.DataTable.GetDataTable<DRMap>();
             mapCpt = HotFixMudule.GameScene.GetSingleCpt<MapCpt>();
             mapCpt.map = HotFixMudule.GameScene.CreateEntity("Map");
-            mapCpt.MapData = DataMap.GetDataRow(10101);
+            mapCpt.MapData = dataMap.GetDataRow(10101);
             HotFixMudule.GameScene.AddCpt<MapEntityCpt>(mapCpt.map);
         }
 
@@ -46,6 +34,7 @@ namespace EPloy
             {
                 OnEnterMap();
                 CreateRole();
+                CreateGrid();
                 enterMap = true;
             }
 
@@ -71,11 +60,36 @@ namespace EPloy
             MapEntityCpt mapEntityCpt = mapCpt.map.GetComponent<MapEntityCpt>();
             mapEntityCpt.role = HotFixMudule.GameScene.CreateEntity("Role");
             MapRoleCpt mapRoleCpt = HotFixMudule.GameScene.AddCpt<MapRoleCpt>(mapEntityCpt.role);
-
+            MapCameraCpt mapCameraCpt = HotFixMudule.GameScene.AddCpt<MapCameraCpt>(mapEntityCpt.role);
             mapRoleCpt.reqionId = mapCpt.mapRegionId;
             mapRoleCpt.roleDir = MoveDir.Stop;
             mapRoleCpt.rolePos = mapCpt.MapData.RoleBornPos;
             mapRoleCpt.UpdateMap = true;
+
+            mapCameraCpt.camera = mapCpt.mapParent.Find("Camera").GetComponent<Camera>();
+            mapCameraCpt.followPos = mapRoleCpt.rolePos;
+            HotFixMudule.GameScene.CreateSystem<MapCameraSystem>();
+        }
+
+        private void CreateGrid()
+        {
+            MapEntityCpt mapEntityCpt = mapCpt.map.GetComponent<MapEntityCpt>();
+            MapRoleCpt mapRoleCpt = mapEntityCpt.role.GetComponent<MapRoleCpt>();
+            int MaxX, MaxY, originX, originY;
+            originX = (int) mapRoleCpt.rolePos.x - mapCpt.viewSizeX / 2;
+            originY = (int) mapRoleCpt.rolePos.y - mapCpt.viewSizeY / 2;
+            MaxX = originX + mapCpt.viewSizeX;
+            MaxY = originY + mapCpt.viewSizeY;
+            mapCpt.mapReqion.name = string.Format("map{0}", mapRoleCpt.reqionId);
+            for (int x = originX; x < MaxX; x++)
+            {
+                for (int y = originY; y < MaxY; y++)
+                {
+                    CreateGridEntity(mapEntityCpt, new Vector2(x, y));
+                }
+            }
+
+            HotFixMudule.GameScene.CreateSystem<MapGirdSystem>();
         }
 
         private void UpdateMap()
@@ -95,22 +109,6 @@ namespace EPloy
                     mapCpt.mapReqion.name = string.Format("map{0}", mapRoleCpt.reqionId);
                     MaxX = originX + mapCpt.viewSizeX;
                     MaxY = originY + mapCpt.viewSizeY;
-                    //生成
-                    if (mapEntityCpt.grids.Count == 0)
-                    {
-                        for (int x = originX; x < MaxX; x++)
-                        {
-                            for (int y = originY; y < MaxY; y++)
-                            {
-                                CreateGridEntity(mapEntityCpt, new Vector2(x, y));
-                            }
-                        }
-
-                        HotFixMudule.GameScene.CreateSystem<MapGirdSystem>();
-                        break;
-                    }
-
-                    //全部更换
                     Entity[] grids = mapEntityCpt.grids.Values.ToArray();
                     mapEntityCpt.grids.Clear();
                     int index = 0;

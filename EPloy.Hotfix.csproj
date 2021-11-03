@@ -84,12 +84,14 @@
      <Compile Include="Assets\EPloy\Hotfix\Config\MapEnum.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Config\ObjEnum.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Config\UIEnum.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\ECS\Component\MapCameraCpt.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\Component\MapCpt.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\Component\MapEntityCpt.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\Component\MapGirdCpt.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\Component\MapRoleCpt.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\Entity\test1.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\GameScene.cs" />
+     <Compile Include="Assets\EPloy\Hotfix\ECS\System\MapCameraSystem.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\System\MapGirdSystem.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\System\MapSystem.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\System\SystemHelper.cs" />
