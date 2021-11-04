@@ -15,7 +15,7 @@ namespace EPloy
             Log.Info("Map  OnEnter");
             HotFixMudule.ECSActivate();
             HotFixMudule.GameScene.CreateSystem<MapSystem>();
-            HotFixMudule.UI.CloseUIForm(UIName.LoadingForm);
+            HotFixMudule.UI.OpenUIForm(UIName.MainMapForm,UIGroupName.Default);
         }
     }
 }
