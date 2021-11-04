@@ -41,7 +41,7 @@ namespace EPloy
 
         private void CreateGird(MapGirdCpt mapGirdCpt, Vector2 position)
         {
-            string gridName = string.Format("grid_{0},{1}", mapGirdCpt.posX, mapGirdCpt.posY);
+            string gridName = string.Format("grid_{0},{1}", position.x, position.y);
             GameObject grid = Object.Instantiate(mapCpt.gridPrefab, mapCpt.mapReqion);
             grid.name = gridName;
             mapGirdCpt.Init(grid.transform);

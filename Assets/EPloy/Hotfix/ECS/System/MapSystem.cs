@@ -23,8 +23,10 @@ namespace EPloy
             mapCpt.map = HotFixMudule.GameScene.CreateEntity("Map");
             mapCpt.MapData = dataMap.GetDataRow(10101);
             HotFixMudule.GameScene.AddCpt<MapEntityCpt>(mapCpt.map);
-            OnEnterMap();
+            mapCpt.mapParent = GameObject.Find("Map").transform;
+            mapCpt.gridPrefab = mapCpt.mapParent.Find("Mian/Grid").gameObject;
             HotFixMudule.GameScene.CreateSystem<MapRoleSystem>();
+            HotFixMudule.GameScene.CreateSystem<MapCameraSystem>();
             HotFixMudule.GameScene.CreateSystem<MapCreateSystem>();
         }
 
@@ -36,11 +38,6 @@ namespace EPloy
         public void OnDestroy()
         {
 
-        }
-
-        private void OnEnterMap()
-        {
-            mapCpt.mapParent = GameObject.Find("Map").transform;
         }
     }
 }

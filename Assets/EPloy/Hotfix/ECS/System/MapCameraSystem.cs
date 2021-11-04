@@ -25,17 +25,14 @@ namespace EPloy
             if (mapEntityCpt.role.HasComponent<MapCameraCpt>())
             {
                 MapCameraCpt mapCameraCpt = mapEntityCpt.role.GetComponent<MapCameraCpt>();
-                if (mapCameraCpt.isInit)
+                mapCameraCpt.transform.position = mapCameraCpt.target;
+                if (mapCpt.map.HasComponent<MapCreateCpt>())
                 {
-                    Vector3 pos = Vector3.Lerp(mapCameraCpt.transform.position,
-                        mapCameraCpt.target, Time.deltaTime * 20f);
-                    mapCameraCpt.transform.position = pos;
+                    MapCreateCpt mapCreateCpt = mapCpt.map.GetComponent<MapCreateCpt>();
+                    mapCreateCpt.SetCreate(mapCameraCpt.transform.position);
                 }
-                else
-                {
-                    mapCameraCpt.transform.position = mapCameraCpt.target;
-                    mapCameraCpt.isInit = true;
-                }
+
+                return;
             }
         }
 

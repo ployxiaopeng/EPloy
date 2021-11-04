@@ -24,8 +24,6 @@ namespace EPloy
 
         public Camera camera;
         public Vector3 followPos;
-
-        public bool isInit;
     }
 }
 

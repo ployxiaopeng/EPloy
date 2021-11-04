@@ -22,7 +22,6 @@ namespace EPloy
             mapEntityCpt = mapCpt.map.GetComponent<MapEntityCpt>();
             CreateRole();
             StartCamerafollow();
-            HotFixMudule.GameScene.CreateSystem<MapCameraSystem>();
         }
 
         private void CreateRole()
@@ -41,7 +40,6 @@ namespace EPloy
             MapCameraCpt mapCameraCpt = HotFixMudule.GameScene.AddCpt<MapCameraCpt>(mapEntityCpt.role);
             mapCameraCpt.camera = mapCpt.mapParent.Find("Camera").GetComponent<Camera>();
             SetfollowPos();
-            mapCameraCpt.isInit = false;
         }
 
         public void Update()

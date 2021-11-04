@@ -14,6 +14,26 @@ namespace EPloy
         public Transform mapReqion;
         public int regionId;
 
+        public int minX
+        {
+            get { return (int) newCreate.x - viewSizeX / 2; }
+        }
+
+        public int minY
+        {
+            get { return (int) newCreate.y - viewSizeY / 2; }
+        }
+
+        public int maxX
+        {
+            get { return minX + viewSizeX; }
+        }
+
+        public int maxY
+        {
+            get { return minY + viewSizeY; }
+        }
+
         public Vector2 newCreate { get; private set; }
 
         public Vector2 CurCreate { get; set; }
