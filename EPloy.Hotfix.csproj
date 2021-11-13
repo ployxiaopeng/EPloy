@@ -63,9 +63,7 @@
      <Compile Include="Assets\EPloy\Hotfix\Base\Fsm\FsmState.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Fsm\IFsm.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Fsm\LimitFsm.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Base\Mudule\GameModuleMgr.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Mudule\HotfixModuleMgr.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\Base\Mudule\IGameModule.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\Mudule\IHotfixModule.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\ReferencePool\IReference.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Base\ReferencePool\ReferencePool.ReferenceCollection.cs" />

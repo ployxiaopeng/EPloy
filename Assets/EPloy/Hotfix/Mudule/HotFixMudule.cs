@@ -37,6 +37,7 @@ namespace EPloy
             Obj = HotfixModuleMgr.CreateModule<ObjMudule>();
             Procedure = HotfixModuleMgr.CreateModule<ProcedureMudule>();
             Atlas = HotfixModuleMgr.CreateModule<AtlasMudule>();
+            ECSActivate();
         }
 
         //Ecs模块

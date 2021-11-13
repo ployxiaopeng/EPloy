@@ -13,7 +13,6 @@ namespace EPloy
             base.OnEnter();
             loadSecnce = null;
             Log.Info("Map  OnEnter");
-            HotFixMudule.ECSActivate();
             HotFixMudule.GameScene.CreateSystem<MapSystem>();
             HotFixMudule.UI.OpenUIForm(UIName.MainMapForm,UIGroupName.Default);
         }

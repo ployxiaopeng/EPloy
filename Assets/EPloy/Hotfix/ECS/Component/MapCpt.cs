@@ -10,64 +10,37 @@ namespace EPloy
     public class MapCpt : Component
     {
         public Entity map;
-        
+
         public Transform mapParent;
         public GameObject gridPrefab;
         public Transform mapReqion;
-        
-        private DRMapCell[] dataMapCell;
-        private DRMap mapData;
 
-        public DRMap MapData
+        public DRMap mapData { get; private set; }
+        private Dictionary<Vector2, DRMapCell> dRMapCells = new Dictionary<Vector2, DRMapCell>();
+
+        public void SetMapData(DRMap mapData)
         {
-            get { return mapData; }
-            set
+            this.mapData = mapData;
+            DRMapCell[] dataMapCell = HotFixMudule.DataTable.GetDataTable<DRMapCell>().GetAllDataRows();
+            foreach (var mapCell in dataMapCell)
             {
-                mapData = value;
-                dataMapCell = HotFixMudule.DataTable.GetDataTable<DRMapCell>().GetAllDataRows();
-                SetMapAllCell();
+
+                UnityEngine.Vector2 vector2 = new Vector2(1, 1);
+                Log.Error("1111 " + vector2);
+                Log.Error(mapCell.CellIndex.x);
+                if (mapCell.RegionId == mapData.MapRegionId)
+                {
+                    Log.Error(mapCell.CellIndex);
+                    //dRMapCells.Add(mapCell.CellIndex, mapCell);
+                }
             }
         }
-
-        private Dictionary<Vector2, DRMapCell> MapAllCell;
 
         public DRMapCell GetMapCell(Vector2 cellkey)
         {
             DRMapCell cell = null;
-            MapAllCell.TryGetValue(cellkey, out cell);
+            dRMapCells.TryGetValue(cellkey, out cell);
             return cell;
-        }
-
-        private void SetMapAllCell()
-        {
-            if (MapAllCell == null) MapAllCell = new Dictionary<Vector2, DRMapCell>();
-            else MapAllCell.Clear();
-            if (MapCellPass == null) MapCellPass = new Dictionary<Vector2, bool>();
-            else MapCellPass.Clear();
-
-            foreach (var cell in dataMapCell)
-            {
-                MapAllCell.Add(cell.CellIndex, cell);
-                MapCellPass.Add(cell.CellIndex, cell.Pass);
-            }
-        }
-
-        private Dictionary<Vector2, bool> MapCellPass;
-
-        public bool GetMapCellPass(Vector2 cellkey)
-        {
-            bool pass = false;
-            MapCellPass.TryGetValue(cellkey, out pass);
-            return pass;
-        }
-
-        public void SetMapCellPass(Vector2 cellkey, bool pass)
-        {
-            if (MapCellPass.ContainsKey(cellkey))
-            {
-                MapCellPass[cellkey] = pass;
-            }
         }
     }
 }
-

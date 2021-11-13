@@ -26,14 +26,14 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("TryGetValue", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, TryGetValue_0);
             args = new Type[]{};
+            method = type.GetMethod("get_Values", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, get_Values_1);
+            args = new Type[]{};
             method = type.GetMethod("Clear", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Clear_1);
+            app.RegisterCLRMethodRedirection(method, Clear_2);
             args = new Type[]{typeof(UnityEngine.Vector2), typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance)};
             method = type.GetMethod("Add", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Add_2);
-            args = new Type[]{};
-            method = type.GetMethod("get_Values", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, get_Values_3);
+            app.RegisterCLRMethodRedirection(method, Add_3);
             args = new Type[]{};
             method = type.GetMethod("GetEnumerator", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, GetEnumerator_4);
@@ -132,7 +132,22 @@ namespace ILRuntime.Runtime.Generated
             return __ret + 1;
         }
 
-        static StackObject* Clear_1(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* get_Values_1(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.Collections.Generic.Dictionary<UnityEngine.Vector2, ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (System.Collections.Generic.Dictionary<UnityEngine.Vector2, ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(System.Collections.Generic.Dictionary<UnityEngine.Vector2, ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            var result_of_this_method = instance_of_this_method.Values;
+
+            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
+        }
+
+        static StackObject* Clear_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -147,7 +162,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* Add_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* Add_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -173,21 +188,6 @@ namespace ILRuntime.Runtime.Generated
             instance_of_this_method.Add(@key, @value);
 
             return __ret;
-        }
-
-        static StackObject* get_Values_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.Dictionary<UnityEngine.Vector2, ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (System.Collections.Generic.Dictionary<UnityEngine.Vector2, ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(System.Collections.Generic.Dictionary<UnityEngine.Vector2, ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            var result_of_this_method = instance_of_this_method.Values;
-
-            return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }
 
         static StackObject* GetEnumerator_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)

@@ -30,7 +30,7 @@ namespace EPloy
         private void SettingMap()
         {
             mapCpt.map = HotFixMudule.GameScene.CreateEntity("Map");
-            mapCpt.MapData = dataMap.GetDataRow(10101);
+            mapCpt.SetMapData(dataMap.GetDataRow(10101));
             mapEntityCpt = HotFixMudule.GameScene.AddCpt<MapEntityCpt>(mapCpt.map);
             mapCpt.mapParent = GameObject.Find("Map").transform;
             mapCpt.gridPrefab = mapCpt.mapParent.Find("Mian/Grid").gameObject;
@@ -42,8 +42,8 @@ namespace EPloy
             RoleCpt roleCpt = HotFixMudule.GameScene.AddCpt<RoleCpt>(mapEntityCpt.role);
             roleCpt.roleDir = MoveDir.Up;
             roleCpt.role = mapCpt.mapParent.Find("Mian/Role").gameObject;
-            roleCpt.role.transform.localPosition = mapCpt.MapData.RoleBornPos;
-            roleCpt.role.transform.localEulerAngles = mapCpt.MapData.RolelRotate;
+            roleCpt.role.transform.localPosition = mapCpt.mapData.RoleBornPos;
+            roleCpt.role.transform.localEulerAngles = mapCpt.mapData.RolelRotate;
         }
 
         private void SettingNpc()

@@ -36,7 +36,7 @@ namespace EPloy
 
         public Vector2 newCreate { get; private set; }
 
-        public Vector2 CurCreate { get; set; }
+        public Vector2 CurCreate = Vector2.zero;
 
         public void SetCreate(Vector2 newCreate)
         {

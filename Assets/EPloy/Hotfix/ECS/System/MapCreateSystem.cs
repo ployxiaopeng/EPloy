@@ -26,7 +26,7 @@ namespace EPloy
             mapCreateCpt.viewSizeY = 12;
             mapCreateCpt.mapReqion = mapCpt.mapParent.Find("Mian/GridRoot");
             mapCpt.mapReqion = mapCreateCpt.mapReqion;
-            mapCreateCpt.SetCreate(mapCpt.MapData.RoleBornPos);
+            mapCreateCpt.SetCreate(mapCpt.mapData.RoleBornPos);
             CreateGrid();
             HotFixMudule.GameScene.CreateSystem<MapGirdSystem>();
         }

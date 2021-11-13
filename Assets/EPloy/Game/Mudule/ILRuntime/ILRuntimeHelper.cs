@@ -21,7 +21,7 @@ namespace EPloy
             {
                 return new UIEventListener.UIListenerDelegate((go) =>
                 {
-                    ((Action<UnityEngine.GameObject>)act)(go);
+                    ((Action<UnityEngine.GameObject>) act)(go);
                 });
             });
             appDomain.DelegateManager.RegisterMethodDelegate<UnityEngine.GameObject>();
@@ -34,6 +34,7 @@ namespace EPloy
             appDomain.DelegateManager.RegisterMethodDelegate<ushort, object>();
             appDomain.DelegateManager.RegisterMethodDelegate<ILTypeInstance>();
             appDomain.DelegateManager.RegisterMethodDelegate<ushort, MemoryStream>();
+            appDomain.DelegateManager.RegisterMethodDelegate<Vector2, object>();
 
             //PB用
             appDomain.DelegateManager.RegisterFunctionDelegate<IMessageAdaptor.Adaptor>();
@@ -43,24 +44,18 @@ namespace EPloy
             //注册委托
             appDomain.DelegateManager.RegisterDelegateConvertor<UnityAction>((action) =>
             {
-                return new UnityAction(() =>
-                {
-                    ((Action)action)();
-                });
+                return new UnityAction(() => { ((Action) action)(); });
             });
             appDomain.DelegateManager.RegisterDelegateConvertor<UnityAction<float>>((action) =>
             {
-                return new UnityAction<float>((a) =>
-                {
-                    ((Action<float>)action)(a);
-                });
+                return new UnityAction<float>((a) => { ((Action<float>) action)(a); });
             });
 
             appDomain.DelegateManager.RegisterDelegateConvertor<EventHandler<ILTypeInstance>>((act) =>
             {
                 return new EventHandler<ILTypeInstance>((sender, e) =>
                 {
-                    ((Action<object, ILTypeInstance>)act)(sender, e);
+                    ((Action<object, ILTypeInstance>) act)(sender, e);
                 });
             });
 

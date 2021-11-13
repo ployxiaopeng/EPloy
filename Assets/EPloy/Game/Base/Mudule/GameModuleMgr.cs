@@ -19,10 +19,10 @@ namespace EPloy
 
         public static T CreateModule<T>() where T : IGameModule
         {
-            IGameModule mudule = (IGameModule)Activator.CreateInstance<T>();
+            IGameModule mudule = (IGameModule) Activator.CreateInstance<T>();
             mudule.Awake();
             EPloyModules.Add(typeof(T), mudule);
-            return (T)mudule;
+            return (T) mudule;
         }
 
         public static T GetModule<T>() where T : IGameModule
@@ -46,38 +46,41 @@ namespace EPloy
                 mudule = null;
                 return true;
             }
+
             Log.Fatal(Utility.Text.Format("can not find module : ", typeof(T).ToString()));
             return false;
         }
 
         public static void ModuleUpdate()
         {
-            foreach (var module in EPloyModules)
+            foreach (var module in EPloyModules.Values)
             {
                 try
                 {
-                    module.Value.Update();
+                    module.Update();
                 }
                 catch (Exception e)
                 {
-                    Log.Info(Utility.Text.Format("module {0} update err {1} ",module, e.ToString()));
+                    Log.Info(Utility.Text.Format("module {0} update err {1} ", module, e.ToString()));
                 }
             }
         }
 
         public static void ModuleDestory()
         {
-            foreach (var module in EPloyModules)
+            foreach (var module in EPloyModules.Values)
             {
                 try
                 {
-                    module.Value.OnDestroy();
+                    module.OnDestroy();
                 }
                 catch (Exception e)
                 {
                     Log.Fatal(Utility.Text.Format("module {0} destory err {1} ", module, e.ToString()));
                 }
             }
+
+            EPloyModules.Clear();
         }
     }
 }
