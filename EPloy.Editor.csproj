@@ -122,11 +122,18 @@
      <Compile Include="Assets\Editor\01.EPloy\ResourceSyncTools\ResourceSyncToolsController.cs" />
      <Compile Include="Assets\Editor\02.DataTableGenerator\DataTableGenerator.cs" />
      <Compile Include="Assets\Editor\02.DataTableGenerator\DataTableGeneratorMenu.cs" />
-     <Compile Include="Assets\Editor\05.ILRuntime\ILRuntimeCLRBinding.cs" />
+     <Compile Include="Assets\Editor\05.Puerts\CJSImporter.cs" />
+     <Compile Include="Assets\Editor\05.Puerts\Configure.cs" />
+     <Compile Include="Assets\Editor\05.Puerts\DocResolver.cs" />
+     <Compile Include="Assets\Editor\05.Puerts\Generator.cs" />
+     <Compile Include="Assets\Editor\05.Puerts\U2018Compatible.cs" />
      <Compile Include="Assets\Editor\06.UIParticles\MenuOption.cs" />
      <Compile Include="Assets\Editor\06.UIParticles\UiParticlesEditor.cs" />
      <Compile Include="Assets\Editor\07.DOTweenPro\DOTweenAnimationInspector.cs" />
      <None Include="Assets\Editor\03.TexturePacker\SettingsTexturePackerImporter.txt" />
+     <None Include="Assets\Editor\05.Puerts\Resources\puerts\templates\type.tpl.txt" />
+     <None Include="Assets\Editor\05.Puerts\Resources\puerts\templates\typing.tpl.txt" />
+     <None Include="Assets\Editor\05.Puerts\Resources\puerts\templates\autoreg.tpl.txt" />
  <Reference Include="UnityEditor.UI">
  <HintPath>D:/EPloy/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>

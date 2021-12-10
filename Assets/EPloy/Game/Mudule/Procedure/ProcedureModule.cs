@@ -98,7 +98,7 @@ namespace EPloy
 
             if (updateCount == 0)
             {
-                GameModule.ILRuntime.StartILRuntime(IsILRuntime);
+                GameModule.TsEva.StartILRuntime(IsILRuntime);
                 return;
             }
             // 4. 更新资源
@@ -127,7 +127,7 @@ namespace EPloy
         {
             if (result)
             {
-                GameModule.ILRuntime.StartILRuntime(IsILRuntime);
+                GameModule.TsEva.StartILRuntime(IsILRuntime);
                 Log.Info("Update resources complete with no errors.");
             }
             else

@@ -16,7 +16,7 @@ namespace EPloy
         {
             if (assemblies == null)
             {
-                assemblies = GameModule.ILRuntime.GetHotfixTypes;
+                assemblies = GameModule.TsEva.GetHotfixTypes;
             }
 
             return assemblies;

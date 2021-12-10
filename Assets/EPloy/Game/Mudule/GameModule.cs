@@ -17,7 +17,7 @@ namespace EPloy
 
         public static VersionCheckerModule VersionChecker { get; private set; }
 
-        public static ILRuntimeModule ILRuntime { get; private set; }
+        public static TsEvaModule TsEva { get; private set; }
 
         public static ProcedureModule Procedure { get; private set; }
 
@@ -30,7 +30,7 @@ namespace EPloy
             VersionChecker = GameModuleMgr.CreateModule<VersionCheckerModule>();
             DownLoad = GameModuleMgr.CreateModule<DownLoadModule>();
             ResUpdater = GameModuleMgr.CreateModule<ResUpdaterModule>();
-            ILRuntime = GameModuleMgr.CreateModule<ILRuntimeModule>();
+            TsEva = GameModuleMgr.CreateModule<TsEvaModule>();
             Procedure = GameModuleMgr.CreateModule<ProcedureModule>();
         }
     }
