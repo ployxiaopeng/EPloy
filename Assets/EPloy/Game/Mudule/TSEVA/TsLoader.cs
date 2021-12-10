@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace EPloy
 {
-    public class JavaScriptLoader : Puerts.ILoader
+    public class TsLoader : Puerts.ILoader
     {
         public string debugRoot { get; private set; }
 
-        public JavaScriptLoader(string debugRoot)
+        public TsLoader(string debugRoot)
         {
             this.debugRoot = debugRoot;
         }
