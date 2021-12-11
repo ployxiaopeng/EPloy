@@ -69,14 +69,13 @@ namespace EPloy
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     _Id = binaryReader.ReadInt32();
-                   // CellIndex = binaryReader.ReadVector2();
+                    CellIndex = binaryReader.ReadVector2();
                     RegionId = binaryReader.ReadInt32();
                     ResMain = binaryReader.ReadInt32();
                     ResMainRotate = binaryReader.ReadVector3();
                     ResBg = binaryReader.ReadInt32();
                     ResBgRotate = binaryReader.ReadVector3();
                     Pass = binaryReader.ReadBoolean();
-                    Log.Error("ResBgRotate " + ResBgRotate);
                 }
             }
 

@@ -42,7 +42,7 @@ namespace EPloy
             }
         }
 
-        public void Awake()
+        public override void Awake()
         {
             ObjParent = GameStart.Instance.transform.Find("Obj").transform;
             ObjInfos = new Dictionary<int, ObjInfo>();
@@ -57,7 +57,7 @@ namespace EPloy
             GetObjTypes();
         }
 
-        public void Update()
+        public override void Update()
         {
             while (RecycleQueue.Count > 0)
             {
@@ -79,7 +79,7 @@ namespace EPloy
             }
         }
 
-        public void OnDestroy()
+        public override void OnDestroy()
         {
             HideAllObj();
             ObjGroups.Clear();

@@ -16,6 +16,8 @@ namespace EPloy
         public Entity enmity;
 
         public Dictionary<Vector2, Entity> grids = new Dictionary<Vector2, Entity>();
+
+        public List<Entity> updateGrids = new List<Entity>();
     }
 }
 

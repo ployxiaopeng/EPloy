@@ -7,16 +7,14 @@ namespace EPloy
     /// </summary>
     public class MapGirdCpt : Component
     {
-        public bool isUpdate;
         public Transform transform;
         public SpriteRenderer mainSprite;
         public SpriteRenderer bgSprite;
         public SpriteRenderer frontSprite; //暂时不设置
         public DRMapCell mapCell { get; private set; }
-
+        
         public void UpdateMapCell(DRMapCell mapCell)
         {
-            isUpdate = true;
             this.mapCell = mapCell;
         }
 

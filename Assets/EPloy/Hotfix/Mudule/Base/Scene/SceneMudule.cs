@@ -19,7 +19,7 @@ namespace EPloy
             get { return HotFixMudule.Res; }
         }
 
-        public void Awake()
+        public override void Awake()
         {
             LoadedSceneAssetNames = new List<string>();
             LoadingSceneAssetNames = new List<string>();
@@ -28,13 +28,8 @@ namespace EPloy
                 LoadSceneDependencyAssetCallback);
             UnloadSceneCallbacks = new UnloadSceneCallbacks(UnloadSceneSuccessCallback, UnloadSceneFailureCallback);
         }
-
-        public void Update()
-        {
-
-        }
-
-        public void OnDestroy()
+        
+        public override void OnDestroy()
         {
             string[] loadedSceneAssetNames = LoadedSceneAssetNames.ToArray();
             foreach (string loadedSceneAssetName in loadedSceneAssetNames)

@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using ILRuntime.Runtime.Enviorment;
 using ILRuntime.CLR.Utils;
-using UnityEngine;
 
 namespace ILRuntime.Runtime.CLRBinding
 {
@@ -144,8 +143,7 @@ namespace ILRuntime.Runtime.CLRBinding
                         // Check for a generic method with the same name and params
                         needMethods = true;
                         sb.AppendLine(string.Format("            method = methods.Where(t => t.Name.Equals(\"{0}\") && t.CheckMethodParams(args)).Single();", i.Name));
-                    }
-                    else
+                    } else
                         sb.AppendLine(string.Format("            method = type.GetMethod(\"{0}\", flag, null, args, null);", i.Name));
 
                     sb.AppendLine(string.Format("            app.RegisterCLRMethodRedirection(method, {0}_{1});", i.Name, idx));
@@ -155,7 +153,7 @@ namespace ILRuntime.Runtime.CLRBinding
             }
             return sb.ToString();
         }
-
+    
         internal static string GenerateMethodWraperCode(this Type type, MethodInfo[] methods, string typeClsName, HashSet<MethodBase> excludes, List<Type> valueTypeBinders, Enviorment.AppDomain domain)
         {
             StringBuilder sb = new StringBuilder();
@@ -221,7 +219,7 @@ namespace ILRuntime.Runtime.CLRBinding
                     {
                         if (type.IsValueType && !type.IsPrimitive)
                         {
-                            sb.AppendLine("            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);");
+                            sb.AppendLine("            ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);");                            
                         }
                         if (noUnbox)
                             sb.AppendLine(string.Format("            object instance_of_this_method = {0};", type.GetRetrieveValueCode(typeClsName)));
@@ -259,7 +257,7 @@ namespace ILRuntime.Runtime.CLRBinding
                     sb2.Append('>');
                     genericArguments = sb2.ToString();
                 }
-
+                
                 if (i.IsStatic)
                 {
                     if (isProperty)
@@ -327,6 +325,9 @@ namespace ILRuntime.Runtime.CLRBinding
                                 case "UnaryNegation":
                                     sb.AppendLine(string.Format("-{0};", param[0].Name));
                                     break;
+                                case "LogicalNot":
+                                    sb.AppendLine(string.Format("!{0};", param[0].Name));
+                                    break;
                                 case "Modulus":
                                     sb.AppendLine(string.Format("{0} % {1};", param[0].Name, param[1].Name));
                                     break;
@@ -339,11 +340,17 @@ namespace ILRuntime.Runtime.CLRBinding
                                         sb.AppendLine(string.Format("({1}){0};", param[0].Name, realClsName));
                                     }
                                     break;
+                                case "Increment":
+                                    sb.AppendLine(string.Format("++{0};", param[0].Name));
+                                    break;
+                                case "Decrement":
+                                    sb.AppendLine(string.Format("--{0};", param[0].Name));
+                                    break;
                                 default:
                                     throw new NotImplementedException(i.Name);
                             }
                         }
-                        else if (propType == "add")
+                        else if(propType == "add")
                         {
                             string clsName, realClsName;
                             bool isByRef;
@@ -377,7 +384,7 @@ namespace ILRuntime.Runtime.CLRBinding
                         t[1] = i.Name.Substring(firstUnderlineIndex + 1);
                         string propType = t[0];
 
-                        if (noUnbox)
+                        if(noUnbox)
                         {
                             if (propType == "get")
                             {
@@ -464,7 +471,7 @@ namespace ILRuntime.Runtime.CLRBinding
                     }
                     else
                     {
-                        if (noUnbox)
+                        if(noUnbox)
                             sb.Append(string.Format("(({2})instance_of_this_method).{0}{1}(", i.Name, genericArguments, typeClsName));
                         else
                             sb.Append(string.Format("instance_of_this_method.{0}{1}(", i.Name, genericArguments));
@@ -562,7 +569,7 @@ namespace ILRuntime.Runtime.CLRBinding
             }");
                         sb.AppendLine();
                     }
-                    else if (pt.IsValueType && !pt.IsPrimitive)
+                    else if(pt.IsValueType && !pt.IsPrimitive)
                     {
                         sb.AppendLine("            __intp.FreeStackValueType(ptr_of_this_method);");
                     }
@@ -573,7 +580,7 @@ namespace ILRuntime.Runtime.CLRBinding
                 if (!i.IsStatic && ((type.IsValueType && !type.IsPrimitive) || hasByRef))//need to write back value type instance
                 {
                     sb.AppendLine(string.Format("            ptr_of_this_method = ILIntepreter.Minus(__esp, {0});", paramCnt));
-                    bool noWriteback = noUnbox;
+                    bool noWriteback = noUnbox; 
                     if (type.IsValueType && !type.IsPrimitive && !noWriteback)
                     {
                         if (valueTypeBinders != null && valueTypeBinders.Contains(type))
@@ -600,7 +607,7 @@ namespace ILRuntime.Runtime.CLRBinding
                     }
                     sb.AppendLine("            __intp.Free(ptr_of_this_method);");
                 }
-
+                
                 if (i.ReturnType != typeof(void))
                 {
                     if (i.ReturnType.IsValueType && !i.ReturnType.IsPrimitive && valueTypeBinders != null && valueTypeBinders.Contains(i.ReturnType))
@@ -622,15 +629,7 @@ namespace ILRuntime.Runtime.CLRBinding
                     }
                     else
                     {
-                        try
-                        {
-                            i.ReturnType.GetReturnValueCode(sb, domain);
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.LogError("什么玩意：" + i.ReturnType.ToString()+"  typeClsName: "+typeClsName);
-                        }
-
+                        i.ReturnType.GetReturnValueCode(sb, domain);
                     }
                 }
                 else

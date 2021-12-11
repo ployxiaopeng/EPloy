@@ -52,7 +52,7 @@ namespace ILRuntime.Runtime.Generated
         static StackObject* AssignFromStack_Instance_0(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            EPloy.GameStart @Instance = (EPloy.GameStart)typeof(EPloy.GameStart).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.GameStart @Instance = (EPloy.GameStart)typeof(EPloy.GameStart).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             EPloy.GameStart.Instance = @Instance;
             return ptr_of_this_method;
         }

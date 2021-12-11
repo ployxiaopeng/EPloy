@@ -16,7 +16,7 @@ namespace EPloy
         /// <summary>
         /// 初始化有限状态机管理器
         /// </summary>
-        public void Awake()
+        public override void Awake()
         {
             Fsms = new Dictionary<string, FsmBase>();
             FsmList = new List<FsmBase>();
@@ -37,7 +37,7 @@ namespace EPloy
         /// <summary>
         /// 有限状态机管理器轮询。
         /// </summary>
-        public void Update()
+        public override void Update()
         {
             TempFsms.Clear();
             if (Fsms.Count <= 0)
@@ -66,7 +66,7 @@ namespace EPloy
         /// <summary>
         /// 关闭并清理有限状态机管理器。
         /// </summary>
-        public void OnDestroy()
+        public  override void OnDestroy()
         {
             foreach (KeyValuePair<string, FsmBase> fsm in Fsms)
             {

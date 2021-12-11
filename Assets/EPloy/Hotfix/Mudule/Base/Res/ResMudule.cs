@@ -17,7 +17,7 @@ namespace EPloy
         private ResEditorLoader ResEditorLoader;
         private ResHelper ResHelper;
 
-        public void Awake()
+        public override void Awake()
         {
             if (HotFixStart.isEditorRes)
             {
@@ -32,7 +32,7 @@ namespace EPloy
             ResHelper = new ResHelper(GameStart.Instance);
         }
 
-        public void Update()
+        public override void Update()
         {
             if (ResEditorLoader == null)
             {
@@ -44,7 +44,7 @@ namespace EPloy
             }
         }
 
-        public void OnDestroy()
+        public override void OnDestroy()
         {
             if (ResLoader != null)
             {

@@ -55,8 +55,8 @@ namespace ILRuntime.Runtime.Generated
             System_Collections_Generic_KeyValuePair_2_Type_ILTypeInstance_Binding.Register(app);
             System_Collections_Generic_Queue_1_ILTypeInstance_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_String_String_Binding.Register(app);
-            UnityEngine_Vector2_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_Vector2_ILTypeInstance_Binding.Register(app);
+            UnityEngine_Vector2_Binding.Register(app);
             UnityEngine_Mathf_Binding.Register(app);
             UnityEngine_GameObject_Binding.Register(app);
             UnityEngine_Animator_Binding.Register(app);

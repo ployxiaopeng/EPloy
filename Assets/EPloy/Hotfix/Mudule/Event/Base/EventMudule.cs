@@ -34,13 +34,13 @@ namespace EPloy
             }
         }
 
-        public void Awake()
+        public override void Awake()
         {
             EventHandlers = new UnOrderMultiMap<int, EventHandler<EventArg>>();
             Events = new Queue<Event>();
         }
 
-        public void Update()
+        public override void Update()
         {
             while (Events.Count > 0)
             {
@@ -55,7 +55,7 @@ namespace EPloy
             }
         }
 
-        public  void OnDestroy()
+        public  override void OnDestroy()
         {
             EventHandlers.Clear();
             lock (Events)

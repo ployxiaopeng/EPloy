@@ -11,17 +11,12 @@ namespace EPloy
     {
         private Dictionary<Type, DataStoreBase> dataStores;
 
-        public void Awake()
+        public override void Awake()
         {
             dataStores = new Dictionary<Type, DataStoreBase>();
         }
 
-        public void Update()
-        {
-            // 待定
-        }
-
-        public void OnDestroy()
+        public override void OnDestroy()
         {
             foreach (var key in dataStores)
             {

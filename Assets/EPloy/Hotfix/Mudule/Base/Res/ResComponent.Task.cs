@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EPloy
 {
-    public partial class ResMudule : Component
+    public partial class ResMudule : IHotfixModule
     {
         private TaskCompletionSource<object> s_LoadAssetTcs;
         private LoadAssetCallbacks s_LoadAssetCallbacks;

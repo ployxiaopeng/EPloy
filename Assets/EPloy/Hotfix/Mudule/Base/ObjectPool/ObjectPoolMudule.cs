@@ -27,7 +27,7 @@ namespace EPloy
             }
         }
 
-        public void Awake()
+        public override void Awake()
         {
             Capacity = Config.ObjectPoolCapacity;
             ExpireTime = Config.ObjectPoolExpireTime;
@@ -35,7 +35,7 @@ namespace EPloy
             ObjectPools = new Dictionary<TypeNamePair, ObjectPoolBase>();
         }
 
-        public void Update()
+        public override void Update()
         {
             foreach (KeyValuePair<TypeNamePair, ObjectPoolBase> objectPool in ObjectPools)
             {
@@ -49,7 +49,7 @@ namespace EPloy
             }
         }
 
-        public void OnDestroy()
+        public override void OnDestroy()
         {
             foreach (KeyValuePair<TypeNamePair, ObjectPoolBase> objectPool in ObjectPools)
             {

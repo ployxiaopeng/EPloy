@@ -43,11 +43,11 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 2);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.String @assetName = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.String @assetName = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            EPloy.Res.ResUpdaterModule instance_of_this_method = (EPloy.Res.ResUpdaterModule)typeof(EPloy.Res.ResUpdaterModule).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.Res.ResUpdaterModule instance_of_this_method = (EPloy.Res.ResUpdaterModule)typeof(EPloy.Res.ResUpdaterModule).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.GetResInfo(@assetName);
@@ -62,11 +62,11 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 2);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.String @assetName = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.String @assetName = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            EPloy.Res.ResUpdaterModule instance_of_this_method = (EPloy.Res.ResUpdaterModule)typeof(EPloy.Res.ResUpdaterModule).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.Res.ResUpdaterModule instance_of_this_method = (EPloy.Res.ResUpdaterModule)typeof(EPloy.Res.ResUpdaterModule).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.GetAssetInfo(@assetName);
@@ -81,11 +81,11 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 2);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            EPloy.Res.ResName @resName = (EPloy.Res.ResName)typeof(EPloy.Res.ResName).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.Res.ResName @resName = (EPloy.Res.ResName)typeof(EPloy.Res.ResName).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)16);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            EPloy.Res.ResUpdaterModule instance_of_this_method = (EPloy.Res.ResUpdaterModule)typeof(EPloy.Res.ResUpdaterModule).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.Res.ResUpdaterModule instance_of_this_method = (EPloy.Res.ResUpdaterModule)typeof(EPloy.Res.ResUpdaterModule).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.GetResInfo(@resName);

@@ -17,19 +17,14 @@ namespace EPloy
         private bool isLoad = false;
         private Queue<string> LoadQueue;//加载队列
 
-        public void Awake()
+        public override void Awake()
         {
             AtlasCache = new Dictionary<string, GameObject>();
             SpriteCacheDict = new Dictionary<string, SpriteInfo>();
             LoadQueue = new Queue<string>();
         }
-
-        public void Update()
-        {
-           
-        }
-
-        public void OnDestroy()
+        
+        public override void OnDestroy()
         {
            
         }

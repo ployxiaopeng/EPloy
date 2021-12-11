@@ -58,7 +58,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.String @uri = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.String @uri = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
 
@@ -79,7 +79,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Networking.UnityWebRequest instance_of_this_method = (UnityEngine.Networking.UnityWebRequest)typeof(UnityEngine.Networking.UnityWebRequest).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.Networking.UnityWebRequest instance_of_this_method = (UnityEngine.Networking.UnityWebRequest)typeof(UnityEngine.Networking.UnityWebRequest).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.SendWebRequest();
@@ -94,7 +94,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Networking.UnityWebRequest instance_of_this_method = (UnityEngine.Networking.UnityWebRequest)typeof(UnityEngine.Networking.UnityWebRequest).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.Networking.UnityWebRequest instance_of_this_method = (UnityEngine.Networking.UnityWebRequest)typeof(UnityEngine.Networking.UnityWebRequest).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.isNetworkError;
@@ -111,7 +111,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Networking.UnityWebRequest instance_of_this_method = (UnityEngine.Networking.UnityWebRequest)typeof(UnityEngine.Networking.UnityWebRequest).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.Networking.UnityWebRequest instance_of_this_method = (UnityEngine.Networking.UnityWebRequest)typeof(UnityEngine.Networking.UnityWebRequest).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.isHttpError;
@@ -128,7 +128,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Networking.UnityWebRequest instance_of_this_method = (UnityEngine.Networking.UnityWebRequest)typeof(UnityEngine.Networking.UnityWebRequest).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.Networking.UnityWebRequest instance_of_this_method = (UnityEngine.Networking.UnityWebRequest)typeof(UnityEngine.Networking.UnityWebRequest).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.downloadHandler;
@@ -148,7 +148,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Networking.UnityWebRequest instance_of_this_method = (UnityEngine.Networking.UnityWebRequest)typeof(UnityEngine.Networking.UnityWebRequest).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.Networking.UnityWebRequest instance_of_this_method = (UnityEngine.Networking.UnityWebRequest)typeof(UnityEngine.Networking.UnityWebRequest).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.error;
@@ -163,7 +163,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Networking.UnityWebRequest instance_of_this_method = (UnityEngine.Networking.UnityWebRequest)typeof(UnityEngine.Networking.UnityWebRequest).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.Networking.UnityWebRequest instance_of_this_method = (UnityEngine.Networking.UnityWebRequest)typeof(UnityEngine.Networking.UnityWebRequest).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.Dispose();
@@ -178,7 +178,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.Networking.UnityWebRequest instance_of_this_method = (UnityEngine.Networking.UnityWebRequest)typeof(UnityEngine.Networking.UnityWebRequest).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.Networking.UnityWebRequest instance_of_this_method = (UnityEngine.Networking.UnityWebRequest)typeof(UnityEngine.Networking.UnityWebRequest).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.isDone;

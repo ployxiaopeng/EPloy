@@ -31,12 +31,12 @@ namespace EPloy
 
         private long recordId;
 
-        public void Awake()
+        public override void Awake()
         {
             recordId = 0;
         }
 
-        public void Update()
+        public override void Update()
         {
             foreach (var system in systems)
             {
@@ -52,7 +52,7 @@ namespace EPloy
             }
         }
 
-        public void OnDestroy()
+        public override void OnDestroy()
         {
             systems.Clear();
             entitys.Clear();

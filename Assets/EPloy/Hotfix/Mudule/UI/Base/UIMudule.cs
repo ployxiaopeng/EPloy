@@ -30,7 +30,7 @@ namespace EPloy
             }
         }
 
-        public void Awake()
+        public override void Awake()
         {
             UIGroups = new Dictionary<UIGroupName, UIGroup>();
             UINames = new Dictionary<UIName, UIGroupName>();
@@ -45,7 +45,7 @@ namespace EPloy
             GetUIFormTypes();
         }
 
-        public void Update()
+        public override void Update()
         {
             foreach (var key in UIGroups)
             {
@@ -53,7 +53,7 @@ namespace EPloy
             }
         }
 
-        public void OnDestroy()
+        public override void OnDestroy()
         {
             UIGroups.Clear();
             UINames.Clear();

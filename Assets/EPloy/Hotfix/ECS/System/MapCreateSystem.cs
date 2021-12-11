@@ -34,17 +34,26 @@ namespace EPloy
         public void Update()
         {
             if (!mapCreateCpt.isUpdate) return;
+            Vector2[] keys = mapEntityCpt.grids.Keys.ToArray();
+            for (int i = 0; i < keys.Length; i++)
+            {
+                Entity entity = mapEntityCpt.grids[keys[i]];
+                if (CheckGridInView(entity.GetComponent<MapGirdCpt>())) continue;
+                mapEntityCpt.updateGrids.Add(entity);
+                mapEntityCpt.grids.Remove(keys[i]);
+            }
+
             int index = 0;
-            Entity[] grids = mapEntityCpt.grids.Values.ToArray();
-            mapEntityCpt.grids.Clear();
             for (int x = mapCreateCpt.minX; x < mapCreateCpt.maxX; x++)
             {
                 for (int y = mapCreateCpt.minY; y < mapCreateCpt.maxY; y++)
                 {
                     Vector2 vector2 = new Vector2(x, y);
-                    Entity grid = grids[index];
-                    grid.GetComponent<MapGirdCpt>().UpdateMapCell(mapCpt.GetMapCell(vector2));
-                    mapEntityCpt.grids.Add(vector2, grids[index]);
+                    if (mapEntityCpt.grids.ContainsKey(vector2)) continue;
+                    Entity entity = mapEntityCpt.updateGrids[index];
+                    MapGirdCpt mapGirdCpt = entity.GetComponent<MapGirdCpt>();
+                    mapGirdCpt.UpdateMapCell(mapCpt.GetMapCell(vector2));
+                    mapEntityCpt.grids.Add(vector2, entity);
                     index++;
                 }
             }
@@ -55,6 +64,16 @@ namespace EPloy
         public void OnDestroy()
         {
 
+        }
+
+
+        private bool CheckGridInView(MapGirdCpt mapGirdCpt)
+        {
+            Vector2 pos = mapGirdCpt.mapCell.CellIndex;
+            return pos.x >= mapCreateCpt.minX &&
+                   pos.x <= mapCreateCpt.maxX &&
+                   pos.y >= mapCreateCpt.minY &&
+                   pos.y <= mapCreateCpt.maxY;
         }
 
         private void CreateGrid()
@@ -69,6 +88,7 @@ namespace EPloy
                     MapGirdCpt mapGirdCpt = HotFixMudule.GameScene.AddCpt<MapGirdCpt>(entity);
                     mapGirdCpt.UpdateMapCell(mapCpt.GetMapCell(vector2));
                     mapEntityCpt.grids.Add(vector2, entity);
+                    mapEntityCpt.updateGrids.Add(entity);
                 }
             }
         }

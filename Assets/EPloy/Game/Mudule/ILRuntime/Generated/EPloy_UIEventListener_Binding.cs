@@ -63,7 +63,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            UnityEngine.GameObject @Go = (UnityEngine.GameObject)typeof(UnityEngine.GameObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.GameObject @Go = (UnityEngine.GameObject)typeof(UnityEngine.GameObject).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
 
@@ -92,7 +92,7 @@ namespace ILRuntime.Runtime.Generated
         static StackObject* AssignFromStack_onArgBeginDrag_0(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            EPloy.UIEventListener.UIArgListenerDelegate @onArgBeginDrag = (EPloy.UIEventListener.UIArgListenerDelegate)typeof(EPloy.UIEventListener.UIArgListenerDelegate).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.UIEventListener.UIArgListenerDelegate @onArgBeginDrag = (EPloy.UIEventListener.UIArgListenerDelegate)typeof(EPloy.UIEventListener.UIArgListenerDelegate).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)8);
             ((EPloy.UIEventListener)o).onArgBeginDrag = @onArgBeginDrag;
             return ptr_of_this_method;
         }
@@ -116,7 +116,7 @@ namespace ILRuntime.Runtime.Generated
         static StackObject* AssignFromStack_onArgDrag_1(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            EPloy.UIEventListener.UIArgListenerDelegate @onArgDrag = (EPloy.UIEventListener.UIArgListenerDelegate)typeof(EPloy.UIEventListener.UIArgListenerDelegate).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.UIEventListener.UIArgListenerDelegate @onArgDrag = (EPloy.UIEventListener.UIArgListenerDelegate)typeof(EPloy.UIEventListener.UIArgListenerDelegate).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)8);
             ((EPloy.UIEventListener)o).onArgDrag = @onArgDrag;
             return ptr_of_this_method;
         }
@@ -140,7 +140,7 @@ namespace ILRuntime.Runtime.Generated
         static StackObject* AssignFromStack_onArgEndDrag_2(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            EPloy.UIEventListener.UIArgListenerDelegate @onArgEndDrag = (EPloy.UIEventListener.UIArgListenerDelegate)typeof(EPloy.UIEventListener.UIArgListenerDelegate).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.UIEventListener.UIArgListenerDelegate @onArgEndDrag = (EPloy.UIEventListener.UIArgListenerDelegate)typeof(EPloy.UIEventListener.UIArgListenerDelegate).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)8);
             ((EPloy.UIEventListener)o).onArgEndDrag = @onArgEndDrag;
             return ptr_of_this_method;
         }
@@ -164,7 +164,7 @@ namespace ILRuntime.Runtime.Generated
         static StackObject* AssignFromStack_onClick_3(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            EPloy.UIEventListener.UIListenerDelegate @onClick = (EPloy.UIEventListener.UIListenerDelegate)typeof(EPloy.UIEventListener.UIListenerDelegate).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.UIEventListener.UIListenerDelegate @onClick = (EPloy.UIEventListener.UIListenerDelegate)typeof(EPloy.UIEventListener.UIListenerDelegate).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)8);
             ((EPloy.UIEventListener)o).onClick = @onClick;
             return ptr_of_this_method;
         }
@@ -188,7 +188,7 @@ namespace ILRuntime.Runtime.Generated
         static StackObject* AssignFromStack_onClickDown_4(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            EPloy.UIEventListener.UIListenerDelegate @onClickDown = (EPloy.UIEventListener.UIListenerDelegate)typeof(EPloy.UIEventListener.UIListenerDelegate).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.UIEventListener.UIListenerDelegate @onClickDown = (EPloy.UIEventListener.UIListenerDelegate)typeof(EPloy.UIEventListener.UIListenerDelegate).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)8);
             ((EPloy.UIEventListener)o).onClickDown = @onClickDown;
             return ptr_of_this_method;
         }
@@ -212,7 +212,7 @@ namespace ILRuntime.Runtime.Generated
         static StackObject* AssignFromStack_onClickUp_5(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            EPloy.UIEventListener.UIListenerDelegate @onClickUp = (EPloy.UIEventListener.UIListenerDelegate)typeof(EPloy.UIEventListener.UIListenerDelegate).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.UIEventListener.UIListenerDelegate @onClickUp = (EPloy.UIEventListener.UIListenerDelegate)typeof(EPloy.UIEventListener.UIListenerDelegate).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)8);
             ((EPloy.UIEventListener)o).onClickUp = @onClickUp;
             return ptr_of_this_method;
         }

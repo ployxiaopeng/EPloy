@@ -61,7 +61,7 @@ namespace EPloy
 
 
             //注册CLR绑定代码
-            CLRBindings.Initialize(appDomain);
+            //CLRBindings.Initialize(appDomain);
 
             //TODO:注册跨域继承适配器
             appDomain.RegisterCrossBindingAdaptor(new IMessageAdaptor());

@@ -43,7 +43,7 @@ namespace ILRuntime.Runtime.Generated
             System.Int32 @value = ptr_of_this_method->Value;
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.Canvas instance_of_this_method = (UnityEngine.Canvas)typeof(UnityEngine.Canvas).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.Canvas instance_of_this_method = (UnityEngine.Canvas)typeof(UnityEngine.Canvas).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.sortingOrder = value;
@@ -61,7 +61,7 @@ namespace ILRuntime.Runtime.Generated
             System.Boolean @value = ptr_of_this_method->Value == 1;
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            UnityEngine.Canvas instance_of_this_method = (UnityEngine.Canvas)typeof(UnityEngine.Canvas).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.Canvas instance_of_this_method = (UnityEngine.Canvas)typeof(UnityEngine.Canvas).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.overrideSorting = value;

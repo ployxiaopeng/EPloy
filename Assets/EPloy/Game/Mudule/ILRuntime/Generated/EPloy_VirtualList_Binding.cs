@@ -58,7 +58,7 @@ namespace ILRuntime.Runtime.Generated
             System.Int32 @dataCount = ptr_of_this_method->Value;
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            EPloy.VirtualList instance_of_this_method = (EPloy.VirtualList)typeof(EPloy.VirtualList).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.VirtualList instance_of_this_method = (EPloy.VirtualList)typeof(EPloy.VirtualList).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.SetData(@dataCount);
@@ -73,7 +73,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            EPloy.VirtualList instance_of_this_method = (EPloy.VirtualList)typeof(EPloy.VirtualList).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.VirtualList instance_of_this_method = (EPloy.VirtualList)typeof(EPloy.VirtualList).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.items;
@@ -88,7 +88,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            EPloy.VirtualList instance_of_this_method = (EPloy.VirtualList)typeof(EPloy.VirtualList).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.VirtualList instance_of_this_method = (EPloy.VirtualList)typeof(EPloy.VirtualList).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.Refresh();
@@ -103,7 +103,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            EPloy.VirtualList instance_of_this_method = (EPloy.VirtualList)typeof(EPloy.VirtualList).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.VirtualList instance_of_this_method = (EPloy.VirtualList)typeof(EPloy.VirtualList).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.curIndex;
@@ -120,11 +120,11 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 5);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Func<UnityEngine.RectTransform> @instantiateItem = (System.Func<UnityEngine.RectTransform>)typeof(System.Func<UnityEngine.RectTransform>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Func<UnityEngine.RectTransform> @instantiateItem = (System.Func<UnityEngine.RectTransform>)typeof(System.Func<UnityEngine.RectTransform>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)8);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Action<System.Int32, UnityEngine.RectTransform> @updateItem = (System.Action<System.Int32, UnityEngine.RectTransform>)typeof(System.Action<System.Int32, UnityEngine.RectTransform>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Action<System.Int32, UnityEngine.RectTransform> @updateItem = (System.Action<System.Int32, UnityEngine.RectTransform>)typeof(System.Action<System.Int32, UnityEngine.RectTransform>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)8);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
@@ -132,16 +132,16 @@ namespace ILRuntime.Runtime.Generated
             if (ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector2_Binding_Binder != null) {
                 ILRuntime.Runtime.Generated.CLRBindings.s_UnityEngine_Vector2_Binding_Binder.ParseValue(ref @cellRect, __intp, ptr_of_this_method, __mStack, true);
             } else {
-                @cellRect = (UnityEngine.Vector2)typeof(UnityEngine.Vector2).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+                @cellRect = (UnityEngine.Vector2)typeof(UnityEngine.Vector2).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)16);
                 __intp.Free(ptr_of_this_method);
             }
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 4);
-            UnityEngine.UI.ScrollRect @list = (UnityEngine.UI.ScrollRect)typeof(UnityEngine.UI.ScrollRect).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            UnityEngine.UI.ScrollRect @list = (UnityEngine.UI.ScrollRect)typeof(UnityEngine.UI.ScrollRect).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 5);
-            EPloy.VirtualList instance_of_this_method = (EPloy.VirtualList)typeof(EPloy.VirtualList).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.VirtualList instance_of_this_method = (EPloy.VirtualList)typeof(EPloy.VirtualList).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.Init(@list, @cellRect, @updateItem, @instantiateItem);
@@ -159,7 +159,7 @@ namespace ILRuntime.Runtime.Generated
             System.Int32 @index = ptr_of_this_method->Value;
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            EPloy.VirtualList instance_of_this_method = (EPloy.VirtualList)typeof(EPloy.VirtualList).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.VirtualList instance_of_this_method = (EPloy.VirtualList)typeof(EPloy.VirtualList).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.ItemPosition(@index);
@@ -179,7 +179,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            EPloy.VirtualList instance_of_this_method = (EPloy.VirtualList)typeof(EPloy.VirtualList).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.VirtualList instance_of_this_method = (EPloy.VirtualList)typeof(EPloy.VirtualList).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.oldItems;

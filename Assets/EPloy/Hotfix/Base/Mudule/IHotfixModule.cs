@@ -4,21 +4,21 @@ namespace EPloy
     /// <summary>
     /// 非热更游戏Module抽象类。
     /// </summary>
-    public interface IHotfixModule
+    public abstract class IHotfixModule
     {
         /// <summary>
         /// Module 唤醒
         /// </summary>
-        void Awake();
+        public abstract void Awake();
 
         /// <summary>
         /// Module 唤醒轮询。
         /// </summary>
-        void Update();
+        public virtual void Update(){}
 
         /// <summary>
         /// 关闭销毁Module 
         /// </summary>
-        void OnDestroy();
+        public abstract void OnDestroy();
     }
 }

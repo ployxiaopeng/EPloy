@@ -126,11 +126,11 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 2);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            EPloy.IAsyncStateMachineAdaptor.Adaptor @stateMachine = (EPloy.IAsyncStateMachineAdaptor.Adaptor)typeof(EPloy.IAsyncStateMachineAdaptor.Adaptor).CheckCLRTypes(__intp.RetriveObject(ptr_of_this_method, __mStack));
+            EPloy.IAsyncStateMachineAdaptor.Adaptor @stateMachine = (EPloy.IAsyncStateMachineAdaptor.Adaptor)typeof(EPloy.IAsyncStateMachineAdaptor.Adaptor).CheckCLRTypes(__intp.RetriveObject(ptr_of_this_method, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
-            object instance_of_this_method = (System.Runtime.CompilerServices.AsyncTaskMethodBuilder<UnityEngine.GameObject>)typeof(System.Runtime.CompilerServices.AsyncTaskMethodBuilder<UnityEngine.GameObject>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            object instance_of_this_method = (System.Runtime.CompilerServices.AsyncTaskMethodBuilder<UnityEngine.GameObject>)typeof(System.Runtime.CompilerServices.AsyncTaskMethodBuilder<UnityEngine.GameObject>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)16);
 
             ((System.Runtime.CompilerServices.AsyncTaskMethodBuilder<UnityEngine.GameObject>)instance_of_this_method).Start<EPloy.IAsyncStateMachineAdaptor.Adaptor>(ref @stateMachine);
 
@@ -202,7 +202,7 @@ namespace ILRuntime.Runtime.Generated
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
             ptr_of_this_method = ILIntepreter.GetObjectAndResolveReference(ptr_of_this_method);
-            System.Runtime.CompilerServices.AsyncTaskMethodBuilder<UnityEngine.GameObject> instance_of_this_method = (System.Runtime.CompilerServices.AsyncTaskMethodBuilder<UnityEngine.GameObject>)typeof(System.Runtime.CompilerServices.AsyncTaskMethodBuilder<UnityEngine.GameObject>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Runtime.CompilerServices.AsyncTaskMethodBuilder<UnityEngine.GameObject> instance_of_this_method = (System.Runtime.CompilerServices.AsyncTaskMethodBuilder<UnityEngine.GameObject>)typeof(System.Runtime.CompilerServices.AsyncTaskMethodBuilder<UnityEngine.GameObject>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)16);
 
             var result_of_this_method = instance_of_this_method.Task;
 

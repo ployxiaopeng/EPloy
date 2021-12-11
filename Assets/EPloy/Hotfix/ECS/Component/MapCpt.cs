@@ -22,16 +22,12 @@ namespace EPloy
         {
             this.mapData = mapData;
             DRMapCell[] dataMapCell = HotFixMudule.DataTable.GetDataTable<DRMapCell>().GetAllDataRows();
-            foreach (var mapCell in dataMapCell)
+            for (int i = 0; i < dataMapCell.Length; i++)
             {
-
-                UnityEngine.Vector2 vector2 = new Vector2(1, 1);
-                Log.Error("1111 " + vector2);
-                Log.Error(mapCell.CellIndex.x);
-                if (mapCell.RegionId == mapData.MapRegionId)
+                DRMapCell dRMapCell = dataMapCell[i];
+                if (dRMapCell.RegionId == mapData.MapRegionId)
                 {
-                    Log.Error(mapCell.CellIndex);
-                    //dRMapCells.Add(mapCell.CellIndex, mapCell);
+                    dRMapCells.Add(dRMapCell.CellIndex, dRMapCell);
                 }
             }
         }

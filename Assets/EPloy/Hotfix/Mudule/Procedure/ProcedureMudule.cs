@@ -48,7 +48,7 @@ namespace EPloy
         /// <summary>
         /// 初始化流程管理器。
         /// </summary>
-        public void Awake()
+        public override void Awake()
         {
             ProcedureBase[] procedures = new ProcedureBase[4];
             procedures[0] = ReferencePool.Acquire<ProcedurePreload>();
@@ -57,15 +57,11 @@ namespace EPloy
             procedures[3] = ReferencePool.Acquire<ProcedureMap>();
             ProcedureFsm = HotFixMudule.Fsm.CreateFsm(this, procedures);
         }
-
-        public void Update()
-        {
-        }
-
+        
         /// <summary>
         /// 关闭并清理流程管理器。
         /// </summary>
-        public void OnDestroy()
+        public override void OnDestroy()
         {
             if (ProcedureFsm != null)
             {

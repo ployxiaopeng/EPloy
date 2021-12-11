@@ -20,17 +20,19 @@ namespace EPloy
         {
             mapCpt = HotFixMudule.GameScene.GetSingleCpt<MapCpt>();
         }
-        
+
         public void Update()
         {
             MapEntityCpt mapEntityCpt = mapCpt.map.GetComponent<MapEntityCpt>();
-            foreach (var grid in mapEntityCpt.grids)
+            if (mapEntityCpt.updateGrids.Count <= 0) return;
+            for (int i = 0; i < mapEntityCpt.updateGrids.Count; i++)
             {
-                MapGirdCpt mapGirdCpt = grid.Value.GetComponent<MapGirdCpt>();
-                if (!mapGirdCpt.isUpdate) continue;
-                if (mapGirdCpt.transform==null) CreateGird(mapGirdCpt, grid.Key);
-                GirdUpdate(mapGirdCpt, grid.Key);
+                MapGirdCpt mapGirdCpt = mapEntityCpt.updateGrids[i].GetComponent<MapGirdCpt>();
+                if (mapGirdCpt.transform == null) CreateGird(mapGirdCpt);
+                GirdUpdate(mapGirdCpt);
             }
+
+            mapEntityCpt.updateGrids.Clear();
         }
 
         public void OnDestroy()
@@ -38,17 +40,18 @@ namespace EPloy
 
         }
 
-
-        private void CreateGird(MapGirdCpt mapGirdCpt, Vector2 position)
+        private void CreateGird(MapGirdCpt mapGirdCpt)
         {
+            Vector2 position = mapGirdCpt.mapCell.CellIndex;
             string gridName = string.Format("grid_{0},{1}", position.x, position.y);
             GameObject grid = Object.Instantiate(mapCpt.gridPrefab, mapCpt.mapReqion);
             grid.name = gridName;
             mapGirdCpt.Init(grid.transform);
         }
 
-        private void GirdUpdate(MapGirdCpt mapGirdCpt, Vector2 position)
+        private void GirdUpdate(MapGirdCpt mapGirdCpt)
         {
+            Vector2 position = mapGirdCpt.mapCell.CellIndex;
             mapGirdCpt.transform.localPosition = position;
             Reset(mapGirdCpt);
             if (mapGirdCpt.mapCell == null)
@@ -59,7 +62,6 @@ namespace EPloy
 
             SetMainSprite(mapGirdCpt);
             SetbgSprite(mapGirdCpt);
-            mapGirdCpt.isUpdate = false;
         }
 
         private void Reset(MapGirdCpt mapGirdCpt)

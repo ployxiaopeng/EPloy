@@ -34,16 +34,12 @@ namespace EPloy
         /// <summary>
         /// 初始化数据表管理器的新实例。
         /// </summary>
-        public void Awake()
+        public override void Awake()
         {
             DataTables = new Dictionary<TypeNamePair, DataTableBase>();
         }
 
-        public void Update()
-        {
-        }
-
-        public void OnDestroy()
+        public override void OnDestroy()
         {
             foreach (KeyValuePair<TypeNamePair, DataTableBase> dataTable in DataTables)
             {

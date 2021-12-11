@@ -55,7 +55,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.Count;
@@ -72,7 +72,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.Clear();
@@ -87,14 +87,14 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 3);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            ILRuntime.Runtime.Intepreter.ILTypeInstance @k = (ILRuntime.Runtime.Intepreter.ILTypeInstance)typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            ILRuntime.Runtime.Intepreter.ILTypeInstance @k = (ILRuntime.Runtime.Intepreter.ILTypeInstance)typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             System.Int32 @t = ptr_of_this_method->Value;
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.Contains(@t, @k);
@@ -111,14 +111,14 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 3);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            ILRuntime.Runtime.Intepreter.ILTypeInstance @k = (ILRuntime.Runtime.Intepreter.ILTypeInstance)typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            ILRuntime.Runtime.Intepreter.ILTypeInstance @k = (ILRuntime.Runtime.Intepreter.ILTypeInstance)typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             System.Int32 @t = ptr_of_this_method->Value;
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.Add(@t, @k);
@@ -133,14 +133,14 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 3);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            ILRuntime.Runtime.Intepreter.ILTypeInstance @k = (ILRuntime.Runtime.Intepreter.ILTypeInstance)typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            ILRuntime.Runtime.Intepreter.ILTypeInstance @k = (ILRuntime.Runtime.Intepreter.ILTypeInstance)typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             System.Int32 @t = ptr_of_this_method->Value;
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.Remove(@t, @k);
@@ -157,13 +157,13 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 3);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> @value = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(__intp.RetriveObject(ptr_of_this_method, __mStack));
+            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> @value = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(__intp.RetriveObject(ptr_of_this_method, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
             System.Int32 @key = ptr_of_this_method->Value;
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.UnOrderMultiMap<System.Int32, ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
 
             var result_of_this_method = instance_of_this_method.TryGetValue(@key, out @value);
 

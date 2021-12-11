@@ -76,7 +76,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.Count;
@@ -93,7 +93,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.First;
@@ -108,7 +108,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.RemoveFirst();
@@ -123,11 +123,11 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 2);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            ILRuntime.Runtime.Intepreter.ILTypeInstance @value = (ILRuntime.Runtime.Intepreter.ILTypeInstance)typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            ILRuntime.Runtime.Intepreter.ILTypeInstance @value = (ILRuntime.Runtime.Intepreter.ILTypeInstance)typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.Remove(@value);
@@ -144,11 +144,11 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 2);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            ILRuntime.Runtime.Intepreter.ILTypeInstance @value = (ILRuntime.Runtime.Intepreter.ILTypeInstance)typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            ILRuntime.Runtime.Intepreter.ILTypeInstance @value = (ILRuntime.Runtime.Intepreter.ILTypeInstance)typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.AddLast(@value);
@@ -163,7 +163,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.GetEnumerator();
@@ -178,11 +178,11 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 2);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            ILRuntime.Runtime.Intepreter.ILTypeInstance @value = (ILRuntime.Runtime.Intepreter.ILTypeInstance)typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            ILRuntime.Runtime.Intepreter.ILTypeInstance @value = (ILRuntime.Runtime.Intepreter.ILTypeInstance)typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.AddFirst(@value);
@@ -197,7 +197,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.Clear();
@@ -212,11 +212,11 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 2);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            ILRuntime.Runtime.Intepreter.ILTypeInstance @value = (ILRuntime.Runtime.Intepreter.ILTypeInstance)typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            ILRuntime.Runtime.Intepreter.ILTypeInstance @value = (ILRuntime.Runtime.Intepreter.ILTypeInstance)typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.Add(@value);
@@ -234,11 +234,11 @@ namespace ILRuntime.Runtime.Generated
             System.Int32 @index = ptr_of_this_method->Value;
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            ILRuntime.Runtime.Intepreter.ILTypeInstance[] @array = (ILRuntime.Runtime.Intepreter.ILTypeInstance[])typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance[]).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            ILRuntime.Runtime.Intepreter.ILTypeInstance[] @array = (ILRuntime.Runtime.Intepreter.ILTypeInstance[])typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance[]).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.CopyTo(@array, @index);
@@ -253,7 +253,7 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.Last;
@@ -268,15 +268,15 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 3);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            ILRuntime.Runtime.Intepreter.ILTypeInstance @value = (ILRuntime.Runtime.Intepreter.ILTypeInstance)typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            ILRuntime.Runtime.Intepreter.ILTypeInstance @value = (ILRuntime.Runtime.Intepreter.ILTypeInstance)typeof(ILRuntime.Runtime.Intepreter.ILTypeInstance).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            System.Collections.Generic.LinkedListNode<ILRuntime.Runtime.Intepreter.ILTypeInstance> @node = (System.Collections.Generic.LinkedListNode<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(System.Collections.Generic.LinkedListNode<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.LinkedListNode<ILRuntime.Runtime.Intepreter.ILTypeInstance> @node = (System.Collections.Generic.LinkedListNode<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(System.Collections.Generic.LinkedListNode<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 3);
-            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             var result_of_this_method = instance_of_this_method.AddAfter(@node, @value);
@@ -291,11 +291,11 @@ namespace ILRuntime.Runtime.Generated
             StackObject* __ret = ILIntepreter.Minus(__esp, 2);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Collections.Generic.LinkedListNode<ILRuntime.Runtime.Intepreter.ILTypeInstance> @node = (System.Collections.Generic.LinkedListNode<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(System.Collections.Generic.LinkedListNode<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.LinkedListNode<ILRuntime.Runtime.Intepreter.ILTypeInstance> @node = (System.Collections.Generic.LinkedListNode<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(System.Collections.Generic.LinkedListNode<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(EPloy.TypeLinkedList<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             __intp.Free(ptr_of_this_method);
 
             instance_of_this_method.Remove(@node);

@@ -10,7 +10,8 @@ namespace EPloy
     /// </summary>
     public static class HotfixModuleMgr
     {
-        private static Dictionary<Type, IHotfixModule> EPloyModules = new Dictionary<Type, IHotfixModule>();
+        private static readonly Dictionary<Type, IHotfixModule> EPloyModules = new Dictionary<Type, IHotfixModule>();
+        private static readonly List<Type> EPloyModuleTypes = new List<Type>();
 
         public static bool HasModule<T>() where T : IHotfixModule
         {
@@ -22,6 +23,7 @@ namespace EPloy
             IHotfixModule mudule = (IHotfixModule) Activator.CreateInstance<T>();
             mudule.Awake();
             EPloyModules.Add(typeof(T), mudule);
+            EPloyModuleTypes.Add(typeof(T));
             return (T) mudule;
         }
 
@@ -53,34 +55,38 @@ namespace EPloy
 
         public static void ModuleUpdate()
         {
-            foreach (var module in EPloyModules.Values)
+            for (int i = 0; i < EPloyModuleTypes.Count; i++)
             {
                 try
                 {
-                    module.Update();
+                    EPloyModules[EPloyModuleTypes[i]].Update();
                 }
                 catch (Exception e)
                 {
-                    Log.Info(Utility.Text.Format("module {0} update err {1} ", module, e.ToString()));
+                    Log.Fatal(Utility.Text.Format("module {0} update err {1} ", EPloyModules[EPloyModuleTypes[i]],
+                        e.ToString()));
                 }
+
             }
         }
 
         public static void ModuleDestory()
         {
-            foreach (var module in EPloyModules.Values)
+            for (int i = 0; i < EPloyModuleTypes.Count; i++)
             {
                 try
                 {
-                    module.OnDestroy();
+                    EPloyModules[EPloyModuleTypes[i]].OnDestroy();
                 }
                 catch (Exception e)
                 {
-                    Log.Fatal(Utility.Text.Format("module {0} destory err {1} ", module, e.ToString()));
+                    Log.Fatal(Utility.Text.Format("module {0} destory err {1} ", EPloyModules[EPloyModuleTypes[i]],
+                        e.ToString()));
                 }
-            }
 
+            }
             EPloyModules.Clear();
+            EPloyModuleTypes.Clear();
         }
     }
 }

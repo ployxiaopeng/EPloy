@@ -52,7 +52,7 @@ namespace ILRuntime.Runtime.Generated
         static StackObject* AssignFromStack_Sprites_0(ref object o, ILIntepreter __intp, StackObject* ptr_of_this_method, IList<object> __mStack)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            System.Collections.Generic.List<UnityEngine.Sprite> @Sprites = (System.Collections.Generic.List<UnityEngine.Sprite>)typeof(System.Collections.Generic.List<UnityEngine.Sprite>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.List<UnityEngine.Sprite> @Sprites = (System.Collections.Generic.List<UnityEngine.Sprite>)typeof(System.Collections.Generic.List<UnityEngine.Sprite>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack), (CLR.Utils.Extensions.TypeFlags)0);
             ((EPloy.Altas)o).Sprites = @Sprites;
             return ptr_of_this_method;
         }
