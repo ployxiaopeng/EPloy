@@ -1,6 +1,4 @@
-﻿using ILRuntime.CLR.Method;
-using ILRuntime.CLR.TypeSystem;
-using System;
+﻿using System;
 using System.IO;
 using System.Collections;
 using System.Linq;
@@ -8,8 +6,6 @@ using System.Reflection;
 using Puerts;
 using UnityEngine;
 using UnityEngine.Networking;
-using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
-using PdbReaderProvider = ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider;
 
 namespace EPloy
 {
@@ -18,8 +14,7 @@ namespace EPloy
     /// </summary>
     public class TsEvaModule : IGameModule
     {
-
-
+        
         public bool WaitForDebugger = false;
 
         /// <summary>

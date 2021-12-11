@@ -6,8 +6,7 @@
     "sourceMap": true,
     "noImplicitAny": true,
     "typeRoots": [
-      "../../../Libraries/Puerts/Typing/Puerts",
-      "../../../Libraries/Puerts/Gen/Typing",
+      "../../Libraries/Puerts/Gen/Typing/",
       "./node_modules/@types"
     ],
     "outDir": "output"

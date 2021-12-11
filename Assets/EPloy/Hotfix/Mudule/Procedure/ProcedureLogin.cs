@@ -1,5 +1,4 @@
-﻿using LitJson;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Net;
 using EPloy.Fsm;

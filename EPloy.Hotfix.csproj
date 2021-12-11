@@ -98,7 +98,6 @@
      <Compile Include="Assets\EPloy\Hotfix\ECS\System\MoveSystem.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\System\RoleSystem.cs" />
      <Compile Include="Assets\EPloy\Hotfix\ECS\Utility\Test.cs" />
-     <Compile Include="Assets\EPloy\Hotfix\HotFixStart.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\Base\Atlas\AtlasMudule.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\Base\DataTable\DataTable.cs" />
      <Compile Include="Assets\EPloy\Hotfix\Mudule\Base\DataTable\DataTableBase.cs" />

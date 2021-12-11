@@ -51,7 +51,6 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Libraries\DOTween\DOTweenPro\DOTweenAnimation.cs" />
-     <Compile Include="Assets\Libraries\Google.Protobuf\AdaptHelper.cs" />
      <Compile Include="Assets\Libraries\Google.Protobuf\ByteArray.cs" />
      <Compile Include="Assets\Libraries\Google.Protobuf\ByteString.cs" />
      <Compile Include="Assets\Libraries\Google.Protobuf\CodedInputStream.cs" />

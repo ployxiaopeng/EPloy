@@ -19,15 +19,15 @@ namespace EPloy
 
         public void Awake()
         {
-            if (HotFixStart.isEditorRes)
-            {
-                ResEditorLoader = ResEditorLoader.CreateResEditorLoader();
-            }
-            else
-            {
-                ResEditorLoader = null;
-                ResLoader = ResLoader.CreateResLoader();
-            }
+            // if (HotFixStart.isEditorRes)
+            // {
+            //     ResEditorLoader = ResEditorLoader.CreateResEditorLoader();
+            // }
+            // else
+            // {
+            //     ResEditorLoader = null;
+            //     ResLoader = ResLoader.CreateResLoader();
+            // }
 
             ResHelper = new ResHelper(GameStart.Instance);
         }

@@ -145,7 +145,7 @@ namespace Puerts
                     }
                 }
             }
-            return UnityEngine.Application.dataPath + "/Gen/";
+            return UnityEngine.Application.dataPath + "/Libraries/Puerts/";
         }
     }
 }

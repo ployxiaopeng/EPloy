@@ -18,8 +18,7 @@ namespace EPloy
         private long UpdateResTotalCount = 0L;
         private int UpdateResSuccessCount = 0;
         private List<UpdateResData> UpdateResDatas = new List<UpdateResData>();
-
-        public bool IsILRuntime { get; private set; }
+        
         public bool EditorResource { get; private set; }
 
         public  void Awake()
@@ -39,7 +38,6 @@ namespace EPloy
 
         public void StartGame(bool isILRuntime, bool editorResource)
         {
-            IsILRuntime = isILRuntime; EditorResource = editorResource;
 #if UNITY_EDITOR
             if (EditorResource)
             {
@@ -98,7 +96,7 @@ namespace EPloy
 
             if (updateCount == 0)
             {
-                GameModule.TsEva.StartILRuntime(IsILRuntime);
+                GameModule.TsEva.StartILRuntime();
                 return;
             }
             // 4. 更新资源
@@ -127,7 +125,7 @@ namespace EPloy
         {
             if (result)
             {
-                GameModule.TsEva.StartILRuntime(IsILRuntime);
+                GameModule.TsEva.StartILRuntime();
                 Log.Info("Update resources complete with no errors.");
             }
             else

@@ -1543,7 +1543,7 @@ namespace Puerts.Editor
                     }
 
                     var typingRender = templateGetter("typing.tpl");
-                    using (StreamWriter textWriter = new StreamWriter(saveTo + "Typing/csharp/index.d.ts", false, Encoding.UTF8))
+                    using (StreamWriter textWriter = new StreamWriter(saveTo + "Gen/Typing/csharp/index.d.ts", false, Encoding.UTF8))
                     {
                         string fileContext = typingRender(DTS.TypingGenInfo.FromTypes(tsTypes));
                         textWriter.Write(fileContext);

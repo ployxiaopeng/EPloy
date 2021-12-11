@@ -50,7 +50,6 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Libraries\Puerts\Examples\Editor\ConsoleRedirect\Callbacks\Callbacks.cs" />
  <Reference Include="UnityEditor.UI">
  <HintPath>D:/EPloy/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
@@ -285,23 +284,14 @@
  <Reference Include="DOTweenPro">
  <HintPath>D:/EPloy/Assets/Libraries/DOTween/DOTweenPro/DOTweenPro.dll</HintPath>
  </Reference>
- <Reference Include="ILRuntime.Mono.Cecil">
- <HintPath>D:/EPloy/Assets/Libraries/ILRuntime/Plugins/ILRuntime.Mono.Cecil.dll</HintPath>
- </Reference>
- <Reference Include="ILRuntime.Mono.Cecil.Mdb">
- <HintPath>D:/EPloy/Assets/Libraries/ILRuntime/Plugins/ILRuntime.Mono.Cecil.Mdb.dll</HintPath>
- </Reference>
- <Reference Include="ILRuntime.Mono.Cecil.Pdb">
- <HintPath>D:/EPloy/Assets/Libraries/ILRuntime/Plugins/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Cecil">
- <HintPath>D:/EPloy/Assets/Libraries/Puerts/Examples/Editor/ConsoleRedirect/Plugins/Cecil/Unity.Cecil.dll</HintPath>
- </Reference>
  <Reference Include="Unity.Cecil.Pdb">
- <HintPath>D:/EPloy/Assets/Libraries/Puerts/Examples/Editor/ConsoleRedirect/Plugins/Cecil/Unity.Cecil.Pdb.dll</HintPath>
+ <HintPath>D:/EPloy/Assets/Editor/05.Puerts/ConsoleRedirect/Plugins/Cecil/Unity.Cecil.Pdb.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Cecil.Mdb">
- <HintPath>D:/EPloy/Assets/Libraries/Puerts/Examples/Editor/ConsoleRedirect/Plugins/Cecil/Unity.Cecil.Mdb.dll</HintPath>
+ <HintPath>D:/EPloy/Assets/Editor/05.Puerts/ConsoleRedirect/Plugins/Cecil/Unity.Cecil.Mdb.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Cecil">
+ <HintPath>D:/EPloy/Assets/Editor/05.Puerts/ConsoleRedirect/Plugins/Cecil/Unity.Cecil.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.28f1c1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -660,6 +650,9 @@
  <Reference Include="Boo.Lang">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.28f1c1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Editor\05.Puerts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
-using LitJson;
 using EPloy.Res;
 using EPloy.Download;
 
@@ -87,7 +86,7 @@ namespace EPloy
         {
 
             string versionInfoString = Utility.Converter.GetString(versionInfoBytes);
-            VersionInfo = JsonMapper.ToObject<VersionInfo>(versionInfoString);
+            VersionInfo = JsonUtility.FromJson<VersionInfo>(versionInfoString);
             if (VersionInfo == null)
             {
                 Log.Error("Parse VersionInfo failure.");
