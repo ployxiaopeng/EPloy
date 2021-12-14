@@ -16,22 +16,25 @@ namespace EPloy
 
         public int minX
         {
-            get { return (int) newCreate.x - viewSizeX / 2; }
+            get ;
+            private set;
         }
 
         public int minY
         {
-            get { return (int) newCreate.y - viewSizeY / 2; }
+            get ;
+            private set;
         }
 
         public int maxX
         {
-            get { return minX + viewSizeX; }
+            get ;
+            private set;
         }
-
         public int maxY
         {
-            get { return minY + viewSizeY; }
+            get ;
+            private set;
         }
 
         public Vector2 newCreate { get; private set; }
@@ -41,6 +44,13 @@ namespace EPloy
         public void SetCreate(Vector2 newCreate)
         {
             this.newCreate = new Vector2(Mathf.CeilToInt(newCreate.x), Mathf.CeilToInt(newCreate.y));
+            if (isUpdate)
+            {
+                minX=(int) newCreate.x - viewSizeX / 2;
+                minY=(int) newCreate.y - viewSizeY / 2;
+                maxX = minX + viewSizeX;
+                maxY=minY + viewSizeY;
+            }
         }
 
         public bool isUpdate

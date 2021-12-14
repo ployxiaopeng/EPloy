@@ -189,6 +189,7 @@ namespace EPloy
             AppDomain.DebugService.StartDebugService(56000);
             //设置Unity主线程ID 这样就可以用Profiler看性能消耗了
             AppDomain.UnityMainThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
+            //AppDomain.LoadAssembly(new MemoryStream(hotfixDll));
 #else
             AppDomain.LoadAssembly(new MemoryStream(hotfixDll));
 #endif

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace EPloy
@@ -18,9 +19,10 @@ namespace EPloy
 
         public override void OnDestroy()
         {
-            foreach (var key in dataStores)
+            Type[] keys = dataStores.Keys.ToArray();
+            for (int i = 0; i < keys.Length; i++)
             {
-                ReferencePool.Release(key.Value);
+                ReferencePool.Release(dataStores[keys[i]]);
             }
 
             dataStores.Clear();

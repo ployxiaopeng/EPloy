@@ -42,19 +42,23 @@ namespace EPloy.Fsm
             States = new Dictionary<string, FsmState>();
             Datas = new Dictionary<string, Variable>();
 
-            foreach (FsmState state in states)
+            for (int i = 0; i < states.Length; i++)
             {
+                FsmState state = states[i];
                 if (state == null)
                 {
                     Log.Error("FSM states is invalid.");
                     return;
                 }
+
                 string stateName = state.GetType().FullName;
                 if (States.ContainsKey(stateName))
                 {
-                    Log.Error(Utility.Text.Format("FSM '{0}' : '{1}' state '{2}' is already exist.", OwnerType, name, stateName));
+                    Log.Error(Utility.Text.Format("FSM '{0}' : '{1}' state '{2}' is already exist.", OwnerType, name,
+                        stateName));
                     return;
                 }
+
                 States.Add(stateName, state);
                 state.OnInit(this);
             }

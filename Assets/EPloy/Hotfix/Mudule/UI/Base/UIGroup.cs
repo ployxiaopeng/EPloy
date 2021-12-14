@@ -13,7 +13,7 @@ namespace EPloy
     {
         private ObjectPoolBase UIPool;
         private Transform Parent;
-        private TypeLinkedList<UIForm> UIForms;
+        private List<UIForm> UIForms;
         private List<UIForm> ActiveUIForms;
         public UIGroupName GroupName { get; private set; }
         public int Depth { get; private set; }
@@ -39,15 +39,13 @@ namespace EPloy
         {
             Depth = (int)groupName;
             GroupName = groupName;
-            UIForms = new TypeLinkedList<UIForm>();
+            UIForms = new List<UIForm>();
             ActiveUIForms = new List<UIForm>();
             UIPool = uIPool;
             Parent = parent;
             CreateGroupInstance();
         }
-
-
-
+        
         /// <summary>
         /// 界面轮询
         /// </summary>
@@ -71,13 +69,14 @@ namespace EPloy
         /// <returns>界面组中是否存在界面。</returns>
         public bool HasUIForm(UIName uiName)
         {
-            foreach (UIForm uIForm in UIForms)
+            for (int i = 0; i < UIForms.Count; i++)
             {
-                if (uIForm.UIName == uiName)
+                if (UIForms[i].UIName == uiName)
                 {
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -106,13 +105,15 @@ namespace EPloy
         /// <returns>要获取的界面。</returns>
         public UIForm GetUIForm(UIName uiName)
         {
-            foreach (UIForm uiForm in UIForms)
+            for (int i = 0; i < UIForms.Count; i++)
             {
-                if (uiForm.UIName == uiName)
+
+                if (UIForms[i].UIName == uiName)
                 {
-                    return uiForm;
+                    return UIForms[i];
                 }
             }
+
             return null;
         }
 
@@ -122,14 +123,7 @@ namespace EPloy
         /// <returns>界面组中的所有界面。</returns>
         public UIForm[] GetAllUIForms()
         {
-            UIForm[] results = new UIForm[UIForms.Count];
-            int index = 0;
-            foreach (UIForm uiForm in UIForms)
-            {
-                results[index] = uiForm;
-                index++;
-            }
-            return results;
+            return UIForms.ToArray();
         }
 
         /// <summary>
@@ -138,7 +132,7 @@ namespace EPloy
         /// <param name="uiForm">要增加的界面。</param>
         public void AddUIForm(UIForm uiForm)
         {
-            UIForms.AddFirst(uiForm);
+            UIForms.Insert(0,uiForm);
         }
 
         public void CloseUIForm(UIName uiName, object userData)
@@ -171,7 +165,7 @@ namespace EPloy
                     return;
                 }
                 uiForm = (UIForm)ReferencePool.Acquire(uiFormType);
-                UIForms.AddFirst(uiForm);
+                UIForms.Insert(0,uiForm);
             }
             else
             {
@@ -200,7 +194,7 @@ namespace EPloy
         {
             UIForm uiForm = GetUIForm(uiName);
             UIForms.Remove(uiForm);
-            UIForms.AddFirst(uiForm);
+            UIForms.Insert(0,uiForm);
             uiForm.Refocus(userData);
         }
 

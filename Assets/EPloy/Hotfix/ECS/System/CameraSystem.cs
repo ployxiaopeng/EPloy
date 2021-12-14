@@ -22,18 +22,11 @@ namespace EPloy
 
         public void Update()
         {
-            if (mapEntityCpt.role.HasComponent<CameraCpt>())
-            {
-                CameraCpt cameraCpt = mapEntityCpt.role.GetComponent<CameraCpt>();
-                cameraCpt.transform.position = cameraCpt.target;
-                if (mapCpt.map.HasComponent<MapCreateCpt>())
-                {
-                    MapCreateCpt mapCreateCpt = mapCpt.map.GetComponent<MapCreateCpt>();
-                    mapCreateCpt.SetCreate(cameraCpt.transform.position);
-                }
+            CameraCpt cameraCpt = mapEntityCpt.role.GetComponent<CameraCpt>();
+            cameraCpt.transform.position = cameraCpt.target;
 
-                return;
-            }
+            MapCreateCpt mapCreateCpt = mapCpt.map.GetComponent<MapCreateCpt>();
+            mapCreateCpt.SetCreate(cameraCpt.transform.position);
         }
 
         public void OnDestroy()

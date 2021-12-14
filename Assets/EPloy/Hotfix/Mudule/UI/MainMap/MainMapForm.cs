@@ -93,10 +93,7 @@ namespace EPloy
                 mapEntityCpt = mapCpt.map.GetComponent<MapEntityCpt>();
             }
 
-            if (mapEntityCpt.role.HasComponent<MoveCpt>())
-            {
-                mapEntityCpt.role.GetComponent<MoveCpt>().moveDir = moveDir;
-            }
+            mapEntityCpt.role.GetComponent<MoveCpt>().moveDir = moveDir;
         }
     }
 }
