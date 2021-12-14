@@ -58,11 +58,7 @@ namespace EPloy
                     ((Action<object, ILTypeInstance>) act)(sender, e);
                 });
             });
-
-
-            //注册CLR绑定代码
-            //CLRBindings.Initialize(appDomain);
-
+            
             //TODO:注册跨域继承适配器
             appDomain.RegisterCrossBindingAdaptor(new IMessageAdaptor());
             appDomain.RegisterCrossBindingAdaptor(new ICoroutineAdapter());
@@ -76,6 +72,9 @@ namespace EPloy
 
             //注册LitJson
             LitJson.JsonMapper.RegisterILRuntimeCLRRedirection(appDomain);
+            
+            //注册CLR绑定代码 坑一定要放在最后
+            CLRBindings.Initialize(appDomain);
         }
     }
 }

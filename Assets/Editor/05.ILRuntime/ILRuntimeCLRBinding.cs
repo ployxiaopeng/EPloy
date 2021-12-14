@@ -64,7 +64,7 @@ namespace EPloy.Editor
             }
         }
 
-        [MenuItem("EPloy/ILRuntime/生成适配器")]
+        [MenuItem("EPloy/ILRuntime/无用_生成适配器")]
         static void GenerateCrossbindAdapter()
         {
             //由于跨域继承特殊性太多，自动生成无法实现完全无副作用生成，所以这里提供的代码自动生成主要是给大家生成个初始模版，简化大家的工作

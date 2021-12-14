@@ -37,8 +37,8 @@ namespace EPloy
             Vector2[] keys = mapEntityCpt.grids.Keys.ToArray();
             for (int i = 0; i < keys.Length; i++)
             {
+                if (CheckGridInView(keys[i])) continue;
                 Entity entity = mapEntityCpt.grids[keys[i]];
-                if (CheckGridInView(entity.GetComponent<MapGirdCpt>())) continue;
                 mapEntityCpt.updateGrids.Add(entity);
                 mapEntityCpt.grids.Remove(keys[i]);
             }
@@ -67,9 +67,8 @@ namespace EPloy
         }
 
 
-        private bool CheckGridInView(MapGirdCpt mapGirdCpt)
+        private bool CheckGridInView( Vector2 pos)
         {
-            Vector2 pos = mapGirdCpt.mapCell.CellIndex;
             return pos.x >= mapCreateCpt.minX &&
                    pos.x <= mapCreateCpt.maxX &&
                    pos.y >= mapCreateCpt.minY &&

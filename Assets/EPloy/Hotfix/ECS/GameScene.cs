@@ -38,16 +38,16 @@ namespace EPloy
 
         public override void Update()
         {
-            foreach (var system in systems)
+            for (int i = 0; i < systems.Count; i++)
             {
                 try
                 {
-                    if (system.IsPause) continue;
-                    system.Update();
+                    if (systems[i].IsPause) continue;
+                    systems[i].Update();
                 }
                 catch (Exception e)
                 {
-                    Log.Error(Utility.Text.Format("system: {0}  err: {1}", system, e.ToString()));
+                    Log.Error(Utility.Text.Format("system: {0}  err: {1}", systems[i], e.ToString()));
                 }
             }
         }

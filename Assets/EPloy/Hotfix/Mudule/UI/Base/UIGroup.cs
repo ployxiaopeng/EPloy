@@ -46,20 +46,21 @@ namespace EPloy
             CreateGroupInstance();
         }
 
-      
+
 
         /// <summary>
         /// 界面轮询
         /// </summary>
         public void Update()
         {
-            foreach (var uIForm in ActiveUIForms)
+            for (int i = 0; i < ActiveUIForms.Count; i++)
             {
-                if (uIForm.isPause)
+                if (ActiveUIForms[i].isPause)
                 {
                     continue;
                 }
-                uIForm.Update();
+
+                ActiveUIForms[i].Update();
             }
         }
 
