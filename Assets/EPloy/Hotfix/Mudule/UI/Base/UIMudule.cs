@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using EPloy.ObjectPool;
 using EPloy.Res;
 using UnityEngine;
@@ -47,9 +48,10 @@ namespace EPloy
 
         public override void Update()
         {
-            foreach (var key in UIGroups)
+            UIGroup[] groups = UIGroups.Values.ToArray();
+            for (int i = 0; i < groups.Length; i++)
             {
-                key.Value.Update();
+                groups[i].Update();
             }
         }
 

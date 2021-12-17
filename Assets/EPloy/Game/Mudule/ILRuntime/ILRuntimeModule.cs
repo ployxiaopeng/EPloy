@@ -170,26 +170,25 @@ namespace EPloy
             #region 加载  Hotfix.pdb
 
 #if UNITY_EDITOR
-            UnityWebRequest pdbRequest = UnityWebRequest.Get(GetHotfixAsset("Hotfix.pdb"));
-            yield return pdbRequest.SendWebRequest();
-            isError = pdbRequest.isNetworkError || pdbRequest.isHttpError;
-            if (isError)
-            {
-                Debug.LogError("load hotfix pdb err : " + pdbRequest.error);
-                yield break;
-                ;
-            }
-
-            byte[] hotfixPbd = pdbRequest.downloadHandler.data;
-            pdbRequest.Dispose();
-            Debug.Log("hotfix pdb加载完毕");
-
-            AppDomain.LoadAssembly(new MemoryStream(hotfixDll), new MemoryStream(hotfixPbd), new PdbReaderProvider());
-            //启动调试服务器
-            AppDomain.DebugService.StartDebugService(56000);
-            //设置Unity主线程ID 这样就可以用Profiler看性能消耗了
-            AppDomain.UnityMainThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
-            //AppDomain.LoadAssembly(new MemoryStream(hotfixDll));
+            // UnityWebRequest pdbRequest = UnityWebRequest.Get(GetHotfixAsset("Hotfix.pdb"));
+            // yield return pdbRequest.SendWebRequest();
+            // isError = pdbRequest.isNetworkError || pdbRequest.isHttpError;
+            // if (isError)
+            // {
+            //     Debug.LogError("load hotfix pdb err : " + pdbRequest.error);
+            //     yield break;
+            // }
+            //
+            // byte[] hotfixPbd = pdbRequest.downloadHandler.data;
+            // pdbRequest.Dispose();
+            // Debug.Log("hotfix pdb加载完毕");
+            //
+            // AppDomain.LoadAssembly(new MemoryStream(hotfixDll), new MemoryStream(hotfixPbd), new PdbReaderProvider());
+            // //启动调试服务器
+            // AppDomain.DebugService.StartDebugService(56000);
+            // //设置Unity主线程ID 这样就可以用Profiler看性能消耗了
+            // AppDomain.UnityMainThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
+            AppDomain.LoadAssembly(new MemoryStream(hotfixDll));
 #else
             AppDomain.LoadAssembly(new MemoryStream(hotfixDll));
 #endif

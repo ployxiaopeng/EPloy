@@ -1,6 +1,6 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EPloy
 {
@@ -17,10 +17,7 @@ namespace EPloy
         /// </summary>
         public int EventHandlerCount
         {
-            get
-            {
-                return EventHandlers.Count;
-            }
+            get { return EventHandlers.Count; }
         }
 
         /// <summary>
@@ -28,10 +25,7 @@ namespace EPloy
         /// </summary>
         public int EventCount
         {
-            get
-            {
-                return Events.Count;
-            }
+            get { return Events.Count; }
         }
 
         public override void Awake()
@@ -55,7 +49,7 @@ namespace EPloy
             }
         }
 
-        public  override void OnDestroy()
+        public override void OnDestroy()
         {
             EventHandlers.Clear();
             lock (Events)
@@ -116,6 +110,7 @@ namespace EPloy
                 Log.Fatal("Event handler is invalid.");
                 return;
             }
+
             if (!EventHandlers.Remove(evtId, handler))
             {
                 Log.Fatal(Utility.Text.Format("Event '{0}' not exists specified handler.", evtId.ToString()));
@@ -172,20 +167,23 @@ namespace EPloy
             {
                 try
                 {
-                    foreach (var evt in range)
+                    LinkedListNode<EventHandler<EventArg>> evt = range.First;
+                    while (evt != null)
                     {
-                        evt(eventArg);
+                        evt.Value(eventArg);
+                        evt = evt.Next;
                     }
                 }
-                catch (System.Exception)
+                catch (System.Exception e)
                 {
-                    Log.Error(Utility.Text.Format("暂不支持同一帧 处理又取消订阅事件 id：{0}", eventArg.id));
+                    Log.Error(Utility.Text.Format("事件 id：{0} err: {1}", eventArg.id, e.ToString()));
                 }
             }
             else
             {
                 noHandlerException = true;
             }
+
             ReferencePool.Release(eventArg);
 
             if (noHandlerException)

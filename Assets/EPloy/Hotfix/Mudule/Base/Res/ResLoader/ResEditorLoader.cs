@@ -165,7 +165,7 @@ namespace EPloy
                         }
 
                         LinkedListNode<LoadSceneInfo> next = current.Next;
-                        LoadSceneInfos.Remove(loadSceneInfo);
+                        LoadSceneInfos.Remove(current);
                         current = next;
                     }
                     else

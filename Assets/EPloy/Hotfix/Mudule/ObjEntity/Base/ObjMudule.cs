@@ -3,6 +3,7 @@ using EPloy.Res;
 using EPloy.Obj;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace EPloy
@@ -63,19 +64,21 @@ namespace EPloy
             {
                 ObjInfo objInfo = RecycleQueue.Dequeue();
                 ObjBase objBase = objInfo.Obj;
-                ObjGroup objGroup = (ObjGroup)objBase.ObjGroup;
+                ObjGroup objGroup = objBase.ObjGroup;
                 if (objGroup == null)
                 {
                     Log.Error("Entity group is invalid.");
                 }
+
                 objInfo.Status = ObjStatus.Recycled;
                 objGroup.UnspawnObj(objBase);
                 ReferencePool.Release(objInfo);
             }
 
-            foreach (KeyValuePair<ObjGroupName, ObjGroup> entityGroup in ObjGroups)
+            ObjGroup[] entityGroups = ObjGroups.Values.ToArray();
+            for (int i = 0; i < entityGroups.Length; i++)
             {
-                entityGroup.Value.Update();
+                entityGroups[i].Update();
             }
         }
 
