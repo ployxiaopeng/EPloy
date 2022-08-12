@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<EPloy>
+  <BuildReport>
+    <Summary>
+      <ProductName>CatRunner</ProductName>
+      <CompanyName>jiuwanhuyu</CompanyName>
+      <GameIdentifier>com.jiuwanhuyu.CatRunner</GameIdentifier>
+      <EPloyVersion>1.5测试版</EPloyVersion>
+      <UnityVersion>2019.4.28f1c1</UnityVersion>
+      <ApplicableGameVersion>0.1</ApplicableGameVersion>
+      <InternalResourceVersion>1</InternalResourceVersion>
+      <Platforms>Android</Platforms>
+      <AssetBundleCompression>LZ4</AssetBundleCompression>
+      <CompressionHelperTypeName>
+      </CompressionHelperTypeName>
+      <AdditionalCompressionSelected>False</AdditionalCompressionSelected>
+      <ForceRebuildAssetBundleSelected>False</ForceRebuildAssetBundleSelected>
+      <BuildEventHandlerTypeName>
+      </BuildEventHandlerTypeName>
+      <OutputDirectory>C:/Users/Administrator/Desktop/PaoKu/CatRunner/Assets/ABPack</OutputDirectory>
+      <BuildAssetBundleOptions>DeterministicAssetBundle</BuildAssetBundleOptions>
+    </Summary>
+    <Resources Count="21">
+      <Resource Name="Atlas/Temp" Extension="" LoadType="0">
+        <Assets Count="1">
+          <Asset Guid="a8c96b4561567d3499911ae84e9fe504" Name="Assets/Res/Atlas/Temp.spriteatlas" Length="2072" HashCode="-1216868984">
+            <DependencyAssets Count="8">
+              <DependencyAsset Name="Assets/Res/Textures/Temp/cloud_1.png" />
+              <DependencyAsset Name="Assets/Res/Textures/Temp/cloud_2.png" />
+              <DependencyAsset Name="Assets/Res/Textures/Temp/cloud_3.png" />
+              <DependencyAsset Name="Assets/Res/Textures/Temp/cloud_4.png" />
+              <DependencyAsset Name="Assets/Res/Textures/Temp/cloud_5.png" />
+              <DependencyAsset Name="Assets/Res/Textures/Temp/cloud_6.png" />
+              <DependencyAsset Name="Assets/Res/Textures/Temp/cloud_7.png" />
+              <DependencyAsset Name="Assets/Res/Textures/Temp/cloud_8.png" />
+            </DependencyAssets>
+          </Asset>
+        </Assets>
+        <Codes>
+          <Android Length="31839" HashCode="-136430365" CompressedLength="31839" CompressedHashCode="-136430365" />
+        </Codes>
+      </Resource>
+      <Resource Name="DataTables/Binary/Entity" Extension="" LoadType="2">
+        <Assets Count="1">
+          <Asset Guid="0398f0a96d65c034c81617ba7dcb02b5" Name="Assets/Res/DataTables/Binary/Entity.bytes" Length="83" HashCode="-921133631" />
+        </Assets>
+        <Codes>
+          <Android Length="83" HashCode="-921133631" CompressedLength="83" CompressedHashCode="-921133631" />
+        </Codes>
+      </Resource>
+      <Resource Name="DataTables/Binary/LanguageText" Extension="" LoadType="2">
+        <Assets Count="1">
+          <Asset Guid="a37b24204d3256d4fa87c0a46a7b04db" Name="Assets/Res/DataTables/Binary/LanguageText.bytes" Length="2814" HashCode="-2093692554" />
+        </Assets>
+        <Codes>
+          <Android Length="2814" HashCode="-2093692554" CompressedLength="2814" CompressedHashCode="-2093692554" />
+        </Codes>
+      </Resource>
+      <Resource Name="DataTables/Binary/ResSprite" Extension="" LoadType="2">
+        <Assets Count="1">
+          <Asset Guid="81b2bea5286af1c4784eaf1c2e8970fc" Name="Assets/Res/DataTables/Binary/ResSprite.bytes" Length="21" HashCode="-952423113" />
+        </Assets>
+        <Codes>
+          <Android Length="21" HashCode="-952423113" CompressedLength="21" CompressedHashCode="-952423113" />
+        </Codes>
+      </Resource>
+      <Resource Name="DataTables/Binary/Text" Extension="" LoadType="2">
+        <Assets Count="1">
+          <Asset Guid="22b730c2868d14546bf5dc67c374db24" Name="Assets/Res/DataTables/Binary/Text.bytes" Length="113506" HashCode="-1710744837" />
+        </Assets>
+        <Codes>
+          <Android Length="113506" HashCode="-1710744837" CompressedLength="113506" CompressedHashCode="-1710744837" />
+        </Codes>
+      </Resource>
+      <Resource Name="Obj/AudioMixer" Extension="" LoadType="0">
+        <Assets Count="1">
+          <Asset Guid="58fd295e3f7c3f741a59647988eb2593" Name="Assets/Res/Obj/AudioMixer.prefab" Length="1374" HashCode="1751609650" />
+        </Assets>
+        <Codes>
+          <Android Length="1217" HashCode="-1997005561" CompressedLength="1217" CompressedHashCode="-1997005561" />
+        </Codes>
+      </Resource>
+      <Resource Name="Obj/ObjTest" Extension="" LoadType="0">
+        <Assets Count="3">
+          <Asset Guid="061e5c4c0b89a4c4f86807bc8a3065da" Name="Assets/Res/Obj/ObjTest.controller" Length="2096" HashCode="582820871">
+            <DependencyAssets Count="1">
+              <DependencyAsset Name="Assets/Res/Obj/ObjTest.anim" />
+            </DependencyAssets>
+          </Asset>
+          <Asset Guid="070e1d5d7d884e74dacf3dc2cc36eb22" Name="Assets/Res/Obj/ObjTest.prefab" Length="2832" HashCode="2072561002">
+            <DependencyAssets Count="1">
+              <DependencyAsset Name="Assets/Res/Obj/ObjTest.controller" />
+            </DependencyAssets>
+          </Asset>
+          <Asset Guid="3eb65e35d4a7dc44cb962d863c677da7" Name="Assets/Res/Obj/ObjTest.anim" Length="4262" HashCode="-185717151" />
+        </Assets>
+        <Codes>
+          <Android Length="6656" HashCode="-1746789038" CompressedLength="6656" CompressedHashCode="-1746789038" />
+        </Codes>
+      </Resource>
+      <Resource Name="Obj/TestEntity" Extension="" LoadType="0">
+        <Assets Count="1">
+          <Asset Guid="a3bc23b12beceb046b7445048d33423d" Name="Assets/Res/Obj/TestEntity.prefab" Length="5806" HashCode="1658538259" />
+        </Assets>
+        <Codes>
+          <Android Length="93609" HashCode="-145841507" CompressedLength="93609" CompressedHashCode="-145841507" />
+        </Codes>
+      </Resource>
+      <Resource Name="Scenes/Game" Extension="" LoadType="0">
+        <Assets Count="1">
+          <Asset Guid="3ab34d631985c744a83d22093014d76e" Name="Assets/Res/Scenes/Game.unity" Length="6231" HashCode="-311206759" />
+        </Assets>
+        <Codes>
+          <Android Length="23959" HashCode="456860444" CompressedLength="23959" CompressedHashCode="456860444" />
+        </Codes>
+      </Resource>
+      <Resource Name="Scenes/Start" Extension="" LoadType="0">
+        <Assets Count="1">
+          <Asset Guid="e42d3781f940764479733c55cfcd57ef" Name="Assets/Res/Scenes/Start.unity" Length="12972" HashCode="-1829588638" />
+        </Assets>
+        <Codes>
+          <Android Length="26705" HashCode="-868978082" CompressedLength="26705" CompressedHashCode="-868978082" />
+        </Codes>
+      </Resource>
+      <Resource Name="Textures/Temp/cloud_1" Extension="" LoadType="0">
+        <Assets Count="1">
+          <Asset Guid="dc4d1649b3f40a64d98b21a54985c135" Name="Assets/Res/Textures/Temp/cloud_1.png" Length="8240" HashCode="194461343" />
+        </Assets>
+        <Codes>
+          <Android Length="3183" HashCode="-1018430718" CompressedLength="3183" CompressedHashCode="-1018430718" />
+        </Codes>
+      </Resource>
+      <Resource Name="Textures/Temp/cloud_2" Extension="" LoadType="0">
+        <Assets Count="1">
+          <Asset Guid="34cb11ecffd6b544b9f0d6fe73f81e49" Name="Assets/Res/Textures/Temp/cloud_2.png" Length="8826" HashCode="-359261774" />
+        </Assets>
+        <Codes>
+          <Android Length="3187" HashCode="-50859879" CompressedLength="3187" CompressedHashCode="-50859879" />
+        </Codes>
+      </Resource>
+      <Resource Name="Textures/Temp/cloud_3" Extension="" LoadType="0">
+        <Assets Count="1">
+          <Asset Guid="7ae311ddd8eff8a4086127ea537fa29c" Name="Assets/Res/Textures/Temp/cloud_3.png" Length="8479" HashCode="1544154901" />
+        </Assets>
+        <Codes>
+          <Android Length="3182" HashCode="1688630875" CompressedLength="3182" CompressedHashCode="1688630875" />
+        </Codes>
+      </Resource>
+      <Resource Name="Textures/Temp/cloud_4" Extension="" LoadType="0">
+        <Assets Count="1">
+          <Asset Guid="5eb218cdda82c3c4b8d5a26bdbc070f9" Name="Assets/Res/Textures/Temp/cloud_4.png" Length="8030" HashCode="-860650401" />
+        </Assets>
+        <Codes>
+          <Android Length="3122" HashCode="1271864855" CompressedLength="3122" CompressedHashCode="1271864855" />
+        </Codes>
+      </Resource>
+      <Resource Name="Textures/Temp/cloud_5" Extension="" LoadType="0">
+        <Assets Count="1">
+          <Asset Guid="02c85a532cc6a92409b278409bb37fdf" Name="Assets/Res/Textures/Temp/cloud_5.png" Length="6167" HashCode="-1272375574" />
+        </Assets>
+        <Codes>
+          <Android Length="2790" HashCode="-623373657" CompressedLength="2790" CompressedHashCode="-623373657" />
+        </Codes>
+      </Resource>
+      <Resource Name="Textures/Temp/cloud_6" Extension="" LoadType="0">
+        <Assets Count="1">
+          <Asset Guid="703e26e9cd20c484ea40b383476819d8" Name="Assets/Res/Textures/Temp/cloud_6.png" Length="7275" HashCode="2146695480" />
+        </Assets>
+        <Codes>
+          <Android Length="3001" HashCode="-1294670481" CompressedLength="3001" CompressedHashCode="-1294670481" />
+        </Codes>
+      </Resource>
+      <Resource Name="Textures/Temp/cloud_7" Extension="" LoadType="0">
+        <Assets Count="1">
+          <Asset Guid="c338e9af6b8d1b24c9cf0dec544782ce" Name="Assets/Res/Textures/Temp/cloud_7.png" Length="6970" HashCode="-29673525" />
+        </Assets>
+        <Codes>
+          <Android Length="2929" HashCode="-94244702" CompressedLength="2929" CompressedHashCode="-94244702" />
+        </Codes>
+      </Resource>
+      <Resource Name="Textures/Temp/cloud_8" Extension="" LoadType="0">
+        <Assets Count="1">
+          <Asset Guid="6024f0ab26321544c9e7e8108d012d91" Name="Assets/Res/Textures/Temp/cloud_8.png" Length="3020" HashCode="-1521119186" />
+        </Assets>
+        <Codes>
+          <Android Length="2261" HashCode="612367989" CompressedLength="2261" CompressedHashCode="612367989" />
+        </Codes>
+      </Resource>
+      <Resource Name="UI/UIForms/LoadingForm" Extension="" LoadType="0">
+        <Assets Count="1">
+          <Asset Guid="89d72225ed7d2694c9070592ce2ee0c2" Name="Assets/Res/UI/UIForms/LoadingForm.prefab" Length="5657" HashCode="-923116709" />
+        </Assets>
+        <Codes>
+          <Android Length="2751" HashCode="342027080" CompressedLength="2751" CompressedHashCode="342027080" />
+        </Codes>
+      </Resource>
+      <Resource Name="UI/UIForms/StartForm" Extension="" LoadType="0">
+        <Assets Count="1">
+          <Asset Guid="7e40f3a4e422205478c7bc564ed5bfbc" Name="Assets/Res/UI/UIForms/StartForm.prefab" Length="56064" HashCode="-1650967887" />
+        </Assets>
+        <Codes>
+          <Android Length="9346" HashCode="-1712070057" CompressedLength="9346" CompressedHashCode="-1712070057" />
+        </Codes>
+      </Resource>
+      <Resource Name="UI/UIForms/TipsForm" Extension="" LoadType="0">
+        <Assets Count="1">
+          <Asset Guid="437d797c01aca9b4abd39f9263f1a071" Name="Assets/Res/UI/UIForms/TipsForm.prefab" Length="13909" HashCode="-1672502504" />
+        </Assets>
+        <Codes>
+          <Android Length="6010" HashCode="2045531254" CompressedLength="6010" CompressedHashCode="2045531254" />
+        </Codes>
+      </Resource>
+    </Resources>
+  </BuildReport>
+</EPloy>

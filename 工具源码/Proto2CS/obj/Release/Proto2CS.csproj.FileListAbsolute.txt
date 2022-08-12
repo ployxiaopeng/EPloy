@@ -1,0 +1,11 @@
+C:\Users\Administrator\Desktop\ETCore-master\ETClient\Proto\Proto2CS.deps.json
+C:\Users\Administrator\Desktop\ETCore-master\ETClient\Proto\Proto2CS.runtimeconfig.json
+C:\Users\Administrator\Desktop\ETCore-master\ETClient\Proto\Proto2CS.runtimeconfig.dev.json
+C:\Users\Administrator\Desktop\ETCore-master\ETClient\Proto\Proto2CS.dll
+C:\Users\Administrator\Desktop\ETCore-master\ETClient\Proto\Proto2CS.pdb
+C:\Users\Administrator\Desktop\ETCore-master\ETClient\Tools\Proto2CS\obj\Release\Proto2CS.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\ETCore-master\ETClient\Tools\Proto2CS\obj\Release\Proto2CS.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\ETCore-master\ETClient\Tools\Proto2CS\obj\Release\Proto2CS.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\ETCore-master\ETClient\Tools\Proto2CS\obj\Release\Proto2CS.dll
+C:\Users\Administrator\Desktop\ETCore-master\ETClient\Tools\Proto2CS\obj\Release\Proto2CS.pdb
+C:\Users\Administrator\Desktop\ETCore-master\ETClient\Tools\Proto2CS\obj\Release\Proto2CS.genruntimeconfig.cache

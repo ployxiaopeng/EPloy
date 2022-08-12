@@ -1,0 +1,33 @@
+ManifestFileVersion: 0
+CRC: 3263252664
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 863ac3829f14331fd6689a30a0888bee
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 18314dad23fd18ad4a3352b49e8e9113
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Res/Obj/ObjTest.anim
+- Assets/Res/Obj/ObjTest.controller
+- Assets/Res/Obj/ObjTest.prefab
+Dependencies: []

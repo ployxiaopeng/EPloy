@@ -1,0 +1,165 @@
+﻿using EPloy.Game;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+
+namespace EPloy.Editor.ResourceTools
+{
+    public sealed class SourceFolder
+    {
+        private static Texture s_CachedIcon = null;
+
+        private readonly List<SourceFolder> m_Folders;
+        private readonly List<SourceAsset> m_Assets;
+
+        public SourceFolder(string name, SourceFolder folder)
+        {
+            m_Folders = new List<SourceFolder>();
+            m_Assets = new List<SourceAsset>();
+
+            Name = name;
+            Folder = folder;
+        }
+
+        public string Name
+        {
+            get;
+            private set;
+        }
+
+        public SourceFolder Folder
+        {
+            get;
+            private set;
+        }
+
+        public string FromRootPath
+        {
+            get
+            {
+                return Folder == null ? string.Empty : (Folder.Folder == null ? Name : UtilText.Format("{0}/{1}", Folder.FromRootPath, Name));
+            }
+        }
+
+        public int Depth
+        {
+            get
+            {
+                return Folder != null ? Folder.Depth + 1 : 0;
+            }
+        }
+
+        public static Texture Icon
+        {
+            get
+            {
+                if (s_CachedIcon == null)
+                {
+                    s_CachedIcon = AssetDatabase.GetCachedIcon("Assets");
+                }
+
+                return s_CachedIcon;
+            }
+        }
+
+        public void Clear()
+        {
+            m_Folders.Clear();
+            m_Assets.Clear();
+        }
+
+        public SourceFolder[] GetFolders()
+        {
+            return m_Folders.ToArray();
+        }
+
+        public SourceFolder GetFolder(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                 Log.Fatal("Source folder name is invalid.");
+            }
+
+            foreach (SourceFolder folder in m_Folders)
+            {
+                if (folder.Name == name)
+                {
+                    return folder;
+                }
+            }
+
+            return null;
+        }
+
+        public SourceFolder AddFolder(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                 Log.Fatal("Source folder name is invalid.");
+            }
+
+            SourceFolder folder = GetFolder(name);
+            if (folder != null)
+            {
+                 Log.Fatal("Source folder is already exist.");
+            }
+
+            folder = new SourceFolder(name, this);
+            m_Folders.Add(folder);
+
+            return folder;
+        }
+
+        public SourceAsset[] GetAssets()
+        {
+            return m_Assets.ToArray();
+        }
+
+        public SourceAsset GetAsset(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                 Log.Fatal("Source asset name is invalid.");
+            }
+
+            foreach (SourceAsset asset in m_Assets)
+            {
+                if (asset.Name == name)
+                {
+                    return asset;
+                }
+            }
+
+            return null;
+        }
+
+        public SourceAsset AddAsset(string guid, string path, string name)
+        {
+            if (string.IsNullOrEmpty(guid))
+            {
+                 Log.Fatal("Source asset guid is invalid.");
+            }
+
+            if (string.IsNullOrEmpty(path))
+            {
+                 Log.Fatal("Source asset path is invalid.");
+            }
+
+            if (string.IsNullOrEmpty(name))
+            {
+                 Log.Fatal("Source asset name is invalid.");
+            }
+
+            SourceAsset asset = GetAsset(name);
+            if (asset != null)
+            {
+                 Log.Fatal(UtilText.Format("Source asset '{0}' is already exist.", name));
+            }
+
+            asset = new SourceAsset(guid, path, name, this);
+            m_Assets.Add(asset);
+
+            return asset;
+        }
+    }
+}

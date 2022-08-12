@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<EPloy>
+  <ResCollection>
+    <Res>
+      <Res Name="Atlas/Temp" Extension="spriteatlas" LoadType="0" />
+      <Res Name="DataTables/Binary/Entity" Extension="bytes" LoadType="2" />
+      <Res Name="DataTables/Binary/LanguageText" Extension="bytes" LoadType="2" />
+      <Res Name="DataTables/Binary/ResSprite" Extension="bytes" LoadType="2" />
+      <Res Name="DataTables/Binary/Text" Extension="bytes" LoadType="2" />
+      <Res Name="Obj/AudioMixer" Extension="prefab" LoadType="0" />
+      <Res Name="Obj/ObjTest" Extension="anim" LoadType="0" />
+      <Res Name="Obj/TestEntity" Extension="prefab" LoadType="0" />
+      <Res Name="Scenes/Game" Extension="unity" LoadType="0" />
+      <Res Name="Scenes/Start" Extension="unity" LoadType="0" />
+      <Res Name="Textures/Temp/cloud_1" Extension="png" LoadType="0" />
+      <Res Name="Textures/Temp/cloud_2" Extension="png" LoadType="0" />
+      <Res Name="Textures/Temp/cloud_3" Extension="png" LoadType="0" />
+      <Res Name="Textures/Temp/cloud_4" Extension="png" LoadType="0" />
+      <Res Name="Textures/Temp/cloud_5" Extension="png" LoadType="0" />
+      <Res Name="Textures/Temp/cloud_6" Extension="png" LoadType="0" />
+      <Res Name="Textures/Temp/cloud_7" Extension="png" LoadType="0" />
+      <Res Name="Textures/Temp/cloud_8" Extension="png" LoadType="0" />
+      <Res Name="UI/UIForms/LoadingForm" Extension="prefab" LoadType="0" />
+      <Res Name="UI/UIForms/StartForm" Extension="prefab" LoadType="0" />
+      <Res Name="UI/UIForms/TipsForm" Extension="prefab" LoadType="0" />
+    </Res>
+    <Assets>
+      <Asset Guid="02c85a532cc6a92409b278409bb37fdf" ResName="Textures/Temp/cloud_5" />
+      <Asset Guid="0398f0a96d65c034c81617ba7dcb02b5" ResName="DataTables/Binary/Entity" />
+      <Asset Guid="061e5c4c0b89a4c4f86807bc8a3065da" ResName="Obj/ObjTest" />
+      <Asset Guid="070e1d5d7d884e74dacf3dc2cc36eb22" ResName="Obj/ObjTest" />
+      <Asset Guid="22b730c2868d14546bf5dc67c374db24" ResName="DataTables/Binary/Text" />
+      <Asset Guid="34cb11ecffd6b544b9f0d6fe73f81e49" ResName="Textures/Temp/cloud_2" />
+      <Asset Guid="3ab34d631985c744a83d22093014d76e" ResName="Scenes/Game" />
+      <Asset Guid="3eb65e35d4a7dc44cb962d863c677da7" ResName="Obj/ObjTest" />
+      <Asset Guid="437d797c01aca9b4abd39f9263f1a071" ResName="UI/UIForms/TipsForm" />
+      <Asset Guid="58fd295e3f7c3f741a59647988eb2593" ResName="Obj/AudioMixer" />
+      <Asset Guid="5eb218cdda82c3c4b8d5a26bdbc070f9" ResName="Textures/Temp/cloud_4" />
+      <Asset Guid="6024f0ab26321544c9e7e8108d012d91" ResName="Textures/Temp/cloud_8" />
+      <Asset Guid="703e26e9cd20c484ea40b383476819d8" ResName="Textures/Temp/cloud_6" />
+      <Asset Guid="7ae311ddd8eff8a4086127ea537fa29c" ResName="Textures/Temp/cloud_3" />
+      <Asset Guid="7e40f3a4e422205478c7bc564ed5bfbc" ResName="UI/UIForms/StartForm" />
+      <Asset Guid="81b2bea5286af1c4784eaf1c2e8970fc" ResName="DataTables/Binary/ResSprite" />
+      <Asset Guid="89d72225ed7d2694c9070592ce2ee0c2" ResName="UI/UIForms/LoadingForm" />
+      <Asset Guid="a37b24204d3256d4fa87c0a46a7b04db" ResName="DataTables/Binary/LanguageText" />
+      <Asset Guid="a3bc23b12beceb046b7445048d33423d" ResName="Obj/TestEntity" />
+      <Asset Guid="a8c96b4561567d3499911ae84e9fe504" ResName="Atlas/Temp" />
+      <Asset Guid="c338e9af6b8d1b24c9cf0dec544782ce" ResName="Textures/Temp/cloud_7" />
+      <Asset Guid="dc4d1649b3f40a64d98b21a54985c135" ResName="Textures/Temp/cloud_1" />
+      <Asset Guid="e42d3781f940764479733c55cfcd57ef" ResName="Scenes/Start" />
+    </Assets>
+  </ResCollection>
+</EPloy>

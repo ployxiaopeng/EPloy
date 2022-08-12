@@ -1,0 +1,94 @@
+﻿namespace EPloy.Game.Res
+{
+    internal sealed partial class ResChecker
+    {
+        /// <summary>
+        /// 远程资源状态信息。
+        /// </summary>
+        public struct RemoteVersionInfo
+        {
+            private readonly bool m_Exist;
+            private readonly string m_FileSystemName;
+            private readonly LoadType m_LoadType;
+            private readonly int m_Length;
+            private readonly int m_HashCode;
+            private readonly int m_ZipLength;
+            private readonly int m_ZipHashCode;
+
+            public RemoteVersionInfo(string fileSystemName, LoadType loadType, int length, int hashCode, int zipLength, int zipHashCode)
+            {
+                m_Exist = true;
+                m_FileSystemName = fileSystemName;
+                m_LoadType = loadType;
+                m_Length = length;
+                m_HashCode = hashCode;
+                m_ZipLength = zipLength;
+                m_ZipHashCode = zipHashCode;
+            }
+
+            public bool Exist
+            {
+                get
+                {
+                    return m_Exist;
+                }
+            }
+
+            public bool UseFileSystem
+            {
+                get
+                {
+                    return !string.IsNullOrEmpty(m_FileSystemName);
+                }
+            }
+
+            public string FileSystemName
+            {
+                get
+                {
+                    return m_FileSystemName;
+                }
+            }
+
+            public LoadType LoadType
+            {
+                get
+                {
+                    return m_LoadType;
+                }
+            }
+
+            public int Length
+            {
+                get
+                {
+                    return m_Length;
+                }
+            }
+
+            public int HashCode
+            {
+                get
+                {
+                    return m_HashCode;
+                }
+            }
+
+            public int ZipLength
+            {
+                get
+                {
+                    return m_ZipLength;
+                }
+            }
+
+            public int ZipHashCode
+            {
+                get
+                {
+                    return m_ZipHashCode;
+                }
+            }
+        }
+    }
+}

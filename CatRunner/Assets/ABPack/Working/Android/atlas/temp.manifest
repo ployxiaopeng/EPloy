@@ -1,0 +1,29 @@
+ManifestFileVersion: 0
+CRC: 1338316798
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 3a007039ddf07fd452cad9f53d233da2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 8f482d1115e1803eb3af0f87c71223fd
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Res/Atlas/Temp.spriteatlas
+Dependencies:
+- C:/Users/Administrator/Desktop/CatRunner/Assets/ABPack/Working/Android/textures/temp/cloud_1
+- C:/Users/Administrator/Desktop/CatRunner/Assets/ABPack/Working/Android/textures/temp/cloud_2
+- C:/Users/Administrator/Desktop/CatRunner/Assets/ABPack/Working/Android/textures/temp/cloud_3
+- C:/Users/Administrator/Desktop/CatRunner/Assets/ABPack/Working/Android/textures/temp/cloud_4
+- C:/Users/Administrator/Desktop/CatRunner/Assets/ABPack/Working/Android/textures/temp/cloud_5
+- C:/Users/Administrator/Desktop/CatRunner/Assets/ABPack/Working/Android/textures/temp/cloud_6
+- C:/Users/Administrator/Desktop/CatRunner/Assets/ABPack/Working/Android/textures/temp/cloud_7
+- C:/Users/Administrator/Desktop/CatRunner/Assets/ABPack/Working/Android/textures/temp/cloud_8

@@ -1,5 +1,5 @@
 syntax = "proto3";
-package ETModel;
+package EPloy.Net;
 
 /// <summary>
 /// 传送unit

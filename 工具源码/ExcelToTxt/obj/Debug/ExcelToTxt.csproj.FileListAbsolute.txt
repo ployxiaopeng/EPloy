@@ -1,0 +1,8 @@
+C:\Users\Administrator\source\repos\ExcelToTxt\bin\Debug\ExcelToTxt.exe.config
+C:\Users\Administrator\source\repos\ExcelToTxt\bin\Debug\ExcelToTxt.exe
+C:\Users\Administrator\source\repos\ExcelToTxt\bin\Debug\ExcelToTxt.pdb
+C:\Users\Administrator\source\repos\ExcelToTxt\obj\Debug\ExcelToTxt.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\ExcelToTxt\obj\Debug\ExcelToTxt.exe
+C:\Users\Administrator\source\repos\ExcelToTxt\obj\Debug\ExcelToTxt.pdb
+C:\Users\Administrator\source\repos\ExcelToTxt\bin\Debug\ExcelToTxt.xml
+C:\Users\Administrator\source\repos\ExcelToTxt\obj\Debug\ExcelToTxt.csproj.AssemblyReference.cache

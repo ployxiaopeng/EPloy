@@ -1,5 +1,5 @@
 syntax = "proto3";
-package ETModel;
+package EPloy.Net;
 
 //客户端注册请求
 message C2G_Register // IRequest
@@ -86,37 +86,6 @@ message C2G_ReturnLobby // IMessage
 {
 	int32 RpcId = 90;
 }
-
-//一位玩家加入匹配（广播）
-message A2C_LandMatcherPlusOne // IActorMessage
-{
-	int32 RpcId = 90;
-	int64 ActorId = 93;
-	int32 MatchingNumber = 1; // 当前排队人数
-}
-//一位玩家离开匹配（广播）
-message A2C_LandMatcherReduceOne // IActorMessage
-{
-	int32 RpcId = 90;
-	int64 ActorId = 93;
-	int32 MatchingNumber = 1; // 当前排队人数
-}
-
-//进入房间(广播)
-message A2C_GamerEnterRoom // IActorMessage
-{
-	int32 RpcId = 90;
-	int64 ActorId = 93;
-    repeated GamerInfo Gamers = 1;
-}
-//退出房间(广播)
-message A2C_GamerExitRoom // IActorMessage
-{
-	int32 RpcId = 90;
-	int64 ActorId = 93;
-    int64 UserID = 1;
-}
-
 //获取房间内玩家信息请求
 message C2G_GetUserInfoInRoom // IRequest
 {
@@ -140,30 +109,9 @@ message C2G_GamerReady // IRequest
 {
 	int32 RpcId = 90;
 }
-//服务端准备游戏消息
-message A2M_GamerReady // IActorMessage
-{
-	int64 ActorId = 94;
-	int64 UserID = 1;	
-}
 
 message G2C_TestHotfixMessage // IMessage
 {
-	string Info = 1;
-}
-
-message C2M_TestActorRequest // IActorLocationRequest
-{
-	int32 RpcId = 90;
-	int64 ActorId = 91;
-	string Info = 1;
-}
-
-message M2C_TestActorResponse // IActorLocationResponse
-{
-	int32 RpcId = 90;
-	int32 Error = 91;
-	string Message = 92;
 	string Info = 1;
 }
 

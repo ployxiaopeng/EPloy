@@ -1,7 +1,3 @@
-/Library
-/Logs
-/obj
-/Packages
-/Temp
-/.idea
-/GameFramework/.idea
+/CatRunner/obj
+/CatRunner/Library
+/CatRunner/Logs
