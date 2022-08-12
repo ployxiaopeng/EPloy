@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using EPloy.Hotfix.Table;
+using EPloy.Table;
 using UnityEngine;
 
-namespace EPloy.Hotfix
+namespace EPloy.ECS
 {
     public class MoveSystem : IReference
     {
         public void SetMoveControl(EntityRole entityRole)
         {
-            entityRole.moveCpt = HotFixMudule.GameScene.GetCpt<MoveCpt>(entityRole);
+            entityRole.moveCpt = ECSModule.GameScene.GetCpt<MoveCpt>(entityRole);
             entityRole.moveCpt.direction = Vector3.zero;
             entityRole.moveCpt.character = entityRole.roleCpt.role.GetComponent<CharacterController>();
         }

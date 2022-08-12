@@ -72,7 +72,7 @@ namespace EPloy.Editor
 
         private static void SpawnCodeForNode(GameObject gameObject, string uiName)
         {
-            string strFilePath = Application.dataPath + "/EPloy/Hotfix/Mudule/UI/" + uiName;
+            string strFilePath = Application.dataPath + "/EPloy/Hotfix/UI/" + uiName;
 
             if (!System.IO.Directory.Exists(strFilePath))
             {
@@ -92,7 +92,7 @@ namespace EPloy.Editor
             strBuilder.AppendLine("using System.Collections;")
                         .AppendLine("using System.Collections.Generic;")
                         .AppendLine("using System;")
-                        .AppendLine("using EPloy.Hotfix;")
+                        .AppendLine("using EPloy.UI;")
                         .AppendLine("using UnityEngine;")
                         .AppendLine("using UnityEngine.UI;\r\n");
 
@@ -131,7 +131,7 @@ namespace EPloy.Editor
         private static void SpawnCodeBindingCodeForNode(GameObject gameObject, string uiName)
         {
             uiName = UtilText.Format("{0}{1}", uiName, gameObject.name.Substring(4, gameObject.name.Length - 4));
-            string strFilePath = Application.dataPath + "/EPloy/Hotfix/Mudule/UI/Code";
+            string strFilePath = Application.dataPath + "/EPloy/Hotfix/UI/Code";
 
             if (!System.IO.Directory.Exists(strFilePath))
             {
@@ -143,7 +143,7 @@ namespace EPloy.Editor
             StringBuilder strBuilder = new StringBuilder();
             string className = string.Format("{0}Code", uiName);
             strBuilder.AppendLine("using UnityEngine;")
-                      .AppendLine("using EPloy.Hotfix;")
+                      .AppendLine("using EPloy.UI;")
                       .AppendLine("using UnityEngine.UI;\r\n");
             strBuilder.AppendLine("");
             strBuilder.AppendFormat("public  class {0} : IReference \n", className);

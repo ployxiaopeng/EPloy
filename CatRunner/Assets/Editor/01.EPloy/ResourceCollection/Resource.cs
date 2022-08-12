@@ -1,6 +1,4 @@
-﻿
-using EPloy.Game;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace EPloy.Editor.ResourceTools
 {

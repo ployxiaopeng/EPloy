@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EPloy.Hotfix
+namespace EPloy.ECS
 {
 
     /// <summary>

@@ -1,5 +1,5 @@
 ﻿
-namespace EPloy.Game.TaskPool
+namespace EPloy.TaskPool
 {
     /// <summary>
     /// 任务代理接口。

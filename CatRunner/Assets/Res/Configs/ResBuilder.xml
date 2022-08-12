@@ -2,8 +2,8 @@
 <EPloy>
   <ResourceBuilder>
     <Settings>
-      <InternalResourceVersion>1</InternalResourceVersion>
-      <Platforms>32</Platforms>
+      <InternalResourceVersion>2</InternalResourceVersion>
+      <Platforms>1</Platforms>
       <AssetBundleZip>1</AssetBundleZip>
       <ZipHelperTypeName>
       </ZipHelperTypeName>
@@ -11,7 +11,7 @@
       <ForceRebuildAssetBundleSelected>False</ForceRebuildAssetBundleSelected>
       <BuildEventHandlerTypeName>
       </BuildEventHandlerTypeName>
-      <OutputDirectory>C:/Users/Administrator/Desktop/PaoKu/CatRunner/Assets/ABPack</OutputDirectory>
+      <OutputDirectory>E:/EPloy/PaoKu/CatRunner/Assets/ABPack</OutputDirectory>
       <OutputPackageSelected>True</OutputPackageSelected>
       <OutputFullSelected>False</OutputFullSelected>
     </Settings>

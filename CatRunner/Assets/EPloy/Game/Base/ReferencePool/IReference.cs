@@ -1,13 +1,11 @@
-﻿namespace EPloy.Game.Reference
+﻿
+/// <summary>
+/// 引用接口。
+/// </summary>
+public interface IReference
 {
     /// <summary>
-    /// 引用接口。
+    /// 清理引用。
     /// </summary>
-    public interface IReference
-    {
-        /// <summary>
-        /// 清理引用。
-        /// </summary>
-        void Clear();
-    }
+    void Clear();
 }

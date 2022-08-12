@@ -1,5 +1,4 @@
-﻿using EPloy.Game;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace EPloy.Editor.ResourceTools

@@ -1,9 +1,8 @@
-﻿using EPloy.Hotfix.Table;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EPloy.Hotfix
+namespace EPloy.ECS
 {
     public enum UserClrType
     {

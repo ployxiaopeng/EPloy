@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using EPloy.Game;
+﻿using EPloy.Download;
+using UnityEngine;
 
 public class GameStart : MonoBehaviour
 {
@@ -20,11 +20,13 @@ public class GameStart : MonoBehaviour
     private void Start()
     {
 #if UNITY_EDITOR
-        GameModule.InitGameModule(GameModel);
-        GameModule.Procedure.StartGame();
+        GameEntry.InitGameModule(GameModel);
+        GameEntry.CheckModule.CheckGameModel();
+        Instance.GetComponent<ConsoleToSceen>().enabled = false;
 #else
-            GameModule.InitGameModule(GameModel.Local); //打包先默认本地模式
-            GameModule.Procedure.StartGame();
+            GameEntry.InitGameModule(GameModel.Local); //打包先默认本地模式
+            GameEntry.CheckModule.CheckGameModel();
+            Instance.GetComponent<ConsoleToSceen>().enabled = true;
 #endif
     }
 
@@ -36,5 +38,71 @@ public class GameStart : MonoBehaviour
     private void OnDestroy()
     {
         GameModuleMgr.ModuleDestory();
+    }
+}
+
+/// <summary>
+/// 非热更游戏入口
+/// </summary>
+public static partial class GameEntry
+{
+    public static GameModel GameModel { get; private set; }
+    private static string resPath = null;
+    public static string ResPath
+    {
+        get
+        {
+            if (resPath == null)
+            {
+                switch (GameModel)
+                {
+                    case GameModel.Editor:
+                        resPath = Application.dataPath;
+                        break;
+                    case GameModel.EditorHotfix:
+                        resPath = Application.streamingAssetsPath;
+                        break;
+                    case GameModel.EditorABPack:
+                        resPath = Application.streamingAssetsPath;
+                        break;
+                    case GameModel.Local:
+                        resPath = Application.streamingAssetsPath;
+                        break;
+                    case GameModel.HotFix:
+                        resPath = Application.dataPath;
+                        break;
+                }
+            }
+            return resPath;
+        }
+    }
+
+    public static TimerModule Timer { get; private set; }
+
+    public static DownLoadModule DownLoad { get; private set; }
+
+    public static FileSystemModule FileSystem { get; private set; }
+
+    public static ObjectPoolMudule ObjectPool { get; private set; }
+
+    public static ResUpdaterModule ResUpdater { get; private set; }
+
+    public static ResModule Res { get; private set; }
+
+    public static AtlasMudule Atlas { get; private set; }
+
+    public static CheckModule CheckModule { get; private set; }
+
+    public static void InitGameModule(GameModel gameModel)
+    {
+        GameModel = gameModel;
+        Timer = GameModuleMgr.CreateModule<TimerModule>();
+        DownLoad = GameModuleMgr.CreateModule<DownLoadModule>();
+        FileSystem = GameModuleMgr.CreateModule<FileSystemModule>();
+        ObjectPool = GameModuleMgr.CreateModule<ObjectPoolMudule>();
+        ResUpdater = GameModuleMgr.CreateModule<ResUpdaterModule>();
+        Res = GameModuleMgr.CreateModule<ResModule>();
+        Atlas = GameModuleMgr.CreateModule<AtlasMudule>();
+        CheckModule = GameModuleMgr.CreateModule<CheckModule>();
     }
 }

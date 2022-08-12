@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using EPloy.Game;
-using EPloy.Game.Reference;
 
-namespace EPloy.Game.TaskPool
+namespace EPloy.TaskPool
 {
     /// <summary>
     /// 任务池暂时是加载资源

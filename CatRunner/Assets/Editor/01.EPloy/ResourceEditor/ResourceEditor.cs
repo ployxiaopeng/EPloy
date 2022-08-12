@@ -1,5 +1,5 @@
 ﻿
-using EPloy.Game;
+using EPloy.Event;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -300,7 +300,7 @@ namespace EPloy.Editor.ResourceTools
 
             if (GUI.GetNameOfFocusedControl() == "NewResourceNameTextField" || GUI.GetNameOfFocusedControl() == "NewResourceVariantTextField")
             {
-                if (Event.current.isKey && Event.current.keyCode == KeyCode.Return)
+                if (UnityEngine.Event.current.isKey && UnityEngine.Event.current.keyCode == KeyCode.Return)
                 {
                     EditorUtility.DisplayProgressBar("Add Resource", "Processing...", 0f);
                     AddResource(m_InputResourceName, true);
@@ -335,7 +335,7 @@ namespace EPloy.Editor.ResourceTools
 
             if (GUI.GetNameOfFocusedControl() == "RenameResourceNameTextField" || GUI.GetNameOfFocusedControl() == "RenameResourceVariantTextField")
             {
-                if (Event.current.isKey && Event.current.keyCode == KeyCode.Return)
+                if (UnityEngine.Event.current.isKey && UnityEngine.Event.current.keyCode == KeyCode.Return)
                 {
                     EditorUtility.DisplayProgressBar("Rename Resource", "Processing...", 0f);
                     RenameResource(m_SelectedResource, m_InputResourceName);

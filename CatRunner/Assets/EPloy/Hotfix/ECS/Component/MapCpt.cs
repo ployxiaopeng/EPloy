@@ -1,9 +1,9 @@
-﻿using EPloy.Hotfix.Table;
+﻿using EPloy.Table;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EPloy.Hotfix
+namespace EPloy.ECS
 {
     /// <summary>
     /// 地图组件

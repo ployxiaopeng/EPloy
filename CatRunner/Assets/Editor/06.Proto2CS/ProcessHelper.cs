@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Path = System.IO.Path;
 
-namespace EPloy.Game
+namespace EPloy.Editor
 {
     public static class ProcessHelper
     {

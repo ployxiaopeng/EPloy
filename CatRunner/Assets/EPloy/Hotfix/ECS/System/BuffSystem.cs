@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using EPloy.Hotfix.Table;
+using EPloy.Table;
 using UnityEngine;
 
-namespace EPloy.Hotfix
+namespace EPloy.ECS
 {
     public class BuffSystem : IReference
     {

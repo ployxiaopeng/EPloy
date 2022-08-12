@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEditor;
 using System.IO;
 using System.Text;
+using EPloy.UI;
 
 namespace EPloy.Editor
 {
@@ -75,7 +76,7 @@ namespace EPloy.Editor
 
         private static void SpawnCodeForList(ScrollRect scroll, string uiName)
         {
-            string strFilePath = Application.dataPath + "/EPloy/Hotfix/Mudule/UI/" + uiName;
+            string strFilePath = Application.dataPath + "/EPloy/Hotfix/UI/" + uiName;
 
             if (!System.IO.Directory.Exists(strFilePath))
             {
@@ -99,7 +100,7 @@ namespace EPloy.Editor
                       .AppendLine("using System.Collections.Generic;")
                       .AppendLine("using System;")
                       .AppendLine("using UnityEngine;")
-                      .AppendLine("using EPloy.Hotfix;")
+                      .AppendLine("using EPloy.UI;")
                       .AppendLine("using UnityEngine.UI;\r\n");
 
             strBuilder.AppendFormat("public class {0} : {1}\r\n", uiName, isVirtual ? "VirtualListBase" : "ListBase");
@@ -132,7 +133,7 @@ namespace EPloy.Editor
         private static void SpawnCodeBindingCodeForList(ScrollRect scroll, string uiName)
         {
             uiName = UtilText.Format("{0}{1}", uiName, scroll.name);
-            string strFilePath = Application.dataPath + "/EPloy/Hotfix/Mudule/UI/Code";
+            string strFilePath = Application.dataPath + "/EPloy/Hotfix/UI/Code";
 
             if (!System.IO.Directory.Exists(strFilePath))
             {
@@ -144,7 +145,7 @@ namespace EPloy.Editor
             StringBuilder strBuilder = new StringBuilder();
             string className = string.Format("{0}Code", uiName);
             strBuilder.AppendLine("using UnityEngine;")
-                      .AppendLine("using EPloy.Hotfix;")
+                      .AppendLine("using EPloy.UI;")
                       .AppendLine("using UnityEngine.UI;\r\n");
             strBuilder.AppendLine("");
             strBuilder.AppendFormat("public  class {0} : IReference \n", className);

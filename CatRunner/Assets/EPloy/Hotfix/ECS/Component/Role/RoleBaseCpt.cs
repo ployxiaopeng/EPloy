@@ -1,9 +1,9 @@
-﻿using EPloy.Hotfix.Table;
+﻿using EPloy.Table;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EPloy.Hotfix
+namespace EPloy.ECS
 {
 
     public enum SkillType
@@ -36,8 +36,8 @@ namespace EPloy.Hotfix
 
         public void SetRoleData(int id)
         {
-            Table<DRSkillData> DTSkill = HotFixMudule.DataTable.GetDataTable<DRSkillData>();
-            playerData = HotFixMudule.DataTable.GetDataTable<DRRoleData>().GetDataRow(id);
+            Table<DRSkillData> DTSkill = GameModule.Table.GetDataTable<DRSkillData>();
+            playerData = GameModule.Table.GetDataTable<DRRoleData>().GetDataRow(id);
 
             AttData = DTSkill.GetDataRow(playerData.RoleATT);
             skillCDs.Add(AttData.Id, 0);

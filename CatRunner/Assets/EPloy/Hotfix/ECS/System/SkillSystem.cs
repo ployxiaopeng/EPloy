@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using EPloy.Hotfix.Table;
+using EPloy.Table;
 using UnityEngine;
 
-namespace EPloy.Hotfix
+namespace EPloy.ECS
 {
     public class SkillSystem : IReference
     {
@@ -12,9 +12,9 @@ namespace EPloy.Hotfix
         {
             if (skillCpt == null) return;
             skillCpt.hurt = entityRole.roleBaseCpt.att * skillCpt.skillData.HarmArg;
-            for (int i = 0; i < HotFixMudule.GameScene.EntityRoles.Count; i++)
+            for (int i = 0; i < ECSModule.GameScene.entityRoles.Count; i++)
             {
-                EntityRole targetRole = HotFixMudule.GameScene.EntityRoles[i];
+                EntityRole targetRole = ECSModule.GameScene.entityRoles[i];
                 if (entityRole == targetRole) continue;
                 //被攻击减攻击者
                 Vector3 vector = targetRole.roleCpt.rolePos - entityRole.roleCpt.rolePos;

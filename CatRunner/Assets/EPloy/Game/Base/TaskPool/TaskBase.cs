@@ -1,7 +1,5 @@
 ﻿
-using EPloy.Game.Reference;
-
-namespace EPloy.Game.TaskPool
+namespace EPloy.TaskPool
 {
     /// <summary>
     /// 任务基类 存储人信息 以便代理处理

@@ -1,24 +1,21 @@
 ﻿
-namespace EPloy.Game
+/// <summary>
+/// 非热更游戏Module抽象类。
+/// </summary>
+public interface IGameModule
 {
     /// <summary>
-    /// 非热更游戏Module抽象类。
+    /// Module 唤醒
     /// </summary>
-    public interface IGameModule
-    {
-        /// <summary>
-        /// Module 唤醒
-        /// </summary>
-        void Awake();
+    void Awake();
 
-        /// <summary>
-        /// Module 唤醒轮询。
-        /// </summary>
-        void Update();
+    /// <summary>
+    /// Module 唤醒轮询。
+    /// </summary>
+    void Update();
 
-        /// <summary>
-        /// 关闭销毁Module 
-        /// </summary>
-        void OnDestroy();
-    }
+    /// <summary>
+    /// 关闭销毁Module 
+    /// </summary>
+    void OnDestroy();
 }

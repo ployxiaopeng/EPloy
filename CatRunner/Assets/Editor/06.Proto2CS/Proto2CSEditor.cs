@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-using EPloy.Game;
 using UnityEditor;
 
 namespace EPloy.Editor
@@ -18,7 +17,7 @@ namespace EPloy.Editor
     public class Proto2CSEditor : EditorWindow
     {
         private const string protoPath = "Proto/";
-        private const string hotfixProtoPath = "Assets/EPloy/Hotfix/Mudule/Net/Proto/";
+        private const string hotfixProtoPath = "Assets/EPloy/Hotfix/Module/Net/Proto/";
         private static readonly char[] splitChars = { ' ', '\t' };
         private static readonly List<OpcodeInfo> msgOpcode = new List<OpcodeInfo>();
         private static string protoDir;
@@ -41,7 +40,7 @@ namespace EPloy.Editor
             }
 
 
-            string hotfixProtoCodePath = Path.Combine(rootDir, "Assets", "EPloy", "Hotfix", "Mudule", "Net", "Proto/");
+            string hotfixProtoCodePath = Path.Combine(rootDir, "Assets", "EPloy", "Hotfix", "Module", "Net", "Proto/");
             string argument1 = $"--csharp_out=\"{hotfixProtoCodePath}\" --proto_path=\"{protoDir}\" OuterMessage.proto";
             string argument2 = $"--csharp_out=\"{hotfixProtoCodePath}\" --proto_path=\"{protoDir}\" HotfixMessage.proto";
 

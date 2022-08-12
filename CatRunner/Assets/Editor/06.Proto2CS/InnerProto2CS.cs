@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using EPloy.Game;
 using UnityEditor;
 
 namespace EPloy.Editor

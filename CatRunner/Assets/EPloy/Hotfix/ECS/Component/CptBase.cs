@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
-namespace EPloy.Hotfix
+namespace EPloy.ECS
 {
     public class CptBase : IReference
     {

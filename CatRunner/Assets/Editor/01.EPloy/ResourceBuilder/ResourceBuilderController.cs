@@ -5,8 +5,7 @@ using System.Linq;
 using System.Xml;
 using UnityEditor;
 using UnityEngine;
-using EPloy.Game.Res;
-using EPloy.Game;
+using EPloy.Res;
 
 namespace EPloy.Editor.ResourceTools
 {

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
 
-namespace EPloy.Game
+namespace EPloy.Editor
 {
-
         /// <summary>
         /// 压缩解压缩相关的实用函数。
         /// </summary>

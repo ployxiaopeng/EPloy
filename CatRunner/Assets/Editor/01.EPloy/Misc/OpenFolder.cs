@@ -3,7 +3,6 @@ using System.Diagnostics;
 using UnityEditor;
 using UnityEngine;
 using System.IO;
-using EPloy.Game;
 
 namespace EPloy.Editor
 {

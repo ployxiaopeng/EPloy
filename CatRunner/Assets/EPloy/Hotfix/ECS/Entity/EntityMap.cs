@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-namespace EPloy.Hotfix
+namespace EPloy.ECS
 {
     public class EntityMap : Entity
     {

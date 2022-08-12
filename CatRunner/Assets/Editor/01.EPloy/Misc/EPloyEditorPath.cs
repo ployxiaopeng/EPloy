@@ -16,16 +16,13 @@ namespace EPloy.Editor
         public const string DataTable = "Res/DataTable";
         public const string ResCollection = "Res/Configs/ResCollection.xml";
 
-        public const string DataTablePath = "Assets/Res/DataTables/Data";
-        public const string DataBinaryPath = "Assets/Res/DataTables/Binary";
-        public const string CSharpCodePath = "Assets/EPloy/Hotfix/Mudule/Base/DataTable/Data";
-        public const string CSharpCodeTemplateFileName = "Assets/Res/Configs/DataTableCodeTemplate.txt";
+        public const string DataTablePath = "Assets/Res/Tables/Data";
+        public const string DataBinaryPath = "Assets/Res/Tables/Binary";
+        public const string CSharpCodePath = "Assets/EPloy/Hotfix/Table";
+        public const string CSharpCodeTemplateFileName = "Assets/Res/Configs/TableCodeTemplate.txt";
 
-        public const string ILRuntimeGenerated = "Assets/EPloy/Game/Mudule/ILRuntime/Generated";
         public const string AssetHotfixDLL = "Assets/StreamingAssets/Hotfix.dll.bytes";
-        public const string AssetHotfixPdb = "Assets/StreamingAssets/Hotfix.pdb.bytes";
 
         public static string EditorHotfixDLL = System.Environment.CurrentDirectory + "/Library/ScriptAssemblies/EPloy.Hotfix.dll";
-        public static string EditorHotfixPdb = System.Environment.CurrentDirectory + "/Library/ScriptAssemblies/EPloy.Hotfix.pdb";
     }
 }

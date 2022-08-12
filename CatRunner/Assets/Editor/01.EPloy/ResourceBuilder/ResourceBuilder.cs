@@ -2,7 +2,6 @@
 using System.IO;
 using UnityEditor;
 using UnityEngine;
-using EPloy.Game;
 
 namespace EPloy.Editor.ResourceTools
 {
@@ -18,11 +17,7 @@ namespace EPloy.Editor.ResourceTools
         private static void Open()
         {
             ResourceBuilder window = GetWindow<ResourceBuilder>("资源打包", true);
-#if UNITY_2019_3_OR_NEWER
             window.minSize = new Vector2(800f, 640f);
-#else
-            window.minSize = new Vector2(800f, 600f);
-#endif
         }
 
         private void OnEnable()

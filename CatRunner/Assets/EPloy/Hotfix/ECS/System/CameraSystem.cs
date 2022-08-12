@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-namespace EPloy.Hotfix
+namespace EPloy.ECS
 {
     public class CameraSystem : IReference
     {
         public void SetCameraFollow(EntityRole entityRole, Camera camera)
         {
-            entityRole.cameraFollowCpt = HotFixMudule.GameScene.GetCpt<CameraFollowCpt>(entityRole);
+            entityRole.cameraFollowCpt = ECSModule.GameScene.GetCpt<CameraFollowCpt>(entityRole);
             entityRole.cameraFollowCpt.camera = camera;
         }
 

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using EPloy.Game;
-using EPloy.Hotfix.Table;
+using EPloy.Table;
 using UnityEngine;
 
-namespace EPloy.Hotfix
+namespace EPloy.ECS
 {
     public class RoleAcitonSystem : IReference
     {
@@ -14,7 +13,7 @@ namespace EPloy.Hotfix
             Animator animator = entityRole.roleCpt.role.GetComponent<Animator>();
             if (animator != null)
             {
-                entityRole.roleAcitonCpt = HotFixMudule.GameScene.GetCpt<RoleAcitonCpt>(entityRole);
+                entityRole.roleAcitonCpt = ECSModule.GameScene.GetCpt<RoleAcitonCpt>(entityRole);
                 entityRole.roleAcitonCpt.animator = animator;
                 entityRole.roleAcitonCpt.curAction = RoleAction.Move;
             }
@@ -58,35 +57,35 @@ namespace EPloy.Hotfix
                     if (roleAcitonCpt.curActionState < 0.9f) return;
                     roleAcitonCpt.isHander = true;
                     roleAcitonCpt.curAction = RoleAction.Move;
-                    HotFixMudule.GameScene.SkillSys.SkillSpotting(entityRole, entityRole.skillCpt);
+                    ECSModule.SkillSys.SkillSpotting(entityRole, entityRole.skillCpt);
                     break;
                 case RoleAction.Att2:
                     //当前动画播放未完毕
                     if (roleAcitonCpt.curActionState < 0.9f) return;
                     roleAcitonCpt.isHander = true;
                     roleAcitonCpt.curAction = RoleAction.Move;
-                    HotFixMudule.GameScene.SkillSys.SkillSpotting(entityRole, entityRole.skillCpt);
+                    ECSModule.SkillSys.SkillSpotting(entityRole, entityRole.skillCpt);
                     break;
                 case RoleAction.Skill1:
                     //当前动画播放未完毕
                     if (roleAcitonCpt.curActionState < 0.9f) return;
                     roleAcitonCpt.isHander = true;
                     roleAcitonCpt.curAction = RoleAction.Move;
-                    HotFixMudule.GameScene.SkillSys.SkillSpotting(entityRole, entityRole.skillCpt);
+                    ECSModule.SkillSys.SkillSpotting(entityRole, entityRole.skillCpt);
                     break;
                 case RoleAction.Skill2:
                     //当前动画播放未完毕
                     if (roleAcitonCpt.curActionState < 0.9f) return;
                     roleAcitonCpt.isHander = true;
                     roleAcitonCpt.curAction = RoleAction.Move;
-                    HotFixMudule.GameScene.SkillSys.SkillSpotting(entityRole, entityRole.skillCpt);
+                    ECSModule.SkillSys.SkillSpotting(entityRole, entityRole.skillCpt);
                     break;
                 case RoleAction.Skill3:
                     //当前动画播放未完毕
                     if (roleAcitonCpt.curActionState < 0.9f) return;
                     roleAcitonCpt.isHander = true;
                     roleAcitonCpt.curAction = RoleAction.Move;
-                    HotFixMudule.GameScene.SkillSys.SkillSpotting(entityRole, entityRole.skillCpt);
+                    ECSModule.SkillSys.SkillSpotting(entityRole, entityRole.skillCpt);
                     break;
             }
         }

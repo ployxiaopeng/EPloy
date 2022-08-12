@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
-using EPloy.Game;
-using EPloy.Hotfix.Table;
+using EPloy.Table;
 
-namespace EPloy.Hotfix
+namespace EPloy.ECS
 {
     public class AICommandSystem : IReference
     {
         private InputCpt inputCpt;
         public AICommandSystem()
         {
-            inputCpt = HotFixMudule.GameScene.GetSingleCpt<InputCpt>();
+            inputCpt = ECSModule.GameScene.GetSingleCpt<InputCpt>();
         }
 
         public void Updata(EntityRole entityRole)
@@ -59,7 +58,7 @@ namespace EPloy.Hotfix
             }
             else
             {
-                HotFixMudule.GameScene.roleAcitonSys.UpdateRoleAction(entityRole, entityRole.roleAcitonCpt);
+                ECSModule.roleAcitonSys.UpdateRoleAction(entityRole, entityRole.roleAcitonCpt);
             }
 
             #region wasd
@@ -110,22 +109,22 @@ namespace EPloy.Hotfix
         private void PlayerMoveCrl(EntityRole entityRole, MoveCpt moveCpt)
         {
             moveCpt.direction = new Vector3(inputCpt.direction.x / inputCpt.radius, 0, inputCpt.direction.y / inputCpt.radius);
-            HotFixMudule.GameScene.roleAcitonSys.SetRoleMove(entityRole, entityRole.roleAcitonCpt, inputCpt.direction.magnitude / inputCpt.radius);
+            ECSModule.roleAcitonSys.SetRoleMove(entityRole, entityRole.roleAcitonCpt, inputCpt.direction.magnitude / inputCpt.radius);
         }
 
         private void PlayerSkillCrl(EntityRole entityRole, DRSkillData skillData, string action)
         {
             if (!SkillCDCheck(entityRole, skillData)) return;
-            HotFixMudule.GameScene.roleAcitonSys.SetRoleSkill(entityRole, entityRole.roleAcitonCpt, action);
-            entityRole.skillCpt = HotFixMudule.GameScene.GetCpt<SkillCpt>(entityRole);
+            ECSModule.roleAcitonSys.SetRoleSkill(entityRole, entityRole.roleAcitonCpt, action);
+            entityRole.skillCpt = ECSModule.GameScene.GetCpt<SkillCpt>(entityRole);
             entityRole.skillCpt.skillData = skillData;
             StopMoveCrl(entityRole);
         }
 
         private void PlayerAttCrl(EntityRole entityRole, DRSkillData skillData)
         {
-            HotFixMudule.GameScene.roleAcitonSys.SetRoleAtt(entityRole, entityRole.roleAcitonCpt);
-            entityRole.skillCpt = HotFixMudule.GameScene.GetCpt<SkillCpt>(entityRole);
+            ECSModule.roleAcitonSys.SetRoleAtt(entityRole, entityRole.roleAcitonCpt);
+            entityRole.skillCpt = ECSModule.GameScene.GetCpt<SkillCpt>(entityRole);
             entityRole.skillCpt.skillData = skillData;
             StopMoveCrl(entityRole);
         }
