@@ -7,9 +7,7 @@ using System.Collections.Generic;
 /// </summary>
 public class SceneModule : IGameModule
 {
-    private List<string> LoadedSceneAssetNames;
     private List<string> LoadingSceneAssetNames;
-    private List<string> UnloadingSceneAssetNames;
     private LoadSceneCallbacks LoadSceneCallbacks;
     private UnloadSceneCallbacks UnloadSceneCallbacks;
 
@@ -20,12 +18,9 @@ public class SceneModule : IGameModule
 
     public void Awake()
     {
-        LoadedSceneAssetNames = new List<string>();
         LoadingSceneAssetNames = new List<string>();
-        UnloadingSceneAssetNames = new List<string>();
         LoadSceneCallbacks = new LoadSceneCallbacks(LoadSceneSuccessCallback, LoadSceneFailureCallback,
             LoadSceneDependencyAssetCallback);
-        UnloadSceneCallbacks = new UnloadSceneCallbacks(UnloadSceneSuccessCallback, UnloadSceneFailureCallback);
     }
 
     public void Update()
@@ -35,61 +30,7 @@ public class SceneModule : IGameModule
 
     public void OnDestroy()
     {
-        string[] loadedSceneAssetNames = LoadedSceneAssetNames.ToArray();
-        foreach (string loadedSceneAssetName in loadedSceneAssetNames)
-        {
-            if (SceneIsUnloading(loadedSceneAssetName))
-            {
-                continue;
-            }
-
-            UnloadScene(loadedSceneAssetName);
-        }
-
-        LoadedSceneAssetNames.Clear();
         LoadingSceneAssetNames.Clear();
-        UnloadingSceneAssetNames.Clear();
-    }
-
-    /// <summary>
-    /// 获取场景是否已加载。
-    /// </summary>
-    /// <param name="sceneAssetName">场景资源名称。</param>
-    /// <returns>场景是否已加载。</returns>
-    public bool SceneIsLoaded(string sceneAssetName)
-    {
-        if (string.IsNullOrEmpty(sceneAssetName))
-        {
-            Log.Fatal("Scene asset name is invalid.");
-            return false;
-        }
-
-        return LoadedSceneAssetNames.Contains(sceneAssetName);
-    }
-
-    /// <summary>
-    /// 获取已加载场景的资源名称。
-    /// </summary>
-    /// <returns>已加载场景的资源名称。</returns>
-    public string[] GetLoadedSceneAssetNames()
-    {
-        return LoadedSceneAssetNames.ToArray();
-    }
-
-    /// <summary>
-    /// 获取已加载场景的资源名称。
-    /// </summary>
-    /// <param name="results">已加载场景的资源名称。</param>
-    public void GetLoadedSceneAssetNames(List<string> results)
-    {
-        if (results == null)
-        {
-            Log.Fatal("Results is invalid.");
-            return;
-        }
-
-        results.Clear();
-        results.AddRange(LoadedSceneAssetNames);
     }
 
     /// <summary>
@@ -134,47 +75,6 @@ public class SceneModule : IGameModule
     }
 
     /// <summary>
-    /// 获取场景是否正在卸载。
-    /// </summary>
-    /// <param name="sceneAssetName">场景资源名称。</param>
-    /// <returns>场景是否正在卸载。</returns>
-    public bool SceneIsUnloading(string sceneAssetName)
-    {
-        if (string.IsNullOrEmpty(sceneAssetName))
-        {
-            Log.Fatal("Scene asset name is invalid.");
-            return false;
-        }
-
-        return UnloadingSceneAssetNames.Contains(sceneAssetName);
-    }
-
-    /// <summary>
-    /// 获取正在卸载场景的资源名称。
-    /// </summary>
-    /// <returns>正在卸载场景的资源名称。</returns>
-    public string[] GetUnloadingSceneAssetNames()
-    {
-        return UnloadingSceneAssetNames.ToArray();
-    }
-
-    /// <summary>
-    /// 获取正在卸载场景的资源名称。
-    /// </summary>
-    /// <param name="results">正在卸载场景的资源名称。</param>
-    public void GetUnloadingSceneAssetNames(List<string> results)
-    {
-        if (results == null)
-        {
-            Log.Fatal("Results is invalid.");
-            return;
-        }
-
-        results.Clear();
-        results.AddRange(UnloadingSceneAssetNames);
-    }
-
-    /// <summary>
     /// 检查场景资源是否存在。
     /// </summary>
     /// <param name="sceneAssetName">要检查场景资源的名称。</param>
@@ -196,21 +96,9 @@ public class SceneModule : IGameModule
             return;
         }
 
-        if (SceneIsUnloading(sceneAssetName))
-        {
-            Log.Fatal(UtilText.Format("Scene asset '{0}' is being unloaded.", sceneAssetName));
-            return;
-        }
-
         if (SceneIsLoading(sceneAssetName))
         {
             Log.Fatal(UtilText.Format("Scene asset '{0}' is being loaded.", sceneAssetName));
-            return;
-        }
-
-        if (SceneIsLoaded(sceneAssetName))
-        {
-            Log.Fatal(UtilText.Format("Scene asset '{0}' is already loaded.", sceneAssetName));
             return;
         }
 
@@ -219,7 +107,7 @@ public class SceneModule : IGameModule
     }
 
     /// <summary>
-    /// 卸载场景。
+    /// 慎用卸载场景 在非编辑器模式下 直接删除ab包
     /// </summary>
     /// <param name="sceneAssetName">场景资源名称。</param>
     public void UnloadScene(string sceneAssetName)
@@ -229,33 +117,12 @@ public class SceneModule : IGameModule
             Log.Fatal("Scene asset name is invalid.");
             return;
         }
-
-        if (SceneIsUnloading(sceneAssetName))
-        {
-            Log.Fatal(UtilText.Format("Scene asset '{0}' is being unloaded.", sceneAssetName));
-            return;
-        }
-
-        if (SceneIsLoading(sceneAssetName))
-        {
-            Log.Fatal(UtilText.Format("Scene asset '{0}' is being loaded.", sceneAssetName));
-            return;
-        }
-
-        if (!SceneIsLoaded(sceneAssetName))
-        {
-            Log.Fatal(UtilText.Format("Scene asset '{0}' is not loaded yet.", sceneAssetName));
-            return;
-        }
-
-        UnloadingSceneAssetNames.Add(sceneAssetName);
         Res.UnloadScene(sceneAssetName, UnloadSceneCallbacks);
     }
 
     private void LoadSceneSuccessCallback(string sceneAssetName, float duration)
     {
         LoadingSceneAssetNames.Remove(sceneAssetName);
-        LoadedSceneAssetNames.Add(sceneAssetName);
         LoadSceneEvt loadSceneEvt = ReferencePool.Acquire<LoadSceneEvt>();
         loadSceneEvt.SetSuccessData(sceneAssetName);
         GameModule.Event.Fire(loadSceneEvt);
@@ -279,17 +146,5 @@ public class SceneModule : IGameModule
         LoadSceneEvt loadSceneEvt = ReferencePool.Acquire<LoadSceneEvt>();
         loadSceneEvt.SetDependPercentData(sceneAssetName, loadedCount * 100 / totalCount);
         GameModule.Event.Fire(loadSceneEvt);
-    }
-
-    private void UnloadSceneSuccessCallback(string sceneAssetName)
-    {
-        UnloadingSceneAssetNames.Remove(sceneAssetName);
-        LoadedSceneAssetNames.Remove(sceneAssetName);
-    }
-
-    private void UnloadSceneFailureCallback(string sceneAssetName)
-    {
-        UnloadingSceneAssetNames.Remove(sceneAssetName);
-        Log.Fatal(UtilText.Format("Unload scene failure, scene asset name '{0}'.", sceneAssetName));
     }
 }

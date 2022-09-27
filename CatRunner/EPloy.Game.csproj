@@ -135,11 +135,11 @@
     <Compile Include="Assets\EPloy\Game\Base\TaskPool\ITaskAgent.cs" />
     <Compile Include="Assets\EPloy\Game\Module\ResLoader\ResLoader\LoadCallback\LoadBinaryCallbacks.cs" />
     <Compile Include="Assets\EPloy\Game\Base\Mudule\GameModuleMgr.cs" />
-    <Compile Include="Assets\EPloy\Game\Base\ObjectPool\ObjectInfo.cs" />
     <Compile Include="Assets\EPloy\Game\Base\Utility\UtilMarshal.cs" />
+    <Compile Include="Assets\EPloy\Game\Base\ObjectPool\ObjectInfo.cs" />
     <Compile Include="Assets\EPloy\Game\Base\Net\Protobuf\Serializers\StringSerializer.cs" />
-    <Compile Include="Assets\EPloy\Game\Base\TypeNamePair.cs" />
     <Compile Include="Assets\EPloy\Game\Module\ResUpdate\Checker\ResChecker.LocalVersionInfo.cs" />
+    <Compile Include="Assets\EPloy\Game\Base\TypeNamePair.cs" />
     <Compile Include="Assets\EPloy\Game\Module\ResUpdate\VersionList\LocalVersionList.cs" />
     <Compile Include="Assets\EPloy\Game\Module\ResLoader\ResLoader\ResLoader.cs" />
     <Compile Include="Assets\EPloy\Game\Base\Net\Protobuf\Serializers\UriDecorator.cs" />
@@ -955,6 +955,10 @@
     <ProjectReference Include="Libraries.csproj">
       <Project>{BEC3D633-DF29-0541-7F0C-2CEFD49B26DE}</Project>
       <Name>Libraries</Name>
+    </ProjectReference>
+    <ProjectReference Include="AstarPathfindingProject.csproj">
+      <Project>{ABCD7121-EE2E-D776-A0CE-1AD33E8A989B}</Project>
+      <Name>AstarPathfindingProject</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

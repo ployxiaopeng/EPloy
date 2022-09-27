@@ -64,8 +64,6 @@
     <Compile Include="Assets\EPloy\Hotfix\ECS\Component\MoveCpt.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Module\Event\EventModule.Event.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Event\UserInputEvt.cs" />
-    <Compile Include="Assets\EPloy\Hotfix\ECS\Component\Role\RoleBaseCpt.cs" />
-    <Compile Include="Assets\EPloy\Hotfix\UI\LoadingForm.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Module\ObjEntity\ObjModule.cs" />
     <Compile Include="Assets\EPloy\Hotfix\UI\Code\StartFormCodeBinding.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Module\Base\Extension\SystemExtension.cs" />
@@ -147,12 +145,10 @@
     <Compile Include="Assets\EPloy\Hotfix\Module\ObjEntity\ObjGroup.cs" />
     <Compile Include="Assets\EPloy\Hotfix\HotFixStart.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Table\BinaryReaderExtension.cs" />
-    <Compile Include="Assets\EPloy\Hotfix\ECS\System\RoleAcitonSystem.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Module\Sound\SoundPlayData.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Procedure\ProcedurePreload.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Module\UI\UIFormLogic.cs" />
     <Compile Include="Assets\EPloy\Hotfix\ECS\System\RoleSystem.cs" />
-    <Compile Include="Assets\EPloy\Hotfix\ECS\Component\Role\RoleAcitonCpt.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Procedure\ProcedureLogin.cs" />
     <Compile Include="Assets\EPloy\Hotfix\ECS\ECSModule.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Procedure\ProcedureSwitchScene.cs" />

@@ -14,6 +14,7 @@ public class GameStart : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(this);
         Instance = this;
     }
 
@@ -37,7 +38,7 @@ public class GameStart : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameModuleMgr.ModuleDestory();
+       // GameModuleMgr.ModuleDestory();
     }
 }
 

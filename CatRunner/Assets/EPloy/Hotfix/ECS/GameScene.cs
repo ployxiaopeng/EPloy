@@ -52,7 +52,11 @@ public partial class GameScene : IGameModule
 
     public void ExitMap()
     {
-
+        foreach (var entity in entityRoles)
+        {
+            ReferencePool.Release(entity);
+        }
+        entityRoles.Clear();
     }
 
     private void CameraFollowUpdate(EntityRole entityRole)

@@ -23,10 +23,6 @@ public class ProcedureSwitchScene : FsmState
         NextScene = ProcedureOwner.GetData<VarString>("Secne").Value;
         isComplete = SceneManager.GetActiveScene().name == NextScene;
         if (isComplete) return;
-        // 卸载所有场景
-        string[] loadedSceneAssetNames = GameModule.Scene.GetLoadedSceneAssetNames();
-        for (int i = 0; i < loadedSceneAssetNames.Length; i++)
-            GameModule.Scene.UnloadScene(loadedSceneAssetNames[i]);
 
         if (NextScene == null)
         {
@@ -40,7 +36,7 @@ public class ProcedureSwitchScene : FsmState
         if (!isComplete) return;
         switch (NextScene)
         {
-            case "start":
+            case "login":
                 ChangeState<ProcedureLogin>();
                 break;
             case "game":

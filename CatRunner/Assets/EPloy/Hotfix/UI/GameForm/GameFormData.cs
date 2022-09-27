@@ -17,6 +17,8 @@ public class GameFormData : DataStoreBase
 
     public void SetPlayer(int id)
     {
+        Skills.Clear();
+        skillCDs.Clear();
         Table<DRSkillData> DTSkill = GameModule.Table.GetDataTable<DRSkillData>();
         playerData = GameModule.Table.GetDataTable<DRRoleData>().GetDataRow(id);
 

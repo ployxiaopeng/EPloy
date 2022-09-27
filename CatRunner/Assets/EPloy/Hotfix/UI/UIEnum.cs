@@ -8,7 +8,8 @@ public enum UIName
     StartForm = 1,
     TipsForm = 2,
     LoadingForm = 3,
-    GameForm,
+    GameForm=4,
+    LoginForm=5,
 }
 
 public enum UIGroupName

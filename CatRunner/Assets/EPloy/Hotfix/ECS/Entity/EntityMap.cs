@@ -13,6 +13,16 @@ namespace EPloy.ECS
         public override void Clear()
         {
             base.Clear();
+            if (mapCpt != null)
+            {
+                ReferencePool.Release(mapCpt);
+                mapCpt = null;
+            }
+            if (mapVisualBoxCpt != null)
+            {
+                ReferencePool.Release(mapVisualBoxCpt);
+                mapVisualBoxCpt = null;
+            }
         }
     }
 }

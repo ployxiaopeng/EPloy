@@ -103,7 +103,7 @@ namespace EPloy.Editor
         private static void SpawnCodeForForm(GameObject gameObject)
         {
             string strUiName = gameObject.name;
-            string strFilePath = Application.dataPath + "/EPloy/Hotfix/Mudule/UI/" + strUiName;
+            string strFilePath = Application.dataPath + "/EPloy/Hotfix/UI/" + strUiName;
 
             if (!System.IO.Directory.Exists(strFilePath))
             {
@@ -124,14 +124,13 @@ namespace EPloy.Editor
             strBuilder.AppendLine("using System.Collections;")
                       .AppendLine("using System.Collections.Generic;")
                       .AppendLine("using System;")
-                      .AppendLine("using EPloy.Hotfix;")
+                      .AppendLine("using EPloy.UI;")
                       .AppendLine("using UnityEngine;")
                       .AppendLine("using UnityEngine.UI;\r\n");
 
             strBuilder.AppendFormat("[UIAttribute(UIName.{0})]\r\n", strUiName);
             strBuilder.AppendFormat("public class {0} : UIForm\r\n", strUiName);
             strBuilder.AppendLine("{");
-            strBuilder.AppendLine("\tprotected override bool isUpdate => false;");
             strBuilder.AppendFormat("\tprivate {0} bindingCode;\r\n", className);
 
             strBuilder.AppendLine("\tpublic override void Create()");
@@ -160,7 +159,7 @@ namespace EPloy.Editor
         private static void SpawnCodeBindingForFrom(GameObject gameObject)
         {
             string strUiName = gameObject.name;
-            string strFilePath = Application.dataPath + "/EPloy/Hotfix/Mudule/UI/Code";
+            string strFilePath = Application.dataPath + "/EPloy/Hotfix/UI/Code";
 
             if (!System.IO.Directory.Exists(strFilePath))
             {

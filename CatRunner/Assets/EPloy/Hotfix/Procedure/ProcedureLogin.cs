@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Net;
+using UnityEngine.SceneManagement;
 using EPloy.Fsm;
 using EPloy.Event;
 
@@ -11,8 +11,9 @@ public class ProcedureLogin : FsmState
     {
         base.OnEnter();
         isCanSwitchScene = false;
-        GameModule.UI.OpenUIForm(UIName.StartForm, UIGroupName.Default);
+        GameModule.UI.OpenUIForm(UIName.LoginForm, UIGroupName.Default);
         GameModule.Event.Subscribe(EventId.SwitchSceneEvt, OnSwitchScene);
+        GameModule.UI.CloseUIForm(UIName.LoadingForm);
     }
 
     public override void OnUpdate()
@@ -20,6 +21,7 @@ public class ProcedureLogin : FsmState
         if (isCanSwitchScene)
         {
             ChangeState<ProcedureSwitchScene>();
+            GameModule.UI.CloseUIForm(UIName.LoginForm);
         }
     }
 

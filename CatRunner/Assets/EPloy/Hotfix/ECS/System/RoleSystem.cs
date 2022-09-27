@@ -12,19 +12,19 @@ namespace EPloy.ECS
             //实体
             EntityRole entityRole = ECSModule.GameScene.CreateEntityRole("Role");
             //基本组件
-            entityRole.roleBaseCpt = ECSModule.GameScene.GetCpt<RoleBaseCpt>(entityRole);
-            entityRole.roleBaseCpt.roleType = roleType;
-            entityRole.roleBaseCpt.SetRoleData(roleId);
+            entityRole.roleCpt = ECSModule.GameScene.GetCpt<RoleCpt>(entityRole);
+            entityRole.roleCpt.roleType = roleType;
+            entityRole.roleCpt.SetRoleData(roleId);
+            //技能数据
+            entityRole.skillCpt = ECSModule.GameScene.GetCpt<SkillCpt>(entityRole);
+            entityRole.skillCpt.SetSkillData(entityRole.roleCpt.playerData);
 
-            //显示实体
-            MapRoleData roleData = MapRoleData.Create(roleId, entityMap.mapCpt.roleParent, mapCpt.mapData.RoleBornPos, mapCpt.mapData.RolelRotate);
+       //显示实体
+       MapRoleData roleData = MapRoleData.Create(roleId, entityMap.mapCpt.roleParent, mapCpt.mapData.RoleBornPos, mapCpt.mapData.RolelRotate);
             GameModule.Obj.ShowObj(roleData, (role) =>
             {
                 //Obj组件
-                entityRole.roleCpt = ECSModule.GameScene.GetCpt<RoleCpt>(entityRole);
                 entityRole.roleCpt.roleData = (MapRoleData)role;
-                //动画组件
-                ECSModule.roleAcitonSys.SetAciton(entityRole);
                 switch (roleType)
                 {
                     case RoleType.Player:    //主角 主相机跟随 移动控制
@@ -41,6 +41,7 @@ namespace EPloy.ECS
                 }
             });
         }
+        
         public void OnDestroy()
         {
 

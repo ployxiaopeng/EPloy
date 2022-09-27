@@ -25,7 +25,6 @@ public static class ECSModule
     public static MoveSystem moveSys;
     public static RoleSystem roleSys;
     public static AICommandSystem aICommandSys;
-    public static RoleAcitonSystem roleAcitonSys;
     public static SkillSystem SkillSys;
 
     /// <summary>
@@ -39,7 +38,6 @@ public static class ECSModule
         moveSys = ReferencePool.Acquire<MoveSystem>();
         roleSys = ReferencePool.Acquire<RoleSystem>();
         aICommandSys = ReferencePool.Acquire<AICommandSystem>();
-        roleAcitonSys = ReferencePool.Acquire<RoleAcitonSystem>();
         SkillSys = ReferencePool.Acquire<SkillSystem>();
     }
 
@@ -50,7 +48,6 @@ public static class ECSModule
         ReferencePool.Release(moveSys);
         ReferencePool.Release(roleSys);
         ReferencePool.Release(aICommandSys);
-        ReferencePool.Release(roleAcitonSys);
         ReferencePool.Release(SkillSys);
     }
 }

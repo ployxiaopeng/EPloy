@@ -10,10 +10,17 @@ namespace EPloy.ECS
     /// </summary>
     public class HurtCpt : CptBase
     {
-  
+        public DRSkillData skillData;
+        public float hurt;
+        public GameObject effect;
+        public List<EntityRole> targetEntitys = new List<EntityRole>();
 
         public override void Clear()
         {
+            hurt = 0;
+            effect = null;
+            skillData = null;
+            targetEntitys.Clear();
         }
     }
 }

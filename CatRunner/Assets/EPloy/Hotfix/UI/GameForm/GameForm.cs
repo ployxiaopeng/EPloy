@@ -6,6 +6,7 @@ using EPloy.Table;
 using EPloy.UI;
 using EPloy.Timer;
 using EPloy.ECS;
+using EPloy.Event;
 
 [UIAttribute(UIName.GameForm)]
 public class GameForm : UIForm
@@ -27,11 +28,16 @@ public class GameForm : UIForm
         inputCpt = ECSModule.GameScene.GetSingleCpt<InputCpt>();
         formData = GameModule.DataStore.GetDataStore<GameFormData>();
 
-        GameModule.UI.CloseUIForm(UIName.LoadingForm);
+        UIEventListener.Get(bindingCode.btnLogout).onClick = (go) =>
+             {
+                 GameModule.UI.OpenUIForm(UIName.LoadingForm, UIGroupName.Level1);
+                 GameModule.Event.Fire(SwitchSceneEvt.Create("login"));
+             };
     }
     public override void Open(object userData)
     {
         SetSkill();
+
     }
 
     private void SetSkill()

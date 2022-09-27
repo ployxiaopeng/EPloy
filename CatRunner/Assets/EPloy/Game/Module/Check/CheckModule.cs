@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using EPloy.Res;
 using UnityEngine;
 using EPloy.Checker;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 校验模块
@@ -97,6 +98,7 @@ public class CheckModule : IGameModule
 
         if (updateCount == 0)
         {
+            SceneManager.LoadSceneAsync(1);
             HotfixHelper.StartLoadDll();
             return;
         }
@@ -126,6 +128,7 @@ public class CheckModule : IGameModule
     {
         if (result)
         {
+            SceneManager.LoadSceneAsync(1);
             HotfixHelper.StartLoadDll();
             Log.Info("Update resources complete with no errors.");
         }

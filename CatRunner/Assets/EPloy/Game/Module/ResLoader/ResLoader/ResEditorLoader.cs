@@ -323,7 +323,7 @@ using UnityEngine.SceneManagement;
                 return;
             }
 
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneAssetName, LoadSceneMode.Additive);
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneAssetName, LoadSceneMode.Single);
             if (asyncOperation == null)
             {
                 return;
@@ -367,7 +367,8 @@ using UnityEngine.SceneManagement;
             AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(sceneAssetName);
             if (asyncOperation == null)
             {
-                return;
+                unloadSceneCallbacks.UnloadSceneFailureCallback(sceneAssetName);
+            return;
             }
             UnloadSceneInfos.AddLast(new UnloadSceneInfo(asyncOperation, sceneAssetName, unloadSceneCallbacks));
         }

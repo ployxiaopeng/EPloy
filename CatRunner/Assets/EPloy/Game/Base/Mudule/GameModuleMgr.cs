@@ -73,19 +73,26 @@ public static class GameModuleMgr
 
     public static void ModuleDestory()
     {
-        foreach (var module in EPloyModules.Values)
+        try
         {
-            try
+            foreach (var module in EPloyModules.Values)
             {
-                module.OnDestroy();
+                try
+                {
+                    module.OnDestroy();
+                }
+                catch (Exception e)
+                {
+                    Log.Fatal(UtilText.Format("module {0} destory err {1} ", module, e.ToString()));
+                }
             }
-            catch (Exception e)
-            {
-                Log.Fatal(UtilText.Format("module {0} destory err {1} ", module, e.ToString()));
-            }
-        }
 
-        EPloyModules.Clear();
+            EPloyModules.Clear();
+        }
+        catch (Exception e)
+        {
+            Log.Fatal(e.ToString());
+        }
     }
 
     public static void ModuleDestory<T>() where T : IGameModule

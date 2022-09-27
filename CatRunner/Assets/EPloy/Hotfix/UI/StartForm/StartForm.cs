@@ -63,7 +63,6 @@ public class StartForm : UIForm
             GameModule.Event.Fire(SwitchSceneEvt.Create("game"));
         };
 
-
         GameModule.UI.CloseUIForm(UIName.LoadingForm);
     }
     public override void Open(object userData)

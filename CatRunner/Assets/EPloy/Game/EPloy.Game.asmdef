@@ -1,7 +1,9 @@
 {
     "name": "EPloy.Game",
+    "rootNamespace": "",
     "references": [
-        "GUID:5719280bc6816c044aa54db814bb4f6e"
+        "GUID:5719280bc6816c044aa54db814bb4f6e",
+        "GUID:efa45043feb7e4147a305b73b5cea642"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

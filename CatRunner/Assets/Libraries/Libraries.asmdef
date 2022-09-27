@@ -1,5 +1,6 @@
 {
     "name": "Libraries",
+    "rootNamespace": "",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
