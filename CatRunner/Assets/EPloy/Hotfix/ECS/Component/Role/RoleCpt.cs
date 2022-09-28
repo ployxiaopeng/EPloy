@@ -77,6 +77,15 @@ namespace EPloy.ECS
         {
             get { return role.transform.localEulerAngles; }
         }
+
+        public Quaternion roleRotation
+        {
+            get { return role.transform.rotation; }
+            set
+            {
+                role.transform.rotation = value;
+            }
+        }
         public GameObject role
         {
             get { return roleData.Obj; }

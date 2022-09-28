@@ -28,7 +28,7 @@ public class RoleActionHandler : MonoBehaviour
         {
             actionHandler.simpleSmooth = gameObject.GetComponent<SimpleSmoothModifier>();
         }
-        actionHandler.simpleSmooth.maxSegmentLength = 0.5f;
+        actionHandler.simpleSmooth.maxSegmentLength =1f;
         return actionHandler;
     }
 

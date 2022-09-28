@@ -13,7 +13,7 @@ namespace EPloy.ECS
     {
         public CharacterController character;
         public Vector3 direction;
-        public float speed = 2.5f;
+        public float speed = 150f;
 
         public Path path;
         public override void Clear()

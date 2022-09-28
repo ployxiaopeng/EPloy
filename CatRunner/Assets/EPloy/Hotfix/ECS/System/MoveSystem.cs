@@ -30,6 +30,8 @@ namespace EPloy.ECS
         public void PlayerStopMove(EntityRole entityRole, MoveCpt moveCpt)
         {
             moveCpt.direction = Vector3.zero;
+            moveCpt.character.SimpleMove(Vector3.zero);
+            entityRole.roleCpt.actionHandler.OnMove(0);
         }
 
         public void PathfindingMove(EntityRole entityRole, MoveCpt moveCpt, Vector3 targetPos)
@@ -39,6 +41,7 @@ namespace EPloy.ECS
              {
                  moveCpt.path = path;
                  entityRole.roleCpt.roleState = RoleState.Pathfinding;
+                 entityRole.roleCpt.actionHandler.OnMove(1);
              });
         }
 
@@ -47,21 +50,22 @@ namespace EPloy.ECS
             if (moveCpt.direction != Vector3.zero)
             {
                 float angle = UtilVector.Angle360(Vector3.forward, moveCpt.direction);
-                if (angle != 0) moveCpt.character.transform.localRotation = Quaternion.Euler(0, angle, 0);
-                if (!moveCpt.character.isGrounded) moveCpt.direction.y -= 100 * Time.deltaTime;
-                moveCpt.character.Move(moveCpt.direction * Time.deltaTime * moveCpt.speed);
+                entityRole.roleCpt.roleRotation = Quaternion.Lerp(entityRole.roleCpt.roleRotation, Quaternion.Euler(0, angle, 0), Time.deltaTime * 10);
+                moveCpt.character.SimpleMove(moveCpt.direction * Time.deltaTime * moveCpt.speed);
             }
 
             if (entityRole.roleCpt.roleState == RoleState.Pathfinding)
             {
-                float dis = Vector3.Distance(moveCpt.character.transform.position, moveCpt.path.vectorPath[moveCpt.path.vectorPath.Count-1]);
-                if (Mathf.Abs(dis) > 0.1f)
+                if (moveCpt.path.vectorPath.Count > 0)
                 {
-                    entityRole.roleCpt.actionHandler.OnMove(1);
+                    moveCpt.direction = (moveCpt.path.vectorPath[0] - entityRole.roleCpt.rolePos).normalized;
+                    float dis = Vector3.Distance(entityRole.roleCpt.rolePos, moveCpt.path.vectorPath[0]);
+                    if (Mathf.Abs(dis) < 0.5f) moveCpt.path.vectorPath.RemoveAt(0);
                 }
-                else
+                else 
                 {
-                    entityRole.roleCpt.actionHandler.OnMove(0);
+                    PlayerStopMove(entityRole, moveCpt);
+                    entityRole.roleCpt.roleState = RoleState.Idle;
                 }
             }
         }

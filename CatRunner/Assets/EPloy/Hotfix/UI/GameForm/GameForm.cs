@@ -42,6 +42,7 @@ public class GameForm : UIForm
     }
     public override void Open(object userData)
     {
+        inputCpt.inputType = UserClrType.None;
         SetSkill();
 
     }
