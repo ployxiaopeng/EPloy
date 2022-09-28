@@ -10,7 +10,6 @@ namespace EPloy.ECS
     /// </summary>
     public enum RoleType
     {
-        Null,
         Player,
         NPC,
         Monster,
@@ -45,6 +44,8 @@ namespace EPloy.ECS
         public RoleState roleState;
         public DRRoleData playerData;
         public MapRoleData roleData;
+        public RoleActionHandler actionHandler;
+         
         //角色当前五维 
         public int maxHp;
         public int maxMp;
@@ -83,7 +84,9 @@ namespace EPloy.ECS
         public override void Clear()
         {
             base.Clear();
+            actionHandler.RemoveHandler();
             playerData = null;
+            actionHandler = null;
             ReferencePool.Release(roleData);
         }
     }

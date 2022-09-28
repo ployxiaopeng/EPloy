@@ -54,9 +54,107 @@
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="E:\EPloy\EPloy\CatRunner\Assets\Astar\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Model\Polytope\Lowpoly Medieval Demos\Environment_Free\PlayerMovement.cs" />
+    <Compile Include="Assets\Astar\Core\AI\AILerp.cs" />
+    <Compile Include="Assets\Astar\Core\GraphUpdateScene.cs" />
+    <Compile Include="Assets\Astar\Core\Serialization\SimpleZipReplacement.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\Int3.cs" />
+    <Compile Include="Assets\Astar\Core\AstarPath.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\AutoRepathPolicy.cs" />
+    <Compile Include="Assets\Astar\Core\Path.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\GraphModifier.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\ThreadControlQueue.cs" />
+    <Compile Include="Assets\Astar\Core\AI\IAstarAI.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\NodeLink3.cs" />
+    <Compile Include="Assets\Astar\Core\Serialization\JsonConverters.cs" />
+    <Compile Include="Assets\Astar\Behaviors\AIDestinationSetter.cs" />
+    <Compile Include="Assets\Astar\Generators\GridGenerator.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\StackPool.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\WindowsStoreCompatibility.cs" />
+    <Compile Include="Assets\Astar\Core\Serialization\TinyJson.cs" />
+    <Compile Include="Assets\Astar\Core\Serialization\SimpleJsonReplacement.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\PathProcessor.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\AstarDebugger.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\MovementUtilities.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\NodeLink.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\WorkItemProcessor.cs" />
+    <Compile Include="Assets\Astar\Core\AstarData.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\Draw.cs" />
+    <Compile Include="Assets\Astar\Core\AI\NavmeshController.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\EditorResourceHelper.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\ListPool.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\GraphEditorBase.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\BinaryHeap.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\HierarchicalGraph.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\ArrayPool.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\AnimationLink.cs" />
+    <Compile Include="Assets\Astar\Core\Nodes\GraphNode.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\PathInterpolator.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\NodeLink2.cs" />
+    <Compile Include="Assets\Astar\Core\AstarMath.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\PathPool.cs" />
+    <Compile Include="Assets\Astar\Core\AI\AIPath.cs" />
+    <Compile Include="Assets\Astar\Core\GraphUpdateShape.cs" />
+    <Compile Include="Assets\Astar\Core\AI\TurnBasedAI.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\GraphUtilities.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\ObjectPool.cs" />
+    <Compile Include="Assets\Astar\Core\Serialization\JsonSerializer.cs" />
+    <Compile Include="Assets\Astar\Behaviors\Patrol.cs" />
+    <Compile Include="Assets\Astar\Core\AI\AIBase.cs" />
+    <Compile Include="Assets\Astar\Core\AI\Seeker.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\GraphUpdateProcessor.cs" />
+    <Compile Include="Assets\Astar\Generators\Base.cs" />
+    <Compile Include="Assets\Astar\Core\PathHandler.cs" />
+    <Compile Include="Assets\Astar\Core\Misc\PathReturnQueue.cs" />
+    <Compile Include="Assets\Astar\Core\astarclasses.cs" />
+    <Compile Include="Assets\Astar\Generators\PointGenerator.cs" />
+    <Compile Include="Assets\Astar\Generators\Utilities\EuclideanEmbedding.cs" />
+    <Compile Include="Assets\Astar\Modifiers\RaycastModifier.cs" />
+    <Compile Include="Assets\Astar\Generators\Utilities\NavMeshRenderer.cs" />
+    <Compile Include="Assets\Astar\Modifiers\SimpleSmoothModifier.cs" />
+    <Compile Include="Assets\Astar\Utilities\GraphGizmoHelper.cs" />
+    <Compile Include="Assets\Astar\Utilities\UnityReferenceHelper.cs" />
+    <Compile Include="Assets\Astar\PackageTools\VersionedMonoBehaviour.cs" />
+    <Compile Include="Assets\Astar\Generators\NodeClasses\GridNode.cs" />
+    <Compile Include="Assets\Astar\Legacy\MiscLegacy.cs" />
+    <Compile Include="Assets\Astar\Generators\NavmeshBase.cs" />
+    <Compile Include="Assets\Astar\Utilities\AstarMemory.cs" />
+    <Compile Include="Assets\Astar\Utilities\ProceduralGridMover.cs" />
+    <Compile Include="Assets\Astar\Utilities\Funnel.cs" />
+    <Compile Include="Assets\Astar\Legacy\LegacyAIPath.cs" />
+    <Compile Include="Assets\Astar\Generators\Utilities\PointKDTree.cs" />
+    <Compile Include="Assets\Astar\Generators\NavMeshGenerator.cs" />
+    <Compile Include="Assets\Astar\Generators\Utilities\GraphTransform.cs" />
+    <Compile Include="Assets\Astar\Utilities\DotNetReplacements.cs" />
+    <Compile Include="Assets\Astar\Generators\NodeClasses\GridNodeBase.cs" />
+    <Compile Include="Assets\Astar\Modifiers\AlternativePath.cs" />
+    <Compile Include="Assets\Astar\Generators\Utilities\NavmeshTile.cs" />
+    <Compile Include="Assets\Astar\Modifiers\FunnelModifier.cs" />
+    <Compile Include="Assets\Astar\Utilities\PathUtilities.cs" />
+    <Compile Include="Assets\Astar\Modifiers\StartEndModifier.cs" />
+    <Compile Include="Assets\Astar\Generators\QuadtreeGraph.cs" />
+    <Compile Include="Assets\Astar\Utilities\AstarParallel.cs" />
+    <Compile Include="Assets\Astar\Navmesh\NavmeshUpdates.cs" />
+    <Compile Include="Assets\Astar\Generators\NodeClasses\PointNode.cs" />
+    <Compile Include="Assets\Astar\Generators\NodeClasses\TriangleMeshNode.cs" />
+    <Compile Include="Assets\Astar\TurnBased\BlockManager.cs" />
+    <Compile Include="Assets\Astar\PackageTools\UniqueComponentAttribute.cs" />
+    <Compile Include="Assets\Astar\Generators\Utilities\ObjImporter.cs" />
+    <Compile Include="Assets\Astar\Pathfinders\ABPath.cs" />
+    <Compile Include="Assets\Astar\Generators\Utilities\GridLookup.cs" />
+    <Compile Include="Assets\Astar\Utilities\ProfileHelper.cs" />
+    <Compile Include="Assets\Astar\Modifiers\Modifiers.cs" />
+    <Compile Include="Assets\Astar\PackageTools\EnumFlagAttribute.cs" />
+    <Compile Include="Assets\Astar\Navmesh\RelevantGraphSurface.cs" />
+    <Compile Include="Assets\Astar\Utilities\RetainedGizmos.cs" />
+    <Compile Include="Assets\Astar\Utilities\AstarProfiler.cs" />
+    <Compile Include="Assets\Astar\Generators\Utilities\BBTree.cs" />
+    <Compile Include="Assets\Astar\TurnBased\SingleNodeBlocker.cs" />
+    <Compile Include="Assets\Astar\Utilities\AstarChecksum.cs" />
+    <Compile Include="Assets\Astar\Utilities\DynamicGridObstacle.cs" />
+    <Compile Include="Assets\Astar\Utilities\GraphUpdateUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Res\Configs\ResEditor.xml" />
@@ -70,15 +168,19 @@
     <None Include="Assets\Res\Tables\Data\ResSprite.txt" />
     <None Include="Assets\Model\Polytope\Lowpoly Medieval Environments\Sources\Shaders\PT_Vegetation_Opaque_Shader_VS.shader" />
     <None Include="Assets\Model\Polytope\Lowpoly Medieval Environments\Sources\Shaders\PT_Vegetation_Opaque_Shader.shader" />
+    <None Include="Assets\Astar\Readme.txt" />
     <None Include="Assets\Model\Polytope\Lowpoly Medieval Environments\Sources\Shaders\PT_Vegetation_Foliage_Shader.shader" />
     <None Include="Assets\Res\Configs\ResCollection.xml" />
     <None Include="Assets\Model\Paladin\Shaders\AlphaMask.shader" />
     <None Include="Assets\Model\Paladin\Shaders\Gradient Skybox.shader" />
     <None Include="Assets\Model\Polytope\Lowpoly Medieval Environments\Sources\Shaders\PT_Water_Shader.shader" />
     <None Include="Assets\Res\Configs\ResBuilder.xml" />
+    <None Include="Assets\Astar\Plugins\DotNetZip\DotNetZipLicense.txt" />
     <None Include="Assets\Model\Polytope\Lowpoly Medieval Environments\Sources\Shaders\PT_Vegetation_Flowers_Shader.shader" />
     <None Include="Assets\Model\Polytope\Lowpoly Medieval Environments\Sources\Shaders\PT_Rock_Shader_VS.shader" />
+    <None Include="Assets\Astar\Readme_upgrading.txt" />
     <None Include="Assets\Model\Polytope\Lowpoly Medieval Environments\Sources\Shaders\PT_Vegetation_Plants_Shader_VS.shader" />
+    <None Include="Assets\Astar\link.xml" />
     <None Include="Assets\Res\Tables\Data\SkillData.txt" />
     <None Include="Assets\Res\Tables\Data\LanguageText.txt" />
     <None Include="Assets\Model\Polytope\Lowpoly Medieval Environments\Sources\Shaders\PT_Vegetation_Flowers_Shader_VS.shader" />
@@ -87,7 +189,9 @@
     <None Include="Assets\Model\Polytope\Lowpoly Medieval Environments\Sources\Shaders\PT_Rock_Shader.shader" />
     <None Include="Assets\Res\Configs\TableCodeTemplate.txt" />
     <None Include="Assets\Model\Polytope\Lowpoly Medieval Environments\Sources\Shaders\VS_indirect.cginc" />
+    <None Include="Assets\Astar\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll" />
     <None Include="Assets\Model\Polytope\Lowpoly Medieval Environments\Sources\Shaders\PT_Vegetation_Foliage_Shader_VS.shader" />
+    <None Include="Assets\Astar\Plugins\dependencies.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -356,6 +460,9 @@
     </Reference>
     <Reference Include="DOTween50">
       <HintPath>Assets\Libraries\DOTween\DOTween\DOTween50.dll</HintPath>
+    </Reference>
+    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
+      <HintPath>Assets\Astar\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.4f1c1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -778,6 +885,14 @@
     <ProjectReference Include="Libraries.csproj">
       <Project>{BEC3D633-DF29-0541-7F0C-2CEFD49B26DE}</Project>
       <Name>Libraries</Name>
+    </ProjectReference>
+    <ProjectReference Include="PackageToolsEditor.csproj">
+      <Project>{B22605B8-A4DB-0399-88DE-CBA5FA93FF71}</Project>
+      <Name>PackageToolsEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="AstarPathfindingProjectEditor.csproj">
+      <Project>{DBCE5E83-9D6F-650D-E1A1-4EED8890C86E}</Project>
+      <Name>AstarPathfindingProjectEditor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

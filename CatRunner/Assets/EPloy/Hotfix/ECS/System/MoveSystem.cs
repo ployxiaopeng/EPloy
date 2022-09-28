@@ -18,7 +18,7 @@ namespace EPloy.ECS
         {
             if (moveCpt  ==null || entityRole.roleCpt.roleState == RoleState.Att || entityRole.roleCpt.roleState == RoleState.Die) return;
             moveCpt.direction = new Vector3(inputCpt.direction.x / inputCpt.radius, 0, inputCpt.direction.y / inputCpt.radius);
-            AnimationHandler animationHandler = entityRole.roleCpt.role.GetComponent<AnimationHandler>();
+            RoleActionHandler animationHandler = entityRole.roleCpt.role.GetComponent<RoleActionHandler>();
             animationHandler.OnMove(inputCpt.direction.magnitude / inputCpt.radius);
         }
 

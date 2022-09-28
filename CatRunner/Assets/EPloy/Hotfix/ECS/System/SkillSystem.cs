@@ -11,45 +11,41 @@ namespace EPloy.ECS
         public void Att(EntityRole entityRole, SkillCpt skillCpt)
         {
             if (!SetSkillData(entityRole, skillCpt.AttData)) return;
-            AnimationHandler animationHandler = entityRole.roleCpt.role.GetComponent<AnimationHandler>();
-            animationHandler.OnAtt();
-            SetAnimationEvent(entityRole, animationHandler);
+            entityRole.roleCpt.actionHandler.OnAtt("Att1");
+            entityRole.roleCpt.actionHandler.RegisterHandler(entityRole, HarmHandler, OverHandler);
         }
 
         public void Skill1(EntityRole entityRole, SkillCpt skillCpt)
         {
             if (!SetSkillData(entityRole, skillCpt.Skills[1])) return;
-            AnimationHandler animationHandler = entityRole.roleCpt.role.GetComponent<AnimationHandler>();
-            animationHandler.OnSkill1();
-            SetAnimationEvent(entityRole, animationHandler);
+            entityRole.roleCpt.actionHandler.OnAtt("Skill1");
+            entityRole.roleCpt.actionHandler.RegisterHandler(entityRole, HarmHandler, OverHandler);
         }
 
         public void Skill2(EntityRole entityRole, SkillCpt skillCpt)
         {
             if (!SetSkillData(entityRole, skillCpt.Skills[2])) return;
-            AnimationHandler animationHandler = entityRole.roleCpt.role.GetComponent<AnimationHandler>();
-            animationHandler.OnSkill2();
-            SetAnimationEvent(entityRole, animationHandler);
+            entityRole.roleCpt.actionHandler.OnAtt("Skill2");
+            entityRole.roleCpt.actionHandler.RegisterHandler(entityRole, HarmHandler, OverHandler);
         }
 
         public void Skill3(EntityRole entityRole, SkillCpt skillCpt)
         {
             if (!SetSkillData(entityRole, skillCpt.Skills[3])) return;
-            AnimationHandler animationHandler = entityRole.roleCpt.role.GetComponent<AnimationHandler>();
-            animationHandler.OnSkill3();
-            SetAnimationEvent(entityRole, animationHandler);
+            entityRole.roleCpt.actionHandler.OnAtt("Skill3");
+            entityRole.roleCpt.actionHandler.RegisterHandler(entityRole, HarmHandler, OverHandler);
         }
 
-        public void SetAnimationEvent(EntityRole entityRole, AnimationHandler animationHandler)
+        public void HarmHandler(int arg, object entity)
         {
-            animationHandler.RegisterHarmEvent((arg) =>
-            {
-                SkillSpotting(entityRole, entityRole.hurtCpt);
-            });
-            animationHandler.RegisterOverEvent((arg) =>
-            {
-                entityRole.roleCpt.roleState = RoleState.Idle;
-            });
+            EntityRole entityRole = entity as EntityRole;
+            SkillSpotting(entityRole, entityRole.hurtCpt);
+        }
+
+        public void OverHandler(int arg, object entity)
+        {
+            EntityRole entityRole = entity as EntityRole;
+            entityRole.roleCpt.roleState = RoleState.Idle;
         }
         public bool SetSkillData(EntityRole entityRole, DRSkillData skillData)
         {
@@ -72,7 +68,7 @@ namespace EPloy.ECS
         }
 
         //技能释放索敌    
-        public void SkillSpotting(EntityRole entityRole, HurtCpt  hurtCpt)
+        public void SkillSpotting(EntityRole entityRole, HurtCpt hurtCpt)
         {
             if (hurtCpt == null) return;
             hurtCpt.hurt = entityRole.roleCpt.att * hurtCpt.skillData.HarmArg;

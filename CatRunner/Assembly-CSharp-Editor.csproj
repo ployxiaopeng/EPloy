@@ -54,7 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
-    <Analyzer Include="E:\EPloy\EPloy\CatRunner\Assets\AstarPathfindingProject\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll" />
+    <Analyzer Include="E:\EPloy\EPloy\CatRunner\Assets\Libraries\Astar\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\03.HybridCLR\Generators\PlatformAdaptorBase.cs" />
@@ -151,9 +151,9 @@
     <Compile Include="Assets\Editor\06.Proto2CS\ProcessHelper.cs" />
     <Compile Include="Assets\Editor\03.HybridCLR\Generators\GeneratorConfig.cs" />
     <Compile Include="Assets\Editor\01.EPloy\ResourceEditor\ResourceEditorController.cs" />
+    <Compile Include="Assets\Editor\01.EPloy\Misc\EPloyEditorPath.cs" />
     <Compile Include="Assets\Editor\01.EPloy\Misc\BuildSettings.cs" />
     <Compile Include="Assets\Editor\03.HybridCLR\BuildPlayerHelper.cs" />
-    <Compile Include="Assets\Editor\01.EPloy\Misc\EPloyEditorPath.cs" />
     <Compile Include="Assets\Editor\01.EPloy\ResourceBuilder\ResourceBuilderController.VersionListData.cs" />
     <Compile Include="Assets\Editor\01.EPloy\TableProcessor\TableProcessor.Color32Processor.cs" />
     <Compile Include="Assets\Editor\07.EUI\UICodeSpawner.cs" />
@@ -469,7 +469,7 @@
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.15.17\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
     </Reference>
     <Reference Include="Pathfinding.Ionic.Zip.Reduced">
-      <HintPath>Assets\AstarPathfindingProject\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
+      <HintPath>Assets\Libraries\Astar\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
@@ -910,18 +910,6 @@
     <ProjectReference Include="Libraries.csproj">
       <Project>{BEC3D633-DF29-0541-7F0C-2CEFD49B26DE}</Project>
       <Name>Libraries</Name>
-    </ProjectReference>
-    <ProjectReference Include="AstarPathfindingProject.csproj">
-      <Project>{ABCD7121-EE2E-D776-A0CE-1AD33E8A989B}</Project>
-      <Name>AstarPathfindingProject</Name>
-    </ProjectReference>
-    <ProjectReference Include="PackageToolsEditor.csproj">
-      <Project>{B22605B8-A4DB-0399-88DE-CBA5FA93FF71}</Project>
-      <Name>PackageToolsEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="AstarPathfindingProjectEditor.csproj">
-      <Project>{DBCE5E83-9D6F-650D-E1A1-4EED8890C86E}</Project>
-      <Name>AstarPathfindingProjectEditor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

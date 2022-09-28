@@ -54,6 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="E:\EPloy\EPloy\CatRunner\Assets\Libraries\Astar\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\EPloy\Game\Config\Config.cs" />
@@ -138,8 +139,8 @@
     <Compile Include="Assets\EPloy\Game\Base\Utility\UtilMarshal.cs" />
     <Compile Include="Assets\EPloy\Game\Base\ObjectPool\ObjectInfo.cs" />
     <Compile Include="Assets\EPloy\Game\Base\Net\Protobuf\Serializers\StringSerializer.cs" />
-    <Compile Include="Assets\EPloy\Game\Module\ResUpdate\Checker\ResChecker.LocalVersionInfo.cs" />
     <Compile Include="Assets\EPloy\Game\Base\TypeNamePair.cs" />
+    <Compile Include="Assets\EPloy\Game\Module\ResUpdate\Checker\ResChecker.LocalVersionInfo.cs" />
     <Compile Include="Assets\EPloy\Game\Module\ResUpdate\VersionList\LocalVersionList.cs" />
     <Compile Include="Assets\EPloy\Game\Module\ResLoader\ResLoader\ResLoader.cs" />
     <Compile Include="Assets\EPloy\Game\Base\Net\Protobuf\Serializers\UriDecorator.cs" />
@@ -278,6 +279,7 @@
     <Compile Include="Assets\EPloy\Game\Module\Download\DownloadAgent.DownloadHandler.cs" />
     <Compile Include="Assets\EPloy\Game\Module\ResUpdate\Store\ResEnum.cs" />
     <Compile Include="Assets\EPloy\Game\Base\Net\Protobuf\Serializer.cs" />
+    <Compile Include="Assets\EPloy\Game\Utli\RoleActionHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\EPloy\Game\EPloy.Game.asmdef" />
@@ -577,6 +579,9 @@
     </Reference>
     <Reference Include="unityplastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.15.17\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
+    </Reference>
+    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
+      <HintPath>Assets\Libraries\Astar\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.4f1c1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -955,10 +960,6 @@
     <ProjectReference Include="Libraries.csproj">
       <Project>{BEC3D633-DF29-0541-7F0C-2CEFD49B26DE}</Project>
       <Name>Libraries</Name>
-    </ProjectReference>
-    <ProjectReference Include="AstarPathfindingProject.csproj">
-      <Project>{ABCD7121-EE2E-D776-A0CE-1AD33E8A989B}</Project>
-      <Name>AstarPathfindingProject</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
