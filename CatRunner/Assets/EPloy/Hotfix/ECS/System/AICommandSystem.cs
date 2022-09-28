@@ -49,6 +49,10 @@ namespace EPloy.ECS
                 case UserClrType.Move:
                     ECSModule.moveSys.PlayerMove(entityRole, entityRole.moveCpt, inputCpt);
                     break;
+                case UserClrType.Pathfinding:
+                    ECSModule.moveSys.PathfindingMove(entityRole, entityRole.moveCpt, inputCpt.targetPos);
+                    inputCpt.inputType = UserClrType.None;
+                    break;
             }
 
             #region wasd

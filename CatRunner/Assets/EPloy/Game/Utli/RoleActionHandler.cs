@@ -7,18 +7,34 @@ using UnityEngine;
 public class RoleActionHandler : MonoBehaviour
 {
     private Seeker seeker;
+    private SimpleSmoothModifier simpleSmooth;
     private Animator animator;
 
     private object Entity;
     private Action<int, object> ActionHarmHandler;
     private Action<int, object> ActionOverHandler;
-    public static RoleActionHandler AddAnimationHandler(GameObject gameObject)
+    public static RoleActionHandler AddActionHandler(GameObject gameObject)
     {
-        RoleActionHandler animationHandler = gameObject.GetComponent<RoleActionHandler>();
-        if (animationHandler == null) animationHandler = gameObject.AddComponent<RoleActionHandler>();
-        animationHandler.animator = gameObject.GetComponent<Animator>();
-        animationHandler.seeker = gameObject.AddComponent<Seeker>();
-        return animationHandler;
+        RoleActionHandler actionHandler = gameObject.GetComponent<RoleActionHandler>();
+        if (actionHandler == null) actionHandler = gameObject.AddComponent<RoleActionHandler>();
+        actionHandler.animator = gameObject.GetComponent<Animator>();
+        actionHandler.seeker = gameObject.GetComponent<Seeker>();
+        if (actionHandler.seeker == null)
+        {
+            actionHandler.seeker = gameObject.AddComponent<Seeker>();
+            actionHandler.simpleSmooth = gameObject.AddComponent<SimpleSmoothModifier>();
+        }
+        else
+        {
+            actionHandler.simpleSmooth = gameObject.GetComponent<SimpleSmoothModifier>();
+        }
+        actionHandler.simpleSmooth.maxSegmentLength = 0.5f;
+        return actionHandler;
+    }
+
+    public Path OnPathfinding(Vector3 targetPos, OnPathDelegate onPathDelegate)
+    {
+        return seeker.StartPath(transform.position, targetPos, onPathDelegate);
     }
 
     public void OnMove(float speed)

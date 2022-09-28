@@ -54,7 +54,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
-    <Analyzer Include="E:\EPloy\EPloy\CatRunner\Assets\Libraries\Astar\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\03.HybridCLR\Generators\PlatformAdaptorBase.cs" />
@@ -151,9 +150,9 @@
     <Compile Include="Assets\Editor\06.Proto2CS\ProcessHelper.cs" />
     <Compile Include="Assets\Editor\03.HybridCLR\Generators\GeneratorConfig.cs" />
     <Compile Include="Assets\Editor\01.EPloy\ResourceEditor\ResourceEditorController.cs" />
-    <Compile Include="Assets\Editor\01.EPloy\Misc\EPloyEditorPath.cs" />
     <Compile Include="Assets\Editor\01.EPloy\Misc\BuildSettings.cs" />
     <Compile Include="Assets\Editor\03.HybridCLR\BuildPlayerHelper.cs" />
+    <Compile Include="Assets\Editor\01.EPloy\Misc\EPloyEditorPath.cs" />
     <Compile Include="Assets\Editor\01.EPloy\ResourceBuilder\ResourceBuilderController.VersionListData.cs" />
     <Compile Include="Assets\Editor\01.EPloy\TableProcessor\TableProcessor.Color32Processor.cs" />
     <Compile Include="Assets\Editor\07.EUI\UICodeSpawner.cs" />
@@ -438,6 +437,9 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>Assets\Libraries\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
+      <HintPath>Assets\Libraries\Astar\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
     <Reference Include="log4netPlastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.15.17\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
     </Reference>
@@ -467,9 +469,6 @@
     </Reference>
     <Reference Include="unityplastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.15.17\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
-    </Reference>
-    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
-      <HintPath>Assets\Libraries\Astar\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>

@@ -25,7 +25,7 @@ namespace EPloy.ECS
             {
                 //Obj组件
                 entityRole.roleCpt.roleData = (MapRoleData)role;
-                entityRole.roleCpt.actionHandler = RoleActionHandler.AddAnimationHandler(entityRole.roleCpt.role);
+                entityRole.roleCpt.actionHandler = RoleActionHandler.AddActionHandler(entityRole.roleCpt.role);
                 switch (roleType)
                 {
                     case RoleType.Player:    //主角 主相机跟随 移动控制

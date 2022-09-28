@@ -31,7 +31,8 @@ namespace EPloy.ECS
         Idle,
         Move,
         Att,
-        Die
+        Die,
+        Pathfinding,
     }
 
     /// <summary>

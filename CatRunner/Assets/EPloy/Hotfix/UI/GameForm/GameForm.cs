@@ -33,6 +33,12 @@ public class GameForm : UIForm
                  GameModule.UI.OpenUIForm(UIName.LoadingForm, UIGroupName.Level1);
                  GameModule.Event.Fire(SwitchSceneEvt.Create("login"));
              };
+
+        UIEventListener.Get(bindingCode.btnAStart).onClick = (go) =>
+        {
+            inputCpt.inputType = UserClrType.Pathfinding;
+            inputCpt.targetPos = GameObject.Find("Cube").transform.position;
+        };
     }
     public override void Open(object userData)
     {

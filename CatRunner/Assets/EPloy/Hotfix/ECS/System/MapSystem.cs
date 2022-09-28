@@ -15,6 +15,9 @@ namespace EPloy.ECS
 
             //怪物
             ECSModule.roleSys.CreateRole(entityMap, mapCpt, RoleType.Monster, 10002);
+
+
+            //AstarPath.active.Scan();
         }
 
         private void SetMapVisual(EntityMap entityMap, MapCpt mapCpt)

@@ -16,6 +16,7 @@ public  class GameFormCode : IReference
 	public UnityEngine.UI.Image imgSkill3;
 	public UnityEngine.UI.Image imgMask3;
 	public UnityEngine.GameObject btnLogout;
+	public UnityEngine.GameObject btnAStart;
 	public static GameFormCode Binding(Transform transform) 
 	{
 		GameFormCode binding = ReferencePool.Acquire<GameFormCode>(); 
@@ -30,6 +31,7 @@ public  class GameFormCode : IReference
 		binding.imgSkill3 = transform.Find("skill/Skill3/imgSkill3").GetComponent<UnityEngine.UI.Image>(); 
 		binding.imgMask3 = transform.Find("skill/Skill3/imgMask3").GetComponent<UnityEngine.UI.Image>(); 
 		binding.btnLogout = transform.Find("btnLogout").gameObject; 
+		binding.btnAStart = transform.Find("btnAStart").gameObject; 
 		return binding;
 
 	}
@@ -50,5 +52,6 @@ public  class GameFormCode : IReference
 		imgSkill3 = null;
 		imgMask3 = null;
 		btnLogout = null;
+		btnAStart = null;
 	}
 }
