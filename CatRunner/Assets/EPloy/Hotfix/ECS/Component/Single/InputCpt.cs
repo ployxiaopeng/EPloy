@@ -18,7 +18,7 @@ namespace EPloy.ECS
     /// <summary>
     /// 用户输入单例组件
     /// </summary>
-    public class InputCpt : IReference
+    public class InputCpt : SingleCptBase<InputCpt>
     {
         public float radius = 256;
         public UserClrType inputType;
@@ -31,9 +31,9 @@ namespace EPloy.ECS
         //单点判断 当前最后按下什么键位 如果 超过一定时间不处理
         public float clickTime;
 
-        public void Clear()
+        public override void Clear()
         {
-
+            base.Clear();
         }
     }
 }

@@ -8,101 +8,121 @@ namespace EPloy.ECS
     public class SkillSystem : IReference
     {
 
-        public void Att(EntityRole entityRole, SkillCpt skillCpt)
+        public void Att(Entity entity, SkillCpt skillCpt)
         {
-            if (!SetSkillData(entityRole, skillCpt.AttData)) return;
-            entityRole.roleCpt.actionHandler.OnAtt("Att1");
-            entityRole.roleCpt.actionHandler.RegisterHandler(entityRole, HarmHandler, OverHandler);
+            if (!SetSkillData(entity, skillCpt.AttData)) return;
+            entity.GetCpt<RoleCpt>().actionHandler.OnAtt("Att1");
+            entity.GetCpt<RoleCpt>().actionHandler.RegisterHandler(entity, HarmHandler, OverHandler);
         }
 
-        public void Skill1(EntityRole entityRole, SkillCpt skillCpt)
+        public void Skill1(Entity entity, SkillCpt skillCpt)
         {
-            if (!SetSkillData(entityRole, skillCpt.Skills[1])) return;
-            entityRole.roleCpt.actionHandler.OnAtt("Skill1");
-            entityRole.roleCpt.actionHandler.RegisterHandler(entityRole, HarmHandler, OverHandler);
+            if (!SetSkillData(entity, skillCpt.Skills[1])) return;
+            entity.GetCpt<RoleCpt>().actionHandler.OnAtt("Skill1");
+            entity.GetCpt<RoleCpt>().actionHandler.RegisterHandler(entity, HarmHandler, OverHandler);
         }
 
-        public void Skill2(EntityRole entityRole, SkillCpt skillCpt)
+        public void Skill2(Entity entity, SkillCpt skillCpt)
         {
-            if (!SetSkillData(entityRole, skillCpt.Skills[2])) return;
-            entityRole.roleCpt.actionHandler.OnAtt("Skill2");
-            entityRole.roleCpt.actionHandler.RegisterHandler(entityRole, HarmHandler, OverHandler);
+            if (!SetSkillData(entity, skillCpt.Skills[2])) return;
+            entity.GetCpt<RoleCpt>().actionHandler.OnAtt("Skill2");
+            entity.GetCpt<RoleCpt>().actionHandler.RegisterHandler(entity, HarmHandler, OverHandler);
         }
 
-        public void Skill3(EntityRole entityRole, SkillCpt skillCpt)
+        public void Skill3(Entity entity, SkillCpt skillCpt)
         {
-            if (!SetSkillData(entityRole, skillCpt.Skills[3])) return;
-            entityRole.roleCpt.actionHandler.OnAtt("Skill3");
-            entityRole.roleCpt.actionHandler.RegisterHandler(entityRole, HarmHandler, OverHandler);
+            if (!SetSkillData(entity, skillCpt.Skills[3])) return;
+            entity.GetCpt<RoleCpt>().actionHandler.OnAtt("Skill3");
+            entity.GetCpt<RoleCpt>().actionHandler.RegisterHandler(entity, HarmHandler, OverHandler);
         }
 
-        public void HarmHandler(int arg, object entity)
+        public void HarmHandler(int arg, object data)
         {
-            EntityRole entityRole = entity as EntityRole;
-            SkillSpotting(entityRole, entityRole.hurtCpt);
+            Entity entity = data as Entity;
+            SkillSpotting(entity, entity.GetCpt<HurtCpt>());
         }
 
-        public void OverHandler(int arg, object entity)
+        public void OverHandler(int arg, object data)
         {
-            EntityRole entityRole = entity as EntityRole;
-            entityRole.roleCpt.roleState = RoleState.Idle;
+            Entity entity = data as Entity;
+            entity.GetCpt<RoleCpt>().roleState = RoleState.Idle;
         }
-        public bool SetSkillData(EntityRole entityRole, DRSkillData skillData)
+        public bool SetSkillData(Entity entity, DRSkillData skillData)
         {
-            if (!SkillCDCheck(entityRole, skillData)) return false;
-            entityRole.hurtCpt = ECSModule.GameScene.GetCpt<HurtCpt>(entityRole);
-            entityRole.hurtCpt.skillData = skillData;
-            ECSModule.moveSys.PlayerStopMove(entityRole, entityRole.moveCpt);
-            entityRole.roleCpt.roleState = RoleState.Att;
+            if (!SkillCDCheck(entity, skillData) || entity.HasCpt<HurtCpt>()) return false;
+            HurtCpt hurtCpt= entity.AddCpt<HurtCpt>(entity);
+            hurtCpt.skillData = skillData;
+            ECSModule.moveSys.PlayerStopMove(entity, entity.GetCpt<MoveCpt>());
+            entity.GetCpt<RoleCpt>().roleState = RoleState.Att;
             return true;
         }
 
-        private bool SkillCDCheck(EntityRole entityRole, DRSkillData skillData)
+        private bool SkillCDCheck(Entity entity, DRSkillData skillData)
         {
-            if (Time.time - entityRole.skillCpt.skillCDs[skillData.Id] < skillData.CDTime)
+            SkillCpt skillCpt = entity.GetCpt<SkillCpt>();
+            if (Time.time - skillCpt.skillCDs[skillData.Id] < skillData.CDTime)
             {
                 return false;
             }
-            entityRole.skillCpt.skillCDs[skillData.Id] = Time.time;
+            skillCpt.skillCDs[skillData.Id] = Time.time;
             return true;
         }
 
         //技能释放索敌    
-        public void SkillSpotting(EntityRole entityRole, HurtCpt hurtCpt)
+        public void SkillSpotting(Entity entity, HurtCpt hurtCpt)
         {
             if (hurtCpt == null) return;
-            hurtCpt.hurt = entityRole.roleCpt.att * hurtCpt.skillData.HarmArg;
-            for (int i = 0; i < ECSModule.GameScene.entityRoles.Count; i++)
+
+            SkillCpt skillCpt = entity.GetCpt<SkillCpt>();
+            RoleCpt roleCpt = entity.GetCpt<RoleCpt>();
+            Entity target; Vector3 vector; float num;
+
+            hurtCpt.hurt = roleCpt.att * hurtCpt.skillData.HarmArg;
+            switch (roleCpt.roleType)
             {
-                EntityRole targetRole = ECSModule.GameScene.entityRoles[i];
-                if (entityRole == targetRole) continue;
-                //被攻击减攻击者
-                Vector3 vector = targetRole.roleCpt.rolePos - entityRole.roleCpt.rolePos;
-                float num = Vector3.Dot(entityRole.roleCpt.role.transform.forward, vector);
-                if (num > 0 && num <= entityRole.skillCpt.dis)
-                {
-                    if (Mathf.Abs(Vector3.Dot(entityRole.roleCpt.role.transform.right, vector)) < entityRole.skillCpt.dis / 2)
+                case RoleType.Player:
+                    for (int i = 0; i < ECSModule.GameScene.monsterEntitys.Count; i++)
                     {
-                        hurtCpt.targetEntitys.Add(targetRole);
+                        target = ECSModule.GameScene.monsterEntitys[i];
+                        //被攻击减攻击者
+                        vector = target.GetCpt<RoleCpt>().rolePos - roleCpt.rolePos;
+                        num = Vector3.Dot(roleCpt.role.transform.forward, vector);
+                        if (num > 0 && num <= skillCpt.dis && Mathf.Abs(Vector3.Dot(roleCpt.role.transform.right, vector)) < skillCpt.dis / 2)
+                        {
+                            hurtCpt.targetEntitys.Add(target);
+                        }
                     }
-                }
+                    break;
+                case RoleType.NPC:
+                    break;
+                case RoleType.Monster:
+                    target = ECSModule.GameScene.entityPlayer;
+                    //被攻击减攻击者
+                    vector = target.GetCpt<RoleCpt>().rolePos - roleCpt.rolePos;
+                    num = Vector3.Dot(roleCpt.role.transform.forward, vector);
+                    if (num > 0 && num <= skillCpt.dis && Mathf.Abs(Vector3.Dot(roleCpt.role.transform.right, vector)) < skillCpt.dis / 2)
+                    {
+                        hurtCpt.targetEntitys.Add(target);
+                    }
+                    break;
+                default:
+                    break;
             }
 
             for (int i = 0; i < hurtCpt.targetEntitys.Count; i++)
             {
-                SkillHurt(hurtCpt.targetEntitys[i], entityRole.hurtCpt);
+                SkillHurt(hurtCpt.targetEntitys[i], entity.GetCpt<HurtCpt>());
             }
-            ReferencePool.Release(entityRole.hurtCpt);
-            entityRole.hurtCpt = null;
+            entity.RemoveCpt<HurtCpt>();
         }
 
-
         //技能伤害计算
-        public void SkillHurt(EntityRole targetRole, HurtCpt hurtCpt)
+        public void SkillHurt(Entity target, HurtCpt hurtCpt)
         {
-            targetRole.roleCpt.curHp = targetRole.roleCpt.curHp - ((int)hurtCpt.hurt - targetRole.roleCpt.def);
-            Log.Info("敌人hp  " + targetRole.roleCpt.curHp);
-            if (targetRole.roleCpt.curHp <= 0)
+            RoleCpt roleCpt = target.GetCpt<RoleCpt>();
+            roleCpt.curHp = roleCpt.curHp - ((int)hurtCpt.hurt - roleCpt.def);
+            Log.Info("敌人hp  " + roleCpt.curHp);
+            if (roleCpt.curHp <= 0)
             {
                 Log.Info("死了哦");
             }

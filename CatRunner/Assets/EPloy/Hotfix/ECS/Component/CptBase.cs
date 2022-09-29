@@ -18,7 +18,7 @@ namespace EPloy.ECS
         /// 设置所在的实体
         /// </summary>
         /// <param name="_entity"></param>
-        public virtual void Awake(Entity entity, long id)
+        internal void Awake(Entity entity, long id, object data)
         {
             if (entity == null)
             {
@@ -27,12 +27,47 @@ namespace EPloy.ECS
             }
             Id = id;
             Entity = entity;
+            Awake(data);
+        }
+
+        protected virtual void Awake(object data)
+        {
+
         }
 
         public virtual void Clear()
         {
             Entity = null;
             Id = -1;
+        }
+    }
+
+    public class SingleCptBase<T> : IReference where T : SingleCptBase<T>, new()
+    {
+        public bool isRelease { get; private set; }
+        private static T instance;
+        public static T Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+        public void Register()
+        {
+            if (instance != null) return;
+            instance = (T)this;
+        }
+
+        public virtual void Clear()
+        {
+            if (this.isRelease)
+            {
+                return;
+            }
+            this.isRelease = true;
+            T t = instance;
+            instance = null;
         }
     }
 }

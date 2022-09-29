@@ -13,7 +13,7 @@ namespace EPloy.ECS
         public DRSkillData skillData;
         public float hurt;
         public GameObject effect;
-        public List<EntityRole> targetEntitys = new List<EntityRole>();
+        public List<Entity> targetEntitys = new List<Entity>();
 
         public override void Clear()
         {

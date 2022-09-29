@@ -4,15 +4,16 @@ namespace EPloy.ECS
 {
     public class CameraSystem : IReference
     {
-        public void SetCameraFollow(EntityRole entityRole, Camera camera)
+        public void SetCameraFollow(Entity entity, Camera camera,Transform target)
         {
-            entityRole.cameraFollowCpt = ECSModule.GameScene.GetCpt<CameraFollowCpt>(entityRole);
-            entityRole.cameraFollowCpt.camera = camera;
+            CameraFollowCpt cameraFollowCpt = entity.AddCpt<CameraFollowCpt>();
+            cameraFollowCpt.camera = camera;
+            cameraFollowCpt.target = target;
         }
 
-        public void Update(EntityRole entityRole, CameraFollowCpt cameraFollowCpt)
+        public void Update(Entity entity, CameraFollowCpt cameraFollowCpt)
         {
-            Vector3 target = entityRole.roleCpt.rolePos + cameraFollowCpt.offset;
+            Vector3 target = cameraFollowCpt.target.localPosition + cameraFollowCpt.offset;
             cameraFollowCpt.camera.transform.localPosition = Vector3.Lerp(cameraFollowCpt.camera.transform.localPosition, target, Time.deltaTime * cameraFollowCpt.speed);
         }
         public void Clear()

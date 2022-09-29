@@ -5,28 +5,28 @@ namespace EPloy.ECS
 {
     public class MapSystem : IReference
     {
-        public void Start(EntityMap entityMap, MapCpt mapCpt)
+        public void Start(MapCpt mapCpt)
         {
             mapCpt.roleParent = GameObject.Find("RoleParent").transform;
             mapCpt.mapData = GameModule.Table.GetDataTable<DRMap>().GetDataRow(mapCpt.mapId);
-            SetMapVisual(entityMap, mapCpt);
+            SetMapVisual(mapCpt);
             //主角
-            ECSModule.roleSys.CreateRole(entityMap, mapCpt, RoleType.Player, mapCpt.PlayerId);
+            ECSModule.roleSys.CreatePlayer(mapCpt, mapCpt.PlayerId);
 
             //怪物
-            ECSModule.roleSys.CreateRole(entityMap, mapCpt, RoleType.Monster, 10002);
+            ECSModule.roleSys.CreateMonster(mapCpt, 10002);
 
 
             //AstarPath.active.Scan();
         }
 
-        private void SetMapVisual(EntityMap entityMap, MapCpt mapCpt)
+        private void SetMapVisual(MapCpt mapCpt)
         {
-            entityMap.mapVisualBoxCpt = ECSModule.GameScene.GetCpt<MapVisualBoxCpt>(entityMap);
+            MapVisualBoxCpt mapVisualBoxCpt = ECSModule.GameScene.GetSingleCpt<MapVisualBoxCpt>();
             //初始视野定中心在角色出生点
-            entityMap.mapVisualBoxCpt.mianCamera = mapCpt.roleParent.Find("MainCamera").GetComponent<Camera>();
-            entityMap.mapVisualBoxCpt.visualBox = new Vector2(10, 5);
-            entityMap.mapVisualBoxCpt.SetcurVisualCentre(mapCpt.mapData.RoleBornPos);
+            mapVisualBoxCpt.mianCamera = mapCpt.roleParent.Find("MainCamera").GetComponent<Camera>();
+            mapVisualBoxCpt.visualBox = new Vector2(10, 5);
+            mapVisualBoxCpt.SetcurVisualCentre(mapCpt.mapData.RoleBornPos);
         }
 
         public void Clear()

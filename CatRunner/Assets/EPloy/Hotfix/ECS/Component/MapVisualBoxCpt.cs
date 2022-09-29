@@ -5,7 +5,7 @@ namespace EPloy.ECS
     /// <summary>
     /// 地图视野
     /// </summary>
-    public class MapVisualBoxCpt : CptBase
+    public class MapVisualBoxCpt : SingleCptBase<MapVisualBoxCpt>
     {
         //地图主相机
         public Camera mianCamera;

@@ -2,14 +2,15 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PT_Water_mat
   m_Shader: {fileID: 4800000, guid: 39cf68574afc7f248bd78a99c3800e00, type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -35,28 +36,29 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _Cutoff: 0.5
-    - _Depth: 0.467
-    - _DepthStrength: 0.166
+    - _Depth: 0.232
+    - _DepthStrength: 0.246
     - _EdgeLength: 23.1
     - _Float1: 0.1
     - _Float3: 1
     - _Float4: 10000
-    - _FoamAmount: 0.35
-    - _FoamNoiseScale: 597
-    - _FoamPower: 2.82
+    - _FoamAmount: 2.53
+    - _FoamNoiseScale: 746
+    - _FoamPower: 1.44
     - _FoamSpeed: 0.5
     - _GlossyReflections: 1
-    - _Mettalic: 0.755
-    - _NormalMapWavesSpeed: 0.1
-    - _NormalMapsWavesSize: 6.14
+    - _Mettalic: 0.612
+    - _NormalMapWavesSpeed: 0.26
+    - _NormalMapsWavesSize: 6.43
     - _SMOOTHNESS: 1
     - _SmallWavesSize: 1
     - _SmallWavesSize1: 3
     - _SmallWavesSpeed: 0.5
     - _Smoothness: 0.702
-    - _Smootness: 0.514
+    - _Smootness: 0.399
     - _Strenght: 0.5
     - _TRANSPARENCY: 0.73
     - _TessMax: 10
@@ -68,9 +70,9 @@ Material:
     - _TransScattering: 18.2
     - _TransShadow: 0.496
     - _Translucency: 15.5
-    - _WaveAmplitude: 0.2
-    - _WaveSpeed: 0.5
-    - _WaveTile: 0.5
+    - _WaveAmplitude: 0.229
+    - _WaveSpeed: 0.506
+    - _WaveTile: 0.283
     - _Wavespeed: 0.5
     - _Wavetile: 0.37
     - __dirty: 0
@@ -85,3 +87,4 @@ Material:
     - _Shallowcolor: {r: 0.4890531, g: 0.6480994, b: 0.6603774, a: 0}
     - _deepcolor: {r: 0.3301887, g: 0.1712053, b: 0.07631721, a: 0}
     - _foamcolor: {r: 0.3066038, g: 1, b: 0.9145772, a: 0}
+  m_BuildTextureStacks: []

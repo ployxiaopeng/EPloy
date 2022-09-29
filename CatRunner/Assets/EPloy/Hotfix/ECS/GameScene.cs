@@ -1,81 +1,155 @@
 ﻿using EPloy.ECS;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 /// <summary>
 /// EcsGame场景
 /// </summary>
 public partial class GameScene : IGameModule
 {
-    private EntityMap entityMap;
-    public List<EntityRole> entityRoles { get; private set; }
-    private long EntityRecordId;
+    public Entity entityPlayer { get; set; }
+    public List<Entity> monsterEntitys { get; private set; }
+    public List<Entity> npcEntitys { get; private set; }
 
-    public Dictionary<Type, IReference> singleCpts { get; private set; }
+    private long EntityRecordId;
     private long cptRecordId;
+    public Dictionary<Type, IReference> singleCpts { get; private set; }
+
+
+    private bool isEnterMap;
 
     public void Awake()
     {
-        entityRoles = new List<EntityRole>();
+        isEnterMap = false;
+        monsterEntitys = new List<Entity>();
+        npcEntitys = new List<Entity>();
         singleCpts = new Dictionary<Type, IReference>();
-    }
-
-    public void Update()
-    {
-        for (int i = 0; i < entityRoles.Count; i++)
-        {
-            EntityRole entityRole = entityRoles[i];
-            ECSModule.aICommandSys.Updata(entityRole);
-            CameraFollowUpdate(entityRole);
-            MoveUpdate(entityRole);
-        }
     }
 
     public void OnDestroy()
     {
-        foreach (var entity in entityRoles)
+        ReferencePool.Release(entityPlayer);
+        foreach (var entity in monsterEntitys)
         {
             ReferencePool.Release(entity);
         }
-        entityRoles.Clear();
+        foreach (var entity in npcEntitys)
+        {
+            ReferencePool.Release(entity);
+        }
+        monsterEntitys.Clear();
+        npcEntitys.Clear();
     }
 
     public void EnterMap(int mapId, int playerId)
     {
-        entityMap = CreateEntity<EntityMap>("map");
-        entityMap.mapCpt = GetCpt<MapCpt>(entityMap);
-        entityMap.mapCpt.mapId = mapId;
-        entityMap.mapCpt.PlayerId = playerId;
-        ECSModule.mapSys.Start(entityMap, entityMap.mapCpt);
+        MapCpt mapCpt = GetSingleCpt<MapCpt>();
+        mapCpt.mapId = mapId;
+        mapCpt.PlayerId = playerId;
+        ECSModule.mapSys.Start(mapCpt);
+        isEnterMap = true;
     }
 
     public void ExitMap()
     {
-        foreach (var entity in entityRoles)
+        isEnterMap = false;
+        OnDestroy();
+    }
+
+    public void Update()
+    {
+        if (!isEnterMap) return;
+        //玩家
+        ECSModule.aICommandSys.PlayerUpdateInput(entityPlayer);
+        CameraFollowUpdate(entityPlayer);
+        MoveUpdate(entityPlayer);
+
+        //怪物
+        for (int i = 0; i < monsterEntitys.Count; i++)
         {
-            ReferencePool.Release(entity);
+            Entity entityRole = monsterEntitys[i];
+            ECSModule.aICommandSys.MoserAIUodate(entityRole);
+            MoveUpdate(entityRole);
         }
-        entityRoles.Clear();
+        //Npc
+        for (int i = 0; i < npcEntitys.Count; i++)
+        {
+            Entity entityRole = monsterEntitys[i];
+            ECSModule.aICommandSys.MoserAIUodate(entityRole);
+            MoveUpdate(entityRole);
+        }
     }
 
-    private void CameraFollowUpdate(EntityRole entityRole)
+
+    private void CameraFollowUpdate(Entity entity)
     {
-        if (entityRole.cameraFollowCpt == null) return;
-        ECSModule.cameraSys.Update(entityRole, entityRole.cameraFollowCpt);
+        CameraFollowCpt followCpt = null;
+        if (entity.HasGetCpt(out followCpt))
+        {
+            ECSModule.cameraSys.Update(entity, followCpt);
+        }
     }
 
-    private void MoveUpdate(EntityRole entityRole)
+    private void MoveUpdate(Entity entity)
     {
-        if (entityRole.moveCpt == null) return;
-        ECSModule.moveSys.Update(entityRole, entityRole.moveCpt);
+        MoveCpt moveCpt = null;
+        if (entity.HasGetCpt(out moveCpt))
+        {
+            ECSModule.moveSys.Update(entity, moveCpt);
+        }
     }
 
-    public EntityRole CreateEntityRole(string name = null)
+
+    /// <summary>
+    /// 生成玩家实体
+    /// </summary>
+    /// <returns></returns>
+    public T CreatePlayerEntity<T>(string name) where T : Entity
     {
-        EntityRole entityRole = (EntityRole)CreateEntity<EntityRole>(name);
-        entityRoles.Add(entityRole);
-        return entityRole;
+        entityPlayer = CreateEntity<T>(name);
+        return (T)entityPlayer;
+    }
+
+    /// <summary>
+    /// 生成怪物实体
+    /// </summary>
+    /// <returns></returns>
+    public T CreateMonsterEntity<T>(string name) where T : Entity
+    {
+        Entity entity = CreateEntity<T>(name);
+        monsterEntitys.Add(entity);
+        return (T)entity;
+    }
+
+    /// <summary>
+    /// 销毁怪物实体
+    /// </summary>
+    /// <returns></returns>
+    public void DestroyMonsterEntity(Entity entity)
+    {
+        if (monsterEntitys.Contains(entity)) monsterEntitys.Remove(entity);
+        DestroyEntity(entity);
+    }
+
+    /// <summary>
+    /// 生成怪物实体
+    /// </summary>
+    /// <returns></returns>
+    public T CreateNpcEntity<T>(string name) where T : Entity
+    {
+        Entity entity = CreateEntity<T>(name);
+        npcEntitys.Add(entity);
+        return (T)entity;
+    }
+
+    /// <summary>
+    /// 销毁怪物实体
+    /// </summary>
+    /// <returns></returns>
+    public void DestroyNpcEntity(Entity entity)
+    {
+        if (npcEntitys.Contains(entity)) npcEntitys.Remove(entity);
+        DestroyEntity(entity);
     }
 
     /// <summary>
@@ -103,27 +177,44 @@ public partial class GameScene : IGameModule
     /// <summary>
     /// 获取单例的组件
     /// </summary>
-    public T GetSingleCpt<T>() where T : IReference, new()
+    public T GetSingleCpt<T>() where T : SingleCptBase<T>, new()
     {
         Type type = typeof(T);
         if (singleCpts.ContainsKey(type))
         {
             return (T)singleCpts[type];
         }
+        SingleCptBase<T> cpt = (SingleCptBase<T>)ReferencePool.Acquire(type);
+        cpt.Register();
+        singleCpts.Add(type, cpt);
+        return (T)cpt;
+    }
 
-        IReference component = (IReference)ReferencePool.Acquire(type);
-        singleCpts.Add(type, component);
-        return (T)component;
+    public void DestroySingleCpt<T>() where T : SingleCptBase<T>, new()
+    {
+        Type type = typeof(T);
+        if (singleCpts.ContainsKey(type))
+        {
+            ReferencePool.Release(singleCpts[type]);
+            singleCpts.Remove(type);
+        }
     }
 
     /// <summary>
-    /// 添加生成组件
+    /// 生成组件
     /// </summary>
-    public T GetCpt<T>(Entity entity) where T : CptBase, new()
+    internal CptBase CreateCpt(Entity entity, Type cptType, object data)
     {
-        Type type = typeof(T);
-        CptBase cpt = (CptBase)ReferencePool.Acquire(type);
-        cpt.Awake(entity, cptRecordId++);
-        return (T)cpt;
+        CptBase cpt = (CptBase)ReferencePool.Acquire(cptType);
+        cpt.Awake(entity, cptRecordId++, data);
+        return cpt;
+    }
+
+    /// <summary>
+    /// 销毁组件
+    /// </summary>
+    internal void DestroyCpt(CptBase cptBase)
+    {
+        ReferencePool.Release(cptBase);
     }
 }

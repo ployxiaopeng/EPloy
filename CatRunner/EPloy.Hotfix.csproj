@@ -78,7 +78,6 @@
     <Compile Include="Assets\EPloy\Hotfix\Module\Net\Proto\HotfixOpcode.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Module\Base\Extension\SpriteExtension.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Module\Net\IMessage.cs" />
-    <Compile Include="Assets\EPloy\Hotfix\ECS\Entity\EntityRole.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Module\ObjEntity\ObjBase.cs" />
     <Compile Include="Assets\EPloy\Hotfix\UI\Code\LoadingFormCodeBinding.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Module\Net\MessageAttribute.cs" />
@@ -88,7 +87,6 @@
     <Compile Include="Assets\EPloy\Hotfix\Module\Sound\SoundModule.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Module\UI\UIForm.cs" />
     <Compile Include="Assets\EPloy\Hotfix\UI\StartForm\StartFormlistVirtualTest.cs" />
-    <Compile Include="Assets\EPloy\Hotfix\ECS\Entity\EntityMap.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Module\Table\TableBase.cs" />
     <Compile Include="Assets\EPloy\Hotfix\ObjEntity\MapRoleData.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Module\Base\Extension\TableExtension.cs" />
@@ -101,6 +99,7 @@
     <Compile Include="Assets\EPloy\Hotfix\UI\TipsForm.cs" />
     <Compile Include="Assets\EPloy\Hotfix\ECS\Component\Role\HurtCpt.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Table\DRRoleData.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\ECS\Component\AI\RoleAICpt.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Module\Event\EventModule.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Module\Net\Proto\HotfixMessage.cs" />
     <Compile Include="Assets\EPloy\Hotfix\UI\StartForm\StartForm.cs" />

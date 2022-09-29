@@ -11,46 +11,32 @@ namespace EPloy.ECS
             inputCpt = ECSModule.GameScene.GetSingleCpt<InputCpt>();
         }
 
-        public void Updata(EntityRole entityRole)
-        {
-            switch (entityRole.roleCpt.roleType)
-            {
-                case RoleType.Player:
-                    PlayerInput(entityRole);
-                    return;
-                case RoleType.NPC:
-                    return;
-                case RoleType.Monster:
-                    return;
-            }
-        }
-
         //处理玩家输入
-        private void PlayerInput(EntityRole entityRole)
+        public void PlayerUpdateInput(Entity entity)
         {
             switch (inputCpt.inputType)
             {
                 case UserClrType.Att:
-                    ECSModule.SkillSys.Att(entityRole, entityRole.skillCpt);
+                    ECSModule.SkillSys.Att(entity, entity.GetCpt<SkillCpt>());
                     inputCpt.inputType = UserClrType.None;
                     break;
                 case UserClrType.Skill1:
-                    ECSModule.SkillSys.Skill1(entityRole, entityRole.skillCpt);
+                    ECSModule.SkillSys.Skill1(entity, entity.GetCpt<SkillCpt>());
                     inputCpt.inputType = UserClrType.None;
                     break;
                 case UserClrType.Skill2:
-                    ECSModule.SkillSys.Skill2(entityRole, entityRole.skillCpt);
+                    ECSModule.SkillSys.Skill2(entity, entity.GetCpt<SkillCpt>());
                     inputCpt.inputType = UserClrType.None;
                     break;
                 case UserClrType.Skill3:
-                    ECSModule.SkillSys.Skill3(entityRole, entityRole.skillCpt);
+                    ECSModule.SkillSys.Skill3(entity, entity.GetCpt<SkillCpt>());
                     inputCpt.inputType = UserClrType.None;
                     break;
                 case UserClrType.Move:
-                    ECSModule.moveSys.PlayerMove(entityRole, entityRole.moveCpt, inputCpt);
+                    ECSModule.moveSys.PlayerMove(entity, entity.GetCpt<MoveCpt>(), inputCpt);
                     break;
                 case UserClrType.Pathfinding:
-                    ECSModule.moveSys.PathfindingMove(entityRole, entityRole.moveCpt, inputCpt.targetPos);
+                    ECSModule.moveSys.PathfindingMove(entity, entity.GetCpt<MoveCpt>(), inputCpt.targetPos);
                     inputCpt.inputType = UserClrType.None;
                     break;
             }
@@ -100,6 +86,11 @@ namespace EPloy.ECS
             #endregion
         }
 
+        //怪物AI
+        public void MoserAIUodate(Entity entity)
+        {
+
+        }
 
         public void Clear()
         {

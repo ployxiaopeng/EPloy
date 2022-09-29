@@ -7,42 +7,55 @@ namespace EPloy.ECS
 {
     public class RoleSystem : IReference
     {
-        public void CreateRole(EntityMap entityMap, MapCpt mapCpt, RoleType roleType, int roleId)
+        public void CreatePlayer(MapCpt mapCpt, int roleId)
         {
             //实体
-            EntityRole entityRole = ECSModule.GameScene.CreateEntityRole("Role");
+            Entity entity = ECSModule.GameScene.CreatePlayerEntity<Entity>("Player");
             //基本组件
-            entityRole.roleCpt = ECSModule.GameScene.GetCpt<RoleCpt>(entityRole);
-            entityRole.roleCpt.roleType = roleType;
-            entityRole.roleCpt.SetRoleData(roleId);
+            RoleCpt roleCpt = entity.AddCpt<RoleCpt>();
+            roleCpt.roleType =  RoleType.Player;
+            roleCpt.SetRoleData(roleId);
             //技能数据
-            entityRole.skillCpt = ECSModule.GameScene.GetCpt<SkillCpt>(entityRole);
-            entityRole.skillCpt.SetSkillData(entityRole.roleCpt.playerData);
+            SkillCpt skillCpt = entity.AddCpt<SkillCpt>();
+            skillCpt.SetSkillData(roleCpt.playerData);
 
-       //显示实体
-       MapRoleData roleData = MapRoleData.Create(roleId, entityMap.mapCpt.roleParent, mapCpt.mapData.RoleBornPos, mapCpt.mapData.RolelRotate);
+            //显示实体
+            MapRoleData roleData = MapRoleData.Create(roleId, mapCpt.roleParent, mapCpt.mapData.RoleBornPos, mapCpt.mapData.RolelRotate);
             GameModule.Obj.ShowObj(roleData, (role) =>
             {
                 //Obj组件
-                entityRole.roleCpt.roleData = (MapRoleData)role;
-                entityRole.roleCpt.actionHandler = RoleActionHandler.AddActionHandler(entityRole.roleCpt.role);
-                switch (roleType)
-                {
-                    case RoleType.Player:    //主角 主相机跟随 移动控制
-                        ECSModule.cameraSys.SetCameraFollow(entityRole, entityMap.mapVisualBoxCpt.mianCamera);
-                        ECSModule.moveSys.SetMoveControl(entityRole);
-                        break;
-                    case RoleType.NPC:
-             
-                        break;
-                    case RoleType.Monster:
-                        entityRole.roleCpt.role.transform.position += Vector3.forward * 5;
-                        entityRole.roleCpt.role.transform.localEulerAngles = Vector3.up * 180;
-                        break;
-                }
+                roleCpt.roleData = (MapRoleData)role;
+                roleCpt.actionHandler = RoleActionHandler.AddActionHandler(roleCpt.role);
+                //主角 主相机跟随 移动控制
+                ECSModule.cameraSys.SetCameraFollow(entity, MapVisualBoxCpt.Instance.mianCamera, roleCpt.role.transform);
+                ECSModule.moveSys.SetMoveControl(entity, roleCpt.role);
             });
         }
-        
+
+        public void CreateMonster(MapCpt mapCpt, int roleId)
+        {
+            //实体
+            Entity entity = ECSModule.GameScene.CreateMonsterEntity<Entity>("Monster");
+            //基本组件
+            RoleCpt roleCpt = entity.AddCpt<RoleCpt>();
+            roleCpt.roleType = RoleType.Monster;
+            roleCpt.SetRoleData(roleId);
+            //技能数据
+            SkillCpt skillCpt = entity.AddCpt<SkillCpt>();
+            skillCpt.SetSkillData(roleCpt.playerData);
+
+            //显示实体
+            MapRoleData roleData = MapRoleData.Create(roleId, mapCpt.roleParent, mapCpt.mapData.RoleBornPos, mapCpt.mapData.RolelRotate);
+            GameModule.Obj.ShowObj(roleData, (role) =>
+            {
+                //Obj组件
+                roleCpt.roleData = (MapRoleData)role;
+                roleCpt.actionHandler = RoleActionHandler.AddActionHandler(roleCpt.role);
+                roleCpt.role.transform.position += Vector3.forward * 5;
+                roleCpt.role.transform.localEulerAngles = Vector3.up * 180;
+            });
+        }
+
         public void OnDestroy()
         {
 

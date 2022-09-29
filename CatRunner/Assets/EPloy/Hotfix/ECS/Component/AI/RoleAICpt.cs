@@ -5,15 +5,29 @@ using UnityEngine;
 
 namespace EPloy.ECS
 {
-    /// <summary>
-    /// 地图组件
-    /// </summary>
-    public class MapCpt : SingleCptBase<MapCpt>
+
+    public enum AIType
     {
-        public int mapId;
-        public int PlayerId;
-        public Transform roleParent;
-        public DRMap mapData;
+        Monster,
+        Npc,
+        Boss,
+        Leader,
+        Quest,
+    }
+
+
+    public enum AIState
+    {
+        
+    }
+
+    /// <summary>
+    /// 角色ai组件
+    /// </summary>
+    public class RoleAICpt : CptBase
+    {
+        public AIType aIType;
+
         public override void Clear()
         {
             base.Clear();

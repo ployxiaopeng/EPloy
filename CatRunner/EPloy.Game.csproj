@@ -138,8 +138,8 @@
     <Compile Include="Assets\EPloy\Game\Base\Utility\UtilMarshal.cs" />
     <Compile Include="Assets\EPloy\Game\Base\ObjectPool\ObjectInfo.cs" />
     <Compile Include="Assets\EPloy\Game\Base\Net\Protobuf\Serializers\StringSerializer.cs" />
-    <Compile Include="Assets\EPloy\Game\Module\ResUpdate\Checker\ResChecker.LocalVersionInfo.cs" />
     <Compile Include="Assets\EPloy\Game\Base\TypeNamePair.cs" />
+    <Compile Include="Assets\EPloy\Game\Module\ResUpdate\Checker\ResChecker.LocalVersionInfo.cs" />
     <Compile Include="Assets\EPloy\Game\Module\ResUpdate\VersionList\LocalVersionList.cs" />
     <Compile Include="Assets\EPloy\Game\Module\ResLoader\ResLoader\ResLoader.cs" />
     <Compile Include="Assets\EPloy\Game\Base\Net\Protobuf\Serializers\UriDecorator.cs" />
