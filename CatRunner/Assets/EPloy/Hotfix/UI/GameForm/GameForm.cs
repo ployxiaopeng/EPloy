@@ -37,7 +37,7 @@ public class GameForm : UIForm
         UIEventListener.Get(bindingCode.btnAStart).onClick = (go) =>
         {
             inputCpt.inputType = UserClrType.Pathfinding;
-            inputCpt.targetPos = GameObject.Find("Cube").transform.position;
+            inputCpt.targetPos = GameObject.Find("Cube").transform.localPosition;
         };
     }
     public override void Open(object userData)

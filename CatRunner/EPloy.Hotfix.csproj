@@ -99,7 +99,7 @@
     <Compile Include="Assets\EPloy\Hotfix\UI\TipsForm.cs" />
     <Compile Include="Assets\EPloy\Hotfix\ECS\Component\Role\HurtCpt.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Table\DRRoleData.cs" />
-    <Compile Include="Assets\EPloy\Hotfix\ECS\Component\AI\RoleAICpt.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\ECS\AI\CommonAICpt.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Module\Event\EventModule.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Module\Net\Proto\HotfixMessage.cs" />
     <Compile Include="Assets\EPloy\Hotfix\UI\StartForm\StartForm.cs" />
@@ -165,6 +165,18 @@
     <Compile Include="Assets\EPloy\Hotfix\Module\Net\NetModule.Receiver.cs" />
     <Compile Include="Assets\EPloy\Hotfix\ObjEntity\UIEffectData.cs" />
     <Compile Include="Assets\EPloy\Hotfix\Config\Config.Res.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\ECS\AI\BT\BTRoot.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\ECS\AI\BT\BTNode.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\ECS\AI\BT\BTComposites.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\ECS\AI\BT\BTCondition.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\ECS\AI\BT\BTAction.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\ECS\AI\CommonAI\CommonStartNode.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\ECS\AI\BT\Enum.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\ECS\AI\BT\BTDecorator.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\ECS\AI\CommonAI\CommonFindNode.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\ECS\AI\CommonAI\CommonAttNode.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\ECS\AI\CommonAI\CommonCompositesNode.cs" />
+    <Compile Include="Assets\EPloy\Hotfix\ECS\AI\CommonAI\CommonNullNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\EPloy\Hotfix\EPloy.Hotfix.asmdef" />

@@ -13,7 +13,7 @@ namespace EPloy.ECS
             Entity entity = ECSModule.GameScene.CreatePlayerEntity<Entity>("Player");
             //基本组件
             RoleCpt roleCpt = entity.AddCpt<RoleCpt>();
-            roleCpt.roleType =  RoleType.Player;
+            roleCpt.roleType = RoleType.Player;
             roleCpt.SetRoleData(roleId);
             //技能数据
             SkillCpt skillCpt = entity.AddCpt<SkillCpt>();
@@ -53,6 +53,9 @@ namespace EPloy.ECS
                 roleCpt.actionHandler = RoleActionHandler.AddActionHandler(roleCpt.role);
                 roleCpt.role.transform.position += Vector3.forward * 5;
                 roleCpt.role.transform.localEulerAngles = Vector3.up * 180;
+                CommonAICpt aICpt= entity.AddCpt<CommonAICpt>();
+                aICpt.aiName = "testAi";
+                aICpt.isRuning = true;
             });
         }
 

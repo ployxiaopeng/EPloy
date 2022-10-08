@@ -13,8 +13,7 @@ public partial class GameScene : IGameModule
 
     private long EntityRecordId;
     private long cptRecordId;
-    public Dictionary<Type, IReference> singleCpts { get; private set; }
-
+    private Dictionary<Type, IReference> singleCpts;
 
     private bool isEnterMap;
 
@@ -68,18 +67,17 @@ public partial class GameScene : IGameModule
         for (int i = 0; i < monsterEntitys.Count; i++)
         {
             Entity entityRole = monsterEntitys[i];
-            ECSModule.aICommandSys.MoserAIUodate(entityRole);
+            ECSModule.aICommandSys.MoserAIUodate(entityRole, entityPlayer);
             MoveUpdate(entityRole);
         }
         //Npc
         for (int i = 0; i < npcEntitys.Count; i++)
         {
             Entity entityRole = monsterEntitys[i];
-            ECSModule.aICommandSys.MoserAIUodate(entityRole);
+            ECSModule.aICommandSys.MoserAIUodate(entityRole, entityPlayer);
             MoveUpdate(entityRole);
         }
     }
-
 
     private void CameraFollowUpdate(Entity entity)
     {

@@ -36,7 +36,8 @@ namespace EPloy.ECS
                     ECSModule.moveSys.PlayerMove(entity, entity.GetCpt<MoveCpt>(), inputCpt);
                     break;
                 case UserClrType.Pathfinding:
-                    ECSModule.moveSys.PathfindingMove(entity, entity.GetCpt<MoveCpt>(), inputCpt.targetPos);
+                    entity.GetCpt<MoveCpt>().target = inputCpt.targetPos;
+                    ECSModule.moveSys.PathfindingMove(entity, entity.GetCpt<MoveCpt>());
                     inputCpt.inputType = UserClrType.None;
                     break;
             }
@@ -87,9 +88,17 @@ namespace EPloy.ECS
         }
 
         //怪物AI
-        public void MoserAIUodate(Entity entity)
+        public void MoserAIUodate(Entity entity, Entity entityPlayer)
         {
-
+            CommonAICpt aICpt;
+            if (entity.HasGetCpt(out aICpt))
+            {
+                //复杂的以后在说
+                if (!aICpt.isRuning) return;
+                aICpt.target = entityPlayer;
+                BTRoot aiBt = ECSModule.GetBehaviorTree(aICpt.aiName);
+                if (aiBt != null) aiBt.Update(aICpt);
+            }
         }
 
         public void Clear()
